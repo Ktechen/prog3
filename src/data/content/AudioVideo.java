@@ -156,7 +156,7 @@ public class AudioVideo implements mediaDB.AudioVideo {
     @Override
     public String toString() {
 
-        if(sampleRate == 0){
+        if(sampleRate != 0){
             return "address=" + getAddress() +
                     ", width=" + width +
                     ", height=" + height +

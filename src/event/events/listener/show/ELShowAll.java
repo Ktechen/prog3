@@ -11,7 +11,11 @@ public class ELShowAll implements EventListener {
     @Override
     public void onInputEvent(Event event) {
         Read read = new Read();
-        List<Video> list = read.getFullListOrFilterbyTyp(event.getText());
-        System.out.println(list.toString());
+
+        List<Video> videos = read.getFullListOrFilterbyTyp(event.getText());
+
+        for (Video video : videos) {
+            System.out.println(video.toString());
+        }
     }
 }

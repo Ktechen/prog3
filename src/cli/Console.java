@@ -41,15 +41,7 @@ public class Console implements IConsole {
         do {
             try {
                 System.out.println(message);
-                String input = reader.readLine();
-
-                if (input.length() == 0 || input.isEmpty()) {
-                    throw new IllegalArgumentException("Length is empty or 0");
-                }
-
-
-                return input;
-
+                return reader.readLine();
             } catch (IOException | NumberFormatException e) {
                 System.out.println(e.getMessage());
             }

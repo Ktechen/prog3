@@ -8,6 +8,10 @@ public abstract class Event extends EventObject {
     private Object[] arr;
     private String type;
 
+    public Event(Object source) {
+        super(source);
+    }
+
     public Event(Object source, String text) {
         super(source);
         this.text = text;

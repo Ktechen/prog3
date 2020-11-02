@@ -18,12 +18,18 @@ import observer.Observer;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.DateTimeException;
 import java.time.Duration;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class CommandAdd implements ICommand, Observable {
 
     private List<Observer> list = new LinkedList<>();
+
+    private EventHandler eventHandler;
+    private final Console cs;
+    private int capacity;
 
     @Override
     public void join(Observer observer) {
@@ -41,10 +47,6 @@ public class CommandAdd implements ICommand, Observable {
             o.update();
         }
     }
-
-    private EventHandler eventHandler;
-    private final Console cs;
-    private int capacity;
 
     public BigDecimal getCapacity() {
         return BigDecimal.valueOf(capacity);
@@ -65,7 +67,7 @@ public class CommandAdd implements ICommand, Observable {
      * @throws IOException
      */
     @Override
-    public void run() throws IOException, IllegalMonitorStateException {
+    public void run() throws IllegalMonitorStateException, NullPointerException, IOException {
         System.out.println(toString());
 
         Console console = new Console();
@@ -91,14 +93,23 @@ public class CommandAdd implements ICommand, Observable {
                 case "2":
                     //length: 8 //TODO ändern auf Flexibel
                     final int parameterSizeInter = 8;
-                    final String interVideoText = "InteractiveVideo: (int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, String type, Person person)";
+                    final String interVideoText = "InteractiveVideo: " +
+                            "(int width, int height, String encoding, long bitrate, Duration length, " +
+                            "Collection<Tag> tag, Person person, String type)";
                     System.out.println(interVideoText);
 
-                    String[] interVideoArray = splitToArr(InteractionAudioVideo.class.getSimpleName());
-                    Object[] convertToInterVideo = convertToArr(interVideoArray);
+                    String[] interVideoArray = null;
+                    Object[] convertToInterVideo = null;
 
-                    if (interVideoArray.length != parameterSizeInter) {
-                        throw new IllegalMonitorStateException("Input was incorrect. Try again");
+                    try {
+                        interVideoArray = splitToArr(InteractionAudioVideo.class.getSimpleName());
+                        convertToInterVideo = convertToArr(interVideoArray);
+                    } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | NumberFormatException e) {
+                        System.out.println(e.getMessage());
+                    }
+
+                    if (null == interVideoArray || convertToInterVideo == null) {
+                        throw new NullPointerException("Convert has been failed");
                     }
 
                     EventAddMediaFiles eventInterVideo = new EventAddMediaFiles(this, convertToInterVideo, InteractionAudioVideo.class.getSimpleName());
@@ -114,14 +125,23 @@ public class CommandAdd implements ICommand, Observable {
                 case "3":
                     //length: 9
                     final int parameterSizeLic = 9; //TODO ändern auf Flexibel
-                    final String licVideoText = "LicensedAudioAudioVideo: (int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Person person, String holder, int samplingRate)";
+                    final String licVideoText = "LicensedAudioAudioVideo: " +
+                            "(int width, int height, String encoding, long bitrate, Duration length, " +
+                            "Collection<Tag> tag, Person person, String holder, int samplingRate)";
                     System.out.println(licVideoText);
 
-                    String[] licVideoArray = splitToArr(LicensedAudioAudioVideo.class.getSimpleName());
-                    Object[] convertToLic = convertToArrSpecial(licVideoArray);
+                    Object[] convertToLic = null;
+                    String[] licVideoArray = null;
 
-                    if (licVideoArray.length != parameterSizeLic) {
-                        throw new IllegalMonitorStateException("Input was incorrect. Try again");
+                    try {
+                        licVideoArray = splitToArr(LicensedAudioAudioVideo.class.getSimpleName());
+                        convertToLic = convertToArrSpecial(licVideoArray);
+                    } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
+
+                    if (null == licVideoArray || convertToLic == null) {
+                        throw new NullPointerException("Convert has been failed");
                     }
 
                     EventAddMediaFiles eventLicVideo = new EventAddMediaFiles(this, convertToLic, LicensedAudioAudioVideo.class.getSimpleName());
@@ -132,6 +152,8 @@ public class CommandAdd implements ICommand, Observable {
                     if (null != this.eventHandler) {
                         eventHandler.handle(eventLicVideo);
                     }
+
+                    System.out.println("Video added to storage");
 
                     break;
                 case "back":
@@ -144,21 +166,25 @@ public class CommandAdd implements ICommand, Observable {
     }
 
     /**
-     *
      * @param arr
      * @return
      */
-    private Object[] convertToArrSpecial(String[] arr){
+    private Object[] convertToArrSpecial(String[] arr) {
         Object[] main = convertToArr(arr);
 
-        //sampling rate
-        main[main.length-1] = Integer.parseInt(arr[main.length-1]);
+        try {
+            //sampling rate
+            main[main.length - 1] = Integer.parseInt(arr[main.length - 1]);
+        } catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
+        }
 
         return main;
     }
 
     /**
      * Handle default inputs
+     *
      * @param arr
      * @return
      */
@@ -178,17 +204,24 @@ public class CommandAdd implements ICommand, Observable {
         //Duration length
         final String add = "PT";
         final int duration = 4;
-        if(!(arr[duration].contains(add))){
-
+        if (!(arr[duration].contains(add))) {
+            String durationString = arr[duration];
+            String element = add + durationString;
+            array[duration] = Duration.parse(element);
+        } else {
+            array[duration] = Duration.parse(arr[duration]);
         }
-        array[duration] = Duration.parse(arr[duration]);
 
         //TAGS
         Collection<Tag> collection = new ArrayList();
         String[] tagArr = arr[5].split("\\s*,\\s*");
 
-        for (int i = 0; i < tagArr.length; i++) {
-            collection.add(Tag.valueOf(tagArr[i]));
+        for (String s : tagArr) {
+            Tag.valueOf(s);
+        }
+
+        for (String s : tagArr) {
+            collection.add(Tag.valueOf(s));
         }
 
         array[5] = collection;
@@ -198,10 +231,10 @@ public class CommandAdd implements ICommand, Observable {
         Person person = null;
         final int personInt = 6;
         //check person object
-        if (read.isPersonCreated(array[personInt].toString())) {
-            person = read.foundPerson(array[personInt].toString());
+        if (read.isPersonCreated(arr[personInt])) {
+            person = read.foundPerson(arr[personInt]);
         } else {
-            person = new Person(array[personInt].toString());
+            person = new Person(arr[personInt]);
         }
 
         array[personInt] = person;
@@ -210,15 +243,21 @@ public class CommandAdd implements ICommand, Observable {
         final int typeOrHolder = 7;
         array[typeOrHolder] = arr[typeOrHolder];
 
-
-
         return array;
     }
 
+    /**
+     * Call observer Size and convert input in to array
+     *
+     * @param message
+     * @return
+     */
     private String[] splitToArr(String message) {
         String interVideo = cs.input("Enter your " + message + ":");
-        String[] arr = interVideo.split("\\s+");
 
+        String[] arr = null;
+
+        arr = interVideo.split("\\s+");
         this.capacity = Integer.parseInt(arr[0]) * Integer.parseInt(arr[1]);
         this.message();
 
@@ -227,7 +266,7 @@ public class CommandAdd implements ICommand, Observable {
 
     @Override
     public String toString() {
-        return "1. Add Uploader\n" +
+        return "[Produzentenname] fügt einen Produzentein" +
                 "2. Add Interaction Video\n" +
                 "3. Add LicenedAudioVideo\n" +
                 "back - back to main";

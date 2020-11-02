@@ -6,10 +6,10 @@ import event.EventListener;
 
 import java.util.HashMap;
 
-public class ELShowUsedTags implements EventListener {
+public class ELShowUsernamePerIndexValue implements EventListener {
     @Override
     public void onInputEvent(Event event) {
-        HashMap<String, Boolean> map = new Read().getFindedTags();
+        HashMap<String, Integer> map = new Read().listAllUsernamePerIndexValue(event.getText());
 
         System.out.println(map.keySet() + " | " + map.values());
     }

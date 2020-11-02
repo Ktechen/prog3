@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 
 public class Validierung {
 
+    private static BigDecimal limit;
+
     /**
      * This method is check a Size of Limit
      * @param limit = setLimit

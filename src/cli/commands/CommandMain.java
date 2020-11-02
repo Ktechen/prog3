@@ -16,9 +16,6 @@ public class CommandMain implements ICommand {
 
     @Override
     public void run() throws IOException, IllegalMonitorStateException {
-
-        System.out.println(toString());
-
         do {
             switch (input()) {
                 case ":c":
@@ -26,15 +23,15 @@ public class CommandMain implements ICommand {
                         CommandAdd commandAdd = new CommandAdd();
                         ObserverConsoleSize observerConsoleSize = new ObserverConsoleSize(commandAdd);
                         commandAdd.run();
-                    } catch (IllegalMonitorStateException e) {
+                    } catch (IllegalMonitorStateException | IllegalArgumentException | NullPointerException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
                 case ":r":
-                    new CommandShow();
+                    new CommandShow().run();
                     break;
                 case ":d":
-                    new CommandDelete();
+                    new CommandDelete().run();
                     break;
                 case ":u":
                     break;
@@ -54,6 +51,7 @@ public class CommandMain implements ICommand {
         String value = null;
 
         try {
+            System.out.println(toString());
             value = String.valueOf(console.readInput("Select a Option: "));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());

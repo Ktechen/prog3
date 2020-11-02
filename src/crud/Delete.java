@@ -67,9 +67,13 @@ public class Delete {
             }
         }
 
+        if(list.size() == 0){
+            return false;
+        }
+
         storage.removeAllVideo(list);
 
-
+        //Nur einmal vorhanden
         if(storage.personSize(list.getFirst().getUploader().getName()) == 1){
             clearNameOfPerson(list.getFirst().getUploader().getName());
             clearPerson(list.getFirst().getUploader().getName());

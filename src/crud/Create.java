@@ -10,12 +10,12 @@ import mediaDB.Tag;
 import java.time.Duration;
 import java.util.Collection;
 
-public class Create  {
+public class Create {
 
     private final Storage storage;
 
     public Create() {
-       this.storage = StorageAsSingelton.getInstance();
+        this.storage = StorageAsSingelton.getInstance();
     }
 
     public Create(Storage storage) {
@@ -38,7 +38,12 @@ public class Create  {
 
         video.setPerson(person);
         new Read().tagFinder(video.getTags());
-        Validierung.checkSize(video.getSize());
+        try {
+            Validierung.checkSize(video.getSize());
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+        }
+
 
         storage.addPerson(person);
         storage.addVideo(video);

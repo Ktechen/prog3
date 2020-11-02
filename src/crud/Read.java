@@ -95,6 +95,11 @@ public class Read {
         }
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     public boolean isPersonCreated(String name){
         return storage.getPersonNames().contains(name);
     }
