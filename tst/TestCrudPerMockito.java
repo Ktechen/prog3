@@ -1,5 +1,5 @@
 
-import data.Person;
+import data.content.Person;
 import mediaDB.Uploader;
 import org.junit.jupiter.api.Test;
 

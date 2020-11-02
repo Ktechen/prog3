@@ -1,7 +1,7 @@
 package crud;
 
 import data.Storage;
-import data.Person;
+import data.content.Person;
 import data.StorageAsSingelton;
 import mediaDB.*;
 

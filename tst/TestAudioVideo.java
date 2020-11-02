@@ -1,7 +1,7 @@
 
 import crud.Create;
 import data.Storage;
-import data.Person;
+import data.content.Person;
 import data.StorageAsSingelton;
 import data.content.InteractionAudioVideo;
 import mediaDB.*;

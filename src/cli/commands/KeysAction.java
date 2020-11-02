@@ -1,5 +1,6 @@
 package cli.commands;
 
+@Deprecated
 public enum KeysAction {
 
     BACKTOMAIN(99), EXIT(0), UPLOADER(1), INTERACTIONVIDEO(2), LicensedAudioVideo(3),

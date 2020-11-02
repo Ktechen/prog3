@@ -1,6 +1,6 @@
 import cli.commands.CommandMain;
 import crud.Create;
-import data.Person;
+import data.content.Person;
 import mediaDB.Tag;
 
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.util.LinkedList;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException, IllegalMonitorStateException {
+    public static void main(String[] args) throws IOException {
         load();
         loadMain();
     }
@@ -26,7 +26,7 @@ public class Main {
         t.add(Tag.Lifestyle);
         t.add(Tag.Animal);
         final Duration d = Duration.ofSeconds(2000);
-        Person person = new Person("Höchen Flug");
+        final Person person = new Person("Höchen Flug");
 
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas" );
         create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas" );

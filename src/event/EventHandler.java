@@ -1,14 +1,9 @@
 package event;
 
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
 public class EventHandler<T extends EventListener> {
-
-    public List<T> getListenerList() {
-        return listenerList;
-    }
 
     private final List<T> listenerList = new LinkedList<>();
 

@@ -1,4 +1,7 @@
-package data;
+package data.content;
+
+import data.Storage;
+import data.StorageAsSingelton;
 
 public class Person implements mediaDB.Uploader {
 

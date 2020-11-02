@@ -1,11 +1,9 @@
 package data.content;
 
-import data.Person;
 import mediaDB.Tag;
 
 import java.time.Duration;
 import java.util.Collection;
-import java.util.Date;
 
 public class LicensedAudioAudioVideo extends AudioVideo implements mediaDB.LicensedAudioVideo {
 

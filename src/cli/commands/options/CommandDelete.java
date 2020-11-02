@@ -17,6 +17,7 @@ public class CommandDelete implements ICommand {
     public void setHandler(EventHandler handler) {
         this.eventHandler = handler;
     }
+
     public CommandDelete() {
         this.console = new Console();
         this.eventHandler = new EventHandler();
@@ -29,30 +30,26 @@ public class CommandDelete implements ICommand {
 
         String value = console.readInput("---------------");
 
-        do {
-            EventDeletePerString eventDeletePerString = new EventDeletePerString(this, value);
-            ELDeleteVideoPerAdress elDeleteVideoPerAdress = new ELDeleteVideoPerAdress();
-            ELDeleteVideoPerUser elDeleteVideoPerUser = new ELDeleteVideoPerUser();
+        EventDeletePerString eventDeletePerString = new EventDeletePerString(this, value);
+        ELDeleteVideoPerAdress elDeleteVideoPerAdress = new ELDeleteVideoPerAdress();
+        ELDeleteVideoPerUser elDeleteVideoPerUser = new ELDeleteVideoPerUser();
 
-            if(value.indexOf("FILE:///") == 0){
-                eventHandler.add(elDeleteVideoPerAdress);
-            }else{
-                eventHandler.add(elDeleteVideoPerUser);
-            }
+        if (value.indexOf("FILE:///") == 0) {
+            eventHandler.add(elDeleteVideoPerAdress);
+        } else {
+            eventHandler.add(elDeleteVideoPerUser);
+        }
 
-            setHandler(eventHandler);
+        setHandler(eventHandler);
 
-            if (null != this.eventHandler) {
-                eventHandler.handle(eventDeletePerString);
-            }
-
-            check = false;
-        } while (check);
+        if (null != this.eventHandler) {
+            eventHandler.handle(eventDeletePerString);
+        }
     }
 
     @Override
     public String toString() {
-        return "[Produzentenname]löscht den Produzenten \n " +
+        return "[Produzentenname]löscht den Produzenten \n" +
                 "[Abrufadresse]löscht die Mediadatei\n" +
                 "back - back to main";
     }

@@ -4,6 +4,8 @@ import cli.Console;
 import cli.commands.options.CommandAdd;
 import cli.commands.options.CommandDelete;
 import cli.commands.options.CommandShow;
+import cli.commands.options.CommandUpdate;
+import event.EventHandler;
 import observer.Observable;
 import observer.observers.ObserverConsoleSize;
 
@@ -15,7 +17,7 @@ public class CommandMain implements ICommand {
     }
 
     @Override
-    public void run() throws IOException, IllegalMonitorStateException {
+    public void run() throws IOException {
         do {
             switch (input()) {
                 case ":c":
@@ -23,17 +25,26 @@ public class CommandMain implements ICommand {
                         CommandAdd commandAdd = new CommandAdd();
                         ObserverConsoleSize observerConsoleSize = new ObserverConsoleSize(commandAdd);
                         commandAdd.run();
-                    } catch (IllegalMonitorStateException | IllegalArgumentException | NullPointerException e) {
+                    } catch (IllegalArgumentException | NullPointerException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
                 case ":r":
-                    new CommandShow().run();
+                    try {
+                        new CommandShow().run();
+                    } catch (IllegalArgumentException | NullPointerException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case ":d":
-                    new CommandDelete().run();
+                    try {
+                        new CommandDelete().run();
+                    } catch (IllegalArgumentException | NullPointerException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case ":u":
+                    new CommandUpdate().run();
                     break;
                 case ":config":
                     break;

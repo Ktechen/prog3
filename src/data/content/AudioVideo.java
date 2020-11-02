@@ -1,8 +1,6 @@
 package data.content;
 
-import crud.Update;
 import data.Storage;
-import data.Person;
 import mediaDB.Tag;
 import mediaDB.Uploader;
 
@@ -14,13 +12,13 @@ import java.util.Date;
 public class AudioVideo implements mediaDB.AudioVideo {
 
     //Add per User
-    private int width;
-    private int height;
-    private String encoding;
-    private long bitrate;
-    private Duration length;
-    private Collection<Tag> tag;
-    private Date updateDate;
+    private final int width;
+    private final int height;
+    private final String encoding;
+    private final long bitrate;
+    private final Duration length;
+    private final Collection<Tag> tag;
+    private final Date updateDate;
     private Person person;
     private int sampleRate = 0;
 
@@ -140,7 +138,8 @@ public class AudioVideo implements mediaDB.AudioVideo {
 
     @Override
     public long getAccessCount() {
-        return new Update().accessCounter(getAddress());
+        long counter = 0;
+        return counter;
     }
 
     @Override

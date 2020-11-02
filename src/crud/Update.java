@@ -17,6 +17,7 @@ public class Update {
         this.storage = storage;
     }
 
+    //TODO muss geändert werden
     public long accessCounter(String address) {
 
         HashMap<String, Long> map = storage.getCountOfUse();
@@ -36,4 +37,17 @@ public class Update {
         return count;
     }
 
+    public boolean run(String address){
+        HashMap<String, Long> map = this.storage.getCountOfUse();
+
+        if(!map.containsKey(address)){
+            return false;
+        }
+
+        map.replace(address, map.get(address) + 1);
+
+        this.storage.setCountOfUse(map);
+        
+        return true;
+    }
 }

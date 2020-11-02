@@ -4,10 +4,11 @@ import cli.Console;
 import cli.commands.CommandMain;
 import cli.commands.ICommand;
 import crud.Read;
-import data.Person;
+import data.content.Person;
 import data.content.InteractionAudioVideo;
 import data.content.LicensedAudioAudioVideo;
 import event.EventHandler;
+import event.EventListener;
 import event.events.event.add.EventAddMediaFiles;
 import event.events.event.add.EventAddUploader;
 import event.events.listener.add.ELAddUploader;
@@ -18,16 +19,18 @@ import observer.Observer;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.time.DateTimeException;
 import java.time.Duration;
 import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 public class CommandAdd implements ICommand, Observable {
 
-    private List<Observer> list = new LinkedList<>();
+    private final List<Observer> list = new LinkedList<>();
 
-    private EventHandler eventHandler;
+    private EventHandler<EventListener> eventHandler;
     private final Console cs;
     private int capacity;
 
@@ -52,12 +55,12 @@ public class CommandAdd implements ICommand, Observable {
         return BigDecimal.valueOf(capacity);
     }
 
-    public void setHandler(EventHandler handler) {
+    public void setHandler(EventHandler<event.EventListener> handler) {
         this.eventHandler = handler;
     }
 
     public CommandAdd() {
-        eventHandler = new EventHandler();
+        eventHandler = new EventHandler<>();
         cs = new Console();
     }
 
@@ -67,7 +70,7 @@ public class CommandAdd implements ICommand, Observable {
      * @throws IOException
      */
     @Override
-    public void run() throws IllegalMonitorStateException, NullPointerException, IOException {
+    public void run() throws NullPointerException, IOException {
         System.out.println(toString());
 
         Console console = new Console();
@@ -77,6 +80,12 @@ public class CommandAdd implements ICommand, Observable {
 
         //TODO nach length trigger e.g name only 1 |  lic 9
         do {
+            final String licVideoText = "LicensedAudioAudioVideo: " +
+                    "(int width, int height, String encoding, long bitrate, Duration length, " +
+                    "Collection<Tag> tag, Person person, String holder, int samplingRate)";
+            final String interVideoText = "InteractiveVideo: " +
+                    "(int width, int height, String encoding, long bitrate, Duration length, " +
+                    "Collection<Tag> tag, Person person, String type)";
             switch (value) {
                 case "1":
                     String name = cs.input("Enter your Name:");
@@ -84,18 +93,13 @@ public class CommandAdd implements ICommand, Observable {
                     ELAddUploader elAddUploader = new ELAddUploader();
                     eventHandler.add(elAddUploader);
                     setHandler(eventHandler);
-
-                    if (null != this.eventHandler) {
-                        eventHandler.handle(eventAddUploader);
-                    }
+                    eventHandler.handle(eventAddUploader);
 
                     break;
                 case "2":
                     //length: 8 //TODO ändern auf Flexibel
                     final int parameterSizeInter = 8;
-                    final String interVideoText = "InteractiveVideo: " +
-                            "(int width, int height, String encoding, long bitrate, Duration length, " +
-                            "Collection<Tag> tag, Person person, String type)";
+
                     System.out.println(interVideoText);
 
                     String[] interVideoArray = null;
@@ -116,18 +120,13 @@ public class CommandAdd implements ICommand, Observable {
                     ELMediafiles interVideo = new ELMediafiles();
                     eventHandler.add(interVideo);
                     setHandler(eventHandler);
-
-                    if (null != this.eventHandler) {
-                        eventHandler.handle(eventInterVideo);
-                    }
+                    eventHandler.handle(eventInterVideo);
 
                     break;
                 case "3":
                     //length: 9
                     final int parameterSizeLic = 9; //TODO ändern auf Flexibel
-                    final String licVideoText = "LicensedAudioAudioVideo: " +
-                            "(int width, int height, String encoding, long bitrate, Duration length, " +
-                            "Collection<Tag> tag, Person person, String holder, int samplingRate)";
+
                     System.out.println(licVideoText);
 
                     Object[] convertToLic = null;
@@ -148,12 +147,7 @@ public class CommandAdd implements ICommand, Observable {
                     ELMediafiles licVideo = new ELMediafiles();
                     eventHandler.add(licVideo);
                     setHandler(eventHandler);
-
-                    if (null != this.eventHandler) {
-                        eventHandler.handle(eventLicVideo);
-                    }
-
-                    System.out.println("Video added to storage");
+                    eventHandler.handle(eventLicVideo);
 
                     break;
                 case "back":
@@ -213,7 +207,7 @@ public class CommandAdd implements ICommand, Observable {
         }
 
         //TAGS
-        Collection<Tag> collection = new ArrayList();
+        Collection<Tag> collection = new ArrayList<>();
         String[] tagArr = arr[5].split("\\s*,\\s*");
 
         for (String s : tagArr) {
@@ -266,7 +260,7 @@ public class CommandAdd implements ICommand, Observable {
 
     @Override
     public String toString() {
-        return "[Produzentenname] fügt einen Produzentein" +
+        return "[Produzentenname] fügt einen Produzentein\n" +
                 "2. Add Interaction Video\n" +
                 "3. Add LicenedAudioVideo\n" +
                 "back - back to main";
