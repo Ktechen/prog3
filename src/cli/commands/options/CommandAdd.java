@@ -89,7 +89,7 @@ public class CommandAdd implements ICommand, Observable {
         String[] videoArray = splitToArr(value);
 
         if (videoArray.length == 0) {
-            throw new NullPointerException("Convert has been failed");
+            throw new NullPointerException("Input cannot be analyse");
         }
 
         Object[] convertArray = null;
