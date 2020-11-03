@@ -3,6 +3,7 @@ package cli.commands.options;
 import cli.Console;
 import cli.commands.ICommand;
 import event.EventHandler;
+import event.EventListener;
 import event.events.event.delete.EventDeletePerString;
 import event.events.listener.delete.ELDeleteVideoPerAdress;
 import event.events.listener.delete.ELDeleteVideoPerUser;
@@ -11,7 +12,7 @@ import java.io.IOException;
 
 public class CommandDelete implements ICommand {
 
-    private EventHandler eventHandler;
+    private EventHandler<EventListener> eventHandler;
     private final Console console;
 
     public void setHandler(EventHandler handler) {
@@ -25,7 +26,6 @@ public class CommandDelete implements ICommand {
 
     @Override
     public void run() {
-        boolean check = true;
         System.out.println(toString());
 
         String value = console.readInput("---------------");

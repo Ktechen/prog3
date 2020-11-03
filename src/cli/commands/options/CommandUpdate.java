@@ -18,6 +18,7 @@ public class CommandUpdate implements ICommand {
         eventHandler = new EventHandler<>();
     }
 
+    //TODO connect to update func
     @Override
     public void run() {
         System.out.println(toString());
