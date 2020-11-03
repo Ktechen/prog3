@@ -11,7 +11,7 @@ import mediaDB.Tag;
 import java.time.Duration;
 import java.util.Collection;
 
-public class ELMediafiles implements EventListener {
+public class ELAddMediafiles implements EventListener {
     @Override
     public void onInputEvent(Event event) {
 

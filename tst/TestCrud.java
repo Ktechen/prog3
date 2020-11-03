@@ -259,7 +259,7 @@ public class TestCrud {
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas");
         create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().get(0), "Tdas");
 
-        update.accessCounter(storage.getVideo().getLast().getAddress());
+        update.storage.accessCounter(storage.getVideo().getLast().getAddress());
 
         Assertions.assertEquals(1, storage.getCountOfUse().get(storage.getVideo().getLast().getAddress()));
     }

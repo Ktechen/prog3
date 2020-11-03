@@ -1,5 +1,6 @@
 package data.content;
 
+import crud.Update;
 import data.Storage;
 import mediaDB.Tag;
 import mediaDB.Uploader;
@@ -138,8 +139,7 @@ public class AudioVideo implements mediaDB.AudioVideo {
 
     @Override
     public long getAccessCount() {
-        long counter = 0;
-        return counter;
+        return new Update().storage.accessCounter(getAddress());
     }
 
     @Override

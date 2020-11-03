@@ -1,15 +1,14 @@
-
 import cli.commands.options.CommandAdd;
+import data.Storage;
 import observer.Capacity;
 import observer.observers.ObserverConsoleSize;
-import data.Storage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestObserver {
 
@@ -28,17 +27,27 @@ public class TestObserver {
     }
 
     @Test
+    public void ConsoleSize(){
+        CommandAdd observer = Mockito.mock(CommandAdd.class);
+        Mockito.when(observer.getCapacity()).thenReturn(BigDecimal.valueOf(3000*3000));
+        ObserverConsoleSize observerConsoleSize = new ObserverConsoleSize(observer);
+
+        observerConsoleSize.update();
+
+    }
+
+    @Test
     public void CautionOfOverload101() {
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            Capacity capacity = new Capacity(BigDecimal.valueOf(101), BigDecimal.valueOf(0));
+            new Capacity(BigDecimal.valueOf(101), BigDecimal.valueOf(0));
         });
     }
 
     @Test
     public void CautionOfOverloadMinus() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            Capacity capacity = new Capacity(BigDecimal.valueOf(-1), BigDecimal.valueOf(0));
+            new Capacity(BigDecimal.valueOf(-1), BigDecimal.valueOf(0));
         });
     }
 

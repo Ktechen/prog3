@@ -149,6 +149,25 @@ public class Storage {
         return new HashMap<>(this.countOfUse);
     }
 
+    public long accessCounter(String address) {
+
+        HashMap<String, Long> map = getCountOfUse();
+
+        if (!getCountOfUse().containsKey(address)) {
+            map.put(address,(long) 1);
+            setCountOfUse(map);
+            return 1;
+        }
+
+        long count = map.get(address);
+        count++;
+
+        map.replace(address, count);
+        setCountOfUse(map);
+
+        return count;
+    }
+
     public void setCountOfUse(HashMap<String, Long> countOfUse) {
         this.countOfUse = countOfUse;
     }

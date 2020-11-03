@@ -12,7 +12,7 @@ import event.EventListener;
 import event.events.event.add.EventAddMediaFiles;
 import event.events.event.add.EventAddUploader;
 import event.events.listener.add.ELAddUploader;
-import event.events.listener.add.ELMediafiles;
+import event.events.listener.add.ELAddMediafiles;
 import mediaDB.Tag;
 import observer.Observable;
 import observer.Observer;
@@ -76,87 +76,82 @@ public class CommandAdd implements ICommand, Observable {
         Console console = new Console();
         String value = console.readInput("--------------------");
 
-        boolean check = true;
 
         //TODO nach length trigger e.g name only 1 |  lic 9
-        do {
-            final String licVideoText = "LicensedAudioAudioVideo: " +
-                    "(int width, int height, String encoding, long bitrate, Duration length, " +
-                    "Collection<Tag> tag, Person person, String holder, int samplingRate)";
-            final String interVideoText = "InteractiveVideo: " +
-                    "(int width, int height, String encoding, long bitrate, Duration length, " +
-                    "Collection<Tag> tag, Person person, String type)";
-            switch (value) {
-                case "1":
-                    String name = cs.input("Enter your Name:");
-                    EventAddUploader eventAddUploader = new EventAddUploader(this, name);
-                    ELAddUploader elAddUploader = new ELAddUploader();
-                    eventHandler.add(elAddUploader);
-                    setHandler(eventHandler);
-                    eventHandler.handle(eventAddUploader);
+        final String licVideoText = "LicensedAudioAudioVideo: " +
+                "(int width, int height, String encoding, long bitrate, Duration length, " +
+                "Collection<Tag> tag, Person person, String holder, int samplingRate)";
+        final String interVideoText = "InteractiveVideo: " +
+                "(int width, int height, String encoding, long bitrate, Duration length, " +
+                "Collection<Tag> tag, Person person, String type)";
+        switch (value) {
+            case "1":
+                String name = cs.input("Enter your Name:");
+                EventAddUploader eventAddUploader = new EventAddUploader(this, name);
+                ELAddUploader elAddUploader = new ELAddUploader();
+                eventHandler.add(elAddUploader);
+                setHandler(eventHandler);
+                eventHandler.handle(eventAddUploader);
 
-                    break;
-                case "2":
-                    //length: 8 //TODO ändern auf Flexibel
-                    final int parameterSizeInter = 8;
+                break;
+            case "2":
+                //length: 8 //TODO ändern auf Flexibel
+                final int parameterSizeInter = 8;
 
-                    System.out.println(interVideoText);
+                System.out.println(interVideoText);
 
-                    String[] interVideoArray = null;
-                    Object[] convertToInterVideo = null;
+                String[] interVideoArray = null;
+                Object[] convertToInterVideo = null;
 
-                    try {
-                        interVideoArray = splitToArr(InteractionAudioVideo.class.getSimpleName());
-                        convertToInterVideo = convertToArr(interVideoArray);
-                    } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | NumberFormatException e) {
-                        System.out.println(e.getMessage());
-                    }
+                try {
+                    interVideoArray = splitToArr(InteractionAudioVideo.class.getSimpleName());
+                    convertToInterVideo = convertToArr(interVideoArray);
+                } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | NumberFormatException e) {
+                    System.out.println(e.getMessage());
+                }
 
-                    if (null == interVideoArray || convertToInterVideo == null) {
-                        throw new NullPointerException("Convert has been failed");
-                    }
+                if (null == interVideoArray || convertToInterVideo == null) {
+                    throw new NullPointerException("Convert has been failed");
+                }
 
-                    EventAddMediaFiles eventInterVideo = new EventAddMediaFiles(this, convertToInterVideo, InteractionAudioVideo.class.getSimpleName());
-                    ELMediafiles interVideo = new ELMediafiles();
-                    eventHandler.add(interVideo);
-                    setHandler(eventHandler);
-                    eventHandler.handle(eventInterVideo);
+                EventAddMediaFiles eventInterVideo = new EventAddMediaFiles(this, convertToInterVideo, InteractionAudioVideo.class.getSimpleName());
+                ELAddMediafiles interVideo = new ELAddMediafiles();
+                eventHandler.add(interVideo);
+                setHandler(eventHandler);
+                eventHandler.handle(eventInterVideo);
 
-                    break;
-                case "3":
-                    //length: 9
-                    final int parameterSizeLic = 9; //TODO ändern auf Flexibel
+                break;
+            case "3":
+                //length: 9
+                final int parameterSizeLic = 9; //TODO ändern auf Flexibel
 
-                    System.out.println(licVideoText);
+                System.out.println(licVideoText);
 
-                    Object[] convertToLic = null;
-                    String[] licVideoArray = null;
+                Object[] convertToLic = null;
+                String[] licVideoArray = null;
 
-                    try {
-                        licVideoArray = splitToArr(LicensedAudioAudioVideo.class.getSimpleName());
-                        convertToLic = convertToArrSpecial(licVideoArray);
-                    } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | IllegalArgumentException e) {
-                        System.out.println(e.getMessage());
-                    }
+                try {
+                    licVideoArray = splitToArr(LicensedAudioAudioVideo.class.getSimpleName());
+                    convertToLic = convertToArrSpecial(licVideoArray);
+                } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
 
-                    if (null == licVideoArray || convertToLic == null) {
-                        throw new NullPointerException("Convert has been failed");
-                    }
+                if (null == licVideoArray || convertToLic == null) {
+                    throw new NullPointerException("Convert has been failed");
+                }
 
-                    EventAddMediaFiles eventLicVideo = new EventAddMediaFiles(this, convertToLic, LicensedAudioAudioVideo.class.getSimpleName());
-                    ELMediafiles licVideo = new ELMediafiles();
-                    eventHandler.add(licVideo);
-                    setHandler(eventHandler);
-                    eventHandler.handle(eventLicVideo);
+                EventAddMediaFiles eventLicVideo = new EventAddMediaFiles(this, convertToLic, LicensedAudioAudioVideo.class.getSimpleName());
+                ELAddMediafiles licVideo = new ELAddMediafiles();
+                eventHandler.add(licVideo);
+                setHandler(eventHandler);
+                eventHandler.handle(eventLicVideo);
 
-                    break;
-                case "back":
-                    new CommandMain().run();
-                    break;
-            }
-
-            check = false;
-        } while (check);
+                break;
+            case "back":
+                new CommandMain().run();
+                break;
+        }
     }
 
     /**
