@@ -32,69 +32,61 @@ public class CommandShow implements ICommand {
 
     @Override
     public void run() throws IOException {
+        System.out.println(toString());
+        String input = console.input("-------------");
 
-        boolean check = true;
+        switch (input) {
+            case "1":
 
-        do {
+                String filterby = console.input("Filter: ");
 
-            System.out.println(toString());
-            String input = console.input("-------------");
+                if (filterby.isEmpty()) {
+                    filterby = null;
+                }
 
-            switch (input) {
-                case "1":
+                EventShowAll eventShowAll = new EventShowAll(this, filterby);
+                ELShowAll elShowAll = new ELShowAll();
 
-                    String filterby = console.input("Filter: ");
+                eventHandler.add(elShowAll);
+                setHandler(eventHandler);
 
-                    if (filterby.isEmpty()) {
-                        filterby = null;
-                    }
+                if (null != this.eventHandler) {
+                    eventHandler.handle(eventShowAll);
+                }
 
-                    EventShowAll eventShowAll = new EventShowAll(this, filterby);
-                    ELShowAll elShowAll = new ELShowAll();
+                break;
+            case "2":
 
-                    eventHandler.add(elShowAll);
-                    setHandler(eventHandler);
+                String name = console.input("Name: ");
 
-                    if (null != this.eventHandler) {
-                        eventHandler.handle(eventShowAll);
-                    }
+                EventShowUsernamePerIndex eventShowUsernamePerIndex = new EventShowUsernamePerIndex(this, name);
+                ELShowUsernamePerIndexValue elShowUsernamePerIndexValue = new ELShowUsernamePerIndexValue();
 
-                    break;
-                case "2":
+                eventHandler.add(elShowUsernamePerIndexValue);
+                setHandler(eventHandler);
 
-                    String name = console.input("Name: ");
+                if (null != this.eventHandler) {
+                    eventHandler.handle(eventShowUsernamePerIndex);
+                }
 
-                    EventShowUsernamePerIndex eventShowUsernamePerIndex = new EventShowUsernamePerIndex(this, name);
-                    ELShowUsernamePerIndexValue elShowUsernamePerIndexValue = new ELShowUsernamePerIndexValue();
+                break;
+            case "3":
 
-                    eventHandler.add(elShowUsernamePerIndexValue);
-                    setHandler(eventHandler);
+                EventShowUsedTags eventShowUsedTags = new EventShowUsedTags(this);
+                ELShowUsedTags elShowUsedTags = new ELShowUsedTags();
 
-                    if (null != this.eventHandler) {
-                        eventHandler.handle(eventShowUsernamePerIndex);
-                    }
+                eventHandler.add(elShowUsedTags);
+                setHandler(eventHandler);
 
-                    break;
-                case "3":
+                if (null != this.eventHandler) {
+                    eventHandler.handle(eventShowUsedTags);
+                }
 
-                    EventShowUsedTags eventShowUsedTags = new EventShowUsedTags(this);
-                    ELShowUsedTags elShowUsedTags = new ELShowUsedTags();
-
-                    eventHandler.add(elShowUsedTags);
-                    setHandler(eventHandler);
-
-                    if(null != this.eventHandler){
-                        eventHandler.handle(eventShowUsedTags);
-                    }
-
-                    break;
-                case "back":
-                    new CommandMain().run();
-                    break;
-            }
-
-            check = false;
-        } while (check);
+                break;
+            case "back":
+                new CommandMain().run();
+                break;
+        }
     }
 
     @Override

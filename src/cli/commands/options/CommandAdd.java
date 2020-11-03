@@ -86,7 +86,8 @@ public class CommandAdd implements ICommand, Observable {
         Console console = new Console();
         String value = console.input("--------------------");
 
-        String[] videoArray = splitToArr(value);
+        //Convert a String to String[]
+        String[] videoArray = value.split("\\s+");
 
         if (videoArray.length == 0) {
             throw new NullPointerException("Input cannot be analyse");
@@ -228,25 +229,10 @@ public class CommandAdd implements ICommand, Observable {
         return array;
     }
 
-    /**
-     * Call observer Size and convert input in to array
-     *
-     * @return
-     */
-    private String[] splitToArr(String value) {
-
-        String[] arr = null;
-
-        arr = value.split("\\s+");
-
-        return arr;
-    }
-
     @Override
     public String toString() {
         return userText + "\n" +
                 interVideoText + "\n" +
                 licVideoText;
     }
-
 }

@@ -18,9 +18,10 @@ public class ObserverConsoleSize implements Observer {
     @Override
     public void update() {
         BigDecimal number = observable.getCapacity();
-        Capacity capacity = new Capacity(BigDecimal.valueOf(90), number);
+        final Capacity capacity = new Capacity(BigDecimal.valueOf(90), number);
+        final String text = "Die Capacity von " + capacity.getProcent() + " % wurde überschritten";
         if (capacity.cautionOfOverLoad()) {
-            System.out.println("Die Capacity von " + capacity.getProcent() + " % wurde überschritten");
+            System.out.print(text);
         }
     }
 

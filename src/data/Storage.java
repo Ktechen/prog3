@@ -75,6 +75,7 @@ public class Storage {
 
     public boolean addPersonNames(String personNames) {
         if(personNames != null){
+            personNames.replaceAll("\\s+", "");
             this.personNames.add(personNames);
             return true;
         }

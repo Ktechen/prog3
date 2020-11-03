@@ -4,8 +4,10 @@ import data.content.InteractionAudioVideo;
 import data.content.Person;
 import event.events.event.add.EventAddMediaFiles;
 import event.events.event.add.EventAddUploader;
+import event.events.event.show.EventShowAll;
 import event.events.listener.add.ELAddMediafiles;
 import event.events.listener.add.ELAddUploader;
+import event.events.listener.show.ELShowAll;
 import mediaDB.Tag;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +16,7 @@ import org.mockito.Mockito;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 public class TestEventsListener {
@@ -41,12 +44,12 @@ public class TestEventsListener {
         Storage storage = StorageAsSingelton.getInstance();
         storage.clear();
         EventAddUploader event = Mockito.mock(EventAddUploader.class);
-        Mockito.when(event.getText()).thenReturn("KevinTechen");
+        Mockito.when(event.getText()).thenReturn("PaulPanzer");
 
         ELAddUploader elAddUploader = new ELAddUploader();
         elAddUploader.onInputEvent(event);
 
-        Assertions.assertEquals("KevinTechen", storage.getPerson().getFirst().getName());
+        Assertions.assertEquals("PaulPanzer", storage.getPerson().getFirst().getName());
     }
 
     @Test
@@ -55,7 +58,6 @@ public class TestEventsListener {
         storage.clear();
         EventAddMediaFiles eventAddMediaFiles = Mockito.mock(EventAddMediaFiles.class);
         Mockito.when(eventAddMediaFiles.getType()).thenReturn(InteractionAudioVideo.class.getSimpleName());
-
         Mockito.when(eventAddMediaFiles.getArr()).thenReturn(arr);
 
         ELAddMediafiles elAddMediafiles = new ELAddMediafiles();
@@ -74,4 +76,18 @@ public class TestEventsListener {
         Assertions.assertEquals(tag, storage.getVideo().getFirst().getTags());
         Assertions.assertEquals("KevinTechen", storage.getVideo().getFirst().getUploader().getName());
     }
+
+    /* TODO change show element
+    @Test
+    public void ShowEvents(){
+        Storage storage = StorageAsSingelton.getInstance();
+        storage.clear();
+
+        EventShowAll eventShowAll = Mockito.mock(EventShowAll.class);
+        Mockito.when(eventShowAll.getText()).thenReturn(Arrays.toString(arr));
+
+        ELShowAll elShowAll = new ELShowAll();
+        elShowAll.onInputEvent(eventShowAll);
+    }
+     */
 }

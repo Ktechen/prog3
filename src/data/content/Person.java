@@ -46,12 +46,12 @@ public class Person implements mediaDB.Uploader {
 
     @Override
     public String getName() {
-        return name;
+        return this.name.replaceAll("\\s", "");
     }
 
     @Override
     public String toString() {
         return "Uploader" +
-                "name=" + name;
+                "name=" + this.name;
     }
 }

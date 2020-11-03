@@ -16,11 +16,10 @@ public class Main {
     }
 
     private static void loadMain() throws IOException, IllegalMonitorStateException {
-        CommandMain commandMain = new CommandMain();
-        commandMain.run();
+        new CommandMain().run();
     }
 
-    private static void load(){
+    private static void load() {
         final Create create = new Create();
         final Collection<Tag> t = new LinkedList<>();
         t.add(Tag.Lifestyle);
@@ -28,9 +27,9 @@ public class Main {
         final Duration d = Duration.ofSeconds(2000);
         final Person person = new Person("Höchen Flug");
 
-        create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas" );
-        create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas" );
-        create.interactiveVideo(300, 400, "edcs", 9174, d, t, person,"Tdas" );
+        create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
+        create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas");
+        create.interactiveVideo(300, 400, "edcs", 9174, d, t, person, "Tdas");
 
         create.licensedAudioVideo(300, 599, "edcs", 9174, d, t, person, "Tim", 233);
         create.licensedAudioVideo(3221, 400, "gjtzu", 9174, d, t, person, "Tim", 233);

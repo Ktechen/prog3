@@ -14,10 +14,18 @@ public class Create {
 
     private final Storage storage;
 
+    /**
+     * Create a Video or Audio
+     * Storage is {@link StorageAsSingelton}
+     */
     public Create() {
         this.storage = StorageAsSingelton.getInstance();
     }
 
+    /**
+     * Create a Video or Audio
+     * @param storage = add storage for you management
+     */
     public Create(Storage storage) {
         this.storage = storage;
     }
