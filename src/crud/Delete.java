@@ -3,8 +3,10 @@ package crud;
 import data.Storage;
 import data.content.Person;
 import data.StorageAsSingelton;
+import mediaDB.Tag;
 import mediaDB.Video;
 
+import java.util.Collection;
 import java.util.LinkedList;
 
 public class Delete {
@@ -21,6 +23,7 @@ public class Delete {
 
     /**
      * Delete AudioVideo and person
+     *
      * @param name = name of user
      * @return boolean
      */
@@ -40,17 +43,21 @@ public class Delete {
             }
         }
 
-        if(found){
+        if (found) {
             storage.removeAllVideo(list);
             clearNameOfPerson(name);
             clearPerson(name);
         }
+
+        //Update tags
+        changeTags();
 
         return true;
     }
 
     /**
      * Delete AudioVideo
+     *
      * @param address
      */
     public boolean perAddress(String address) {
@@ -67,44 +74,63 @@ public class Delete {
             }
         }
 
-        if(list.size() == 0){
+        if (list.size() == 0) {
             return false;
         }
 
         storage.removeAllVideo(list);
 
         //Nur einmal vorhanden
-        if(storage.personSize(list.getFirst().getUploader().getName()) == 1){
+        if (storage.personSize(list.getFirst().getUploader().getName()) == 1) {
             clearNameOfPerson(list.getFirst().getUploader().getName());
             clearPerson(list.getFirst().getUploader().getName());
-        }else{
+        } else {
             storage.removePerson(index);
         }
+
+        //Update tags
+       changeTags();
 
         return true;
     }
 
-    private void clearNameOfPerson(String name){
+    private void clearNameOfPerson(String name) {
 
         for (int i = 0; i < storage.getPersonNames().size(); i++) {
-            if (storage.getPersonNames().get(i).contains(name)){
+            if (storage.getPersonNames().get(i).contains(name)) {
                 storage.removePersonNames(i);
             }
         }
 
     }
 
-    private void clearPerson(String name){
+    private void clearPerson(String name) {
 
         LinkedList<Person> list = new LinkedList<>();
 
         for (int i = 0; i < storage.getPerson().size(); i++) {
-            if(storage.getPerson().get(i).getName().compareTo(name) == 0){
+            if (storage.getPerson().get(i).getName().compareTo(name) == 0) {
                 list.add(storage.getPerson().get(i));
             }
         }
 
         storage.removeAllPerson(list);
 
+    }
+
+    /**
+     * Update tags
+     */
+    private void changeTags() {
+
+        Read read = new Read();
+        read.setDefaultValuesOfUsedTags();
+        Collection<Tag> tags = null;
+
+        for (int i = 0; i < this.storage.getVideo().size(); i++) {
+            tags = this.storage.getVideo().get(i).getTags();
+        }
+
+        read.tagFinder(tags);
     }
 }

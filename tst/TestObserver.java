@@ -30,10 +30,12 @@ public class TestObserver {
         }
     }
 
+    /*
+     @Source: https://stackoverflow.com/questions/1119385/junit-test-for-system-out-println
+     */
     @Test
     public void ConsoleSizeGetSystemOutMessage() {
 
-        //https://stackoverflow.com/questions/1119385/junit-test-for-system-out-println
         final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         final PrintStream originalOut = System.out;
 

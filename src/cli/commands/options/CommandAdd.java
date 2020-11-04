@@ -1,18 +1,17 @@
 package cli.commands.options;
 
 import cli.Console;
-import cli.commands.CommandMain;
 import cli.commands.ICommand;
 import crud.Read;
-import data.content.Person;
 import data.content.InteractionAudioVideo;
 import data.content.LicensedAudioAudioVideo;
+import data.content.Person;
 import event.EventHandler;
 import event.EventListener;
 import event.events.event.add.EventAddMediaFiles;
 import event.events.event.add.EventAddUploader;
-import event.events.listener.add.ELAddUploader;
 import event.events.listener.add.ELAddMediafiles;
+import event.events.listener.add.ELAddUploader;
 import mediaDB.Tag;
 import observer.Observable;
 import observer.Observer;

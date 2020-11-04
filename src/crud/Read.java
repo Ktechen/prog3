@@ -87,7 +87,7 @@ public class Read {
         }
     }
 
-    private void setDefaultValuesOfUsedTags() {
+    public void setDefaultValuesOfUsedTags() {
         for (Tag t : Tag.values()) {
             HashMap<String, Boolean> me = storage.getUsedTags();
             me.put(t.toString(), false);

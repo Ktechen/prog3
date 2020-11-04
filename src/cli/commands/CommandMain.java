@@ -72,7 +72,7 @@ public class CommandMain implements ICommand {
     }
 
     public String toString() {
-        return Keys.ADD.get() + " Wechsel in den Einfügemodus\n" +
+        return "\n" + Keys.ADD.get() + " Wechsel in den Einfügemodus\n" +
                 Keys.SHOW.get() + " Wechsel in den Anzeigemodus\n" +
                 Keys.DELETE.get() + " Wechsel in den Löschmodus\n" +
                 Keys.CHANGE.get() + " Wechsel in den Änderungsmodus\n" +

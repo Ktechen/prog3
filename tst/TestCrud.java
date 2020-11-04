@@ -27,9 +27,9 @@ public class TestCrud {
 
         Create create = new Create();
 
-        create.interactiveVideo(500, 400, "edcs", 9174, d, t, new Person("Kevin Techen"), "Tdas" );
+        create.interactiveVideo(500, 400, "edcs", 9174, d, t, new Person("KevinTechen"), "Tdas" );
 
-        Assertions.assertTrue(storage.getVideo().get(0).getUploader().getName().compareTo("Kevin Techen") == 0 && storage.getVideo().get(0).getWidth() == 500);
+        Assertions.assertTrue(storage.getVideo().get(0).getUploader().getName().compareTo("KevinTechen") == 0 && storage.getVideo().get(0).getWidth() == 500);
     }
 
     @Test
@@ -44,21 +44,21 @@ public class TestCrud {
 
         create.person("Kevin Techen");
 
-        create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
-        create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas");
-        create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas" );
+        create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("TimPorsche"), "Tdas");
+        create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reinerfall"), "Tdas");
+        create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("HöchenFlug"), "Tdas" );
         create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().getFirst(), "Tdas" );
         create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().getFirst(), "Tdas" );
         create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().getFirst(), "Tdas" );
         create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().getFirst(), "Tdas" );
 
-        String name = "Kevin Techen";
+        String name = "KevinTechen";
 
         Read read = new Read();
 
         HashMap<String, Integer> map = read.listAllUsernamePerIndexValue(name);
 
-        Assertions.assertEquals(map.get(name), 4);
+        Assertions.assertEquals(4, map.get(name));
     }
 
     @Test
@@ -211,7 +211,7 @@ public class TestCrud {
         create.licensedAudioVideo(300, 599, "edcs", 9174, d, t, person, "Tim", 233);
         create.licensedAudioVideo(3221, 400, "gjtzu", 9174, d, t, person, "Tim", 233);
 
-        delete.perUser("Höchen Flug");
+        delete.perUser("HöchenFlug");
 
         Assertions.assertEquals(2, storage.getVideo().size());
     }
@@ -236,7 +236,7 @@ public class TestCrud {
         create.licensedAudioVideo(300, 599, "edcs", 9174, d, t, person, "Tim", 233);
         create.licensedAudioVideo(3221, 400, "gjtzu", 9174, d, t, person, "Tim", 233);
 
-        delete.perUser("Höchen Flug");
+        delete.perUser("HöchenFlug");
 
         Assertions.assertEquals(2, storage.getPerson().size());
     }
