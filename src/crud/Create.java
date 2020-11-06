@@ -5,6 +5,8 @@ import data.content.Person;
 import data.StorageAsSingelton;
 import data.content.InteractionAudioVideo;
 import data.content.LicensedAudioAudioVideo;
+import mediaDB.InteractiveVideo;
+import mediaDB.LicensedAudioVideo;
 import mediaDB.Tag;
 
 import java.time.Duration;
@@ -24,6 +26,7 @@ public class Create {
 
     /**
      * Create a Video or Audio
+     *
      * @param storage = add storage for you management
      */
     public Create(Storage storage) {
@@ -37,8 +40,12 @@ public class Create {
         new Read().tagFinder(video.getTags());
         Validierung.checkSize(video.getSize());
 
-        storage.addPerson(person);
-        storage.addVideo(video);
+        try {
+            this.storage.addPerson(person);
+            this.storage.addVideo(video);
+        } catch (IllegalAccessException e) {
+            e.getStackTrace();
+        }
     }
 
     public void licensedAudioVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Person person, String holder, int samplingRate) {
@@ -46,19 +53,22 @@ public class Create {
 
         video.setPerson(person);
         new Read().tagFinder(video.getTags());
+        Validierung.checkSize(video.getSize());
+
         try {
-            Validierung.checkSize(video.getSize());
-        }catch (IllegalArgumentException e){
-            e.printStackTrace();
+            this.storage.addPerson(person);
+            this.storage.addVideo(video);
+        } catch (IllegalAccessException e) {
+            e.getStackTrace();
         }
-
-
-        storage.addPerson(person);
-        storage.addVideo(video);
     }
 
     public void person(String name) {
-        storage.addPerson(new Person(name));
+        try {
+            storage.addPerson(new Person(name));
+        } catch (IllegalAccessException e) {
+            e.getStackTrace();
+        }
     }
 
 }

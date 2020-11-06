@@ -3,8 +3,8 @@ package cli.commands.options;
 import cli.Console;
 import cli.commands.CommandMain;
 import cli.commands.ICommand;
-import event.Event;
 import event.EventHandler;
+import event.EventListener;
 import event.events.event.show.EventShowAll;
 import event.events.event.show.EventShowUsedTags;
 import event.events.event.show.EventShowUsernamePerIndex;
@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class CommandShow implements ICommand {
 
-    private EventHandler eventHandler;
+    private EventHandler<EventListener> eventHandler;
     private final Console console;
 
     public void setHandler(EventHandler handler) {

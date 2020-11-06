@@ -27,7 +27,7 @@ public class Read {
 
         int counter = 0;
 
-        counter += countList(storage.getVideo(), name);
+        counter += countList(this.storage.getVideo(), name);
 
         hashMap.put(name, counter);
 

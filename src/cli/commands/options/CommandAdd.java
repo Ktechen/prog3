@@ -16,7 +16,6 @@ import mediaDB.Tag;
 import observer.Observable;
 import observer.Observer;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.format.DateTimeParseException;
@@ -76,10 +75,10 @@ public class CommandAdd implements ICommand, Observable {
     /**
      * TODO Sieht gerade nicht so schön aus aber wird noch angepasst
      *
-     * @throws IOException
+     * @throws NullPointerException = input was null or empty
      */
     @Override
-    public void run() throws NullPointerException, IOException {
+    public void run() throws NullPointerException {
 
         System.out.println(toString());
         Console console = new Console();
@@ -92,14 +91,17 @@ public class CommandAdd implements ICommand, Observable {
             throw new NullPointerException("Input cannot be analyse");
         }
 
+        //Name convert to one string
+        if(videoArray.length == 2){
+            videoArray[0] = videoArray[0] + videoArray[1];
+            videoArray[1] = null;
+        }
+
         Object[] convertArray = null;
 
-        final int usedUser = 1;
-        final int usedVideo = 8;
-        final int usedVideoLic = 9;
-
         switch (videoArray.length) {
-            case usedUser:
+            case 1:
+            case 2:
 
                 EventAddUploader eventAddUploader = new EventAddUploader(this, videoArray[0]);
                 ELAddUploader elAddUploader = new ELAddUploader();
@@ -108,7 +110,7 @@ public class CommandAdd implements ICommand, Observable {
                 eventHandler.handle(eventAddUploader);
 
                 break;
-            case usedVideo:
+            case 8:
 
                 try {
                     convertArray = convertToArr(videoArray);
@@ -123,7 +125,7 @@ public class CommandAdd implements ICommand, Observable {
                 eventHandler.handle(eventInterVideo);
 
                 break;
-            case usedVideoLic:
+            case 9:
 
                 try {
                     convertArray = convertToArrSpecial(videoArray);

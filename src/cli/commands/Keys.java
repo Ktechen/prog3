@@ -1,6 +1,6 @@
 package cli.commands;
 
-enum Keys {
+public enum Keys {
     ADD(":c"), SHOW(":r"), DELETE(":d"), CHANGE(":u"), CONFIG(":config"), PERSISTENCE(":p");
 
     private String s;

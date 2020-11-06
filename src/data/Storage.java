@@ -1,6 +1,7 @@
 package data;
 
 import data.content.Person;
+import mediaDB.Uploadable;
 import mediaDB.Video;
 
 import java.math.BigDecimal;
@@ -15,7 +16,7 @@ public class Storage {
      * <p>
      *
      * <p>
-     *  e.g (2000 width * 2000 height) / 8 = 500.000byte = 488,28125kibibyte = 0,4768... mibibyte max size
+     * e.g (2000 width * 2000 height) / 8 = 500.000byte = 488,28125kibibyte = 0,4768... mibibyte max size
      * <p>
      * Length: 500.000 Byte
      */
@@ -32,6 +33,7 @@ public class Storage {
         this.person = new LinkedList<>();
         this.usedTags = new HashMap<>();
         this.countOfUse = new HashMap<>();
+
     }
 
     /**
@@ -46,7 +48,7 @@ public class Storage {
     }
 
     public boolean addVideo(Video video) {
-        if(video != null){
+        if (video != null) {
             this.video.add(video);
             return true;
         }
@@ -54,16 +56,16 @@ public class Storage {
         return false;
     }
 
-    public boolean removeVideo(int index){
+    public boolean removeVideo(int index) {
         this.video.remove(index);
         return true;
     }
 
-    public boolean removeAllVideo(Collection<?> o){
+    public boolean removeAllVideo(Collection<?> o) {
         return this.video.removeAll(o);
     }
 
-    public boolean setVideo(int index, Video video){
+    public boolean setVideo(int index, Video video) {
         this.video.set(index, video);
         return true;
     }
@@ -74,7 +76,7 @@ public class Storage {
     private LinkedList<String> personNames;
 
     public boolean addPersonNames(String personNames) {
-        if(personNames != null){
+        if (personNames != null) {
             personNames.replaceAll("\\s+", "");
             this.personNames.add(personNames);
             return true;
@@ -87,10 +89,11 @@ public class Storage {
         return new LinkedList<>(this.personNames);
     }
 
-    public boolean removePersonNames(int index){
+    public boolean removePersonNames(int index) {
         this.personNames.remove(index);
         return true;
     }
+
     /**
      * Save Uploader
      */
@@ -100,18 +103,22 @@ public class Storage {
         return new LinkedList<>(this.person);
     }
 
-    public void addPerson(Person person) {
-        if(person != null) {
-            this.person.add(person);
+    public void addPerson(Person person) throws IllegalAccessException {
+        if (person != null) {
+            if (!this.personNames.contains(person.getName())) {
+                this.person.add(person);
+            }else {
+                throw new IllegalAccessException("Name was founded");
+            }
         }
     }
 
-    public int personSize(String name){
+    public int personSize(String name) {
 
         int counter = 0;
 
-        for (Person person: person) {
-            if(person.getName().compareTo(name) == 0){
+        for (Person person : person) {
+            if (person.getName().compareTo(name) == 0) {
                 counter++;
             }
         }
@@ -119,12 +126,12 @@ public class Storage {
         return counter;
     }
 
-    public boolean removePerson(int index){
+    public boolean removePerson(int index) {
         this.person.remove(index);
         return true;
     }
 
-    public boolean removeAllPerson(Collection<?> o){
+    public boolean removeAllPerson(Collection<?> o) {
         return this.person.removeAll(o);
     }
 
@@ -155,7 +162,7 @@ public class Storage {
         HashMap<String, Long> map = getCountOfUse();
 
         if (!getCountOfUse().containsKey(address)) {
-            map.put(address,(long) 1);
+            map.put(address, (long) 1);
             setCountOfUse(map);
             return 1;
         }
@@ -173,7 +180,7 @@ public class Storage {
         this.countOfUse = countOfUse;
     }
 
-    public void clear(){
+    public void clear() {
         this.video = new LinkedList<>();
         this.personNames = new LinkedList<>();
         this.person = new LinkedList<>();

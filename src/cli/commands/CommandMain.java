@@ -5,8 +5,6 @@ import cli.commands.options.CommandAdd;
 import cli.commands.options.CommandDelete;
 import cli.commands.options.CommandShow;
 import cli.commands.options.CommandUpdate;
-import event.EventHandler;
-import observer.Observable;
 import observer.observers.ObserverConsoleSize;
 
 import java.io.IOException;
@@ -18,8 +16,12 @@ public class CommandMain implements ICommand {
 
     @Override
     public void run() throws IOException {
+
+        Console console = new Console();
+
         do {
-            switch (input()) {
+            System.out.println(toString());
+            switch (console.input("-------------")) {
                 case ":c":
                     try {
                         CommandAdd commandAdd = new CommandAdd();
@@ -53,22 +55,6 @@ public class CommandMain implements ICommand {
             }
         } while (true);
 
-    }
-
-    private String input() {
-
-        Console console = new Console();
-
-        String value = null;
-
-        try {
-            System.out.println(toString());
-            value = String.valueOf(console.readInput("Select a Option: "));
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-
-        return value;
     }
 
     public String toString() {
