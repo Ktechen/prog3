@@ -4,6 +4,7 @@ import data.content.Person;
 
 import data.StorageAsSingelton;
 import mediaDB.Tag;
+import mediaDB.Uploadable;
 import mediaDB.Video;
 import org.junit.jupiter.api.*;
 
@@ -29,7 +30,9 @@ public class TestCrud {
 
         create.interactiveVideo(500, 400, "edcs", 9174, d, t, new Person("KevinTechen"), "Tdas" );
 
-        Assertions.assertTrue(storage.getVideo().get(0).getUploader().getName().compareTo("KevinTechen") == 0 && storage.getVideo().get(0).getWidth() == 500);
+        System.out.println(storage.getMedia().get(0).getUploader().getName().compareTo("KevinTechen") == 0 && storage.getMedia().get(0).getWidth() == 500);
+
+        Assertions.assertTrue(storage.getMedia().get(0).getUploader().getName().compareTo("KevinTechen") == 0 && storage.getMedia().get(0).getWidth() == 500);
     }
 
     @Test
@@ -110,9 +113,9 @@ public class TestCrud {
 
         Delete delete = new Delete();
 
-        delete.perAddress(storage.getVideo().getLast().getAddress());
+        delete.perAddress(storage.getMedia().getLast().getAddress());
 
-        Assertions.assertEquals(3, storage.getVideo().size());
+        Assertions.assertEquals(3, storage.getMedia().size());
     }
 
     @Test
@@ -135,7 +138,7 @@ public class TestCrud {
 
         Delete delete = new Delete();
 
-        delete.perAddress(storage.getVideo().getLast().getAddress());
+        delete.perAddress(storage.getMedia().getLast().getAddress());
 
         Assertions.assertEquals(3, storage.getPerson().size());
     }
@@ -159,7 +162,7 @@ public class TestCrud {
 
         Delete delete = new Delete();
 
-        delete.perAddress(storage.getVideo().getLast().getAddress());
+        delete.perAddress(storage.getMedia().getLast().getAddress());
 
         Assertions.assertEquals(2, storage.getPerson().size());
 
@@ -185,7 +188,7 @@ public class TestCrud {
 
         Delete delete = new Delete();
 
-        delete.perAddress(storage.getVideo().getLast().getAddress());
+        delete.perAddress(storage.getMedia().getLast().getAddress());
 
         Assertions.assertEquals(3, storage.getPerson().size());
 
@@ -213,7 +216,7 @@ public class TestCrud {
 
         delete.perUser("HöchenFlug");
 
-        Assertions.assertEquals(2, storage.getVideo().size());
+        Assertions.assertEquals(2, storage.getMedia().size());
     }
 
     @Test
@@ -259,9 +262,9 @@ public class TestCrud {
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas");
         create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().get(0), "Tdas");
 
-        update.storage.accessCounter(storage.getVideo().getLast().getAddress());
+        update.storage.accessCounter(storage.getMedia().getLast().getAddress());
 
-        Assertions.assertEquals(1, storage.getCountOfUse().get(storage.getVideo().getLast().getAddress()));
+        Assertions.assertEquals(1, storage.getCountOfUse().get(storage.getMedia().getLast().getAddress()));
     }
 
     @Test
@@ -280,12 +283,12 @@ public class TestCrud {
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas");
         create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().get(0), "Tdas");
 
-        storage.getVideo().getLast().getAccessCount();
-        storage.getVideo().getLast().getAccessCount();
-        storage.getVideo().getLast().getAccessCount();
-        storage.getVideo().getLast().getAccessCount();
+        storage.getMedia().getLast().getAccessCount();
+        storage.getMedia().getLast().getAccessCount();
+        storage.getMedia().getLast().getAccessCount();
+        storage.getMedia().getLast().getAccessCount();
 
-        Assertions.assertEquals(4, storage.getCountOfUse().get(storage.getVideo().getLast().getAddress()));
+        Assertions.assertEquals(4, storage.getCountOfUse().get(storage.getMedia().getLast().getAddress()));
     }
 
     @Test
@@ -304,17 +307,17 @@ public class TestCrud {
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas");
         create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().get(0), "Tdas");
 
-        storage.getVideo().getLast().getAccessCount();
-        storage.getVideo().getLast().getAccessCount();
-        storage.getVideo().getLast().getAccessCount();
+        storage.getMedia().getLast().getAccessCount();
+        storage.getMedia().getLast().getAccessCount();
+        storage.getMedia().getLast().getAccessCount();
 
-        storage.getVideo().getFirst().getAccessCount();
-        storage.getVideo().getFirst().getAccessCount();
-        storage.getVideo().getFirst().getAccessCount();
-        storage.getVideo().getFirst().getAccessCount();
+        storage.getMedia().getFirst().getAccessCount();
+        storage.getMedia().getFirst().getAccessCount();
+        storage.getMedia().getFirst().getAccessCount();
+        storage.getMedia().getFirst().getAccessCount();
 
-        boolean test1 = (3 == storage.getCountOfUse().get(storage.getVideo().getFirst().getAddress()));
-        boolean test2 = (4 == storage.getCountOfUse().get(storage.getVideo().getLast().getAddress()));
+        boolean test1 = (3 == storage.getCountOfUse().get(storage.getMedia().getFirst().getAddress()));
+        boolean test2 = (4 == storage.getCountOfUse().get(storage.getMedia().getLast().getAddress()));
 
         Assertions.assertEquals(test2, test1);
     }
@@ -336,7 +339,7 @@ public class TestCrud {
         try {
             Read read = new Read();
 
-            LinkedList<? extends Video> videos = read.getFullListOrFilterbyTyp("InteractionAudioVideo");
+            LinkedList<? extends Uploadable> videos = read.getFullListOrFilterbyTyp("InteractionAudioVideo");
         } catch (IllegalArgumentException e) {
             Assertions.fail();
         }
@@ -360,8 +363,8 @@ public class TestCrud {
 
         Read read = new Read();
 
-        LinkedList<? extends Video> l = read.getFullListOrFilterbyTyp(null);
-        LinkedList<? extends Video> r = read.getFullListOrFilterbyTyp("interactiveVideo");
+        LinkedList<? extends Uploadable> l = read.getFullListOrFilterbyTyp(null);
+        LinkedList<? extends Uploadable> r = read.getFullListOrFilterbyTyp("interactiveVideo");
 
         Assertions.assertNotEquals(l.size(), r.size());
     }

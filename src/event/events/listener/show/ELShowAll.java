@@ -3,6 +3,7 @@ package event.events.listener.show;
 import crud.Read;
 import event.Event;
 import event.EventListener;
+import mediaDB.Uploadable;
 import mediaDB.Video;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class ELShowAll implements EventListener {
 
         List<Video> videos = read.getFullListOrFilterbyTyp(event.getText());
 
-        for (Video video : videos) {
+        for (Uploadable video : videos) {
             System.out.println(video.toString());
         }
     }

@@ -1,6 +1,8 @@
 package data;
 
 import data.content.Person;
+import mediaDB.Audio;
+import mediaDB.MediaContent;
 import mediaDB.Uploadable;
 import mediaDB.Video;
 
@@ -10,6 +12,21 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Storage {
+
+    private LinkedList<Video> media;
+    private LinkedList<String> personNames;
+    private LinkedList<Person> person;
+    private HashMap<String, Long> countOfUse;
+    private HashMap<String, Boolean> usedTags;
+
+    public Storage() {
+        this.media = new LinkedList<>();
+        this.personNames = new LinkedList<>();
+        this.person = new LinkedList<>();
+        this.usedTags = new HashMap<>();
+        this.countOfUse = new HashMap<>();
+    }
+
 
     /**
      * Max length of File
@@ -27,29 +44,27 @@ public class Storage {
      */
     public static final String TYPE_OF_SOURCE = "FILE:///";
 
-    public Storage() {
-        this.video = new LinkedList<>();
-        this.personNames = new LinkedList<>();
-        this.person = new LinkedList<>();
-        this.usedTags = new HashMap<>();
-        this.countOfUse = new HashMap<>();
 
+    public LinkedList<Video> getMedia() {
+        return new LinkedList<>(this.media);
     }
 
-    /**
-     * Save InteractiveVideo
-     * <p>
-     * get Storage from InteractiveVideo
-     */
-    private LinkedList<Video> video;
-
-    public LinkedList<Video> getVideo() {
-        return new LinkedList<>(this.video);
+    public LinkedList<String> getPersonNames() {
+        return new LinkedList<>(this.personNames);
     }
 
-    public boolean addVideo(Video video) {
+    public LinkedList<Person> getPerson() {
+        return new LinkedList<>(this.person);
+    }
+
+    public HashMap<String, Boolean> getUsedTags() {
+        return new HashMap<>(this.usedTags);
+    }
+
+
+    public boolean addMedia(Video video) {
         if (video != null) {
-            this.video.add(video);
+            this.media.add(video);
             return true;
         }
 
@@ -57,23 +72,19 @@ public class Storage {
     }
 
     public boolean removeVideo(int index) {
-        this.video.remove(index);
+        this.media.remove(index);
         return true;
     }
 
     public boolean removeAllVideo(Collection<?> o) {
-        return this.video.removeAll(o);
-    }
-
-    public boolean setVideo(int index, Video video) {
-        this.video.set(index, video);
+        this.media.removeAll(o);
         return true;
     }
 
-    /**
-     * List of all Users
-     */
-    private LinkedList<String> personNames;
+    public boolean setVideo(int index, Video video) {
+        this.media.set(index, video);
+        return true;
+    }
 
     public boolean addPersonNames(String personNames) {
         if (personNames != null) {
@@ -85,35 +96,18 @@ public class Storage {
         return false;
     }
 
-    public LinkedList<String> getPersonNames() {
-        return new LinkedList<>(this.personNames);
-    }
-
     public boolean removePersonNames(int index) {
         this.personNames.remove(index);
         return true;
     }
 
-    /**
-     * Save Uploader
-     */
-    private LinkedList<Person> person;
-
-    public LinkedList<Person> getPerson() {
-        return new LinkedList<>(this.person);
-    }
-
     public void addPerson(Person person) throws IllegalAccessException {
         if (person != null) {
-            if (!this.personNames.contains(person.getName())) {
-                this.person.add(person);
-            }else {
-                throw new IllegalAccessException("Name was founded");
-            }
+            this.person.add(person);
         }
     }
 
-    public int personSize(String name) {
+    public synchronized int personSize(String name) {
 
         int counter = 0;
 
@@ -135,15 +129,6 @@ public class Storage {
         return this.person.removeAll(o);
     }
 
-    /**
-     * Save if Tag used
-     */
-    private HashMap<String, Boolean> usedTags;
-
-    public HashMap<String, Boolean> getUsedTags() {
-        return new HashMap<>(this.usedTags);
-    }
-
     public void setUsedTags(HashMap<String, Boolean> usedTags) {
         this.usedTags = usedTags;
     }
@@ -151,8 +136,6 @@ public class Storage {
     /**
      * Save clicks of Addresses
      */
-    private HashMap<String, Long> countOfUse;
-
     public HashMap<String, Long> getCountOfUse() {
         return new HashMap<>(this.countOfUse);
     }
@@ -180,8 +163,11 @@ public class Storage {
         this.countOfUse = countOfUse;
     }
 
+    /**
+     * Clear a current memory
+     */
     public void clear() {
-        this.video = new LinkedList<>();
+        this.media = new LinkedList<>();
         this.personNames = new LinkedList<>();
         this.person = new LinkedList<>();
         this.usedTags = new HashMap<>();

@@ -5,8 +5,6 @@ import data.content.Person;
 import data.StorageAsSingelton;
 import data.content.InteractionAudioVideo;
 import data.content.LicensedAudioAudioVideo;
-import mediaDB.InteractiveVideo;
-import mediaDB.LicensedAudioVideo;
 import mediaDB.Tag;
 
 import java.time.Duration;
@@ -42,7 +40,7 @@ public class Create {
 
         try {
             this.storage.addPerson(person);
-            this.storage.addVideo(video);
+            this.storage.addMedia(video);
         } catch (IllegalAccessException e) {
             e.getStackTrace();
         }
@@ -57,7 +55,7 @@ public class Create {
 
         try {
             this.storage.addPerson(person);
-            this.storage.addVideo(video);
+            this.storage.addMedia(video);
         } catch (IllegalAccessException e) {
             e.getStackTrace();
         }

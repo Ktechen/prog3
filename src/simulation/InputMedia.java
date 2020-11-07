@@ -4,7 +4,6 @@ import crud.Create;
 import data.StorageAsSingelton;
 import data.content.Person;
 import mediaDB.Tag;
-import simulation.s1.Main;
 
 import java.time.Duration;
 import java.util.Collection;
@@ -30,9 +29,11 @@ public class InputMedia extends Thread {
                 int width = (int) (Math.random() * 1500);
                 int height = (int) (Math.random() * 1500);
                 long bitrate = (long) (Math.random() * 10000);
-                create.interactiveVideo(width, height, "mix", bitrate, Duration.parse("PT20m"), t, person, "kp");
+                int time = (int) (Math.random() * 100);
+
+                create.interactiveVideo(width, height, "mix", bitrate, Duration.parse("PT" + time + "m"), t, person, "kp");
                 create.interactiveVideo(width, height, "mix", bitrate, Duration.parse("PT20m"), t, person1, "kp");
-                System.out.println(StorageAsSingelton.getInstance().getVideo().toString());
+                System.out.println(StorageAsSingelton.getInstance().getMedia().toString());
                 System.out.println("Create a Interactive Video");
                 System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                 Thread.sleep(0);

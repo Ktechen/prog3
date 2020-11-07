@@ -4,10 +4,8 @@ import data.content.InteractionAudioVideo;
 import data.content.Person;
 import event.events.event.add.EventAddMediaFiles;
 import event.events.event.add.EventAddUploader;
-import event.events.event.show.EventShowAll;
 import event.events.listener.add.ELAddMediafiles;
 import event.events.listener.add.ELAddUploader;
-import event.events.listener.show.ELShowAll;
 import mediaDB.Tag;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +14,6 @@ import org.mockito.Mockito;
 
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 
 public class TestEventsListener {
@@ -68,13 +65,13 @@ public class TestEventsListener {
         tag.add(Tag.Lifestyle);
         //(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Person person, String type)
 
-        Assertions.assertEquals(200, storage.getVideo().getFirst().getWidth());
-        Assertions.assertEquals(300, storage.getVideo().getFirst().getHeight());
-        Assertions.assertEquals("mix", storage.getVideo().getFirst().getEncoding());
-        Assertions.assertEquals(8373, storage.getVideo().getFirst().getBitrate());
-        Assertions.assertEquals(Duration.parse("PT20m"), storage.getVideo().getFirst().getLength());
-        Assertions.assertEquals(tag, storage.getVideo().getFirst().getTags());
-        Assertions.assertEquals("KevinTechen", storage.getVideo().getFirst().getUploader().getName());
+        Assertions.assertEquals(200, storage.getMedia().getFirst().getWidth());
+        Assertions.assertEquals(300, storage.getMedia().getFirst().getHeight());
+        Assertions.assertEquals("mix", storage.getMedia().getFirst().getEncoding());
+        Assertions.assertEquals(8373, storage.getMedia().getFirst().getBitrate());
+        Assertions.assertEquals(Duration.parse("PT20m"), storage.getMedia().getFirst().getLength());
+        Assertions.assertEquals(tag, storage.getMedia().getFirst().getTags());
+        Assertions.assertEquals("KevinTechen", storage.getMedia().getFirst().getUploader().getName());
     }
 
     /* TODO change show element

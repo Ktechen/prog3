@@ -27,18 +27,18 @@ public class Read {
 
         int counter = 0;
 
-        counter += countList(this.storage.getVideo(), name);
+        counter += countList(this.storage.getMedia(), name);
 
         hashMap.put(name, counter);
 
         return hashMap;
     }
 
-    private int countList(LinkedList<? extends Video> v, String name) {
+    private int countList(LinkedList<? extends Uploadable> v, String name) {
 
         int counter = 0;
 
-        for (Video video : v) {
+        for (Uploadable video : v) {
             if (video.getUploader().getName().compareTo(name) == 0) {
                 counter++;
             }
@@ -48,7 +48,7 @@ public class Read {
     }
 
     public LinkedList<Video> fullList() {
-        return storage.getVideo();
+        return storage.getMedia();
     }
 
     public LinkedList<Video> getFullListOrFilterbyTyp(String video) {
@@ -59,9 +59,9 @@ public class Read {
 
         LinkedList<Video> list = new LinkedList<>();
 
-        for (int i = 0; i < storage.getVideo().size(); i++) {
-            if(storage.getVideo().get(i).toString().trim().indexOf(video.trim()) == 0){
-                list.add(storage.getVideo().get(i));
+        for (int i = 0; i < storage.getMedia().size(); i++) {
+            if(storage.getMedia().get(i).toString().trim().indexOf(video.trim()) == 0){
+                list.add(storage.getMedia().get(i));
             }
         }
 

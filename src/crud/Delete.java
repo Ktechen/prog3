@@ -3,7 +3,9 @@ package crud;
 import data.Storage;
 import data.content.Person;
 import data.StorageAsSingelton;
+import mediaDB.MediaContent;
 import mediaDB.Tag;
+import mediaDB.Uploadable;
 import mediaDB.Video;
 
 import java.util.Collection;
@@ -33,12 +35,12 @@ public class Delete {
 
         boolean found = false;
 
-        for (int i = 0; i < storage.getVideo().size(); i++) {
+        for (int i = 0; i < storage.getMedia().size(); i++) {
 
             boolean value = (storage.getPerson().get(i).getName().toLowerCase().trim().compareTo(name.toLowerCase().trim()) == 0);
 
             if (value) {
-                list.add(storage.getVideo().get(i));
+                list.add(storage.getMedia().get(i));
                 found = true;
             }
         }
@@ -62,14 +64,14 @@ public class Delete {
      */
     public boolean perAddress(String address) {
 
-        LinkedList<Video> list = new LinkedList<>();
+        LinkedList<Uploadable> list = new LinkedList<>();
 
         int index = -1;
 
-        for (int i = 0; i < storage.getVideo().size(); i++) {
-            if (storage.getVideo().get(i).getAddress().compareTo(address) == 0) {
-                list.add(storage.getVideo().get(i));
-                i = storage.getVideo().size() - 1;
+        for (int i = 0; i < storage.getMedia().size(); i++) {
+            if (storage.getMedia().get(i).getAddress().compareTo(address) == 0) {
+                list.add(storage.getMedia().get(i));
+                i = storage.getMedia().size() - 1;
                 index = i;
             }
         }
@@ -127,8 +129,8 @@ public class Delete {
         read.setDefaultValuesOfUsedTags();
         Collection<Tag> tags = null;
 
-        for (int i = 0; i < this.storage.getVideo().size(); i++) {
-            tags = this.storage.getVideo().get(i).getTags();
+        for (int i = 0; i < this.storage.getMedia().size(); i++) {
+            tags = this.storage.getMedia().get(i).getTags();
         }
 
         read.tagFinder(tags);

@@ -1,6 +1,6 @@
 package data;
 
-public class StorageAsSingelton extends Storage{
+public final class StorageAsSingelton{
 
     private static Storage instance;
 

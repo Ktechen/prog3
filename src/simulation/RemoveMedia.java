@@ -13,11 +13,11 @@ public class RemoveMedia extends Thread {
 
         while (check) {
             try {
-                int index = StorageAsSingelton.getInstance().getVideo().size();
-                if (StorageAsSingelton.getInstance().getVideo().size() != 0) {
+                int index = StorageAsSingelton.getInstance().getMedia().size();
+                if (StorageAsSingelton.getInstance().getMedia().size() != 0) {
                     index = (int) (Math.random() * (index) - 1);
-                    delete.perAddress(StorageAsSingelton.getInstance().getVideo().get(index).getAddress());
-                    System.out.println("Index " + index + " Deleted: " + StorageAsSingelton.getInstance().getVideo().get(index).getAddress());
+                    delete.perAddress(StorageAsSingelton.getInstance().getMedia().get(index).getAddress());
+                    System.out.println("Index " + index + " Deleted: " + StorageAsSingelton.getInstance().getMedia().get(index).getAddress());
                 }
                 System.out.println("-----------------------------------------------------------------");
                 Thread.sleep(0);

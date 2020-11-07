@@ -1,7 +1,7 @@
 package observer;
 
-import crud.Validierung;
 import data.Storage;
+import data.StorageAsSingelton;
 
 import java.math.BigDecimal;
 
@@ -10,6 +10,7 @@ public class Capacity {
     private BigDecimal max;
     private BigDecimal procent;
     private BigDecimal checkValue;
+    private Storage storage;
 
     private BigDecimal result;
 
@@ -30,6 +31,7 @@ public class Capacity {
     }
 
     public Capacity() {
+        this.storage = StorageAsSingelton.getInstance();
     }
 
     public Capacity(BigDecimal max, BigDecimal procent, BigDecimal checkValue) {
