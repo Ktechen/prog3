@@ -17,9 +17,8 @@ public class RemoveMedia extends Thread {
                 if (StorageAsSingelton.getInstance().getMedia().size() != 0) {
                     index = (int) (Math.random() * (index) - 1);
                     delete.perAddress(StorageAsSingelton.getInstance().getMedia().get(index).getAddress());
-                    System.out.println("Index " + index + " Deleted: " + StorageAsSingelton.getInstance().getMedia().get(index).getAddress());
+                    System.out.println(this.getName() + " Index " + index + " Deleted: " + StorageAsSingelton.getInstance().getMedia().get(index).getAddress());
                 }
-                System.out.println("-----------------------------------------------------------------");
                 Thread.sleep(0);
             } catch (InterruptedException e) {
                 e.printStackTrace();

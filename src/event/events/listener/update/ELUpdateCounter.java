@@ -7,6 +7,6 @@ import event.EventListener;
 public class ELUpdateCounter implements EventListener {
     @Override
     public void onInputEvent(Event event) {
-        new Update().run(event.getText());
+        new Update().accessCount(event.getText());
     }
 }

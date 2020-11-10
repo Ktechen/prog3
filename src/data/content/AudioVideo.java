@@ -139,7 +139,7 @@ public class AudioVideo implements mediaDB.AudioVideo {
 
     @Override
     public long getAccessCount() {
-        return new Update().storage.accessCounter(getAddress());
+        return new Update().storage.getAccessCounter(getAddress());
     }
 
     @Override

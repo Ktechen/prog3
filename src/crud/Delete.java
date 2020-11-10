@@ -3,7 +3,6 @@ package crud;
 import data.Storage;
 import data.content.Person;
 import data.StorageAsSingelton;
-import mediaDB.MediaContent;
 import mediaDB.Tag;
 import mediaDB.Uploadable;
 import mediaDB.Video;

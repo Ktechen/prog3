@@ -33,9 +33,7 @@ public class InputMedia extends Thread {
 
                 create.interactiveVideo(width, height, "mix", bitrate, Duration.parse("PT" + time + "m"), t, person, "kp");
                 create.interactiveVideo(width, height, "mix", bitrate, Duration.parse("PT20m"), t, person1, "kp");
-                System.out.println(StorageAsSingelton.getInstance().getMedia().toString());
-                System.out.println("Create a Interactive Video");
-                System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                System.out.println(this.getName() + StorageAsSingelton.getInstance().getMedia().toString());
                 Thread.sleep(0);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -43,4 +41,6 @@ public class InputMedia extends Thread {
             }
         }
     }
+
+    
 }

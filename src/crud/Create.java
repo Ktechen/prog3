@@ -5,7 +5,9 @@ import data.content.Person;
 import data.StorageAsSingelton;
 import data.content.InteractionAudioVideo;
 import data.content.LicensedAudioAudioVideo;
+import mediaDB.MediaContent;
 import mediaDB.Tag;
+import mediaDB.Uploadable;
 
 import java.time.Duration;
 import java.util.Collection;
@@ -30,6 +32,7 @@ public class Create {
     public Create(Storage storage) {
         this.storage = storage;
     }
+
 
     public void interactiveVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Person person, String type) {
         InteractionAudioVideo video = new InteractionAudioVideo(width, height, encoding, bitrate, length, tag, type);

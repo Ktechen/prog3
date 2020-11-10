@@ -17,15 +17,15 @@ public class Update {
         this.storage = storage;
     }
 
-    public void run(String address){
+    public void accessCount(String address) {
         HashMap<String, Long> map = this.storage.getCountOfUse();
 
-        if(!map.containsKey(address)){
-            return;
+        if (!(map.containsKey(address))) {
+            map.put(address, (long) 1);
+        } else {
+            map.replace(address, map.get(address) + 1);
         }
-
-        map.replace(address, map.get(address) + 1);
-
         this.storage.setCountOfUse(map);
+
     }
 }
