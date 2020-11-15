@@ -10,16 +10,20 @@ import java.util.LinkedList;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
-        load();
-        loadMain();
+    public static void main(String[] args) {
+        try {
+            load();
+            loadMain();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
-    private static void loadMain() throws IOException, IllegalMonitorStateException {
+    private static void loadMain() throws IOException, IllegalMonitorStateException, InterruptedException {
         new CommandMain().run();
     }
 
-    private static void load() {
+    private static void load() throws InterruptedException {
         final Create create = new Create();
         final Collection<Tag> t = new LinkedList<>();
         t.add(Tag.Lifestyle);

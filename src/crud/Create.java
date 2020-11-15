@@ -15,6 +15,7 @@ import java.util.Collection;
 public class Create {
 
     private final Storage storage;
+    private final Read read = new Read();
 
     /**
      * Create a Video or Audio
@@ -34,37 +35,51 @@ public class Create {
     }
 
 
-    public void interactiveVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Person person, String type) {
-        InteractionAudioVideo video = new InteractionAudioVideo(width, height, encoding, bitrate, length, tag, type);
+    public void interactiveVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Person person, String type) throws InterruptedException {
+        synchronized (this.storage) {
 
-        video.setPerson(person);
-        new Read().tagFinder(video.getTags());
-        Validierung.checkSize(video.getSize());
+            this.storage.wait();
 
-        try {
-            this.storage.addPerson(person);
-            this.storage.addMedia(video);
-        } catch (IllegalAccessException e) {
-            e.getStackTrace();
+            InteractionAudioVideo video = new InteractionAudioVideo(width, height, encoding, bitrate, length, tag, type);
+
+            video.setPerson(person);
+            read.tagFinder(video.getTags());
+            Validierung.checkSize(video.getSize());
+
+            try {
+                this.storage.addPerson(person);
+                this.storage.addMedia(video);
+            } catch (IllegalAccessException e) {
+                e.getStackTrace();
+            }
+
+            this.storage.notify();
         }
     }
 
-    public void licensedAudioVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Person person, String holder, int samplingRate) {
-        LicensedAudioAudioVideo video = new LicensedAudioAudioVideo(width, height, encoding, bitrate, length, tag, person, samplingRate, holder);
+    public void licensedAudioVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Person person, String holder, int samplingRate) throws InterruptedException {
+        synchronized (this.storage) {
 
-        video.setPerson(person);
-        new Read().tagFinder(video.getTags());
-        Validierung.checkSize(video.getSize());
+            this.storage.wait();
 
-        try {
-            this.storage.addPerson(person);
-            this.storage.addMedia(video);
-        } catch (IllegalAccessException e) {
-            e.getStackTrace();
+            LicensedAudioAudioVideo video = new LicensedAudioAudioVideo(width, height, encoding, bitrate, length, tag, person, samplingRate, holder);
+
+            video.setPerson(person);
+            read.tagFinder(video.getTags());
+            Validierung.checkSize(video.getSize());
+
+            try {
+                this.storage.addPerson(person);
+                this.storage.addMedia(video);
+            } catch (IllegalAccessException e) {
+                e.getStackTrace();
+            }
+
+            this.storage.notify();
         }
     }
 
-    public void person(String name) {
+    public synchronized void person(String name) {
         try {
             storage.addPerson(new Person(name));
         } catch (IllegalAccessException e) {

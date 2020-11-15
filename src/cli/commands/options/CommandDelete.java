@@ -25,7 +25,7 @@ public class CommandDelete implements ICommand {
     }
 
     @Override
-    public void run() {
+    public void run() throws InterruptedException {
         System.out.println(toString());
 
         String value = console.readInput("---------------");

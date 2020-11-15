@@ -8,24 +8,22 @@ public class RemoveMedia extends Thread {
     @Override
     public void run() {
         Delete delete = new Delete();
-
         boolean check = true;
 
         while (check) {
+            System.out.println("Remove " + StorageAsSingelton.getInstance().getMedia().size());
             try {
-                int index = StorageAsSingelton.getInstance().getMedia().size();
-                if (StorageAsSingelton.getInstance().getMedia().size() != 0) {
-                    index = (int) (Math.random() * (index) - 1);
-                    delete.perAddress(StorageAsSingelton.getInstance().getMedia().get(index).getAddress());
-                    System.out.println(this.getName() + " Index " + index + " Deleted: " + StorageAsSingelton.getInstance().getMedia().get(index).getAddress());
-                }
-                Thread.sleep(0);
-            } catch (InterruptedException e) {
+
+                int indexOfDeleteElement = (int) (Math.random() * (StorageAsSingelton.getInstance().getMedia().size() - 1));
+
+                System.out.println(this.getName() + " Remove " + this.getId() + " size " + indexOfDeleteElement);
+                delete.perAddress(StorageAsSingelton.getInstance().getMedia().get(indexOfDeleteElement).getAddress());
+
+                Thread.sleep(1000);
+            } catch (Exception e) {
                 e.printStackTrace();
-                check = false;
             }
-
-
         }
     }
 }
+

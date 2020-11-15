@@ -31,7 +31,7 @@ public class CommandShow implements ICommand {
     }
 
     @Override
-    public void run() throws IOException {
+    public void run() throws IOException, InterruptedException {
         System.out.println(toString());
         String input = console.input("-------------");
 

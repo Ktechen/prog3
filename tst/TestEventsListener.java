@@ -50,7 +50,7 @@ public class TestEventsListener {
     }
 
     @Test
-    public void EventListenerAddMediaFiles() {
+    public void EventListenerAddMediaFiles() throws InterruptedException {
         Storage storage = StorageAsSingelton.getInstance();
         storage.clear();
         EventAddMediaFiles eventAddMediaFiles = Mockito.mock(EventAddMediaFiles.class);
@@ -65,13 +65,13 @@ public class TestEventsListener {
         tag.add(Tag.Lifestyle);
         //(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Person person, String type)
 
-        Assertions.assertEquals(200, storage.getMedia().getFirst().getWidth());
-        Assertions.assertEquals(300, storage.getMedia().getFirst().getHeight());
-        Assertions.assertEquals("mix", storage.getMedia().getFirst().getEncoding());
-        Assertions.assertEquals(8373, storage.getMedia().getFirst().getBitrate());
-        Assertions.assertEquals(Duration.parse("PT20m"), storage.getMedia().getFirst().getLength());
-        Assertions.assertEquals(tag, storage.getMedia().getFirst().getTags());
-        Assertions.assertEquals("KevinTechen", storage.getMedia().getFirst().getUploader().getName());
+        Assertions.assertEquals(200, storage.getMedia().get(0).getWidth());
+        Assertions.assertEquals(300, storage.getMedia().get(0).getHeight());
+        Assertions.assertEquals("mix", storage.getMedia().get(0).getEncoding());
+        Assertions.assertEquals(8373, storage.getMedia().get(0).getBitrate());
+        Assertions.assertEquals(Duration.parse("PT20m"), storage.getMedia().get(0).getLength());
+        Assertions.assertEquals(tag, storage.getMedia().get(0).getTags());
+        Assertions.assertEquals("KevinTechen", storage.getMedia().get(0).getUploader().getName());
     }
 
     /* TODO change show element

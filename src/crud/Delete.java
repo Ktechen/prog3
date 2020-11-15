@@ -3,12 +3,18 @@ package crud;
 import data.Storage;
 import data.content.Person;
 import data.StorageAsSingelton;
+import mediaDB.MediaContent;
 import mediaDB.Tag;
 import mediaDB.Uploadable;
 import mediaDB.Video;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Delete {
 
@@ -57,45 +63,60 @@ public class Delete {
     }
 
     /**
-     * Delete AudioVideo
-     *
      * @param address
+     * @return true all is correct | false size of list is 0 or list of address is 0
      */
-    public boolean perAddress(String address) {
+    public boolean perAddress(String address) throws InterruptedException {
 
-        LinkedList<Uploadable> list = new LinkedList<>();
+        synchronized (this.storage) {
+            this.storage.wait();
 
-        int index = -1;
 
-        for (int i = 0; i < storage.getMedia().size(); i++) {
-            if (storage.getMedia().get(i).getAddress().compareTo(address) == 0) {
-                list.add(storage.getMedia().get(i));
-                i = storage.getMedia().size() - 1;
-                index = i;
+            int size = this.storage.getMedia().size();
+            if (size == 0) {
+                this.storage.notify();
+                return false;
             }
+
+            List<Uploadable> list = new LinkedList<>();
+            int indexValue = -1;
+            int index = 0;
+
+            List<Video> contents = storage.getMedia();
+
+            for (Video video : contents) {
+                if (video.getAddress().compareTo(address) == 0) {
+                    list.add(video);
+                    indexValue = index;
+                }
+                index++;
+            }
+
+            if (list.size() == 0) {
+                this.storage.notify();
+                return false;
+            } else {
+                this.storage.removeAllVideo(list);
+
+                //Nur einmal vorhanden
+                if (storage.personSize(list.get(0).getUploader().getName()) == 1) {
+                    clearNameOfPerson(list.get(0).getUploader().getName());
+                    clearPerson(list.get(0).getUploader().getName());
+                } else {
+                    storage.removePerson(indexValue);
+                }
+
+                //Update tags
+                changeTags();
+            }
+
+
+            this.storage.notify();
+            return true;
         }
-
-        if (list.size() == 0) {
-            return false;
-        }
-
-        storage.removeAllVideo(list);
-
-        //Nur einmal vorhanden
-        if (storage.personSize(list.getFirst().getUploader().getName()) == 1) {
-            clearNameOfPerson(list.getFirst().getUploader().getName());
-            clearPerson(list.getFirst().getUploader().getName());
-        } else {
-            storage.removePerson(index);
-        }
-
-        //Update tags
-       changeTags();
-
-        return true;
     }
 
-    private void clearNameOfPerson(String name) {
+    private synchronized void clearNameOfPerson(String name) {
 
         for (int i = 0; i < storage.getPersonNames().size(); i++) {
             if (storage.getPersonNames().get(i).contains(name)) {
@@ -106,23 +127,25 @@ public class Delete {
     }
 
     private void clearPerson(String name) {
+        final Lock lock = new ReentrantLock();
 
+        lock.lock();
         LinkedList<Person> list = new LinkedList<>();
 
-        for (int i = 0; i < storage.getPerson().size(); i++) {
-            if (storage.getPerson().get(i).getName().compareTo(name) == 0) {
-                list.add(storage.getPerson().get(i));
+        for (Person person : storage.getPerson()) {
+            if (person.getName().compareTo(name) == 0) {
+                list.add(person);
             }
         }
 
         storage.removeAllPerson(list);
-
+        lock.unlock();
     }
 
     /**
      * Update tags
      */
-    private void changeTags() {
+    private synchronized void changeTags() {
 
         Read read = new Read();
         read.setDefaultValuesOfUsedTags();

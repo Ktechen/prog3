@@ -13,7 +13,7 @@ import java.util.Collection;
 
 public class ELAddMediafiles implements EventListener {
     @Override
-    public void onInputEvent(Event event) {
+    public void onInputEvent(Event event) throws InterruptedException {
 
         Create create = new Create();
 

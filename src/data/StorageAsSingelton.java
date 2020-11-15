@@ -1,8 +1,8 @@
 package data;
 
-public final class StorageAsSingelton{
+public class StorageAsSingelton {
 
-    private static Storage instance;
+    private volatile static Storage instance;
 
     private StorageAsSingelton() {
     }
@@ -11,13 +11,14 @@ public final class StorageAsSingelton{
      * Singelton option
      * https://de.wikibooks.org/wiki/Muster:_Java:_Singleton
      * https://stackoverflow.com/questions/1300655/whats-alternative-to-singleton
+     *
      * @return memory
      */
-    public static synchronized Storage getInstance(){
-        if(StorageAsSingelton.instance == null){
+    public synchronized static Storage getInstance() {
+        if (null == StorageAsSingelton.instance) {
             StorageAsSingelton.instance = new Storage();
         }
         return StorageAsSingelton.instance;
     }
-    
+
 }

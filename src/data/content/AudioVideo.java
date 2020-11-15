@@ -1,7 +1,7 @@
 package data.content;
 
-import crud.Update;
 import data.Storage;
+import data.StorageAsSingelton;
 import mediaDB.Tag;
 import mediaDB.Uploader;
 
@@ -139,7 +139,7 @@ public class AudioVideo implements mediaDB.AudioVideo {
 
     @Override
     public long getAccessCount() {
-        return new Update().storage.getAccessCounter(getAddress());
+        return StorageAsSingelton.getInstance().getAccessCounter(getAddress());
     }
 
     @Override

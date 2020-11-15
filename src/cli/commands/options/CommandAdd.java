@@ -78,7 +78,7 @@ public class CommandAdd implements ICommand, Observable {
      * @throws NullPointerException = input was null or empty
      */
     @Override
-    public void run() throws NullPointerException {
+    public void run() throws NullPointerException, InterruptedException {
 
         System.out.println(toString());
         Console console = new Console();

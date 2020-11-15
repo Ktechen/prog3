@@ -8,6 +8,7 @@ import mediaDB.*;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Read {
 
@@ -34,7 +35,7 @@ public class Read {
         return hashMap;
     }
 
-    private int countList(LinkedList<? extends Uploadable> v, String name) {
+    private int countList(List<? extends Uploadable> v, String name) {
 
         int counter = 0;
 
@@ -47,11 +48,11 @@ public class Read {
         return counter;
     }
 
-    public LinkedList<Video> fullList() {
+    public List<Video> fullList() {
         return storage.getMedia();
     }
 
-    public LinkedList<Video> getFullListOrFilterbyTyp(String video) {
+    public List<Video> getFullListOrFilterbyTyp(String video) {
 
         if (video == null) {
             return fullList();
@@ -60,7 +61,7 @@ public class Read {
         LinkedList<Video> list = new LinkedList<>();
 
         for (int i = 0; i < storage.getMedia().size(); i++) {
-            if(storage.getMedia().get(i).toString().trim().indexOf(video.trim()) == 0){
+            if (storage.getMedia().get(i).toString().trim().indexOf(video.trim()) == 0) {
                 list.add(storage.getMedia().get(i));
             }
         }
@@ -78,13 +79,15 @@ public class Read {
             setDefaultValuesOfUsedTags();
         }
 
-        Object[] tag = tags.toArray();
+        Object[] tag = null;
+        tag = tags.toArray();
 
         for (Object o : tag) {
             HashMap<String, Boolean> me = storage.getUsedTags();
             me.replace(o.toString(), true);
             storage.setUsedTags(me);
         }
+
     }
 
     public void setDefaultValuesOfUsedTags() {
@@ -96,11 +99,10 @@ public class Read {
     }
 
     /**
-     *
      * @param name
      * @return
      */
-    public boolean isPersonCreated(String name){
+    public boolean isPersonCreated(String name) {
         return storage.getPersonNames().contains(name);
     }
 

@@ -4,17 +4,20 @@ import data.content.Person;
 import mediaDB.Video;
 
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Storage {
 
-    private LinkedList<Video> media;
+    private List<Video> media;
     private LinkedList<String> personNames;
     private LinkedList<Person> person;
     private HashMap<String, Long> countOfUse;
     private HashMap<String, Boolean> usedTags;
+
+    private final Lock lock = new ReentrantLock();
 
     public Storage() {
         this.media = new LinkedList<>();
@@ -23,7 +26,6 @@ public class Storage {
         this.usedTags = new HashMap<>();
         this.countOfUse = new HashMap<>();
     }
-
 
     /**
      * Max length of File
@@ -41,8 +43,7 @@ public class Storage {
      */
     public static final String TYPE_OF_SOURCE = "FILE:///";
 
-
-    public LinkedList<Video> getMedia() {
+    public synchronized List<Video> getMedia() {
         return new LinkedList<>(this.media);
     }
 
@@ -60,12 +61,10 @@ public class Storage {
 
 
     public boolean addMedia(Video video) {
-        if (video != null) {
-            this.media.add(video);
-            return true;
-        }
-
-        return false;
+        this.lock.lock();
+        this.media.add(video);
+        this.lock.unlock();
+        return true;
     }
 
     public boolean removeVideo(int index) {
@@ -74,7 +73,9 @@ public class Storage {
     }
 
     public boolean removeAllVideo(Collection<?> o) {
+        this.lock.lock();
         this.media.removeAll(o);
+        this.lock.unlock();
         return true;
     }
 
@@ -110,7 +111,9 @@ public class Storage {
 
         for (Person person : person) {
             if (person.getName().compareTo(name) == 0) {
-                counter++;
+                synchronized (this){
+                    counter = +1;
+                }
             }
         }
 
@@ -122,7 +125,7 @@ public class Storage {
         return true;
     }
 
-    public boolean removeAllPerson(Collection<?> o) {
+    public synchronized boolean removeAllPerson(Collection<?> o) {
         return this.person.removeAll(o);
     }
 
@@ -137,7 +140,7 @@ public class Storage {
         return new HashMap<>(this.countOfUse);
     }
 
-    public long getAccessCounter(String address) { ;
+    public long getAccessCounter(String address) {
         return countOfUse.get(address);
     }
 

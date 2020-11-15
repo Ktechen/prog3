@@ -6,32 +6,32 @@ import data.StorageAsSingelton;
 public class Person implements mediaDB.Uploader {
 
     private final String name;
-    private final Storage storage;
+    private Storage storage = StorageAsSingelton.getInstance();
 
     public Person(String name, Storage storage) {
-        this.storage = storage;
-
         handlePerson(name);
 
         if (!storage.getPersonNames().contains(name)) {
             this.name = name;
-            storage.addPersonNames(name);
+            add(name, storage);
         } else {
             throw new IllegalArgumentException("Founded username");
         }
     }
 
     public Person(String name) {
-        this.storage = StorageAsSingelton.getInstance();
-
         handlePerson(name);
 
         if (!storage.getPersonNames().contains(name)) {
             this.name = name;
-            storage.addPersonNames(name);
+            add(name, storage);
         } else {
             throw new IllegalArgumentException("Founded username");
         }
+    }
+
+    private void add(String name, Storage storage){
+       storage.addPersonNames(name);
     }
 
     private void handlePerson(String name){

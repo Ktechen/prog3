@@ -15,7 +15,7 @@ public class EventHandler<T extends EventListener> {
         this.listenerList.remove(listener);
     }
 
-    public void handle(Event event) {
+    public void handle(Event event) throws InterruptedException {
         for (EventListener listener : listenerList) listener.onInputEvent(event);
     }
 

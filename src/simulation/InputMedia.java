@@ -1,6 +1,7 @@
 package simulation;
 
 import crud.Create;
+import data.Storage;
 import data.StorageAsSingelton;
 import data.content.Person;
 import mediaDB.Tag;
@@ -26,14 +27,17 @@ public class InputMedia extends Thread {
 
         while (check) {
             try {
+
+                //System.out.println("Add" + StorageAsSingelton.getInstance().getMedia().size());
+
                 int width = (int) (Math.random() * 1500);
                 int height = (int) (Math.random() * 1500);
                 long bitrate = (long) (Math.random() * 10000);
                 int time = (int) (Math.random() * 100);
 
                 create.interactiveVideo(width, height, "mix", bitrate, Duration.parse("PT" + time + "m"), t, person, "kp");
-                create.interactiveVideo(width, height, "mix", bitrate, Duration.parse("PT20m"), t, person1, "kp");
-                System.out.println(this.getName() + StorageAsSingelton.getInstance().getMedia().toString());
+                //create.interactiveVideo(width, height, "mix", bitrate, Duration.parse("PT20m"), t, person1, "kp");
+                //System.out.println(this.getName() + " ADD " + this.getId());
                 Thread.sleep(0);
             } catch (InterruptedException e) {
                 e.printStackTrace();

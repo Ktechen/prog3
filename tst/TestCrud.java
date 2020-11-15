@@ -18,7 +18,7 @@ public class TestCrud {
     private final Duration d = Duration.ofSeconds(2000);
 
     @Test
-    public void create() {
+    public void create() throws InterruptedException {
 
         Storage storage = StorageAsSingelton.getInstance();
         storage.clear();
@@ -36,7 +36,7 @@ public class TestCrud {
     }
 
     @Test
-    public void read() {
+    public void read() throws InterruptedException {
 
         t.add(Tag.Lifestyle);
         t.add(Tag.Animal);
@@ -65,7 +65,7 @@ public class TestCrud {
     }
 
     @Test
-    public void readALL() {
+    public void readALL() throws InterruptedException {
 
         t.add(Tag.Lifestyle);
         t.add(Tag.Animal);
@@ -89,13 +89,13 @@ public class TestCrud {
 
         Read read = new Read();
 
-        LinkedList<Video> list = read.fullList();
+        List<Video> list = read.fullList();
 
         Assertions.assertEquals(8, list.size());
     }
 
     @Test
-    public void deletePerAddress() {
+    public void deletePerAddress() throws InterruptedException {
 
         t.add(Tag.Lifestyle);
         t.add(Tag.Animal);
@@ -113,13 +113,13 @@ public class TestCrud {
 
         Delete delete = new Delete();
 
-        delete.perAddress(storage.getMedia().getLast().getAddress());
+        delete.perAddress(storage.getMedia().get(0).getAddress());
 
         Assertions.assertEquals(3, storage.getMedia().size());
     }
 
     @Test
-    public void deletePerAddressCheckPerson() {
+    public void deletePerAddressCheckPerson() throws InterruptedException {
 
         t.add(Tag.Lifestyle);
         t.add(Tag.Animal);
@@ -138,13 +138,13 @@ public class TestCrud {
 
         Delete delete = new Delete();
 
-        delete.perAddress(storage.getMedia().getLast().getAddress());
+        delete.perAddress(storage.getMedia().get(3).getAddress());
 
         Assertions.assertEquals(3, storage.getPerson().size());
     }
 
     @Test
-    public void deletePerAddressUniqueUser() {
+    public void deletePerAddressUniqueUser() throws InterruptedException {
 
         t.add(Tag.Lifestyle);
         t.add(Tag.Animal);
@@ -162,14 +162,14 @@ public class TestCrud {
 
         Delete delete = new Delete();
 
-        delete.perAddress(storage.getMedia().getLast().getAddress());
+        delete.perAddress(storage.getMedia().get(2).getAddress());
 
         Assertions.assertEquals(2, storage.getPerson().size());
 
     }
 
     @Test
-    public void deletePerAddressNotUniqueUser() {
+    public void deletePerAddressNotUniqueUser() throws InterruptedException {
 
         t.add(Tag.Lifestyle);
         t.add(Tag.Animal);
@@ -188,14 +188,14 @@ public class TestCrud {
 
         Delete delete = new Delete();
 
-        delete.perAddress(storage.getMedia().getLast().getAddress());
+        delete.perAddress(storage.getMedia().get(3).getAddress());
 
         Assertions.assertEquals(3, storage.getPerson().size());
 
     }
 
     @Test
-    public void deletePerUser() {
+    public void deletePerUser() throws InterruptedException {
         final Create create = new Create();
         final Delete delete = new Delete();
         final Collection<Tag> t = new LinkedList<>();
@@ -220,7 +220,7 @@ public class TestCrud {
     }
 
     @Test
-    public void deletePerUserCheckPeronList() {
+    public void deletePerUserCheckPeronList() throws InterruptedException {
         final Create create = new Create();
         final Delete delete = new Delete();
         final Collection<Tag> t = new LinkedList<>();
@@ -245,7 +245,7 @@ public class TestCrud {
     }
 
     @Test
-    public void update() {
+    public void update() throws InterruptedException {
         Update update = new Update();
 
         t.add(Tag.Lifestyle);
@@ -262,13 +262,13 @@ public class TestCrud {
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas");
         create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().get(0), "Tdas");
 
-        update.accessCount(storage.getMedia().getLast().getAddress());
+        update.accessCount(storage.getMedia().get(3).getAddress());
 
-        Assertions.assertEquals(1, storage.getAccessCounter(storage.getMedia().getLast().getAddress()));
+        Assertions.assertEquals(1, storage.getAccessCounter(storage.getMedia().get(3).getAddress()));
     }
 
     @Test
-    public void updatePerGetAdress() {
+    public void updatePerGetAdress() throws InterruptedException {
         t.add(Tag.Lifestyle);
         t.add(Tag.Animal);
 
@@ -284,16 +284,16 @@ public class TestCrud {
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas");
         create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().get(0), "Tdas");
 
-        update.accessCount(storage.getMedia().getLast().getAddress());
-        update.accessCount(storage.getMedia().getLast().getAddress());
-        update.accessCount(storage.getMedia().getLast().getAddress());
-        update.accessCount(storage.getMedia().getLast().getAddress());
+        update.accessCount(storage.getMedia().get(3).getAddress());
+        update.accessCount(storage.getMedia().get(3).getAddress());
+        update.accessCount(storage.getMedia().get(3).getAddress());
+        update.accessCount(storage.getMedia().get(3).getAddress());
 
-        Assertions.assertEquals(4, storage.getCountOfUse().get(storage.getMedia().getLast().getAddress()));
+        Assertions.assertEquals(4, storage.getCountOfUse().get(storage.getMedia().get(3).getAddress()));
     }
 
     @Test
-    public void updateRun() {
+    public void updateRun() throws InterruptedException {
         Storage storage = StorageAsSingelton.getInstance();
         storage.clear();
         Create create = new Create();
@@ -302,13 +302,13 @@ public class TestCrud {
         create.person("Kevin Techen");
 
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("TimPorsche"), "Tdas");
-        update.accessCount(storage.getMedia().getFirst().getAddress());
+        update.accessCount(storage.getMedia().get(0).getAddress());
 
-        Assertions.assertEquals(1, storage.getAccessCounter(storage.getMedia().getFirst().getAddress()));
+        Assertions.assertEquals(1, storage.getAccessCounter(storage.getMedia().get(0).getAddress()));
     }
 
     @Test
-    public void updatePerGetAdressMore() {
+    public void updatePerGetAdressMore() throws InterruptedException {
         t.add(Tag.Lifestyle);
         t.add(Tag.Animal);
 
@@ -324,23 +324,23 @@ public class TestCrud {
         create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().get(0), "Tdas");
 
         Update update = new Update();
-        update.accessCount(storage.getMedia().getLast().getAddress());
-        update.accessCount(storage.getMedia().getLast().getAddress());
-        update.accessCount(storage.getMedia().getLast().getAddress());
+        update.accessCount(storage.getMedia().get(3).getAddress());
+        update.accessCount(storage.getMedia().get(3).getAddress());
+        update.accessCount(storage.getMedia().get(3).getAddress());
 
-        update.accessCount(storage.getMedia().getFirst().getAddress());
-        update.accessCount(storage.getMedia().getFirst().getAddress());
-        update.accessCount(storage.getMedia().getFirst().getAddress());
-        update.accessCount(storage.getMedia().getFirst().getAddress());
+        update.accessCount(storage.getMedia().get(0).getAddress());
+        update.accessCount(storage.getMedia().get(0).getAddress());
+        update.accessCount(storage.getMedia().get(0).getAddress());
+        update.accessCount(storage.getMedia().get(0).getAddress());
 
-        boolean test1 = (3 == storage.getCountOfUse().get(storage.getMedia().getFirst().getAddress()));
-        boolean test2 = (4 == storage.getCountOfUse().get(storage.getMedia().getLast().getAddress()));
+        boolean test1 = (3 == storage.getCountOfUse().get(storage.getMedia().get(0).getAddress()));
+        boolean test2 = (4 == storage.getCountOfUse().get(storage.getMedia().get(3).getAddress()));
 
         Assertions.assertEquals(test2, test1);
     }
 
     @Test
-    public void readTyp() {
+    public void readTyp() throws InterruptedException {
 
         Storage storage = StorageAsSingelton.getInstance();
         storage.clear();
@@ -356,7 +356,7 @@ public class TestCrud {
         try {
             Read read = new Read();
 
-            LinkedList<? extends Uploadable> videos = read.getFullListOrFilterbyTyp("InteractionAudioVideo");
+            List<? extends Uploadable> videos = read.getFullListOrFilterbyTyp("InteractionAudioVideo");
         } catch (IllegalArgumentException e) {
             Assertions.fail();
         }
@@ -364,7 +364,7 @@ public class TestCrud {
     }
 
     @Test
-    public void readTypIsNull() {
+    public void readTypIsNull() throws InterruptedException {
 
         Storage storage = StorageAsSingelton.getInstance();
         storage.clear();
@@ -380,14 +380,14 @@ public class TestCrud {
 
         Read read = new Read();
 
-        LinkedList<? extends Uploadable> l = read.getFullListOrFilterbyTyp(null);
-        LinkedList<? extends Uploadable> r = read.getFullListOrFilterbyTyp("interactiveVideo");
+        List<? extends Uploadable> l = read.getFullListOrFilterbyTyp(null);
+        List<? extends Uploadable> r = read.getFullListOrFilterbyTyp("interactiveVideo");
 
         Assertions.assertNotEquals(l.size(), r.size());
     }
 
     @Test
-    public void readTags() {
+    public void readTags() throws InterruptedException {
         t.add(Tag.Lifestyle);
         t.add(Tag.Animal);
 

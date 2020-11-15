@@ -26,7 +26,7 @@ public class TestAudioVideo {
     }
 
     @Test
-    public void size() {
+    public void size() throws InterruptedException {
 
 
         t.add(Tag.Lifestyle);

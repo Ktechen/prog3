@@ -20,7 +20,7 @@ public class CommandUpdate implements ICommand {
 
     //TODO connect to update func
     @Override
-    public void run() {
+    public void run() throws InterruptedException {
         System.out.println(toString());
         String address = console.input("------------");
         EventUpdateCounter eventUpdateCounter = new EventUpdateCounter(this, address);
