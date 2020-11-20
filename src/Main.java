@@ -1,36 +1,42 @@
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import view.cli.commands.CommandMain;
 import controller.crud.Create;
 import modell.data.content.Person;
 import modell.mediaDB.Tag;
-import view.gui.StartGUI;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.LinkedList;
 
-public class Main {
+public class Main extends Application {
 
     /**
      * Legt denn Start fest ob mit cli oder gui gestart wird
      */
-    private static final int START_SEQ = 0;
+    private static final int START_SEQ = 1;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+        load();
         switch (START_SEQ) {
             case 0:
                 startCli();
                 break;
             case 1:
-                StartGUI.main(args);
+                launch(args);
                 break;
         }
     }
 
     private static void startCli() {
         try {
-            load();
             new CommandMain().run();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -50,4 +56,14 @@ public class Main {
         create.licensedAudioVideo(300, 599, "edcs", 9174, d, t, person, "Tim", 233);
         create.licensedAudioVideo(3221, 400, "gjtzu", 9174, d, t, person, "Tim", 233);
     }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        Parent p = FXMLLoader.load(getClass().getResource("view/gui/Start.fxml"));
+        stage.setScene(new Scene(p));
+        stage.setTitle("Medienverwalungs - Software by K. Techen");
+        stage.setResizable(true);
+        stage.show();
+    }
+
 }

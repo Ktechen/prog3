@@ -15,6 +15,8 @@ public class RemoveMedia extends Thread {
 
         while (check) {
 
+            //Thread mit sync e.g per Storage
+
             int size = StorageAsSingelton.getInstance().getMedia().size();
 
             if (size != 0) {

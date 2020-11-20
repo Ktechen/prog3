@@ -16,5 +16,7 @@ public class Simulation2 {
         inputMedia.start();
         updateMedia.start();
         removeMedia.start();
+
+        //TODO Add Simulation 2
     }
 }

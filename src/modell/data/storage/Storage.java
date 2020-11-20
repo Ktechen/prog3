@@ -1,6 +1,7 @@
 package modell.data.storage;
 
 import modell.data.content.Person;
+import modell.mediaDB.Uploadable;
 import modell.mediaDB.Video;
 
 import java.math.BigDecimal;
@@ -19,7 +20,7 @@ public class Storage {
 
     public Storage() {
         this.media = new LinkedList<>();
-        this.personNames = new LinkedList<>();
+        this.personNames = new LinkedList<>(); //Set unique
         this.person = new LinkedList<>();
         this.usedTags = new HashMap<>();
         this.countOfUse = new HashMap<>();
@@ -153,6 +154,16 @@ public class Storage {
         this.countOfUse = countOfUse;
     }
 
+    public String MediaToString(){
+        StringBuffer stringBuffer = new StringBuffer();
+
+        for (Uploadable uploadable: getMedia()) {
+            stringBuffer.append(uploadable);
+        }
+
+        return stringBuffer.toString();
+    }
+
     /**
      * Clear a current memory
      */
@@ -163,5 +174,4 @@ public class Storage {
         this.usedTags = new HashMap<>();
         this.countOfUse = new HashMap<>();
     }
-
 }

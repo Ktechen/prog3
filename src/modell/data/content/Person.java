@@ -6,11 +6,14 @@ import modell.data.storage.StorageAsSingelton;
 public class Person implements modell.mediaDB.Uploader {
 
     private final String name;
+
+    //TODO Add to storage
     private Storage storage = StorageAsSingelton.getInstance();
 
     public Person(String name, Storage storage) {
         handlePerson(name);
 
+        //TODO Prüfung bei der Verwaltung
         if (!storage.getPersonNames().contains(name)) {
             this.name = name;
             add(name, storage);
@@ -34,7 +37,7 @@ public class Person implements modell.mediaDB.Uploader {
        storage.addPersonNames(name);
     }
 
-    private void handlePerson(String name){
+    private static void handlePerson(String name){
         if (name == null) {
             throw new NullPointerException("Name is null");
         }

@@ -48,20 +48,24 @@ public class Create implements Observable {
         synchronized (this.storage) {
 
             this.capacity = BigDecimal.valueOf(width).multiply(BigDecimal.valueOf(height));
+            //TODO validierung ob 0 or null und wenn nötige zurücksetzen
 
             InteractionAudioVideo video = new InteractionAudioVideo(width, height, encoding, bitrate, length, tag, type);
 
-            video.setPerson(person);
+            video.setPerson(person); //TODO anpassen per String person
             read.tagFinder(video.getTags());
             Validierung.checkSize(video.getSize());
 
             try {
-                this.message();
                 this.storage.addPerson(person);
                 this.storage.addMedia(video);
+
+                //TODO Anpassen auf Fehlerüberprüfung || e.g listener
             } catch (IllegalAccessException e) {
                 e.getStackTrace();
             }
+
+            this.message();
         }
     }
 
@@ -77,17 +81,18 @@ public class Create implements Observable {
             Validierung.checkSize(video.getSize());
 
             try {
-                this.message();
                 this.storage.addPerson(person);
                 this.storage.addMedia(video);
             } catch (IllegalAccessException e) {
                 e.getStackTrace();
             }
+
+            this.message();
         }
     }
 
     public void person(String name) {
-        synchronized(this.storage){
+        synchronized (this.storage) {
             try {
                 storage.addPerson(new Person(name));
             } catch (IllegalAccessException e) {
