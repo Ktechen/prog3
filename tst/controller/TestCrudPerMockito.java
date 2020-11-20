@@ -1,3 +1,4 @@
+package controller;
 
 import modell.data.content.Person;
 import modell.mediaDB.Uploader;

@@ -20,10 +20,10 @@ public class Create implements Observable {
     private final Storage storage;
     private final Read read = new Read();
     private final List<Observer> list = new LinkedList<>();
-    private BigDecimal Capacity;
+    private BigDecimal capacity;
 
     public BigDecimal getCapacity() {
-        return Capacity;
+        return capacity;
     }
 
     /**
@@ -46,6 +46,9 @@ public class Create implements Observable {
 
     public void interactiveVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Person person, String type) throws InterruptedException {
         synchronized (this.storage) {
+
+            this.capacity = BigDecimal.valueOf(width).multiply(BigDecimal.valueOf(height));
+
             InteractionAudioVideo video = new InteractionAudioVideo(width, height, encoding, bitrate, length, tag, type);
 
             video.setPerson(person);
@@ -53,6 +56,7 @@ public class Create implements Observable {
             Validierung.checkSize(video.getSize());
 
             try {
+                this.message();
                 this.storage.addPerson(person);
                 this.storage.addMedia(video);
             } catch (IllegalAccessException e) {
@@ -63,6 +67,9 @@ public class Create implements Observable {
 
     public void licensedAudioVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Person person, String holder, int samplingRate) throws InterruptedException {
         synchronized (this.storage) {
+
+            this.capacity = BigDecimal.valueOf(width).multiply(BigDecimal.valueOf(height));
+
             LicensedAudioAudioVideo video = new LicensedAudioAudioVideo(width, height, encoding, bitrate, length, tag, person, samplingRate, holder);
 
             video.setPerson(person);
@@ -70,6 +77,7 @@ public class Create implements Observable {
             Validierung.checkSize(video.getSize());
 
             try {
+                this.message();
                 this.storage.addPerson(person);
                 this.storage.addMedia(video);
             } catch (IllegalAccessException e) {
@@ -78,11 +86,13 @@ public class Create implements Observable {
         }
     }
 
-    public synchronized void person(String name) {
-        try {
-            storage.addPerson(new Person(name));
-        } catch (IllegalAccessException e) {
-            e.getStackTrace();
+    public void person(String name) {
+        synchronized(this.storage){
+            try {
+                storage.addPerson(new Person(name));
+            } catch (IllegalAccessException e) {
+                e.getStackTrace();
+            }
         }
     }
 

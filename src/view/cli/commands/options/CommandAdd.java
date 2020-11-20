@@ -44,8 +44,7 @@ public class CommandAdd implements ICommand {
     }
 
     /**
-     * TODO Sieht gerade nicht so schön aus aber wird noch angepasst
-     *
+     * Run a
      * @throws NullPointerException = input was null or empty
      */
     @Override

@@ -2,6 +2,7 @@ import view.cli.commands.CommandMain;
 import controller.crud.Create;
 import modell.data.content.Person;
 import modell.mediaDB.Tag;
+import view.gui.StartGUI;
 
 import java.time.Duration;
 import java.util.Collection;
@@ -9,21 +10,29 @@ import java.util.LinkedList;
 
 public class Main {
 
+    /**
+     * Legt denn Start fest ob mit cli oder gui gestart wird
+     */
+    private static final int START_SEQ = 0;
+
     public static void main(String[] args) {
-        startCli();
+        switch (START_SEQ) {
+            case 0:
+                startCli();
+                break;
+            case 1:
+                StartGUI.main(args);
+                break;
+        }
     }
 
     private static void startCli() {
         try {
             load();
-            loadMainCli();
-        } catch (Exception e) {
+            new CommandMain().run();
+        }catch (Exception e){
             e.printStackTrace();
         }
-    }
-
-    private static void loadMainCli() throws IllegalMonitorStateException, InterruptedException {
-        new CommandMain().run();
     }
 
     private static void load() throws InterruptedException {

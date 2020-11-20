@@ -1,3 +1,5 @@
+package modell;
+
 import controller.crud.Create;
 import modell.data.storage.Storage;
 import modell.data.storage.StorageAsSingelton;

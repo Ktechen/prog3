@@ -1,6 +1,6 @@
 package modell.data.storage;
 
-public class StorageAsSingelton {
+public final class StorageAsSingelton {
 
     private volatile static Storage instance;
 

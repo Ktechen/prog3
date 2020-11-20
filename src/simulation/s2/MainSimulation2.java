@@ -1,4 +1,4 @@
-import simulation.s2.Simulation2;
+package simulation.s2;
 
 public class MainSimulation2 {
     public static void main(String[] args) {
