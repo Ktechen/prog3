@@ -1,9 +1,8 @@
-import cli.commands.CommandMain;
-import crud.Create;
-import data.content.Person;
-import mediaDB.Tag;
+import view.cli.commands.CommandMain;
+import controller.crud.Create;
+import modell.data.content.Person;
+import modell.mediaDB.Tag;
 
-import java.io.IOException;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -11,15 +10,19 @@ import java.util.LinkedList;
 public class Main {
 
     public static void main(String[] args) {
+        startCli();
+    }
+
+    private static void startCli() {
         try {
             load();
-            loadMain();
-        }catch (Exception e){
+            loadMainCli();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private static void loadMain() throws IOException, IllegalMonitorStateException, InterruptedException {
+    private static void loadMainCli() throws IllegalMonitorStateException, InterruptedException {
         new CommandMain().run();
     }
 

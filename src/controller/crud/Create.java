@@ -1,0 +1,105 @@
+package controller.crud;
+
+import modell.data.storage.Storage;
+import modell.data.content.Person;
+import modell.data.storage.StorageAsSingelton;
+import modell.data.content.InteractionAudioVideo;
+import modell.data.content.LicensedAudioAudioVideo;
+import modell.mediaDB.Tag;
+import controller.observer.Observable;
+import controller.observer.Observer;
+
+import java.math.BigDecimal;
+import java.time.Duration;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+
+public class Create implements Observable {
+
+    private final Storage storage;
+    private final Read read = new Read();
+    private final List<Observer> list = new LinkedList<>();
+    private BigDecimal Capacity;
+
+    public BigDecimal getCapacity() {
+        return Capacity;
+    }
+
+    /**
+     * Create a Video or Audio
+     * Storage is {@link StorageAsSingelton}
+     */
+    public Create() {
+        this.storage = StorageAsSingelton.getInstance();
+    }
+
+    /**
+     * Create a Video or Audio
+     *
+     * @param storage = add storage for you management
+     */
+    public Create(Storage storage) {
+        this.storage = storage;
+    }
+
+
+    public void interactiveVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Person person, String type) throws InterruptedException {
+        synchronized (this.storage) {
+            InteractionAudioVideo video = new InteractionAudioVideo(width, height, encoding, bitrate, length, tag, type);
+
+            video.setPerson(person);
+            read.tagFinder(video.getTags());
+            Validierung.checkSize(video.getSize());
+
+            try {
+                this.storage.addPerson(person);
+                this.storage.addMedia(video);
+            } catch (IllegalAccessException e) {
+                e.getStackTrace();
+            }
+        }
+    }
+
+    public void licensedAudioVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Person person, String holder, int samplingRate) throws InterruptedException {
+        synchronized (this.storage) {
+            LicensedAudioAudioVideo video = new LicensedAudioAudioVideo(width, height, encoding, bitrate, length, tag, person, samplingRate, holder);
+
+            video.setPerson(person);
+            read.tagFinder(video.getTags());
+            Validierung.checkSize(video.getSize());
+
+            try {
+                this.storage.addPerson(person);
+                this.storage.addMedia(video);
+            } catch (IllegalAccessException e) {
+                e.getStackTrace();
+            }
+        }
+    }
+
+    public synchronized void person(String name) {
+        try {
+            storage.addPerson(new Person(name));
+        } catch (IllegalAccessException e) {
+            e.getStackTrace();
+        }
+    }
+
+    @Override
+    public void join(Observer observer) {
+        list.add(observer);
+    }
+
+    @Override
+    public void leave(Observer observer) {
+        list.remove(observer);
+    }
+
+    @Override
+    public void message() {
+        for (Observer o : list) {
+            o.update();
+        }
+    }
+}

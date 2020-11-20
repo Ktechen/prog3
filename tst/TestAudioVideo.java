@@ -1,10 +1,10 @@
 
-import crud.Create;
-import data.Storage;
-import data.content.Person;
-import data.StorageAsSingelton;
-import data.content.InteractionAudioVideo;
-import mediaDB.*;
+import controller.crud.Create;
+import modell.data.storage.Storage;
+import modell.data.content.Person;
+import modell.data.storage.StorageAsSingelton;
+import modell.data.content.InteractionAudioVideo;
+import modell.mediaDB.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

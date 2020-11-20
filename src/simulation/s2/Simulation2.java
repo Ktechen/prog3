@@ -1,6 +1,6 @@
 package simulation.s2;
 
-import data.StorageAsSingelton;
+import modell.data.storage.StorageAsSingelton;
 import simulation.InputMedia;
 import simulation.RemoveMedia;
 import simulation.UpdateMedia;

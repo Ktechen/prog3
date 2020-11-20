@@ -1,8 +1,8 @@
 package simulation;
 
-import crud.Update;
-import data.Storage;
-import data.StorageAsSingelton;
+import controller.crud.Update;
+import modell.data.storage.Storage;
+import modell.data.storage.StorageAsSingelton;
 
 public class UpdateMedia extends Thread {
 

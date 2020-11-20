@@ -1,9 +1,12 @@
 package simulation;
 
-import crud.Delete;
-import data.StorageAsSingelton;
+import controller.crud.Delete;
+import modell.data.storage.Storage;
+import modell.data.storage.StorageAsSingelton;
 
 public class RemoveMedia extends Thread {
+
+    private Storage storage = StorageAsSingelton.getInstance();
 
     @Override
     public void run() {
@@ -11,19 +14,31 @@ public class RemoveMedia extends Thread {
         boolean check = true;
 
         while (check) {
-            System.out.println("Remove " + StorageAsSingelton.getInstance().getMedia().size());
-            try {
 
-                int indexOfDeleteElement = (int) (Math.random() * (StorageAsSingelton.getInstance().getMedia().size() - 1));
+            int size = StorageAsSingelton.getInstance().getMedia().size();
 
-                System.out.println(this.getName() + " Remove " + this.getId() + " size " + indexOfDeleteElement);
-                delete.perAddress(StorageAsSingelton.getInstance().getMedia().get(indexOfDeleteElement).getAddress());
+            if (size != 0) {
 
-                Thread.sleep(1000);
-            } catch (Exception e) {
-                e.printStackTrace();
+                int indexOfDeleteElement = (int) (Math.random() * (size - 1));
+
+                try {
+
+                    try {
+                        delete.perAddress(StorageAsSingelton.getInstance().getMedia().get(indexOfDeleteElement).getAddress());
+                        System.out.println("Index: " + indexOfDeleteElement + " Deleted by " + this.getName());
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    Thread.sleep(0);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    check = false;
+                }
             }
         }
+
     }
 }
 

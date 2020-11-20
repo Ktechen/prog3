@@ -1,11 +1,11 @@
-import crud.*;
-import data.Storage;
-import data.content.Person;
+import controller.crud.*;
+import modell.data.storage.Storage;
+import modell.data.content.Person;
 
-import data.StorageAsSingelton;
-import mediaDB.Tag;
-import mediaDB.Uploadable;
-import mediaDB.Video;
+import modell.data.storage.StorageAsSingelton;
+import modell.mediaDB.Tag;
+import modell.mediaDB.Uploadable;
+import modell.mediaDB.Video;
 import org.junit.jupiter.api.*;
 
 import java.time.Duration;
@@ -140,7 +140,7 @@ public class TestCrud {
 
         delete.perAddress(storage.getMedia().get(3).getAddress());
 
-        Assertions.assertEquals(3, storage.getPerson().size());
+        Assertions.assertEquals(2, storage.getPerson().size());
     }
 
     @Test
@@ -190,7 +190,7 @@ public class TestCrud {
 
         delete.perAddress(storage.getMedia().get(3).getAddress());
 
-        Assertions.assertEquals(3, storage.getPerson().size());
+        Assertions.assertEquals(2, storage.getPerson().size());
 
     }
 

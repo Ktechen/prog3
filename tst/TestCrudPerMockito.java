@@ -1,6 +1,6 @@
 
-import data.content.Person;
-import mediaDB.Uploader;
+import modell.data.content.Person;
+import modell.mediaDB.Uploader;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

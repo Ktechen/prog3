@@ -1,13 +1,4 @@
-import crud.Create;
-import crud.Update;
-import data.Storage;
-import data.StorageAsSingelton;
-import data.content.Person;
-import mediaDB.Tag;
-import mediaDB.Uploadable;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import simulation.RemoveMedia;
+import modell.mediaDB.Tag;
 
 import java.time.Duration;
 import java.util.Collection;

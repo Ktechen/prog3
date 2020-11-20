@@ -1,7 +1,7 @@
-import cli.commands.options.CommandAdd;
-import data.Storage;
-import observer.Capacity;
-import observer.observers.ObserverConsoleSize;
+import controller.crud.Create;
+import modell.data.storage.Storage;
+import controller.observer.Capacity;
+import controller.observer.observers.ObserverConsoleSize;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -16,7 +16,7 @@ public class TestObserver {
 
     @Test
     public void ConsoleSizeThrowDoesNotException() {
-        CommandAdd observer = Mockito.mock(CommandAdd.class);
+        Create observer = Mockito.mock(Create.class);
         Mockito.when(observer.getCapacity()).thenReturn(BigDecimal.valueOf(300000));
 
         ObserverConsoleSize observerConsoleSize = new ObserverConsoleSize(observer);
@@ -39,7 +39,7 @@ public class TestObserver {
 
         System.setOut(new PrintStream(outContent));
 
-        CommandAdd observer = Mockito.mock(CommandAdd.class);
+        Create observer = Mockito.mock(Create.class);
         Mockito.when(observer.getCapacity()).thenReturn(BigDecimal.valueOf(3000 * 3000));
         ObserverConsoleSize observerConsoleSize = new ObserverConsoleSize(observer);
         observerConsoleSize.update();

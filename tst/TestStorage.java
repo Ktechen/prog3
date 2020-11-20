@@ -1,8 +1,8 @@
-import crud.Create;
-import data.Storage;
-import data.StorageAsSingelton;
-import data.content.Person;
-import mediaDB.Tag;
+import controller.crud.Create;
+import modell.data.storage.Storage;
+import modell.data.storage.StorageAsSingelton;
+import modell.data.content.Person;
+import modell.mediaDB.Tag;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
