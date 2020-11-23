@@ -1,6 +1,7 @@
 package modell.data.content;
 
 import modell.mediaDB.Tag;
+import modell.mediaDB.Uploader;
 
 import java.time.Duration;
 import java.util.Collection;
@@ -9,7 +10,7 @@ public class LicensedAudioAudioVideo extends AudioVideo implements modell.mediaD
 
     private final String holder;
 
-    public LicensedAudioAudioVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Person person, int sampleRate, String holder) {
+    public LicensedAudioAudioVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Uploader person, int sampleRate, String holder) {
         super(width, height, encoding, bitrate, length, tag, person, sampleRate);
         this.holder = holder;
     }

@@ -22,6 +22,11 @@ public class Read {
         this.storage = storage;
     }
 
+    /**
+     * List of user filter by name
+     * @param name
+     * @return hashMap
+     */
     public HashMap<String, Integer> listAllUsernamePerIndexValue(String name) {
 
         HashMap<String, Integer> hashMap = new HashMap<>();
@@ -48,10 +53,19 @@ public class Read {
         return counter;
     }
 
+    /**
+     * List of media
+     * @return
+     */
     public List<Video> fullList() {
         return storage.getMedia();
     }
 
+    /**
+     * Get List filter by type
+     * @param video
+     * @return
+     */
     public List<Video> getFullListOrFilterbyTyp(String video) {
 
         if (video == null) {
@@ -69,10 +83,18 @@ public class Read {
         return list;
     }
 
+    /**
+     * Get used tags
+     * @return
+     */
     public HashMap<String, Boolean> getFindedTags() {
         return new HashMap<>(this.storage.getUsedTags());
     }
 
+    /**
+     * Load used tags
+     * @param tags
+     */
     public void tagFinder(Collection<Tag> tags) {
 
         if (storage.getUsedTags().isEmpty()) {
@@ -98,17 +120,19 @@ public class Read {
         }
     }
 
+
     /**
+     * Is user created
      * @param name
-     * @return
+     * @return true = found | false = not found
      */
     public boolean isPersonCreated(String name) {
         return storage.getPersonNames().contains(name);
     }
 
-    public Person foundPerson(String name) {
+    public Uploader foundPerson(String name) {
 
-        Person person = null;
+        Uploader person = null;
 
         for (int i = 0; i < storage.getPerson().size(); i++) {
             if (name.compareTo(storage.getPerson().get(i).getName()) == 0) {

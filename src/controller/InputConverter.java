@@ -3,6 +3,7 @@ package controller;
 import controller.crud.Read;
 import modell.data.content.Person;
 import modell.mediaDB.Tag;
+import modell.mediaDB.Uploader;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class InputConverter {
     /**
      * Convert e.g InteractionVideo
      * Split your Array before you start (value.split("\\s+");)
+     *
      * @param arr
      * @return length = 9 and arr with all option from Lic Video
      */
@@ -45,6 +47,7 @@ public class InputConverter {
     /**
      * Handle default inputs
      * Split your Array before you start (value.split("\\s+");)
+     *
      * @param arr
      * @return length = 8 and arr with all option from Video
      */
@@ -90,7 +93,7 @@ public class InputConverter {
 
         //Person
         Read read = new Read();
-        Person person = null;
+        Uploader person = null;
         final int personInt = 6;
         //check person object
         if (read.isPersonCreated(arr[personInt])) {

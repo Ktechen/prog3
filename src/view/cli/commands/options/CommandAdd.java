@@ -81,9 +81,13 @@ public class CommandAdd implements ICommand {
                 }
 
                 EventAddMediaFiles eventInterVideo = new EventAddMediaFiles(this, convertArray, InteractionAudioVideo.class.getSimpleName());
+
+                //TODO Config in Main
                 ELAddMediafiles interVideo = new ELAddMediafiles();
                 eventHandler.add(interVideo);
                 setHandler(eventHandler);
+                //
+
                 eventHandler.handle(eventInterVideo);
 
                 break;
@@ -96,9 +100,13 @@ public class CommandAdd implements ICommand {
                 }
 
                 EventAddMediaFiles eventLicVideo = new EventAddMediaFiles(this, convertArray, LicensedAudioAudioVideo.class.getSimpleName());
+
+                //TODO Config in Main
                 ELAddMediafiles licVideo = new ELAddMediafiles();
                 eventHandler.add(licVideo);
                 setHandler(eventHandler);
+                //
+
                 eventHandler.handle(eventLicVideo);
 
                 break;

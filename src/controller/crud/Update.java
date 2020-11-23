@@ -26,6 +26,5 @@ public class Update {
             map.replace(address, map.get(address) + 1);
         }
         this.storage.setCountOfUse(map);
-
     }
 }

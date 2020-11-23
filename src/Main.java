@@ -1,15 +1,13 @@
+import controller.crud.Create;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import view.cli.commands.CommandMain;
-import controller.crud.Create;
 import modell.data.content.Person;
 import modell.mediaDB.Tag;
+import view.cli.commands.CommandMain;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -63,6 +61,8 @@ public class Main extends Application {
         stage.setScene(new Scene(p));
         stage.setTitle("Medienverwalungs - Software by K. Techen");
         stage.setResizable(true);
+        stage.setMinHeight(650);
+        stage.setMinWidth(900);
         stage.show();
     }
 

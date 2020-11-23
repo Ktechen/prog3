@@ -20,7 +20,7 @@ public class AudioVideo implements modell.mediaDB.AudioVideo {
     private final Duration length;
     private final Collection<Tag> tag;
     private final Date updateDate;
-    private Person person;
+    private Uploader person;
     private int sampleRate = 0;
 
     public AudioVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag) {
@@ -33,7 +33,7 @@ public class AudioVideo implements modell.mediaDB.AudioVideo {
         this.updateDate = new Date();
     }
 
-    public AudioVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Person person, int sampleRate) {
+    public AudioVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Uploader person, int sampleRate) {
         this.width = width;
         this.height = height;
         this.encoding = encoding;
@@ -45,11 +45,11 @@ public class AudioVideo implements modell.mediaDB.AudioVideo {
         this.updateDate = new Date();
     }
 
-    public void setPerson(Person person) {
+    public void setPerson(Uploader person) {
         this.person = person;
     }
 
-    public Person getPerson() {
+    public Uploader getPerson() {
         return person;
     }
 
@@ -155,7 +155,7 @@ public class AudioVideo implements modell.mediaDB.AudioVideo {
     @Override
     public String toString() {
 
-        if(sampleRate != 0){
+        if (sampleRate != 0) {
             return "address=" + getAddress() +
                     ", width=" + width +
                     ", height=" + height +
@@ -165,7 +165,7 @@ public class AudioVideo implements modell.mediaDB.AudioVideo {
                     ", tag=" + tag +
                     ", uploader=" + person.getName() +
                     ", updateDate=" + updateDate +
-                    ", sampleRate=" + sampleRate;
+                    ", sampleRate=" + sampleRate + " ";
         }
 
         return "address=" + getAddress() +

@@ -5,6 +5,7 @@ import modell.data.content.Person;
 import modell.data.storage.StorageAsSingelton;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploadable;
+import modell.mediaDB.Uploader;
 import modell.mediaDB.Video;
 
 import java.util.Collection;
@@ -58,9 +59,6 @@ public class Delete {
 
         return true;
     }
-
-
-    private final Lock lock = new ReentrantLock();
 
     /**
      * @param address
@@ -126,9 +124,9 @@ public class Delete {
         final Lock lock = new ReentrantLock();
 
         lock.lock();
-        LinkedList<Person> list = new LinkedList<>();
+        LinkedList<Uploader> list = new LinkedList<>();
 
-        for (Person person : storage.getPerson()) {
+        for (Uploader person : storage.getPerson()) {
             if (person.getName().compareTo(name) == 0) {
                 list.add(person);
             }

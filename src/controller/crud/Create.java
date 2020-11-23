@@ -8,6 +8,7 @@ import modell.data.content.LicensedAudioAudioVideo;
 import modell.mediaDB.Tag;
 import controller.observer.Observable;
 import controller.observer.Observer;
+import modell.mediaDB.Uploader;
 
 import java.math.BigDecimal;
 import java.time.Duration;
@@ -44,7 +45,7 @@ public class Create implements Observable {
     }
 
 
-    public void interactiveVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Person person, String type) throws InterruptedException {
+    public void interactiveVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Uploader person, String type) throws InterruptedException {
         synchronized (this.storage) {
 
             this.capacity = BigDecimal.valueOf(width).multiply(BigDecimal.valueOf(height));
@@ -69,7 +70,7 @@ public class Create implements Observable {
         }
     }
 
-    public void licensedAudioVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Person person, String holder, int samplingRate) throws InterruptedException {
+    public void licensedAudioVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Uploader person, String holder, int samplingRate) throws InterruptedException {
         synchronized (this.storage) {
 
             this.capacity = BigDecimal.valueOf(width).multiply(BigDecimal.valueOf(height));

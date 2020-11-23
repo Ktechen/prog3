@@ -2,6 +2,7 @@ package modell.data.storage;
 
 import modell.data.content.Person;
 import modell.mediaDB.Uploadable;
+import modell.mediaDB.Uploader;
 import modell.mediaDB.Video;
 
 import java.math.BigDecimal;
@@ -14,7 +15,7 @@ public class Storage {
 
     private List<Video> media;
     private List<String> personNames;
-    private List<Person> person;
+    private List<Uploader> person;
     private HashMap<String, Long> countOfUse;
     private HashMap<String, Boolean> usedTags;
 
@@ -50,7 +51,7 @@ public class Storage {
         return new LinkedList<>(this.personNames);
     }
 
-    public LinkedList<Person> getPerson() {
+    public LinkedList<Uploader> getPerson() {
         return new LinkedList<>(this.person);
     }
 
@@ -92,7 +93,7 @@ public class Storage {
         return true;
     }
 
-    public void addPerson(Person person) throws IllegalAccessException {
+    public void addPerson(Uploader person) throws IllegalAccessException {
         if (person != null) {
             this.person.add(person);
         }
@@ -102,7 +103,7 @@ public class Storage {
 
         int counter = 0;
 
-        for (Person person : person) {
+        for (Uploader person : person) {
             if (person.getName().compareTo(name) == 0) {
                 synchronized (this){
                     counter = +1;
