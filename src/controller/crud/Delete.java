@@ -1,18 +1,10 @@
 package controller.crud;
 
 import modell.data.storage.Storage;
-import modell.data.content.Person;
 import modell.data.storage.StorageAsSingelton;
-import modell.mediaDB.Tag;
-import modell.mediaDB.Uploadable;
-import modell.mediaDB.Uploader;
-import modell.mediaDB.Video;
+import modell.mediaDB.*;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.*;
 
 public class Delete {
 
@@ -33,38 +25,25 @@ public class Delete {
      * @return boolean
      */
     public boolean perUser(String name) {
+        synchronized (this.storage) {
 
-        LinkedList<Video> list = new LinkedList<>();
-
-        boolean found = false;
-
-        for (int i = 0; i < storage.getMedia().size(); i++) {
-
-            boolean value = (storage.getPerson().get(i).getName().toLowerCase().trim().compareTo(name.toLowerCase().trim()) == 0);
-
-            if (value) {
-                list.add(storage.getMedia().get(i));
-                found = true;
+            for (Uploader person : this.storage.getPerson()) {
+                if (person.getName().toLowerCase().compareTo(name.toLowerCase()) == 0) {
+                    Set<Uploader> uploaders = new HashSet<>();
+                    uploaders.add(person);
+                    this.storage.removeAllPerson(uploaders);
+                }
             }
+
+            return true;
         }
-
-        if (found) {
-            storage.removeAllVideo(list);
-            clearNameOfPerson(name);
-            clearPerson(name);
-        }
-
-        //Update tags
-        changeTags();
-
-        return true;
     }
 
     /**
      * @param address
      * @return true all is correct | false size of list is 0 or list of address is 0
      */
-    public boolean perAddress(String address) throws InterruptedException {
+    public boolean perAddress(String address) {
 
         synchronized (this.storage) {
 
@@ -96,7 +75,6 @@ public class Delete {
 
                 //Nur einmal vorhanden
                 if (storage.personSize(list.get(0).getUploader().getName()) == 1) {
-                    clearNameOfPerson(list.get(0).getUploader().getName());
                     clearPerson(list.get(0).getUploader().getName());
                 } else {
                     storage.removePerson(indexValue);
@@ -110,45 +88,36 @@ public class Delete {
         }
     }
 
-    private synchronized void clearNameOfPerson(String name) {
-
-        for (int i = 0; i < storage.getPersonNames().size(); i++) {
-            if (storage.getPersonNames().get(i).contains(name)) {
-                storage.removePersonNames(i);
-            }
-        }
-
-    }
-
     private void clearPerson(String name) {
-        final Lock lock = new ReentrantLock();
+        synchronized (this.storage) {
+            LinkedList<Uploader> list = new LinkedList<>();
 
-        lock.lock();
-        LinkedList<Uploader> list = new LinkedList<>();
-
-        for (Uploader person : storage.getPerson()) {
-            if (person.getName().compareTo(name) == 0) {
-                list.add(person);
+            for (Uploader person : storage.getPerson()) {
+                if (person.getName().compareTo(name) == 0) {
+                    list.add(person);
+                }
             }
-        }
 
-        storage.removeAllPerson(list);
-        lock.unlock();
+            this.storage.removeAllPerson(list);
+        }
     }
 
     /**
      * Update tags
      */
-    private synchronized void changeTags() {
+    private void changeTags() {
+        synchronized (this.storage) {
+            Read read = new Read();
+            read.setDefaultValuesOfUsedTags();
+            Collection<Tag> values = null;
 
-        Read read = new Read();
-        read.setDefaultValuesOfUsedTags();
-        Collection<Tag> tags = null;
+            for (MediaContent mediaContent: this.storage.getMedia()) {
+                values = mediaContent.getTags();
+            }
 
-        for (int i = 0; i < this.storage.getMedia().size(); i++) {
-            tags = this.storage.getMedia().get(i).getTags();
+            if(values != null){
+                read.tagFinder(values);
+            }
         }
-
-        read.tagFinder(tags);
     }
 }

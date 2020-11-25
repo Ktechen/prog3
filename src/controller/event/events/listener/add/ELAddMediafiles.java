@@ -2,8 +2,8 @@ package controller.event.events.listener.add;
 
 import controller.crud.Create;
 import modell.data.content.Person;
-import modell.data.content.InteractionAudioVideo;
-import modell.data.content.LicensedAudioAudioVideo;
+import modell.data.content.interaction.InteractiveVideo;
+import modell.data.content.licensed.LicensedAudioVideo;
 import controller.event.Event;
 import controller.event.EventListener;
 import modell.mediaDB.Tag;
@@ -17,7 +17,7 @@ public class ELAddMediafiles implements EventListener {
 
         Create create = new Create();
 
-        if (event.getType().compareTo(InteractionAudioVideo.class.getSimpleName()) == 0) {
+        if (event.getType().compareTo(InteractiveVideo.class.getSimpleName()) == 0) {
             create.interactiveVideo(
                     (Integer) event.getArr()[0],
                     (Integer) event.getArr()[1],
@@ -29,7 +29,7 @@ public class ELAddMediafiles implements EventListener {
                     (String) event.getArr()[7]);
 
 
-        } else if (event.getType().compareTo(LicensedAudioAudioVideo.class.getSimpleName()) == 0) {
+        } else if (event.getType().compareTo(LicensedAudioVideo.class.getSimpleName()) == 0) {
             create.licensedAudioVideo(
                     (Integer) event.getArr()[0],
                     (Integer) event.getArr()[1],

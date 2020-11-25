@@ -22,7 +22,9 @@ public class Read {
         this.storage = storage;
     }
 
+    @Deprecated
     /**
+     *
      * List of user filter by name
      * @param name
      * @return hashMap
@@ -40,6 +42,7 @@ public class Read {
         return hashMap;
     }
 
+    @Deprecated
     private int countList(List<? extends Uploadable> v, String name) {
 
         int counter = 0;
@@ -96,20 +99,19 @@ public class Read {
      * @param tags
      */
     public void tagFinder(Collection<Tag> tags) {
+        synchronized (this.storage){
+            if (storage.getUsedTags().isEmpty()) {
+                setDefaultValuesOfUsedTags();
+            }
 
-        if (storage.getUsedTags().isEmpty()) {
-            setDefaultValuesOfUsedTags();
+            Object[] tag = tags.toArray();
+
+            for (Object o : tag) {
+                HashMap<String, Boolean> me = storage.getUsedTags();
+                me.replace(o.toString(), true);
+                storage.setUsedTags(me);
+            }
         }
-
-        Object[] tag = null;
-        tag = tags.toArray();
-
-        for (Object o : tag) {
-            HashMap<String, Boolean> me = storage.getUsedTags();
-            me.replace(o.toString(), true);
-            storage.setUsedTags(me);
-        }
-
     }
 
     public void setDefaultValuesOfUsedTags() {
@@ -127,7 +129,7 @@ public class Read {
      * @return true = found | false = not found
      */
     public boolean isPersonCreated(String name) {
-        return storage.getPersonNames().contains(name);
+        return this.storage.getPerson().contains(name);
     }
 
     public Uploader foundPerson(String name) {

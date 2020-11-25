@@ -67,7 +67,7 @@ public class TestCrud {
     }
 
     @Test
-    public void readALL() throws InterruptedException {
+    public void readALL() {
 
         t.add(Tag.Lifestyle);
         t.add(Tag.Animal);
@@ -218,11 +218,11 @@ public class TestCrud {
 
         delete.perUser("HöchenFlug");
 
-        Assertions.assertEquals(2, storage.getMedia().size());
+        Assertions.assertEquals(2, storage.getPerson().size());
     }
 
     @Test
-    public void deletePerUserCheckPeronList() throws InterruptedException {
+    public void deletePerUserCheckPersonList() throws InterruptedException {
         final Create create = new Create();
         final Delete delete = new Delete();
         final Collection<Tag> t = new LinkedList<>();
@@ -358,7 +358,7 @@ public class TestCrud {
         try {
             Read read = new Read();
 
-            List<? extends Uploadable> videos = read.getFullListOrFilterbyTyp("InteractionAudioVideo");
+            List<? extends Uploadable> videos = read.getFullListOrFilterbyTyp("InteractiveVideo");
         } catch (IllegalArgumentException e) {
             Assertions.fail();
         }

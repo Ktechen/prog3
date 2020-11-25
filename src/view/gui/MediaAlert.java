@@ -61,7 +61,8 @@ public class MediaAlert {
         alert.getDialogPane().setContent(box);
 
         Optional<ButtonType> result = alert.showAndWait();
-        type = result.get();
+
+        this.type = result.orElse(null);
     }
 
     /**
@@ -102,7 +103,8 @@ public class MediaAlert {
         alert.getDialogPane().setContent(box);
 
         Optional<ButtonType> result = alert.showAndWait();
-        type = result.get();
+
+        this.type = result.orElse(null);
     }
 
     public ButtonType getButtonType() {
@@ -110,6 +112,6 @@ public class MediaAlert {
     }
 
     public String getText() {
-        return textField.getText();
+        return this.textField.getText();
     }
 }

@@ -1,28 +1,22 @@
 package modell.data.storage;
 
-import modell.data.content.Person;
 import modell.mediaDB.Uploadable;
 import modell.mediaDB.Uploader;
 import modell.mediaDB.Video;
 
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Storage {
 
     private List<Video> media;
-    private List<String> personNames;
-    private List<Uploader> person;
+    private Set<Uploader> person;
     private HashMap<String, Long> countOfUse;
     private HashMap<String, Boolean> usedTags;
 
     public Storage() {
         this.media = new LinkedList<>();
-        this.personNames = new LinkedList<>(); //Set unique
-        this.person = new LinkedList<>();
+        this.person = new HashSet<>();
         this.usedTags = new HashMap<>();
         this.countOfUse = new HashMap<>();
     }
@@ -47,10 +41,6 @@ public class Storage {
         return new LinkedList<>(this.media);
     }
 
-    public LinkedList<String> getPersonNames() {
-        return new LinkedList<>(this.personNames);
-    }
-
     public LinkedList<Uploader> getPerson() {
         return new LinkedList<>(this.person);
     }
@@ -64,36 +54,12 @@ public class Storage {
         return true;
     }
 
-    public boolean removeVideo(int index) {
-        this.media.remove(index);
-        return true;
-    }
-
     public boolean removeAllVideo(Collection<?> o) {
         this.media.removeAll(o);
         return true;
     }
 
-    public boolean setVideo(int index, Video video) {
-        this.media.set(index, video);
-        return true;
-    }
-
-    public boolean addPersonNames(String personNames) {
-        if (personNames != null) {
-            this.personNames.add(personNames);
-            return true;
-        }
-
-        return false;
-    }
-
-    public boolean removePersonNames(int index) {
-        this.personNames.remove(index);
-        return true;
-    }
-
-    public void addPerson(Uploader person) throws IllegalAccessException {
+    public void addPerson(Uploader person) {
         if (person != null) {
             this.person.add(person);
         }
@@ -155,23 +121,12 @@ public class Storage {
         this.countOfUse = countOfUse;
     }
 
-    public String MediaToString(){
-        StringBuffer stringBuffer = new StringBuffer();
-
-        for (Uploadable uploadable: getMedia()) {
-            stringBuffer.append(uploadable);
-        }
-
-        return stringBuffer.toString();
-    }
-
     /**
      * Clear a current memory
      */
     public void clear() {
         this.media = new LinkedList<>();
-        this.personNames = new LinkedList<>();
-        this.person = new LinkedList<>();
+        this.person = new HashSet<>();
         this.usedTags = new HashMap<>();
         this.countOfUse = new HashMap<>();
     }

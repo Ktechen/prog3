@@ -1,8 +1,8 @@
 package controller;
 
+import modell.data.content.interaction.InteractiveVideo;
 import modell.data.storage.Storage;
 import modell.data.storage.StorageAsSingelton;
-import modell.data.content.InteractionAudioVideo;
 import modell.data.content.Person;
 import controller.event.events.event.add.EventAddMediaFiles;
 import controller.event.events.event.add.EventAddUploader;
@@ -56,7 +56,7 @@ public class TestEventsListener {
         Storage storage = StorageAsSingelton.getInstance();
         storage.clear();
         EventAddMediaFiles eventAddMediaFiles = Mockito.mock(EventAddMediaFiles.class);
-        Mockito.when(eventAddMediaFiles.getType()).thenReturn(InteractionAudioVideo.class.getSimpleName());
+        Mockito.when(eventAddMediaFiles.getType()).thenReturn(InteractiveVideo.class.getSimpleName());
         Mockito.when(eventAddMediaFiles.getArr()).thenReturn(arr);
 
         ELAddMediafiles elAddMediafiles = new ELAddMediafiles();

@@ -1,7 +1,6 @@
 package modell.data.content;
 
 import modell.data.storage.Storage;
-import modell.data.storage.StorageAsSingelton;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploader;
 
@@ -10,172 +9,62 @@ import java.time.Duration;
 import java.util.Collection;
 import java.util.Date;
 
-public class AudioVideo implements modell.mediaDB.AudioVideo {
+public class AudioVideo extends Audio implements modell.mediaDB.AudioVideo {
 
-    //Add per User
-    private final int width;
-    private final int height;
-    private final String encoding;
-    private final long bitrate;
-    private final Duration length;
-    private final Collection<Tag> tag;
-    private final Date updateDate;
-    private Uploader person;
-    private int sampleRate = 0;
+    private int width;
+    private int height;
+    private BigDecimal size;
 
-    public AudioVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag) {
+    public AudioVideo(int width, int height, String endcoding, long bitrate, Duration duration, Collection<Tag> tags, Uploader uploader, int samplingRate) {
+        super(bitrate, duration, tags, samplingRate, endcoding, uploader);
         this.width = width;
         this.height = height;
-        this.encoding = encoding;
-        this.bitrate = bitrate;
-        this.length = length;
-        this.tag = tag;
-        this.updateDate = new Date();
+        this.size = caluSize(BigDecimal.valueOf(width), BigDecimal.valueOf(height));
     }
 
-    public AudioVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Uploader person, int sampleRate) {
-        this.width = width;
-        this.height = height;
-        this.encoding = encoding;
-        this.bitrate = bitrate;
-        this.length = length;
-        this.tag = tag;
-        this.person = person;
-        this.sampleRate = sampleRate;
-        this.updateDate = new Date();
+    @Override
+    public BigDecimal getSize() {
+        return this.size;
     }
 
-    public void setPerson(Uploader person) {
-        this.person = person;
-    }
-
-    public Uploader getPerson() {
-        return person;
-    }
-
-    /**
-     * calculation of size of file
-     *
-     * @return bytes of File
-     */
-    private BigDecimal sizeOfFile() {
-        final BigDecimal value = new BigDecimal(8); //byte
-        return (BigDecimal.valueOf(height).multiply(BigDecimal.valueOf(width)).divide(value));
-    }
-
-    /**
-     * Generiert eine Addresse
-     *
-     * @param add belieben String hinzufügen
-     * @return string of link
-     */
-    private String generateAddress(String add) {
-
+    @Override
+    public String getAddress() {
         StringBuilder builder = new StringBuilder();
+        builder.append(getClass().getSimpleName());
         builder.append(Storage.TYPE_OF_SOURCE);
-        builder.append(bitrate);
         builder.append("-");
-        builder.append(add);
+        builder.append(this.height);
         builder.append("-");
-        builder.append(encoding);
+        builder.append(this.width);
         builder.append("-");
-        builder.append(width);
+        builder.append(super.getBitrate());
         builder.append("-");
-        builder.append(height);
+        builder.append(super.getLength());
         builder.append("-");
-        builder.append(length);
+        builder.append(super.getSize());
         builder.append("-");
-        builder.append(getUploadDate().toString().replaceAll("\\s+", ""));
+        builder.append(super.getAccessCount());
         builder.append("-");
-        builder.append(person.getName().replaceAll("\\s+", ""));
+        builder.append(new Date().toString());
 
         return builder.toString();
     }
 
     @Override
     public int getWidth() {
-        return width;
+        return this.width;
     }
 
     @Override
     public int getHeight() {
-        return height;
-    }
-
-    @Override
-    public int getSamplingRate() {
-        return sampleRate;
-    }
-
-    @Override
-    public String getEncoding() {
-        return encoding;
-    }
-
-    @Override
-    public long getBitrate() {
-        return bitrate;
-    }
-
-    @Override
-    public Duration getLength() {
-        return length;
-    }
-
-    @Override
-    public BigDecimal getSize() {
-        return sizeOfFile();
-    }
-
-    @Override
-    public String getAddress() {
-        return generateAddress(sizeOfFile().toString());
-    }
-
-    @Override
-    public Collection<Tag> getTags() {
-        return tag;
-    }
-
-    @Override
-    public long getAccessCount() {
-        return StorageAsSingelton.getInstance().getAccessCounter(getAddress());
-    }
-
-    @Override
-    public Uploader getUploader() {
-        return person;
-    }
-
-    @Override
-    public Date getUploadDate() {
-        return updateDate;
+        return this.height;
     }
 
     @Override
     public String toString() {
-
-        if (sampleRate != 0) {
-            return "address=" + getAddress() +
-                    ", width=" + width +
-                    ", height=" + height +
-                    ", encoding='" + encoding + '\'' +
-                    ", bitrate=" + bitrate +
-                    ", length=" + length +
-                    ", tag=" + tag +
-                    ", uploader=" + person.getName() +
-                    ", updateDate=" + updateDate +
-                    ", sampleRate=" + sampleRate + " ";
-        }
-
-        return "address=" + getAddress() +
-                ", width=" + width +
+        return super.toString() + " AudioVideo{" +
+                "width=" + width +
                 ", height=" + height +
-                ", encoding='" + encoding + '\'' +
-                ", bitrate=" + bitrate +
-                ", length=" + length +
-                ", tag=" + tag +
-                ", uploader=" + person.getName() +
-                ", updateDate=" + updateDate;
+                '}';
     }
 }

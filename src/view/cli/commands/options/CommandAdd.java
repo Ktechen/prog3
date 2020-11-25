@@ -7,8 +7,8 @@ import controller.event.events.event.add.EventAddMediaFiles;
 import controller.event.events.event.add.EventAddUploader;
 import controller.event.events.listener.add.ELAddMediafiles;
 import controller.event.events.listener.add.ELAddUploader;
-import modell.data.content.InteractionAudioVideo;
-import modell.data.content.LicensedAudioAudioVideo;
+import modell.data.content.interaction.InteractiveVideo;
+import modell.data.content.licensed.LicensedAudioVideo;
 import view.cli.Console;
 import view.cli.commands.ICommand;
 
@@ -80,7 +80,7 @@ public class CommandAdd implements ICommand {
                     System.out.println(e.getMessage());
                 }
 
-                EventAddMediaFiles eventInterVideo = new EventAddMediaFiles(this, convertArray, InteractionAudioVideo.class.getSimpleName());
+                EventAddMediaFiles eventInterVideo = new EventAddMediaFiles(this, convertArray, InteractiveVideo.class.getSimpleName());
 
                 //TODO Config in Main
                 ELAddMediafiles interVideo = new ELAddMediafiles();
@@ -99,7 +99,7 @@ public class CommandAdd implements ICommand {
                     System.out.println(e.getMessage());
                 }
 
-                EventAddMediaFiles eventLicVideo = new EventAddMediaFiles(this, convertArray, LicensedAudioAudioVideo.class.getSimpleName());
+                EventAddMediaFiles eventLicVideo = new EventAddMediaFiles(this, convertArray, LicensedAudioVideo.class.getSimpleName());
 
                 //TODO Config in Main
                 ELAddMediafiles licVideo = new ELAddMediafiles();

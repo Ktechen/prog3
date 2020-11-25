@@ -6,7 +6,7 @@ import modell.data.storage.StorageAsSingelton;
 
 public class RemoveMedia extends Thread {
 
-    private Storage storage = StorageAsSingelton.getInstance();
+    private final Storage storage = StorageAsSingelton.getInstance();
 
     @Override
     public void run() {

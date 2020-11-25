@@ -14,18 +14,18 @@ public class InputConverter {
     public InputConverter() {
     }
 
-    public static final String LIC_VIDEO_TEXT = "LicensedAudioAudioVideo: " +
+    public static final String LIC_VIDEO_TEXT = "LicensedAudioVideo: " +
             "(int width, int height, String encoding, long bitrate, Duration length, " +
             "Collection<Tag> tag, Person person, String holder, int samplingRate)";
 
-    public static final String INTER_VIDEO_TEXT = "InteractiveVideo: " +
+    public static final String INTER_VIDEO_TEXT = "Interactive: " +
             "(int width, int height, String encoding, long bitrate, Duration length, " +
             "Collection<Tag> tag, Person person, String type)";
 
     public static final String USER_TEXT = "[Produzentenname] fügt einen Produzentein";
 
     /**
-     * Convert e.g InteractionVideo
+     * Convert e.g Interactive
      * Split your Array before you start (value.split("\\s+");)
      *
      * @param arr
