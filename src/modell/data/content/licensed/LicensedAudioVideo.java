@@ -21,10 +21,17 @@ public class LicensedAudioVideo extends AudioVideo implements modell.mediaDB.Lic
         return holder;
     }
 
-    @Override    public String toString() {
+    @Override
+    public String toString() {
         return "LicensedAudioVideo{" +
-                super.toString() +
-                "holder='" + holder + '\'' +
-                '}';
+                "width=" + super.getWidth() +
+                ", height=" + super.getHeight() +
+                ", encoding='" + super.getEncoding() + '\'' +
+                ", bitrate=" + super.getBitrate() +
+                ", length=" + super.getLength() +
+                ", tag=" + super.getTags() +
+                ", uploader=" + super.getUploader().getName() +
+                ", updateDate=" + super.getUploadDate() +
+                ", updateDate=" + this.holder + "}";
     }
 }

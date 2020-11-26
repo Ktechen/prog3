@@ -23,15 +23,14 @@ public class InteractiveVideo extends Video implements modell.mediaDB.Interactiv
 
     @Override
     public String toString() {
-        return
-                ", width=" + super.getWidth() +
+        return "InteractiveVideo{ width=" + super.getWidth() +
                         ", height=" + super.getHeight() +
                         ", encoding='" + super.getEncoding() + '\'' +
                         ", bitrate=" + super.getBitrate() +
                         ", length=" + super.getLength() +
                         ", tag=" + super.getTags() +
                         ", uploader=" + super.getUploader().getName() +
-                        ", updateDate=" + super.getUploadDate();
+                        ", updateDate=" + super.getUploadDate() + "}";
     }
 }
 
