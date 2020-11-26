@@ -39,6 +39,11 @@ public class ViewController implements Initializable {
         this.inputConverter = new InputConverter();
     }
 
+    /**
+     * init
+     * @param location
+     * @param resources
+     */
     public void initialize(URL location, ResourceBundle resources) {
         this.updateAllLists();
         this.updateDisplay.setText("initialized");
