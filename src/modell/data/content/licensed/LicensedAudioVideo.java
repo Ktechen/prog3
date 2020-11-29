@@ -11,6 +11,20 @@ public class LicensedAudioVideo extends AudioVideo implements modell.mediaDB.Lic
 
     private final String holder;
 
+    /**
+     * LicensedAudioVideo
+     *
+     * @param width      = int
+     * @param height     = int
+     * @param encoding   = encoding
+     * @param bitrate    = long
+     * @param length     = duration
+     * @param tag        = Collection<tag>
+     * @param person     = uploader
+     * @param sampleRate = int
+     * @param holder     = string
+     * @ParamLength = 9
+     */
     public LicensedAudioVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Uploader person, int sampleRate, String holder) {
         super(width, height, encoding, bitrate, length, tag, person, sampleRate);
         this.holder = holder;
@@ -24,14 +38,16 @@ public class LicensedAudioVideo extends AudioVideo implements modell.mediaDB.Lic
     @Override
     public String toString() {
         return "LicensedAudioVideo{" +
-                "width=" + super.getWidth() +
-                ", height=" + super.getHeight() +
-                ", encoding='" + super.getEncoding() + '\'' +
-                ", bitrate=" + super.getBitrate() +
-                ", length=" + super.getLength() +
-                ", tag=" + super.getTags() +
-                ", uploader=" + super.getUploader().getName() +
-                ", updateDate=" + super.getUploadDate() +
-                ", updateDate=" + this.holder + "}";
+                "width=" + this.getWidth() +
+                ", height=" + this.getHeight() +
+                ", encoding='" + this.getEncoding() + '\'' +
+                ", bitrate=" + this.getBitrate() +
+                ", length=" + this.getLength() +
+                ", tag=" + this.getTags() +
+                ", uploader=" + this.getUploader().getName() +
+                ", updateDate=" + this.getUploadDate() +
+                ", updateDate=" + this.holder +
+                ", clicks=" + this.getAccessCount() +
+                ", address=" + this.getAddress() + "}";
     }
 }

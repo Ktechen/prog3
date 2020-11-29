@@ -1,5 +1,6 @@
 package view.cli.commands.options;
 
+import modell.data.storage.Storage;
 import view.cli.Console;
 import view.cli.commands.ICommand;
 import controller.event.EventHandler;
@@ -32,7 +33,7 @@ public class CommandDelete implements ICommand {
         ELDeleteVideoPerAdress elDeleteVideoPerAdress = new ELDeleteVideoPerAdress();
         ELDeleteVideoPerUser elDeleteVideoPerUser = new ELDeleteVideoPerUser();
 
-        if (value.indexOf("FILE:///") == 0) {
+        if (value.indexOf(Storage.TYPE_OF_SOURCE) == 0) {
             eventHandler.add(elDeleteVideoPerAdress);
         } else {
             eventHandler.add(elDeleteVideoPerUser);

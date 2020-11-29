@@ -1,7 +1,6 @@
 package controller.crud;
 
 import modell.data.storage.Storage;
-import modell.data.content.Person;
 import modell.data.storage.StorageAsSingelton;
 import modell.mediaDB.*;
 
@@ -58,6 +57,7 @@ public class Read {
 
     /**
      * List of media
+     *
      * @return
      */
     public List<Video> fullList() {
@@ -66,6 +66,7 @@ public class Read {
 
     /**
      * Get List filter by type
+     *
      * @param video
      * @return
      */
@@ -88,6 +89,7 @@ public class Read {
 
     /**
      * Get used tags
+     *
      * @return
      */
     public HashMap<String, Boolean> getFindedTags() {
@@ -96,10 +98,11 @@ public class Read {
 
     /**
      * Load used tags
+     *
      * @param tags
      */
     public void tagFinder(Collection<Tag> tags) {
-        synchronized (this.storage){
+        synchronized (this.storage) {
             if (storage.getUsedTags().isEmpty()) {
                 setDefaultValuesOfUsedTags();
             }
@@ -125,6 +128,7 @@ public class Read {
 
     /**
      * Is user created
+     *
      * @param name
      * @return true = found | false = not found
      */
@@ -136,9 +140,9 @@ public class Read {
 
         Uploader person = null;
 
-        for (int i = 0; i < storage.getPerson().size(); i++) {
-            if (name.compareTo(storage.getPerson().get(i).getName()) == 0) {
-                person = storage.getPerson().get(i);
+        for (Uploader uploader : this.storage.getPerson()) {
+            if (name.compareTo(uploader.getName()) == 0) {
+                person = uploader;
             }
         }
 

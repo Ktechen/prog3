@@ -1,18 +1,20 @@
 package controller.crud;
 
+import controller.observer.Observable;
+import controller.observer.Observer;
+import modell.data.content.Person;
 import modell.data.content.interaction.InteractiveVideo;
 import modell.data.content.licensed.LicensedAudioVideo;
 import modell.data.storage.Storage;
-import modell.data.content.Person;
 import modell.data.storage.StorageAsSingelton;
 import modell.mediaDB.Tag;
-import controller.observer.Observable;
-import controller.observer.Observer;
 import modell.mediaDB.Uploader;
 
+import javax.swing.text.html.HTMLDocument;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class Create implements Observable {
     private final Storage storage;
     private final Read read = new Read();
     private final List<Observer> list = new LinkedList<>();
-    private BigDecimal capacity;
+    private BigDecimal capacity = BigDecimal.valueOf(0);
 
     public BigDecimal getCapacity() {
         return capacity;
@@ -48,20 +50,20 @@ public class Create implements Observable {
     public void interactiveVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Uploader person, String type)  {
         synchronized (this.storage) {
 
-            this.capacity = BigDecimal.valueOf(width).multiply(BigDecimal.valueOf(height));
-            //TODO validierung ob 0 or null und wenn nötige zurücksetzen
+            //TODO Uploader to string es muss vorher ein Benutzer erstellt werden der hinzugefügt werden kann
+            this.person(person.getName());
 
             InteractiveVideo video = new InteractiveVideo(width, height, encoding, bitrate, length, tag, person, type);
+
+            this.capacity = BigDecimal.valueOf(width).multiply(BigDecimal.valueOf(height));
 
             read.tagFinder(video.getTags());
             Validierung.checkSize(video.getSize());
 
-            this.storage.addPerson(person);
             this.storage.addMedia(video);
 
-            //TODO Anpassen auf Fehlerüberprüfung || e.g listener
-
             this.message();
+            this.capacity = BigDecimal.valueOf(0);
         }
     }
 
@@ -75,16 +77,17 @@ public class Create implements Observable {
             read.tagFinder(video.getTags());
             Validierung.checkSize(video.getSize());
 
-            this.storage.addPerson(person);
+            this.person(person.getName());
             this.storage.addMedia(video);
 
             this.message();
+            this.capacity = BigDecimal.valueOf(0);
         }
     }
 
     public void person(String name) {
         synchronized (this.storage) {
-            storage.addPerson(new Person(name));
+            this.storage.addPerson(new Person(name));
         }
     }
 

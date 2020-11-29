@@ -1,26 +1,35 @@
 package controller.gui;
 
-import controller.InputConverter;
-import controller.crud.Create;
+import controller.crud.Update;
+import controller.handle.Const;
+import controller.handle.create.CreateOption;
+import controller.handle.delete.DeleteOption;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.PickResult;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import modell.data.storage.Storage;
 import modell.data.storage.StorageAsSingelton;
 import modell.mediaDB.*;
 import view.gui.MediaAlert;
 
 import java.net.URL;
-import java.time.Duration;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ViewController implements Initializable {
 
-    private final static String ERROR_MESSAGE_INCORRECT_INPUT = "Input was incorrect";
     private final Storage storage;
 
     @FXML
@@ -32,15 +41,13 @@ public class ViewController implements Initializable {
     @FXML
     private Label updateDisplay;
 
-    private final InputConverter inputConverter;
-
     public ViewController() {
         this.storage = StorageAsSingelton.getInstance();
-        this.inputConverter = new InputConverter();
     }
 
     /**
      * init
+     *
      * @param location
      * @param resources
      */
@@ -63,109 +70,9 @@ public class ViewController implements Initializable {
      * @param uploadable
      * @param uploader
      */
-    private void updateAllLists(List<Video> uploadable, LinkedList<Uploader> uploader) {
+    private <T extends Uploadable> void updateAllLists(List<T> uploadable, HashSet<Uploader> uploader) {
         this.listViewMedia.setItems(FXCollections.observableArrayList(uploadable));
         this.ListViewUser.setItems(FXCollections.observableArrayList(uploader));
-    }
-
-    /**
-     * Create Event
-     *
-     * @param mouseEvent
-     */
-    public void onClickedCreate(MouseEvent mouseEvent) throws InterruptedException {
-        MediaAlert mediaAlert = new MediaAlert("Create a Media File", InputConverter.INTER_VIDEO_TEXT + " \n" + InputConverter.USER_TEXT, "Media/Person:");
-
-        if (mediaAlert.getButtonType() == ButtonType.OK) {
-            String input = mediaAlert.getText();
-
-            if (input.length() > 0) {
-
-                String[] value = input.split("\\s+");
-
-                //Name convert to one string
-                if (value.length == 2) {
-                    value[0] = value[0] + value[1];
-                    value[1] = null;
-                }
-
-                Create create = new Create();
-
-                switch (value.length) {
-                    case 1:
-                    case 2:
-                        create.person(value[0]);
-                        this.updateDisplay.setText("You has been added a new Person file");
-                        break;
-
-                    case 8:
-                        Object[] inter = new InputConverter().convertToArr(value);
-                        create.interactiveVideo((Integer) inter[0], (Integer) inter[1], (String) inter[2], (Long) inter[3],
-                                (Duration) inter[4], (Collection<Tag>) inter[5], (Uploader) inter[6], (String) inter[7]);
-                        this.updateDisplay.setText("You has been added a new Interactive Video file");
-                        break;
-                    case 9:
-                        Object[] lic = new InputConverter().convertToArrLicVideo(value);
-                        create.licensedAudioVideo((Integer) lic[0], (Integer) lic[1], (String) lic[2], (Long) lic[3], (Duration) lic[4],
-                                (Collection<Tag>) lic[5], (Uploader) lic[6], (String) lic[7], (Integer) lic[8]);
-                        this.updateDisplay.setText("You has been added a new licensed Audio Video file");
-                        break;
-                    default:
-                        this.updateDisplay.setText(ERROR_MESSAGE_INCORRECT_INPUT);
-                        break;
-                }
-            }
-            this.updateDisplay.setText(ERROR_MESSAGE_INCORRECT_INPUT);
-        }
-        this.updateAllLists();
-    }
-
-    /**
-     * Delete Event
-     *
-     * @param mouseEvent
-     */
-    public void onDeleteOnClick(MouseEvent mouseEvent) {
-        MediaAlert mediaAlert = new MediaAlert("Delete a Media file", "Delete per Address or User", "Address/User:");
-    }
-
-    /**
-     * Update Event
-     *
-     * @param mouseEvent
-     */
-    public void onUpdateClick(MouseEvent mouseEvent) {
-        MediaAlert mediaAlert = new MediaAlert("Update a Media file", "", "Addresse: ");
-    }
-
-    /**
-     * Config Event
-     *
-     * @param mouseEvent
-     */
-    public void onConfigClick(MouseEvent mouseEvent) {
-        MediaAlert mediaAlert = new MediaAlert("Config a Media file", "", "Config");
-    }
-
-    /**
-     * Persistenzmodus Event
-     *
-     * @param mouseEvent
-     */
-    public void onPersistenzmodusClick(MouseEvent mouseEvent) {
-        MediaAlert mediaAlert = new MediaAlert("Persistenzmodus a Media file", "", "Persistenzmodus");
-    }
-
-    /**
-     * Sort by Address
-     *
-     * @param mouseEvent
-     */
-    public void btnSortAbrufClick(MouseEvent mouseEvent) {
-        List<Video> video = this.storage.getMedia();
-        video.sort(Comparator.comparing(Content::getAddress));
-        this.updateAllLists(video, this.storage.getPerson());
-        this.updateDisplay.setText("Sorted by Abrufaddresse");
     }
 
     /**
@@ -180,12 +87,99 @@ public class ViewController implements Initializable {
         this.updateAllLists(video, this.storage.getPerson());
     }
 
-    /**
-     * Sort by name of director
-     *
-     * @param mouseEvent
-     */
-    public void btnSortProduzentClick(MouseEvent mouseEvent) {
+    public void createOnAction(ActionEvent actionEvent) {
+        String text = Const.LICENSED_AUDIO_VIDEO_TEXT + "\n" + Const.INTER_VIDEO_TEXT + " \n" + Const.USER_TEXT;
+        MediaAlert mediaAlert = new MediaAlert("Create a Media File", text, "Media/Person:");
 
+        if (mediaAlert.getButtonType() == ButtonType.CANCEL) {
+            this.updateDisplay.setText("Canceled create event");
+        }
+
+        if (mediaAlert.getButtonType() == ButtonType.OK) {
+            CreateOption createOption = new CreateOption();
+
+            String[] value = mediaAlert.getText().split("\\s+");
+            String[] tag = value[0].split(":");
+            String[] temp = Arrays.copyOfRange(value, 1, value.length);
+
+            String msg = null;
+
+            try {
+                msg = createOption.run(temp, tag[0]);
+                this.updateDisplay.setText(msg + " | was been created");
+            } catch (NullPointerException e) {
+                this.updateDisplay.setText(e.getMessage());
+            }
+        }
+        this.updateAllLists();
+    }
+
+    public void deleteOnAction(ActionEvent actionEvent) {
+
+        MediaAlert mediaAlert = new MediaAlert("Create a Media File", "Delete via Addresse or Delete a user \n ", "Adresse/User:");
+
+        if (mediaAlert.getButtonType() == ButtonType.CANCEL) {
+            this.updateDisplay.setText("No element was been delete");
+        }
+
+        if (mediaAlert.getButtonType() == ButtonType.OK) {
+            DeleteOption deleteOption = new DeleteOption();
+            String msg = deleteOption.run(mediaAlert.getText());
+            this.updateDisplay.setText("Element deleted: " + msg);
+        }
+        this.updateAllLists();
+    }
+
+    /**
+     * Source: https://o7planning.org/en/11533/opening-a-new-window-in-javafx
+     *
+     * @param actionEvent
+     */
+    public void updateOnAction(ActionEvent actionEvent) {
+
+    }
+
+    public void configOnAction(ActionEvent actionEvent) {
+
+    }
+
+    public void PersistenzmodusOnAction(ActionEvent actionEvent) {
+    }
+
+    public void sortAdressOnAction(ActionEvent actionEvent) {
+        List<Video> video = this.storage.getMedia();
+        video.sort(Comparator.comparing(Content::getAddress));
+        this.updateAllLists(video, this.storage.getPerson());
+        this.updateDisplay.setText("Sorted by Abrufaddresse");
+    }
+
+    public void sortAnzahlOnAction(ActionEvent actionEvent) {
+        List<Video> video = this.storage.getMedia();
+        video.sort(Comparator.comparing(Content::getAccessCount));
+        this.updateAllLists(video, this.storage.getPerson());
+        this.updateDisplay.setText("Sorted by AccessCount");
+    }
+
+    public void sortProduzentOnAction(ActionEvent actionEvent) {
+        List<Uploadable> video = this.storage.getMediaTypeUploadable();
+        video.sort(Comparator.comparing(o -> o.getUploader().getName()));
+        this.updateAllLists(video, this.storage.getPerson());
+        this.updateDisplay.setText("Sorted by Uploader");
+    }
+
+    public void mediafileOnClick(MouseEvent mouseEvent) {
+        if (mouseEvent.getClickCount() == 2) {
+            PickResult pickResult = mouseEvent.getPickResult();
+            String value = pickResult.toString();
+
+            String searchLength = "address=";
+            int start = value.indexOf("address=");
+            int end = value.indexOf("}");
+            String address = value.substring(start + searchLength.length(), end);
+            Update update = new Update();
+            update.accessCount(address);
+
+            System.out.println("Clicks: " +  update.getAccessCount(address));
+        }
     }
 }

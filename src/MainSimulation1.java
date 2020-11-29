@@ -1,4 +1,4 @@
-package simulation.s1;
+import simulation.s1.Simulation1;
 
 public class MainSimulation1 {
 

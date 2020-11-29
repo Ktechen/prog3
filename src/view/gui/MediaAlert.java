@@ -114,4 +114,40 @@ public class MediaAlert {
     public String getText() {
         return this.textField.getText();
     }
+
+    public String getTitleOfAlert() {
+        return titleOfAlert;
+    }
+
+    public String getHeaderOfAlert() {
+        return headerOfAlert;
+    }
+
+    public String getContentText() {
+        return contentText;
+    }
+
+    public String getLabelText() {
+        return labelText;
+    }
+
+    public String getPlaceHolderTextField() {
+        return placeHolderTextField;
+    }
+
+    public Alert getAlert() {
+        return alert;
+    }
+
+    public Label getLabel() {
+        return label;
+    }
+
+    public TextField getTextField() {
+        return textField;
+    }
+
+    public ButtonType getType() {
+        return type;
+    }
 }

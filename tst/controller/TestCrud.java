@@ -52,10 +52,10 @@ public class TestCrud {
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("TimPorsche"), "Tdas");
         create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reinerfall"), "Tdas");
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("HöchenFlug"), "Tdas");
-        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().getFirst(), "Tdas");
-        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().getFirst(), "Tdas");
-        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().getFirst(), "Tdas");
-        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().getFirst(), "Tdas");
+        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
+        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
+        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
+        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
 
         String name = "KevinTechen";
 
@@ -78,16 +78,15 @@ public class TestCrud {
 
         create.person("Kevin Techen");
 
-
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
         create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas");
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas");
-        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().getFirst(), "Tdas");
-        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().getFirst(), "Tdas");
-        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().getFirst(), "Tdas");
-        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().getFirst(), "Tdas");
+        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
+        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
+        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
+        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
 
-        create.licensedAudioVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().getFirst(), "LordPau", 300);
+        create.licensedAudioVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "LordPau", 300);
 
         Read read = new Read();
 
@@ -111,38 +110,13 @@ public class TestCrud {
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
         create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas");
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas");
-        create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().get(0), "Tdas");
+        create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
 
         Delete delete = new Delete();
 
         delete.perAddress(storage.getMedia().get(0).getAddress());
 
         Assertions.assertEquals(3, storage.getMedia().size());
-    }
-
-    @Test
-    public void deletePerAddressCheckPerson() throws InterruptedException {
-
-        t.add(Tag.Lifestyle);
-        t.add(Tag.Animal);
-
-        Storage storage = StorageAsSingelton.getInstance();
-        storage.clear();
-
-        Create create = new Create();
-
-        Person person = new Person("Kevin Techen");
-
-        create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
-        create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas");
-        create.interactiveVideo(300, 400, "edcs", 9174, d, t, person, "Tdas");
-        create.interactiveVideo(300, 400, "edcs", 9174, d, t, person, "Tdas");
-
-        Delete delete = new Delete();
-
-        delete.perAddress(storage.getMedia().get(3).getAddress());
-
-        Assertions.assertEquals(2, storage.getPerson().size());
     }
 
     @Test
@@ -166,7 +140,7 @@ public class TestCrud {
 
         delete.perAddress(storage.getMedia().get(2).getAddress());
 
-        Assertions.assertEquals(2, storage.getPerson().size());
+        Assertions.assertEquals(3, storage.getPerson().size());
 
     }
 
@@ -192,8 +166,7 @@ public class TestCrud {
 
         delete.perAddress(storage.getMedia().get(3).getAddress());
 
-        Assertions.assertEquals(2, storage.getPerson().size());
-
+        Assertions.assertEquals(3, storage.getPerson().size());
     }
 
     @Test
@@ -262,7 +235,7 @@ public class TestCrud {
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
         create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas");
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas");
-        create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().get(0), "Tdas");
+        create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
 
         update.accessCount(storage.getMedia().get(3).getAddress());
 
@@ -284,7 +257,7 @@ public class TestCrud {
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
         create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas");
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas");
-        create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().get(0), "Tdas");
+        create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
 
         update.accessCount(storage.getMedia().get(3).getAddress());
         update.accessCount(storage.getMedia().get(3).getAddress());
@@ -306,6 +279,9 @@ public class TestCrud {
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("TimPorsche"), "Tdas");
         update.accessCount(storage.getMedia().get(0).getAddress());
 
+        Long address = storage.getAccessCounter(storage.getMedia().get(0).getAddress());
+        System.out.println();
+
         Assertions.assertEquals(1, storage.getAccessCounter(storage.getMedia().get(0).getAddress()));
     }
 
@@ -323,7 +299,7 @@ public class TestCrud {
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
         create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas");
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas");
-        create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().get(0), "Tdas");
+        create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
 
         Update update = new Update();
         update.accessCount(storage.getMedia().get(3).getAddress());
@@ -354,7 +330,7 @@ public class TestCrud {
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
         create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas");
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas");
-        create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().get(0), "Tdas");
+        create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
         try {
             Read read = new Read();
 
@@ -377,8 +353,8 @@ public class TestCrud {
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
         create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas");
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas");
-        create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().get(0), "Tdas");
-        create.licensedAudioVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().get(0), "Stefan Pilz", 200);
+        create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
+        create.licensedAudioVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Stefan Pilz", 200);
 
         Read read = new Read();
 
@@ -403,7 +379,7 @@ public class TestCrud {
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
         create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas");
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas");
-        create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().get(0), "Tdas");
+        create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
 
         /*
         System.out.println(Tag.Lifestyle.name());

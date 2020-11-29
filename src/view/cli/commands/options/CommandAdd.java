@@ -1,6 +1,7 @@
 package view.cli.commands.options;
 
-import controller.InputConverter;
+import controller.handle.Const;
+import controller.handle.InputConverter;
 import controller.event.EventHandler;
 import controller.event.EventListener;
 import controller.event.events.event.add.EventAddMediaFiles;
@@ -36,6 +37,8 @@ public class CommandAdd implements ICommand {
      */
     @Override
     public void run() throws NullPointerException, InterruptedException {
+
+        //TODO Change to Updated code versions show controller/handle
 
         System.out.println(toString());
         Console console = new Console();
@@ -75,7 +78,7 @@ public class CommandAdd implements ICommand {
             case 8:
 
                 try {
-                    convertArray = converter.convertToArr(videoArray);
+                    convertArray = converter.convertInteractionVideo(videoArray);
                 } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | NumberFormatException e) {
                     System.out.println(e.getMessage());
                 }
@@ -94,7 +97,7 @@ public class CommandAdd implements ICommand {
             case 9:
 
                 try {
-                    convertArray = converter.convertToArrLicVideo(videoArray);
+                    convertArray = converter.convertLicensedVideo(videoArray);
                 } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | IllegalArgumentException e) {
                     System.out.println(e.getMessage());
                 }
@@ -115,8 +118,8 @@ public class CommandAdd implements ICommand {
 
     @Override
     public String toString() {
-        return InputConverter.USER_TEXT + "\n" +
-                InputConverter.INTER_VIDEO_TEXT + "\n" +
-                InputConverter.LIC_VIDEO_TEXT;
+        return Const.USER_TEXT + "\n" +
+                Const.INTER_VIDEO_TEXT + "\n" +
+                Const.LICENSED_AUDIO_VIDEO_TEXT;
     }
 }

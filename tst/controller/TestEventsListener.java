@@ -48,7 +48,7 @@ public class TestEventsListener {
         ELAddUploader elAddUploader = new ELAddUploader();
         elAddUploader.onInputEvent(event);
 
-        Assertions.assertEquals("PaulPanzer", storage.getPerson().getFirst().getName());
+        Assertions.assertEquals("PaulPanzer", storage.getPerson().iterator().next().getName());
     }
 
     @Test

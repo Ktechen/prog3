@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Date;
+import java.util.UUID;
 
 public class AudioVideo extends Audio implements modell.mediaDB.AudioVideo {
 
@@ -15,6 +16,19 @@ public class AudioVideo extends Audio implements modell.mediaDB.AudioVideo {
     private int height;
     private BigDecimal size;
 
+    /**
+     * AudioVideo
+     *
+     * @param width        = int
+     * @param height       = int
+     * @param endcoding    = string
+     * @param bitrate      = long
+     * @param duration     = duration
+     * @param tags         = Collection<tag>
+     * @param uploader     = uploader
+     * @param samplingRate = int
+     * @ParamLength = 8
+     */
     public AudioVideo(int width, int height, String endcoding, long bitrate, Duration duration, Collection<Tag> tags, Uploader uploader, int samplingRate) {
         super(bitrate, duration, tags, samplingRate, endcoding, uploader);
         this.width = width;
@@ -32,20 +46,16 @@ public class AudioVideo extends Audio implements modell.mediaDB.AudioVideo {
         StringBuilder builder = new StringBuilder();
         builder.append(getClass().getSimpleName());
         builder.append(Storage.TYPE_OF_SOURCE);
+        builder.append(this.getBitrate());
         builder.append("-");
-        builder.append(this.height);
+        builder.append(UUID.randomUUID());
         builder.append("-");
-        builder.append(this.width);
+        builder.append(this.getLength());
         builder.append("-");
-        builder.append(super.getBitrate());
+        final String tmp = new Date().toString();
+        builder.append(tmp.trim());
         builder.append("-");
-        builder.append(super.getLength());
-        builder.append("-");
-        builder.append(super.getSize());
-        builder.append("-");
-        builder.append(super.getAccessCount());
-        builder.append("-");
-        builder.append(new Date().toString());
+        builder.append(System.currentTimeMillis());
 
         return builder.toString();
     }

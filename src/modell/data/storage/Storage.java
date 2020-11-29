@@ -1,5 +1,6 @@
 package modell.data.storage;
 
+import modell.mediaDB.MediaContent;
 import modell.mediaDB.Uploadable;
 import modell.mediaDB.Uploader;
 import modell.mediaDB.Video;
@@ -15,7 +16,7 @@ public class Storage {
     private HashMap<String, Boolean> usedTags;
 
     public Storage() {
-        this.media = new LinkedList<>();
+        this.media = new ArrayList<>();
         this.person = new HashSet<>();
         this.usedTags = new HashMap<>();
         this.countOfUse = new HashMap<>();
@@ -38,11 +39,15 @@ public class Storage {
     public static final String TYPE_OF_SOURCE = "FILE:///";
 
     public synchronized List<Video> getMedia() {
-        return new LinkedList<>(this.media);
+        return new ArrayList<>(this.media);
     }
 
-    public LinkedList<Uploader> getPerson() {
-        return new LinkedList<>(this.person);
+    public synchronized List<Uploadable> getMediaTypeUploadable() {
+        return new ArrayList<>(this.media);
+    }
+
+    public HashSet<Uploader> getPerson() {
+        return new HashSet<>(this.person);
     }
 
     public HashMap<String, Boolean> getUsedTags() {
@@ -54,15 +59,38 @@ public class Storage {
         return true;
     }
 
+    public boolean removeMedia(Object o) {
+        this.media.remove(o);
+        return true;
+    }
+
     public boolean removeAllVideo(Collection<?> o) {
         this.media.removeAll(o);
         return true;
     }
 
-    public void addPerson(Uploader person) {
+    /**
+     * @param person
+     * @return if true add to list else user is in hashset
+     */
+    public boolean addPerson(Uploader person) {
         if (person != null) {
-            this.person.add(person);
+
+            boolean check = false;
+
+            for (Uploader uploader : this.getPerson()) {
+                if (person.getName().contains(uploader.getName())) {
+                    check = true;
+                }
+            }
+
+            if (!check) {
+                this.person.add(person);
+                return true;
+            }
         }
+
+        return false;
     }
 
     public synchronized int personSize(String name) {
@@ -71,7 +99,7 @@ public class Storage {
 
         for (Uploader person : person) {
             if (person.getName().compareTo(name) == 0) {
-                synchronized (this){
+                synchronized (this) {
                     counter = +1;
                 }
             }
@@ -81,13 +109,13 @@ public class Storage {
     }
 
     public boolean removePerson(int index) {
-        synchronized (this){
-            if (index > person.size()){
+        synchronized (this) {
+            if (index > person.size()) {
                 return false;
             }
             try {
                 this.person.remove(index);
-            }catch (IndexOutOfBoundsException e){
+            } catch (IndexOutOfBoundsException e) {
                 //System.out.println("Index: " + index + "| Size " + getMedia().size());
                 e.printStackTrace();
             }
@@ -114,7 +142,11 @@ public class Storage {
     }
 
     public long getAccessCounter(String address) {
-        return countOfUse.get(address);
+        boolean check = this.getCountOfUse().containsKey(address);
+        if (!check) {
+            throw new NullPointerException("Element no found");
+        }
+        return this.countOfUse.get(address);
     }
 
     public void setCountOfUse(HashMap<String, Long> countOfUse) {

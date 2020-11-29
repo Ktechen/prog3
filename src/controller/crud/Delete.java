@@ -32,10 +32,11 @@ public class Delete {
                     Set<Uploader> uploaders = new HashSet<>();
                     uploaders.add(person);
                     this.storage.removeAllPerson(uploaders);
+                    return true;
                 }
             }
 
-            return true;
+            return false;
         }
     }
 
@@ -47,24 +48,18 @@ public class Delete {
 
         synchronized (this.storage) {
 
-            int size = this.storage.getMedia().size();
+            final int size = this.storage.getMedia().size();
             if (size == 0) {
                 return false;
             }
 
-
             List<Uploadable> list = new LinkedList<>();
-            int indexValue = -1;
-            int index = 0;
-
             List<Video> contents = storage.getMedia();
 
             for (Video video : contents) {
                 if (video.getAddress().compareTo(address) == 0) {
                     list.add(video);
-                    indexValue = index;
                 }
-                index++;
             }
 
             if (list.size() == 0) {
@@ -72,14 +67,6 @@ public class Delete {
 
             } else {
                 this.storage.removeAllVideo(list);
-
-                //Nur einmal vorhanden
-                if (storage.personSize(list.get(0).getUploader().getName()) == 1) {
-                    clearPerson(list.get(0).getUploader().getName());
-                } else {
-                    storage.removePerson(indexValue);
-                }
-
                 //Update tags
                 changeTags();
             }
@@ -88,11 +75,12 @@ public class Delete {
         }
     }
 
+
     private void clearPerson(String name) {
         synchronized (this.storage) {
             LinkedList<Uploader> list = new LinkedList<>();
 
-            for (Uploader person : storage.getPerson()) {
+            for (Uploader person : this.storage.getPerson()) {
                 if (person.getName().compareTo(name) == 0) {
                     list.add(person);
                 }
@@ -111,11 +99,11 @@ public class Delete {
             read.setDefaultValuesOfUsedTags();
             Collection<Tag> values = null;
 
-            for (MediaContent mediaContent: this.storage.getMedia()) {
+            for (MediaContent mediaContent : this.storage.getMedia()) {
                 values = mediaContent.getTags();
             }
 
-            if(values != null){
+            if (values != null) {
                 read.tagFinder(values);
             }
         }

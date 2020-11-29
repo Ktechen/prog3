@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class Update {
 
-    public final Storage storage;
+    private final Storage storage;
 
     public Update() {
         this.storage = StorageAsSingelton.getInstance();
@@ -26,5 +26,9 @@ public class Update {
             map.replace(address, map.get(address) + 1);
         }
         this.storage.setCountOfUse(map);
+    }
+
+    public long getAccessCount(String address) {
+        return this.storage.getCountOfUse().get(address);
     }
 }

@@ -14,11 +14,23 @@ public class Audio extends MediaContent implements modell.mediaDB.Audio {
     private String endcoding;
     private Uploader uploader;
     private Date date;
+    private final double rdm = Math.random() * 1000000;
 
+    /**
+     * Audio
+     *
+     * @param bitrate      = long
+     * @param duration     = duration
+     * @param tags         = Collection<tag>
+     * @param samplingRate = int
+     * @param endcoding    = string
+     * @param uploader     = uploader
+     * @Paramlength = 6
+     */
     public Audio(long bitrate, Duration duration, Collection<Tag> tags, int samplingRate, String endcoding, Uploader uploader) {
         super(bitrate, duration, tags);
 
-        if(uploader == null){
+        if (uploader == null) {
             throw new NullPointerException("uploader is null");
         }
 
@@ -26,29 +38,6 @@ public class Audio extends MediaContent implements modell.mediaDB.Audio {
         this.endcoding = endcoding;
         this.uploader = uploader;
         this.date = new Date();
-    }
-
-    @Override
-    public String getAddress() {
-        return generateAddress();
-    }
-
-    @Override
-    public String generateAddress() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(getClass().getSimpleName());
-        builder.append(Storage.TYPE_OF_SOURCE);
-        builder.append(super.getBitrate());
-        builder.append("-");
-        builder.append(super.getLength());
-        builder.append("-");
-        builder.append(super.getSize());
-        builder.append("-");
-        builder.append(super.getAccessCount());
-        builder.append("-");
-        builder.append(new Date().toString());
-
-        return builder.toString();
     }
 
     @Override
