@@ -7,6 +7,7 @@ import modell.mediaDB.Uploader;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Date;
+import java.util.UUID;
 
 public class Audio extends MediaContent implements modell.mediaDB.Audio {
 
@@ -14,8 +15,6 @@ public class Audio extends MediaContent implements modell.mediaDB.Audio {
     private String endcoding;
     private Uploader uploader;
     private Date date;
-    private final double rdm = Math.random() * 1000000;
-
     /**
      * Audio
      *
@@ -28,7 +27,7 @@ public class Audio extends MediaContent implements modell.mediaDB.Audio {
      * @Paramlength = 6
      */
     public Audio(long bitrate, Duration duration, Collection<Tag> tags, int samplingRate, String endcoding, Uploader uploader) {
-        super(bitrate, duration, tags);
+        super(tags, bitrate, duration);
 
         if (uploader == null) {
             throw new NullPointerException("uploader is null");

@@ -1,6 +1,6 @@
 package modell.data.storage;
 
-public final class StorageAsSingelton {
+public final class StorageAsSingelton{
 
     private volatile static Storage instance;
 
@@ -14,11 +14,13 @@ public final class StorageAsSingelton {
      *
      * @return memory
      */
-    public synchronized static Storage getInstance() {
-        if (null == StorageAsSingelton.instance) {
-            StorageAsSingelton.instance = new Storage();
+    public static  Storage getInstance() {
+        synchronized(StorageAsSingelton.class){
+            if (null == StorageAsSingelton.instance) {
+                StorageAsSingelton.instance = new Storage();
+            }
+            return StorageAsSingelton.instance;
         }
-        return StorageAsSingelton.instance;
     }
 
 }

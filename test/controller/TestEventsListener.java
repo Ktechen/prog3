@@ -8,7 +8,10 @@ import controller.event.events.event.add.EventAddMediaFiles;
 import controller.event.events.event.add.EventAddUploader;
 import controller.event.events.listener.add.ELAddMediafiles;
 import controller.event.events.listener.add.ELAddUploader;
+import modell.mediaDB.MediaContent;
 import modell.mediaDB.Tag;
+import modell.mediaDB.Uploader;
+import modell.mediaDB.Video;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +20,8 @@ import org.mockito.Mockito;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 public class TestEventsListener {
 
@@ -48,7 +53,9 @@ public class TestEventsListener {
         ELAddUploader elAddUploader = new ELAddUploader();
         elAddUploader.onInputEvent(event);
 
-        Assertions.assertEquals("PaulPanzer", storage.getPerson().iterator().next().getName());
+        Set<Uploader> uploaderSet = storage.getPerson();
+
+        Assertions.assertEquals("PaulPanzer", uploaderSet.iterator().next().getName());
     }
 
     @Test
@@ -67,13 +74,15 @@ public class TestEventsListener {
         tag.add(Tag.Lifestyle);
         //(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Person person, String type)
 
-        Assertions.assertEquals(200, storage.getMedia().get(0).getWidth());
-        Assertions.assertEquals(300, storage.getMedia().get(0).getHeight());
-        Assertions.assertEquals("mix", storage.getMedia().get(0).getEncoding());
-        Assertions.assertEquals(8373, storage.getMedia().get(0).getBitrate());
-        Assertions.assertEquals(Duration.parse("PT20m"), storage.getMedia().get(0).getLength());
-        Assertions.assertEquals(tag, storage.getMedia().get(0).getTags());
-        Assertions.assertEquals("KevinTechen", storage.getMedia().get(0).getUploader().getName());
+        List<Video> list = storage.getMedia();
+
+        Assertions.assertEquals(200, list.get(0).getWidth());
+        Assertions.assertEquals(300, list.get(0).getHeight());
+        Assertions.assertEquals("mix", list.get(0).getEncoding());
+        Assertions.assertEquals(8373, list.get(0).getBitrate());
+        Assertions.assertEquals(Duration.parse("PT20m"), list.get(0).getLength());
+        Assertions.assertEquals(tag, list.get(0).getTags());
+        Assertions.assertEquals("KevinTechen", list.get(0).getUploader().getName());
     }
 
     /* TODO change show element

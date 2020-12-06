@@ -46,7 +46,7 @@ public class LicensedAudioVideo extends AudioVideo implements modell.mediaDB.Lic
                 ", tag=" + this.getTags() +
                 ", uploader=" + this.getUploader().getName() +
                 ", updateDate=" + this.getUploadDate() +
-                ", updateDate=" + this.holder +
+                ", holder=" + this.holder +
                 ", clicks=" + this.getAccessCount() +
                 ", address=" + this.getAddress() + "}";
     }

@@ -4,10 +4,7 @@ import modell.data.storage.Storage;
 import modell.data.storage.StorageAsSingelton;
 import modell.mediaDB.*;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Read {
 
@@ -60,7 +57,7 @@ public class Read {
      *
      * @return
      */
-    public List<Video> fullList() {
+    public  List<MediaContent> fullList() {
         return storage.getMedia();
     }
 
@@ -70,17 +67,17 @@ public class Read {
      * @param video
      * @return
      */
-    public List<Video> getFullListOrFilterbyTyp(String video) {
+    public List<MediaContent> getFullListOrFilterbyTyp(String video) {
 
         if (video == null) {
             return fullList();
         }
 
-        LinkedList<Video> list = new LinkedList<>();
+        LinkedList<MediaContent> list = new LinkedList<>();
 
-        for (int i = 0; i < storage.getMedia().size(); i++) {
+        for (int i = 0; i < this.storage.getMedia().size(); i++) {
             if (storage.getMedia().get(i).toString().trim().indexOf(video.trim()) == 0) {
-                list.add(storage.getMedia().get(i));
+                list.add((MediaContent) this.storage.getMedia().get(i));
             }
         }
 
@@ -139,8 +136,9 @@ public class Read {
     public Uploader foundPerson(String name) {
 
         Uploader person = null;
+        Set<Uploader> uploaderSet = this.storage.getPerson();
 
-        for (Uploader uploader : this.storage.getPerson()) {
+        for (Uploader uploader : uploaderSet) {
             if (name.compareTo(uploader.getName()) == 0) {
                 person = uploader;
             }

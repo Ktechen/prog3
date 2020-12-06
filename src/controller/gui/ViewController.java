@@ -1,36 +1,39 @@
 package controller.gui;
 
+import controller.crud.Create;
 import controller.crud.Update;
 import controller.handle.Const;
 import controller.handle.create.CreateOption;
 import controller.handle.delete.DeleteOption;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.PickResult;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
+import modell.data.content.Person;
 import modell.data.storage.Storage;
 import modell.data.storage.StorageAsSingelton;
 import modell.mediaDB.*;
 import view.gui.MediaAlert;
 
+import java.io.IOException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ViewController implements Initializable {
 
-    private final Storage storage;
+    private Storage storage;
 
     @FXML
     private ListView<Uploadable> listViewMedia;
@@ -75,18 +78,11 @@ public class ViewController implements Initializable {
         this.ListViewUser.setItems(FXCollections.observableArrayList(uploader));
     }
 
-    /**
-     * Sort by count of clicks
-     *
-     * @param mouseEvent
-     */
-    public void btnSortAnzahlClick(MouseEvent mouseEvent) {
-        //TODO Buggi
-        List<Video> video = this.storage.getMedia();
-        video.sort(Comparator.comparing(Content::getAccessCount));
-        this.updateAllLists(video, this.storage.getPerson());
-    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Start                                                                                                              //
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //#region start
     public void createOnAction(ActionEvent actionEvent) {
         String text = Const.LICENSED_AUDIO_VIDEO_TEXT + "\n" + Const.INTER_VIDEO_TEXT + " \n" + Const.USER_TEXT;
         MediaAlert mediaAlert = new MediaAlert("Create a Media File", text, "Media/Person:");
@@ -136,15 +132,55 @@ public class ViewController implements Initializable {
      * @param actionEvent
      */
     public void updateOnAction(ActionEvent actionEvent) {
+        MediaAlert mediaAlert = new MediaAlert("Update a Media File", "Update via Address ", "Address:");
 
+        if (mediaAlert.getButtonType() == ButtonType.CANCEL) {
+            this.updateDisplay.setText("No element was been updated");
+        }
+
+        if (mediaAlert.getButtonType() == ButtonType.OK) {
+            Update update = new Update();
+            update.accessCount(mediaAlert.getText());
+            this.updateDisplay.setText("Update");
+            System.out.println(mediaAlert.getText());
+            System.out.println("Clicks: " + update.getAccessCount(mediaAlert.getText()));
+        }
+        this.updateAllLists();
     }
 
     public void configOnAction(ActionEvent actionEvent) {
 
     }
 
-    public void PersistenzmodusOnAction(ActionEvent actionEvent) {
+    public void PersistenzmodusOnAction(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/gui/IO.fxml"));
+        System.out.println(getClass().getResource("/view/gui/IO.fxml"));
+        Parent p = fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(p));
+        stage.setTitle("Save");
+        stage.show();
     }
+
+    //#endregion
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Drag & Drop                                                                                                        //
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void dragAddress(MouseEvent mouseEvent) {
+        //System.out.println("Drag event");
+    }
+
+    public void dropAddress(DragEvent dragEvent) {
+        //System.out.println("Drop event");
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Sort                                                                                                               //
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //#region sort
 
     public void sortAdressOnAction(ActionEvent actionEvent) {
         List<Video> video = this.storage.getMedia();
@@ -161,11 +197,17 @@ public class ViewController implements Initializable {
     }
 
     public void sortProduzentOnAction(ActionEvent actionEvent) {
-        List<Uploadable> video = this.storage.getMediaTypeUploadable();
+        List<Uploadable> video = this.storage.getMedia();
         video.sort(Comparator.comparing(o -> o.getUploader().getName()));
         this.updateAllLists(video, this.storage.getPerson());
         this.updateDisplay.setText("Sorted by Uploader");
     }
+
+    //#endregion
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //DEBUG                                                                                                             ///
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public void mediafileOnClick(MouseEvent mouseEvent) {
         if (mouseEvent.getClickCount() == 2) {
@@ -179,7 +221,32 @@ public class ViewController implements Initializable {
             Update update = new Update();
             update.accessCount(address);
 
-            System.out.println("Clicks: " +  update.getAccessCount(address));
+            System.out.println(address);
+            System.out.println("Clicks: " + update.getAccessCount(address));
         }
+        this.updateAllLists();
+    }
+
+    public void onActionClearAll(ActionEvent actionEvent) {
+        this.storage.clear();
+        this.updateAllLists();
+    }
+
+    public void onActionSetupOne(ActionEvent actionEvent) {
+        final Create create = new Create();
+        final Collection<Tag> t = new LinkedList<>();
+        t.add(Tag.Lifestyle);
+        t.add(Tag.Animal);
+        final Duration d = Duration.ofSeconds(2000);
+        final Person person = new Person("Höchen Flug");
+
+        create.interactiveVideo(100, 400, "vhj", 9174, d, t, new Person("Tim Porsche"), "Tdas");
+        create.interactiveVideo(200, 400, "mix", 9174, d, t, new Person("Reiner fall"), "Tdas");
+        create.interactiveVideo(300, 400, "de", 9174, d, t, person, "Tdas");
+
+        create.licensedAudioVideo(300, 599, "edcs", 9174, d, t, person, "Tim", 233);
+        create.licensedAudioVideo(3221, 400, "gjtzu", 9174, d, t, person, "Tim", 233);
+
+        this.updateAllLists();
     }
 }

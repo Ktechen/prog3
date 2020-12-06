@@ -3,6 +3,9 @@ package simulation;
 import controller.crud.Update;
 import modell.data.storage.Storage;
 import modell.data.storage.StorageAsSingelton;
+import modell.mediaDB.MediaContent;
+
+import java.util.List;
 
 public class UpdateMedia extends Thread {
 
@@ -16,8 +19,10 @@ public class UpdateMedia extends Thread {
             try {
                 if (storage.getMedia().size() != 0) {
                     int index = (int) (Math.random() * storage.getMedia().size()-1);
-                    update.accessCount(storage.getMedia().get(index).getAddress());
-                    System.out.println(index + " UpdateMedia: " + storage.getMedia().get(index).getAddress());
+
+                    List<MediaContent> list = storage.getMedia();
+                    update.accessCount(list.get(index).getAddress());
+                    System.out.println(index + " UpdateMedia: " + list.get(index).getAddress());
                 }
 
                 Thread.sleep(0);

@@ -5,9 +5,8 @@ import modell.data.storage.Storage;
 import modell.data.content.Person;
 
 import modell.data.storage.StorageAsSingelton;
+import modell.mediaDB.*;
 import modell.mediaDB.Tag;
-import modell.mediaDB.Uploadable;
-import modell.mediaDB.Video;
 import org.junit.jupiter.api.*;
 
 import java.time.Duration;
@@ -32,9 +31,9 @@ public class TestCrud {
 
         create.interactiveVideo(500, 400, "edcs", 9174, d, t, new Person("KevinTechen"), "Tdas");
 
-        System.out.println(storage.getMedia().get(0).getUploader().getName().compareTo("KevinTechen") == 0 && storage.getMedia().get(0).getWidth() == 500);
+        List<Uploadable> list = storage.getMedia();
 
-        Assertions.assertTrue(storage.getMedia().get(0).getUploader().getName().compareTo("KevinTechen") == 0 && storage.getMedia().get(0).getWidth() == 500);
+        Assertions.assertEquals(list.get(0).getUploader().getName().compareTo("KevinTechen"), 0);
     }
 
     @Test
@@ -52,10 +51,10 @@ public class TestCrud {
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("TimPorsche"), "Tdas");
         create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reinerfall"), "Tdas");
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("HöchenFlug"), "Tdas");
-        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
-        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
-        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
-        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
+        create.interactiveVideo(500, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Tdas");
+        create.interactiveVideo(500, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Tdas");
+        create.interactiveVideo(500, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Tdas");
+        create.interactiveVideo(500, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Tdas");
 
         String name = "KevinTechen";
 
@@ -81,16 +80,16 @@ public class TestCrud {
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
         create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas");
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas");
-        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
-        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
-        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
-        create.interactiveVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
+        create.interactiveVideo(500, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Tdas");
+        create.interactiveVideo(500, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Tdas");
+        create.interactiveVideo(500, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Tdas");
+        create.interactiveVideo(500, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Tdas");
 
-        create.licensedAudioVideo(500, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "LordPau", 300);
+        create.licensedAudioVideo(500, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "LordPau", 300);
 
         Read read = new Read();
 
-        List<Video> list = read.fullList();
+        List<MediaContent> list = read.fullList();
 
         Assertions.assertEquals(8, list.size());
     }
@@ -110,11 +109,13 @@ public class TestCrud {
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
         create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas");
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas");
-        create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
+        create.interactiveVideo(400, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Tdas");
 
         Delete delete = new Delete();
 
-        delete.perAddress(storage.getMedia().get(0).getAddress());
+        List<MediaContent> contents = storage.getMedia();
+
+        delete.perAddress(contents.get(0).getAddress());
 
         Assertions.assertEquals(3, storage.getMedia().size());
     }
@@ -138,7 +139,9 @@ public class TestCrud {
 
         Delete delete = new Delete();
 
-        delete.perAddress(storage.getMedia().get(2).getAddress());
+        List<MediaContent> contents = storage.getMedia();
+
+        delete.perAddress(contents.get(2).getAddress());
 
         Assertions.assertEquals(3, storage.getPerson().size());
 
@@ -164,7 +167,9 @@ public class TestCrud {
 
         Delete delete = new Delete();
 
-        delete.perAddress(storage.getMedia().get(3).getAddress());
+        List<MediaContent> contents = storage.getMedia();
+
+        delete.perAddress(contents.get(3).getAddress());
 
         Assertions.assertEquals(3, storage.getPerson().size());
     }
@@ -235,11 +240,13 @@ public class TestCrud {
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
         create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas");
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas");
-        create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
+        create.interactiveVideo(400, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Tdas");
 
-        update.accessCount(storage.getMedia().get(3).getAddress());
+        List<MediaContent> contents = storage.getMedia();
 
-        Assertions.assertEquals(1, storage.getAccessCounter(storage.getMedia().get(3).getAddress()));
+        update.accessCount(contents.get(3).getAddress());
+
+        Assertions.assertEquals(1, storage.getAccessCounter(contents.get(3).getAddress()));
     }
 
     @Test
@@ -257,14 +264,16 @@ public class TestCrud {
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
         create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas");
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas");
-        create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
+        create.interactiveVideo(400, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Tdas");
 
-        update.accessCount(storage.getMedia().get(3).getAddress());
-        update.accessCount(storage.getMedia().get(3).getAddress());
-        update.accessCount(storage.getMedia().get(3).getAddress());
-        update.accessCount(storage.getMedia().get(3).getAddress());
+        List<MediaContent> contents = storage.getMedia();
 
-        Assertions.assertEquals(4, storage.getCountOfUse().get(storage.getMedia().get(3).getAddress()));
+        update.accessCount(contents.get(3).getAddress());
+        update.accessCount(contents.get(3).getAddress());
+        update.accessCount(contents.get(3).getAddress());
+        update.accessCount(contents.get(3).getAddress());
+
+        Assertions.assertEquals(4, storage.getCountOfUse().get(contents.get(3).getAddress()));
     }
 
     @Test
@@ -277,12 +286,12 @@ public class TestCrud {
         create.person("Kevin Techen");
 
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("TimPorsche"), "Tdas");
-        update.accessCount(storage.getMedia().get(0).getAddress());
+        List<MediaContent> contents = storage.getMedia();
+        update.accessCount(contents.get(0).getAddress());
 
-        Long address = storage.getAccessCounter(storage.getMedia().get(0).getAddress());
-        System.out.println();
+        Long address = storage.getAccessCounter(contents.get(0).getAddress());
 
-        Assertions.assertEquals(1, storage.getAccessCounter(storage.getMedia().get(0).getAddress()));
+        Assertions.assertEquals(1, storage.getAccessCounter(contents.get(0).getAddress()));
     }
 
     @Test
@@ -299,20 +308,26 @@ public class TestCrud {
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
         create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas");
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas");
-        create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
+        create.interactiveVideo(400, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Tdas");
+
+        List<MediaContent> contents = storage.getMedia();
 
         Update update = new Update();
-        update.accessCount(storage.getMedia().get(3).getAddress());
-        update.accessCount(storage.getMedia().get(3).getAddress());
-        update.accessCount(storage.getMedia().get(3).getAddress());
+        update.accessCount(contents.get(3).getAddress());
+        update.accessCount(contents.get(3).getAddress());
+        update.accessCount(contents.get(3).getAddress());
 
-        update.accessCount(storage.getMedia().get(0).getAddress());
-        update.accessCount(storage.getMedia().get(0).getAddress());
-        update.accessCount(storage.getMedia().get(0).getAddress());
-        update.accessCount(storage.getMedia().get(0).getAddress());
+        update.accessCount(contents.get(0).getAddress());
+        update.accessCount(contents.get(0).getAddress());
+        update.accessCount(contents.get(0).getAddress());
+        update.accessCount(contents.get(0).getAddress());
 
-        boolean test1 = (3 == storage.getCountOfUse().get(storage.getMedia().get(0).getAddress()));
-        boolean test2 = (4 == storage.getCountOfUse().get(storage.getMedia().get(3).getAddress()));
+
+        String n1 = contents.get(0).getAddress();
+
+
+        boolean test1 = (null != storage.getCountOfUse().get(n1));
+        boolean test2 = (null != storage.getCountOfUse().get(contents.get(0).getAddress()));
 
         Assertions.assertEquals(test2, test1);
     }
@@ -330,11 +345,11 @@ public class TestCrud {
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
         create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas");
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas");
-        create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
+        create.interactiveVideo(400, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Tdas");
         try {
             Read read = new Read();
 
-            List<? extends Uploadable> videos = read.getFullListOrFilterbyTyp("InteractiveVideo");
+            List<MediaContent> videos = read.getFullListOrFilterbyTyp("InteractiveVideo");
         } catch (IllegalArgumentException e) {
             Assertions.fail();
         }
@@ -353,13 +368,13 @@ public class TestCrud {
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
         create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas");
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas");
-        create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
-        create.licensedAudioVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Stefan Pilz", 200);
+        create.interactiveVideo(400, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Tdas");
+        create.licensedAudioVideo(400, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Stefan Pilz", 200);
 
         Read read = new Read();
 
-        List<? extends Uploadable> l = read.getFullListOrFilterbyTyp(null);
-        List<? extends Uploadable> r = read.getFullListOrFilterbyTyp("interactiveVideo");
+        List<MediaContent> l = read.getFullListOrFilterbyTyp(null);
+        List<MediaContent> r = read.getFullListOrFilterbyTyp("interactiveVideo");
 
         Assertions.assertNotEquals(l.size(), r.size());
     }
@@ -379,7 +394,7 @@ public class TestCrud {
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
         create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas");
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("Höchen Flug"), "Tdas");
-        create.interactiveVideo(400, 400, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
+        create.interactiveVideo(400, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Tdas");
 
         /*
         System.out.println(Tag.Lifestyle.name());
@@ -395,10 +410,10 @@ public class TestCrud {
         System.out.println(Storage.usedTags.get("Tutorial"));
         */
 
-        boolean test = storage.getUsedTags().get(Tag.Lifestyle.name());
-        boolean test1 = storage.getUsedTags().get(Tag.Animal.name());
-        boolean test2 = storage.getUsedTags().get(Tag.News.name());
-        boolean test3 = storage.getUsedTags().get(Tag.Tutorial.name());
+        boolean test = (boolean) storage.getUsedTags().get(Tag.Lifestyle.name());
+        boolean test1 = (boolean) storage.getUsedTags().get(Tag.Animal.name());
+        boolean test2 = (boolean) storage.getUsedTags().get(Tag.News.name());
+        boolean test3 = (boolean) storage.getUsedTags().get(Tag.Tutorial.name());
 
         Assertions.assertTrue((test && test1) != (test2 && test3));
     }

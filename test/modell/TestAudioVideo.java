@@ -40,8 +40,8 @@ public class TestAudioVideo {
         create.interactiveVideo(500, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            ;
-            create.interactiveVideo(2000, 2001, "edcs", 9174, d, t, storage.getPerson().iterator().next(), "Tdas");
+
+            create.interactiveVideo(2000, 2001, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Tdas");
         });
 
         storage.clear();

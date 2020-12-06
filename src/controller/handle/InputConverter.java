@@ -45,7 +45,7 @@ import java.util.Collection;
      */
     public Object[] convertInteractionVideo(String[] value) {
 
-        Object[] o = new Object[8];
+        Object[] o = new Object[value.length];
 
         try {
             o[0] = intConverter(value, 0);// Width

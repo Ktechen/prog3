@@ -24,6 +24,12 @@
                         <MenuItem fx:id="sortProduzent" mnemonicParsing="false" onAction="#sortProduzentOnAction" text="Sorted by Produzent" />
                     </items>
                 </Menu>
+            <Menu mnemonicParsing="false" text="Debug">
+              <items>
+                  <MenuItem fx:id="clearAll" mnemonicParsing="false" onAction="#onActionClearAll" text="Clear all" />
+                  <MenuItem fx:id="Setup" mnemonicParsing="false" onAction="#onActionSetupOne" text="Add setup 5 Media and 3 Uploader" />
+              </items>
+            </Menu>
             </menus>
         </MenuBar>
     </top>
@@ -34,7 +40,7 @@
                <font>
                   <Font size="18.0" />
                </font></Label>
-                <ListView fx:id="listViewMedia" onMouseClicked="#mediafileOnClick" prefHeight="200.0" prefWidth="200.0" />
+                <ListView fx:id="listViewMedia" onDragDetected="#dragAddress" onDragDropped="#dropAddress" onMouseClicked="#mediafileOnClick" prefHeight="200.0" prefWidth="200.0" />
                 <Label text="Uploader:">
                <font>
                   <Font size="18.0" />

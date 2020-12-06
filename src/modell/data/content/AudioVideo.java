@@ -1,14 +1,11 @@
 package modell.data.content;
 
-import modell.data.storage.Storage;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploader;
 
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.Collection;
-import java.util.Date;
-import java.util.UUID;
 
 public class AudioVideo extends Audio implements modell.mediaDB.AudioVideo {
 
@@ -39,25 +36,6 @@ public class AudioVideo extends Audio implements modell.mediaDB.AudioVideo {
     @Override
     public BigDecimal getSize() {
         return this.size;
-    }
-
-    @Override
-    public String getAddress() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(getClass().getSimpleName());
-        builder.append(Storage.TYPE_OF_SOURCE);
-        builder.append(this.getBitrate());
-        builder.append("-");
-        builder.append(UUID.randomUUID());
-        builder.append("-");
-        builder.append(this.getLength());
-        builder.append("-");
-        final String tmp = new Date().toString();
-        builder.append(tmp.trim());
-        builder.append("-");
-        builder.append(System.currentTimeMillis());
-
-        return builder.toString();
     }
 
     @Override

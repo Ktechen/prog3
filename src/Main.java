@@ -1,5 +1,6 @@
 import controller.crud.Create;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,7 +21,6 @@ public class Main extends Application {
     private static final int START_SEQ = 1;
 
     public static void main(String[] args) throws InterruptedException {
-        load();
         switch (START_SEQ) {
             case 0:
                 startCli();
@@ -39,22 +39,6 @@ public class Main extends Application {
         }
     }
 
-    private static void load() throws InterruptedException {
-        final Create create = new Create();
-        final Collection<Tag> t = new LinkedList<>();
-        t.add(Tag.Lifestyle);
-        t.add(Tag.Animal);
-        final Duration d = Duration.ofSeconds(2000);
-        final Person person = new Person("Höchen Flug");
-
-        create.interactiveVideo(100, 400, "vhj", 9174, d, t, new Person("Tim Porsche"), "Tdas");
-        create.interactiveVideo(200, 400, "mix", 9174, d, t, new Person("Reiner fall"), "Tdas");
-        create.interactiveVideo(300, 400, "de", 9174, d, t, person, "Tdas");
-
-        create.licensedAudioVideo(300, 599, "edcs", 9174, d, t, person, "Tim", 233);
-        create.licensedAudioVideo(3221, 400, "gjtzu", 9174, d, t, person, "Tim", 233);
-    }
-
     @Override
     public void start(Stage stage) throws Exception {
         Parent p = FXMLLoader.load(getClass().getResource("view/gui/Start.fxml"));
@@ -63,6 +47,9 @@ public class Main extends Application {
         stage.setResizable(true);
         stage.setMinHeight(650);
         stage.setMinWidth(900);
+        stage.setOnCloseRequest(event -> {
+            Platform.exit();
+        });
         stage.show();
     }
 

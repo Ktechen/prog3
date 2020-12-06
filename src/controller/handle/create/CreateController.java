@@ -8,6 +8,9 @@ import modell.mediaDB.Uploader;
 import java.time.Duration;
 import java.util.Collection;
 
+/**
+ * Stellt die Beziehung zwischen dem Input und der Verarbeiter der Daten da
+ */
 final class CreateController {
 
     private final Create create;

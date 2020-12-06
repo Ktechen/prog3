@@ -27,7 +27,8 @@ public class Delete {
     public boolean perUser(String name) {
         synchronized (this.storage) {
 
-            for (Uploader person : this.storage.getPerson()) {
+            Set<Uploader> set = this.storage.getPerson();
+            for (Uploader person : set) {
                 if (person.getName().toLowerCase().compareTo(name.toLowerCase()) == 0) {
                     Set<Uploader> uploaders = new HashSet<>();
                     uploaders.add(person);
@@ -53,10 +54,10 @@ public class Delete {
                 return false;
             }
 
-            List<Uploadable> list = new LinkedList<>();
-            List<Video> contents = storage.getMedia();
+            List<MediaContent> list = new LinkedList<>();
+            List<MediaContent> contents = storage.getMedia();
 
-            for (Video video : contents) {
+            for (MediaContent video : contents) {
                 if (video.getAddress().compareTo(address) == 0) {
                     list.add(video);
                 }
@@ -78,9 +79,9 @@ public class Delete {
 
     private void clearPerson(String name) {
         synchronized (this.storage) {
-            LinkedList<Uploader> list = new LinkedList<>();
+            Set<Uploader> list = this.storage.getPerson();
 
-            for (Uploader person : this.storage.getPerson()) {
+            for (Uploader person : list) {
                 if (person.getName().compareTo(name) == 0) {
                     list.add(person);
                 }
@@ -99,7 +100,9 @@ public class Delete {
             read.setDefaultValuesOfUsedTags();
             Collection<Tag> values = null;
 
-            for (MediaContent mediaContent : this.storage.getMedia()) {
+            List<MediaContent> mediaContents = this.storage.getMedia();
+
+            for (MediaContent mediaContent : mediaContents) {
                 values = mediaContent.getTags();
             }
 

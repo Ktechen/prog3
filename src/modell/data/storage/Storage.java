@@ -1,17 +1,14 @@
 package modell.data.storage;
 
-import modell.mediaDB.MediaContent;
-import modell.mediaDB.Uploadable;
-import modell.mediaDB.Uploader;
-import modell.mediaDB.Video;
+import modell.mediaDB.*;
 
 import java.math.BigDecimal;
 import java.util.*;
 
-public class Storage {
+public class Storage<T extends Uploadable & MediaContent, E extends Uploader> {
 
-    private List<Video> media;
-    private Set<Uploader> person;
+    private List<T> media;
+    private Set<E> person;
     private HashMap<String, Long> countOfUse;
     private HashMap<String, Boolean> usedTags;
 
@@ -38,15 +35,11 @@ public class Storage {
      */
     public static final String TYPE_OF_SOURCE = "FILE:///";
 
-    public synchronized List<Video> getMedia() {
-        return new ArrayList<>(this.media);
+    public synchronized List<T> getMedia() {
+        return new LinkedList<>(this.media);
     }
 
-    public synchronized List<Uploadable> getMediaTypeUploadable() {
-        return new ArrayList<>(this.media);
-    }
-
-    public HashSet<Uploader> getPerson() {
+    public HashSet<E> getPerson() {
         return new HashSet<>(this.person);
     }
 
@@ -54,8 +47,10 @@ public class Storage {
         return new HashMap<>(this.usedTags);
     }
 
-    public boolean addMedia(Video video) {
+    public synchronized boolean addMedia(T video) {
         this.media.add(video);
+        this.initCounter(video.getAddress());
+        System.out.println(video.getAddress());
         return true;
     }
 
@@ -73,7 +68,7 @@ public class Storage {
      * @param person
      * @return if true add to list else user is in hashset
      */
-    public boolean addPerson(Uploader person) {
+    public boolean addPerson(E person) {
         if (person != null) {
 
             boolean check = false;
@@ -134,23 +129,28 @@ public class Storage {
         this.usedTags = usedTags;
     }
 
+    private void initCounter(String address) {
+        this.countOfUse.put(address, (long) 0);
+    }
+
     /**
      * Save clicks of Addresses
      */
     public HashMap<String, Long> getCountOfUse() {
-        return new HashMap<>(this.countOfUse);
-    }
-
-    public long getAccessCounter(String address) {
-        boolean check = this.getCountOfUse().containsKey(address);
-        if (!check) {
-            throw new NullPointerException("Element no found");
+        synchronized (this) {
+            return new HashMap<>(this.countOfUse);
         }
-        return this.countOfUse.get(address);
     }
 
-    public void setCountOfUse(HashMap<String, Long> countOfUse) {
-        this.countOfUse = countOfUse;
+
+    public void setCountOfUse(HashMap<String, Long> map) {
+        this.countOfUse = map;
+    }
+
+    public synchronized long getAccessCounter(String address) {
+        HashMap<String, Long> map = this.getCountOfUse();
+
+        return map.get(address);
     }
 
     /**
@@ -162,4 +162,5 @@ public class Storage {
         this.usedTags = new HashMap<>();
         this.countOfUse = new HashMap<>();
     }
+
 }

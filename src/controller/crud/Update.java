@@ -17,7 +17,7 @@ public class Update {
         this.storage = storage;
     }
 
-    public void accessCount(String address) {
+    public boolean accessCount(String address) {
         HashMap<String, Long> map = this.storage.getCountOfUse();
 
         if (!(map.containsKey(address))) {
@@ -26,9 +26,11 @@ public class Update {
             map.replace(address, map.get(address) + 1);
         }
         this.storage.setCountOfUse(map);
+
+        return false;
     }
 
     public long getAccessCount(String address) {
-        return this.storage.getCountOfUse().get(address);
+        return (long) this.storage.getCountOfUse().get(address);
     }
 }

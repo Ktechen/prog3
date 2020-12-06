@@ -3,6 +3,9 @@ package simulation;
 import controller.crud.Delete;
 import modell.data.storage.Storage;
 import modell.data.storage.StorageAsSingelton;
+import modell.mediaDB.MediaContent;
+
+import java.util.List;
 
 public class RemoveMedia extends Thread {
 
@@ -25,8 +28,8 @@ public class RemoveMedia extends Thread {
                     int indexOfDeleteElement = (int) (Math.random() * (size - 1));
 
                     try {
-
-                        delete.perAddress(StorageAsSingelton.getInstance().getMedia().get(indexOfDeleteElement).getAddress());
+                        List<MediaContent> list = this.storage.getMedia();
+                        delete.perAddress(list.get(indexOfDeleteElement).getAddress());
                         System.out.println("Index: " + indexOfDeleteElement + " Deleted by " + this.getName());
 
                         Thread.sleep(0);

@@ -2,6 +2,9 @@ package controller.handle.create;
 
 import controller.handle.Const;
 
+/**
+ * Handle die Eingabe vom Benutzer
+ */
 public final class CreateOption {
 
     private CreateController createController;
@@ -25,10 +28,10 @@ public final class CreateOption {
                 return "Uploader";
             case "iv":
                 createController.interactiveVideo(value);
-                return "LICENSED_AUDIO_VIDEO";
+                return "INTERACTIVE_VIDEO";
             case "lav":
                 createController.licensedAudioVideo(value);
-                return "INTERACTIVE_VIDEO";
+                return "LICENSED_AUDIO_VIDEO";
         }
         //TODO ADD ALL MEDIA
 

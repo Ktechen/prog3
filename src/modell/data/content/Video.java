@@ -31,7 +31,7 @@ public class Video extends MediaContent implements modell.mediaDB.Video {
      * @ParamLength = 7
      */
     public Video(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tags, Uploader uploader) {
-        super(bitrate, length, tags);
+        super(tags, bitrate, length);
         this.width = width;
         this.height = height;
         this.encoding = encoding;

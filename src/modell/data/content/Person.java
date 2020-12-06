@@ -1,6 +1,10 @@
 package modell.data.content;
 
-public class Person implements modell.mediaDB.Uploader {
+import java.io.Serializable;
+
+public class Person implements modell.mediaDB.Uploader, Serializable {
+
+    static final long serialVersionUID = 123123L;
 
     private final String name;
 

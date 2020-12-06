@@ -7,14 +7,14 @@ import modell.data.content.interaction.InteractiveVideo;
 import modell.data.content.licensed.LicensedAudioVideo;
 import modell.data.storage.Storage;
 import modell.data.storage.StorageAsSingelton;
+import modell.mediaDB.MediaContent;
 import modell.mediaDB.Tag;
+import modell.mediaDB.Uploadable;
 import modell.mediaDB.Uploader;
 
-import javax.swing.text.html.HTMLDocument;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -45,7 +45,6 @@ public class Create implements Observable {
     public Create(Storage storage) {
         this.storage = storage;
     }
-
 
     public void interactiveVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Uploader person, String type)  {
         synchronized (this.storage) {
