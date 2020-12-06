@@ -1,5 +1,7 @@
 package controller.stream.jos;
 
+import controller.stream.Const;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -11,6 +13,7 @@ class SaveJOS {
 
     SaveJOS(String filename, Object writeableObject) {
         this.filename = filename;
+        this.filename = Const.path + this.filename;
         this.writeableObject = writeableObject;
         this.save();
     }
@@ -19,7 +22,6 @@ class SaveJOS {
 
         FileOutputStream fs = null;
         ObjectOutputStream os = null;
-        this.filename = JOS.path + this.filename;
 
         try {
             fs = new FileOutputStream(filename);

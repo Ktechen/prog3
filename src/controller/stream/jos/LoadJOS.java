@@ -1,5 +1,7 @@
 package controller.stream.jos;
 
+import controller.stream.Const;
+
 import java.io.*;
 
 class LoadJOS {
@@ -9,6 +11,7 @@ class LoadJOS {
 
     LoadJOS(String filename) {
         this.filename = filename;
+        this.filename = Const.path + this.filename;
         this.load();
     }
 

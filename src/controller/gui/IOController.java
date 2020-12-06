@@ -1,29 +1,25 @@
 package controller.gui;
 
-import controller.crud.Create;
+import controller.handle.create.IO.CreateOptionIO;
+import controller.stream.Const;
 import controller.stream.jos.JOS;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import modell.data.storage.Storage;
 import modell.data.storage.StorageAsSingelton;
-import modell.mediaDB.InteractiveVideo;
 import modell.mediaDB.MediaContent;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
-import java.util.stream.Stream;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class IOController implements Initializable {
 
@@ -33,13 +29,17 @@ public class IOController implements Initializable {
     @FXML
     private ListView<String> viewListJBP;
 
-    private List<String> filenames = new LinkedList<>();
+    private List<String> filenamesJOS = new LinkedList<>();
+    private List<String> filenamesJBP = new LinkedList<>();
 
     @FXML
     private TextField inputJOS;
 
     @FXML
-    private Label updateDisplay;
+    private TextField inputJBP;
+
+    @FXML
+    private Label updateAllLists;
 
     private Storage storage;
 
@@ -51,23 +51,26 @@ public class IOController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.loadDir();
         this.update();
-        this.updateDisplay.setText("initialized");
+        this.updateAllLists.setText("initialized");
     }
 
+    /**
+     * Source: https://stackoverflow.com/questions/1844688/how-to-read-all-files-in-a-folder-from-java?page=1&tab=votes#tab-top
+     */
     private void loadDir() {
-        File folder = new File(JOS.path);
+        File folder = new File(Const.path);
         File[] listOfFiles = folder.listFiles();
 
         for (File file : listOfFiles) {
             if (file.isFile()) {
-                this.filenames.add(file.getName());
+                this.filenamesJOS.add(file.getName());
             }
         }
     }
 
     private void update() {
-        this.viewListJOS.setItems(FXCollections.observableList(filenames));
-        this.viewListJBP.setItems(FXCollections.observableList(filenames));
+        this.viewListJOS.setItems(FXCollections.observableList(filenamesJOS));
+        this.viewListJBP.setItems(FXCollections.observableList(filenamesJBP));
     }
 
     //#region JOS
@@ -77,17 +80,16 @@ public class IOController implements Initializable {
 
         int search = filename.indexOf(".");
         if (search == -1) {
-            this.updateDisplay.setText("Text isn't a file type");
+            this.updateAllLists.setText("Text isn't a file type");
         } else {
             JOS jos = new JOS(filename);
             Object o = jos.load();
 
-            if (o instanceof InteractiveVideo) {
-                System.out.println("o instanceof InteractiveVideo");
-            }
+            //Call this object
+            new CreateOptionIO(o);
+            this.updateAllLists.setText(filename + " was been loaded");
         }
 
-        this.filenames.remove(filename);
         this.update();
     }
 
@@ -99,21 +101,35 @@ public class IOController implements Initializable {
         int index = 0;
         for (MediaContent mediaContent : list) {
             if (value.compareTo(mediaContent.getAddress()) == 0) {
-                String filename = mediaContent.getClass().getSimpleName() + "@" + mediaContent.hashCode() + "@" + "JOS" +
-                        ".ser";
+                String filename = mediaContent.getClass().getSimpleName() + "@" + mediaContent.hashCode() + ".ser";
                 JOS jos = new JOS(filename);
                 jos.save(mediaContent);
                 found = true;
-                filenames.add(filename);
-                this.updateDisplay.setText("Media was been saved");
+                filenamesJOS.add(filename);
+                this.updateAllLists.setText("Media was been saved");
             }
         }
 
         if (!found) {
-            this.updateDisplay.setText("Address not found");
+            this.updateAllLists.setText("Address not found");
         }
 
         this.update();
+    }
+
+    private void addTextFromViewList(MouseEvent event, TextField textField) {
+        String value = event.getPickResult().toString();
+        String startValue = "[text=";
+
+        if (value.contains(startValue)) {
+            int start = value.indexOf(startValue);
+            String input = value.substring(start + startValue.length() + 1, value.indexOf(",") - 1);
+            textField.setText(input);
+        }
+    }
+
+    public void onClickJOS(MouseEvent event) {
+        addTextFromViewList(event, this.inputJOS);
     }
 
     //#endregion
@@ -124,5 +140,10 @@ public class IOController implements Initializable {
 
     public void onActionLoadJBP(ActionEvent actionEvent) {
     }
+
+    public void onClickJBP(MouseEvent event) {
+        addTextFromViewList(event, this.inputJBP);
+    }
+
     //#endregion
 }

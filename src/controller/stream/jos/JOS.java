@@ -2,7 +2,6 @@ package controller.stream.jos;
 
 public class JOS {
 
-    public static final String path = "testfiles/";
     private LoadJOS loadJOS;
     private SaveJOS saveJOS;
     private String filename;
