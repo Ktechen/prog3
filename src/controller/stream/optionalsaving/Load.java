@@ -1,15 +1,15 @@
-package controller.stream.jos;
+package controller.stream.optionalsaving;
 
 import controller.stream.Const;
 
 import java.io.*;
 
-class LoadJOS {
+class Load {
 
     private String filename;
     private Object o;
 
-    LoadJOS(String filename) {
+    Load(String filename) {
         this.filename = filename;
         this.filename = Const.path + this.filename;
         this.load();

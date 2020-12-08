@@ -2,10 +2,11 @@ package modell.data.storage;
 
 import modell.mediaDB.*;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.*;
 
-public class Storage<T extends Uploadable & MediaContent, E extends Uploader> {
+public class Storage<T extends Uploadable & MediaContent, E extends Uploader> implements Serializable {
 
     private List<T> media;
     private Set<E> person;

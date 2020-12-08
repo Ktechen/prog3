@@ -1,4 +1,4 @@
-package controller.stream.jos;
+package controller.stream.optionalsaving;
 
 import controller.stream.Const;
 
@@ -6,12 +6,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-class SaveJOS {
+class Save {
 
     private String filename;
     private final Object writeableObject;
 
-    SaveJOS(String filename, Object writeableObject) {
+    Save(String filename, Object writeableObject) {
         this.filename = filename;
         this.filename = Const.path + this.filename;
         this.writeableObject = writeableObject;

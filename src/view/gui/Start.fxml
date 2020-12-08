@@ -26,6 +26,7 @@
                 </Menu>
             <Menu mnemonicParsing="false" text="Debug">
               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#onActionUpdateAll" text="UpdateAll" />
                   <MenuItem fx:id="clearAll" mnemonicParsing="false" onAction="#onActionClearAll" text="Clear all" />
                   <MenuItem fx:id="Setup" mnemonicParsing="false" onAction="#onActionSetupOne" text="Add setup 5 Media and 3 Uploader" />
               </items>

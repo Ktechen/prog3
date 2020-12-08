@@ -1,8 +1,8 @@
 package controller.gui;
 
-import controller.handle.create.IO.CreateOptionIO;
-import controller.stream.Const;
-import controller.stream.jos.JOS;
+import controller.gui.delegate.IO.ActionJOS;
+import controller.gui.delegate.IO.ActionRandomAccessFile;
+import controller.gui.delegate.Utils;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,9 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import modell.data.storage.Storage;
 import modell.data.storage.StorageAsSingelton;
-import modell.mediaDB.MediaContent;
 
-import java.io.File;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,112 +22,82 @@ import java.util.ResourceBundle;
 public class IOController implements Initializable {
 
     @FXML
-    private ListView<String> viewListJOS;
+    private ListView<String> viewListOptional;
 
     @FXML
-    private ListView<String> viewListJBP;
-
-    private List<String> filenamesJOS = new LinkedList<>();
-    private List<String> filenamesJBP = new LinkedList<>();
+    private ListView<String> listOfViewJOS;
 
     @FXML
     private TextField inputJOS;
 
     @FXML
+    private ListView<String> viewListJBP;
+
+    private List<String> optional = new LinkedList<>();
+    private List<String> jos = new LinkedList<>();
+
+    @FXML
+    private TextField inputOptional;
+
+    @FXML
     private TextField inputJBP;
 
     @FXML
-    private Label updateAllLists;
+    private Label display;
 
     private Storage storage;
+    private Utils utils;
+    private ActionJOS actionJOS;
+    private ActionRandomAccessFile accessFile;
 
     public IOController() {
+        this.utils = new Utils();
+        this.actionJOS = new ActionJOS();
+        this.accessFile = new ActionRandomAccessFile();
         this.storage = StorageAsSingelton.getInstance();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.loadDir();
+        this.utils.loadDir(this.optional);
         this.update();
-        this.updateAllLists.setText("initialized");
-    }
-
-    /**
-     * Source: https://stackoverflow.com/questions/1844688/how-to-read-all-files-in-a-folder-from-java?page=1&tab=votes#tab-top
-     */
-    private void loadDir() {
-        File folder = new File(Const.path);
-        File[] listOfFiles = folder.listFiles();
-
-        for (File file : listOfFiles) {
-            if (file.isFile()) {
-                this.filenamesJOS.add(file.getName());
-            }
-        }
+        this.display.setText("initialized");
     }
 
     private void update() {
-        this.viewListJOS.setItems(FXCollections.observableList(filenamesJOS));
-        this.viewListJBP.setItems(FXCollections.observableList(filenamesJBP));
+        this.viewListOptional.setItems(FXCollections.observableList(optional));
+        this.listOfViewJOS.setItems(FXCollections.observableList(jos));
     }
 
     //#region JOS
 
+    public void OnActionSaveJOS(ActionEvent actionEvent) {
+        this.actionJOS.save(actionEvent, this.inputJOS, this.storage.hashCode(), this.storage, this.display, this.jos);
+        this.update();
+    }
+
     public void onActionLoadJOS(ActionEvent actionEvent) {
-        final String filename = inputJOS.getText();
-
-        int search = filename.indexOf(".");
-        if (search == -1) {
-            this.updateAllLists.setText("Text isn't a file type");
-        } else {
-            JOS jos = new JOS(filename);
-            Object o = jos.load();
-
-            //Call this object
-            new CreateOptionIO(o);
-            this.updateAllLists.setText(filename + " was been loaded");
-        }
-
+        this.storage = this.actionJOS.load(actionEvent, this.inputJOS, this.display);
         this.update();
     }
 
-    public void onActionSaveJOS(ActionEvent actionEvent) {
-        String value = inputJOS.getText();
+    //#endregion
 
-        List<MediaContent> list = storage.getMedia();
-        boolean found = false;
-        int index = 0;
-        for (MediaContent mediaContent : list) {
-            if (value.compareTo(mediaContent.getAddress()) == 0) {
-                String filename = mediaContent.getClass().getSimpleName() + "@" + mediaContent.hashCode() + ".ser";
-                JOS jos = new JOS(filename);
-                jos.save(mediaContent);
-                found = true;
-                filenamesJOS.add(filename);
-                this.updateAllLists.setText("Media was been saved");
-            }
-        }
+    //#region OptionalSaving
 
-        if (!found) {
-            this.updateAllLists.setText("Address not found");
-        }
-
+    public void onActionLoadRandomAccessFile(ActionEvent actionEvent) {
+        this.accessFile.load(actionEvent, this.inputOptional, this.display);
         this.update();
     }
 
-    private void addTextFromViewList(MouseEvent event, TextField textField) {
-        String value = event.getPickResult().toString();
-        String startValue = "[text=";
-
-        if (value.contains(startValue)) {
-            int start = value.indexOf(startValue);
-            String input = value.substring(start + startValue.length() + 1, value.indexOf(",") - 1);
-            textField.setText(input);
-        }
+    public void onActionSaveRandomAccessFile(ActionEvent actionEvent) {
+        this.accessFile.save(actionEvent, this.storage, this.inputOptional, this.optional, this.display);
+        this.update();
     }
+
 
     public void onClickJOS(MouseEvent event) {
-        addTextFromViewList(event, this.inputJOS);
+        this.utils.addTextFromViewList(event, this.inputOptional);
     }
 
     //#endregion
@@ -142,8 +110,9 @@ public class IOController implements Initializable {
     }
 
     public void onClickJBP(MouseEvent event) {
-        addTextFromViewList(event, this.inputJBP);
+        this.utils.addTextFromViewList(event, this.inputJBP);
     }
+
 
     //#endregion
 }

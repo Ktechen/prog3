@@ -1,17 +1,16 @@
-package controller.stream.jos;
+package controller.stream.optionalsaving;
 
-import java.util.List;
-
-public class JOS {
+public class OptionalSaving {
 
     private Load load;
     private Save save;
     private String filename;
 
-    public JOS(String filename) {
+    public OptionalSaving(String filename) {
         if (null == filename) {
             throw new NullPointerException("filename is null");
         }
+
         this.filename = filename;
     }
 
@@ -21,8 +20,8 @@ public class JOS {
      * @return object
      */
     public Object load() {
-        this.load = new Load(this.filename);
-        return this.load.getList();
+        this.load = new Load(filename);
+        return this.load.getLoadObject();
     }
 
     /**
@@ -31,8 +30,7 @@ public class JOS {
      * @param o = object to be saved
      */
     public void save(Object o) {
-        this.save = new Save(this.filename, o);
+        this.save = new Save(filename, o);
     }
-
 
 }

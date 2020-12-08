@@ -1,6 +1,7 @@
 package controller.stream.jos;
 
 import controller.crud.Create;
+import controller.stream.optionalsaving.OptionalSaving;
 import modell.data.content.Person;
 import modell.data.storage.Storage;
 import modell.data.storage.StorageAsSingelton;
@@ -13,7 +14,7 @@ import java.time.Duration;
 import java.util.Collection;
 import java.util.LinkedList;
 
-public class TestSaveJOS {
+public class TestSaveOptionalSaving {
 
     @Test
     public void saveAFile() {
@@ -32,8 +33,8 @@ public class TestSaveJOS {
             create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
             create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas");
 
-            JOS jos = new JOS(filename);
-            jos.save(storage.getMedia().get(0));
+            OptionalSaving optionalSaving = new OptionalSaving(filename);
+            optionalSaving.save(storage.getMedia().get(0));
 
         } catch (Exception e) {
             Assertions.fail();
@@ -60,15 +61,15 @@ public class TestSaveJOS {
             create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
             create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas");
 
-            JOS jos = new JOS(filename);
-            jos.save(storage.getMedia().get(0));
+            OptionalSaving optionalSaving = new OptionalSaving(filename);
+            optionalSaving.save(storage.getMedia().get(0));
         } catch (Exception e) {
             Assertions.fail();
         }
 
         try {
-            JOS jos = new JOS(filename);
-            Object o = jos.load();
+            OptionalSaving optionalSaving = new OptionalSaving(filename);
+            Object o = optionalSaving.load();
 
             Assertions.assertFalse(o.toString().isEmpty());
         } catch (Exception e) {

@@ -14,7 +14,7 @@ public final class StorageAsSingelton{
      *
      * @return memory
      */
-    public static  Storage getInstance() {
+    public static Storage getInstance() {
         synchronized(StorageAsSingelton.class){
             if (null == StorageAsSingelton.instance) {
                 StorageAsSingelton.instance = new Storage();
