@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import modell.data.storage.Storage;
 import modell.data.storage.StorageAsSingelton;
+import modell.mediaDB.Uploadable;
 
 import java.net.URL;
 import java.util.LinkedList;
@@ -33,6 +34,9 @@ public class IOController implements Initializable {
     @FXML
     private ListView<String> viewListJBP;
 
+    @FXML
+    private ListView<Uploadable> listViewMedia;
+
     private List<String> optional = new LinkedList<>();
     private List<String> jos = new LinkedList<>();
 
@@ -46,9 +50,9 @@ public class IOController implements Initializable {
     private Label display;
 
     private Storage storage;
-    private Utils utils;
-    private ActionJOS actionJOS;
-    private ActionRandomAccessFile accessFile;
+    private final Utils utils;
+    private final ActionJOS actionJOS;
+    private final ActionRandomAccessFile accessFile;
 
     public IOController() {
         this.utils = new Utils();
@@ -59,7 +63,8 @@ public class IOController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.utils.loadDir(this.optional);
+        this.utils.loadDir(this.optional, "@optional");
+        this.utils.loadDir(this.jos, "@JOS");
         this.update();
         this.display.setText("initialized");
     }

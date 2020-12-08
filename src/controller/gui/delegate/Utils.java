@@ -23,13 +23,15 @@ public class Utils {
     /**
      * Source: https://stackoverflow.com/questions/1844688/how-to-read-all-files-in-a-folder-from-java?page=1&tab=votes#tab-top
      */
-    public void loadDir(List<String> optional) {
+    public void loadDir(List<String> optional, String search) {
         File folder = new File(Const.path);
         File[] listOfFiles = folder.listFiles();
 
         for (File file : listOfFiles) {
-            if (file.isFile()) {
-                optional.add(file.getName());
+            if(file.getName().contains(search)){
+                if (file.isFile()) {
+                    optional.add(file.getName());
+                }
             }
         }
     }

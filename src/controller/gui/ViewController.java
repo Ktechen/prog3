@@ -1,7 +1,5 @@
 package controller.gui;
 
-import controller.crud.Create;
-import controller.crud.Update;
 import controller.gui.delegate.IO.ActionWindow;
 import controller.gui.delegate.view.ActionCRUD;
 import controller.gui.delegate.view.ActionDebug;
@@ -14,18 +12,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.PickResult;
-import modell.data.content.Person;
 import modell.data.storage.Storage;
 import modell.data.storage.StorageAsSingelton;
-import modell.mediaDB.Tag;
 import modell.mediaDB.Uploadable;
 import modell.mediaDB.Uploader;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.Duration;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class ViewController implements Initializable {
 
@@ -125,6 +121,7 @@ public class ViewController implements Initializable {
 
     public void dragAddress(MouseEvent mouseEvent) {
         //System.out.println("Drag event");
+        //TODO ADD DRAG AND DROP
     }
 
     public void dropAddress(DragEvent dragEvent) {
