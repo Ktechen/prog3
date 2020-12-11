@@ -1,11 +1,11 @@
 package controller.stream.jos;
 
-import java.util.List;
+import controller.stream.StreamParameter;
 
-public class JOS {
+public class JOS  {
 
-    private Load load;
-    private Save save;
+    private LoadJOS loadJOS;
+    private SaveJOS saveJOS;
     private String filename;
 
     public JOS(String filename) {
@@ -13,25 +13,26 @@ public class JOS {
             throw new NullPointerException("filename is null");
         }
         this.filename = filename;
+        this.filename = StreamParameter.PATH + this.filename;
     }
 
     /**
-     * Load a object out of file
+     * LoadJOS a object out of file
      *
      * @return object
      */
     public Object load() {
-        this.load = new Load(this.filename);
-        return this.load.getList();
+        this.loadJOS = new LoadJOS(this.filename);
+        return this.loadJOS.getList();
     }
 
     /**
-     * Save a Object in to file
+     * SaveJOS a Object in to file
      *
      * @param o = object to be saved
      */
     public void save(Object o) {
-        this.save = new Save(this.filename, o);
+        this.saveJOS = new SaveJOS(this.filename, o);
     }
 
 

@@ -6,6 +6,7 @@ import modell.mediaDB.Uploader;
 
 import java.time.Duration;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.UUID;
 
@@ -37,6 +38,10 @@ public class Audio extends MediaContent implements modell.mediaDB.Audio {
         this.endcoding = endcoding;
         this.uploader = uploader;
         this.date = new Date();
+    }
+
+    public Audio() {
+        super(Collections.singleton(Tag.Lifestyle), 0, Duration.ofDays(0));
     }
 
     @Override

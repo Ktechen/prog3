@@ -1,28 +1,26 @@
 package controller.stream.jos;
 
 
-import controller.stream.Const;
+import controller.stream.StreamParameter;
 import modell.data.storage.Storage;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.util.List;
 
-class Save {
+class SaveJOS {
 
     private String filename;
     private Object objectList;
     private Storage storage;
 
     /**
-     * Save a Object
+     * SaveJOS a Object
      * @param filename
      * @param objectList
      */
-    public Save(String filename, Object objectList) {
+    public SaveJOS(String filename, Object objectList) {
         this.filename = filename;
-        this.filename = Const.path + this.filename;
         this.objectList = objectList;
         this.save(this.objectList);
     }

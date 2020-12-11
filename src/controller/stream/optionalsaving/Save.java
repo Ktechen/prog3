@@ -1,6 +1,6 @@
 package controller.stream.optionalsaving;
 
-import controller.stream.Const;
+import controller.stream.StreamParameter;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,7 +13,7 @@ class Save {
 
     Save(String filename, Object writeableObject) {
         this.filename = filename;
-        this.filename = Const.path + this.filename;
+        this.filename = StreamParameter.PATH + this.filename;
         this.writeableObject = writeableObject;
         this.save();
     }

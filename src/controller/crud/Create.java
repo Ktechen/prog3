@@ -7,9 +7,7 @@ import modell.data.content.interaction.InteractiveVideo;
 import modell.data.content.licensed.LicensedAudioVideo;
 import modell.data.storage.Storage;
 import modell.data.storage.StorageAsSingelton;
-import modell.mediaDB.MediaContent;
 import modell.mediaDB.Tag;
-import modell.mediaDB.Uploadable;
 import modell.mediaDB.Uploader;
 
 import java.math.BigDecimal;

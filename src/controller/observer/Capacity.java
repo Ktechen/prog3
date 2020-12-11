@@ -36,7 +36,7 @@ public class Capacity {
 
     public Capacity(BigDecimal max, BigDecimal procent, BigDecimal checkValue) {
 
-        if (procent.compareTo(BigDecimal.valueOf(0)) < 0 || procent.compareTo(BigDecimal.valueOf(100)) > 0) {
+        if (procent.compareTo(BigDecimal.valueOf(0)) < 0 || procent.compareTo(procent) > 0) {
             throw new IllegalArgumentException("Value is not Procent");
         }
 

@@ -10,13 +10,19 @@ import java.io.IOException;
 
 public class ActionMainWindow {
 
+    private final String res = "/view/gui/Start.fxml";
+    private final String title = "Medienverwalungs - Software by K. Techen";
+    private final boolean resizable = true;
+    private final int minHeight = 650;
+    private final int minWidth = 950;
+
     public void run(Stage stage) throws IOException {
-        Parent p = FXMLLoader.load(getClass().getResource("/view/gui/Start.fxml"));
+        Parent p = FXMLLoader.load(getClass().getResource(res));
         stage.setScene(new Scene(p));
-        stage.setTitle("Medienverwalungs - Software by K. Techen");
-        stage.setResizable(true);
-        stage.setMinHeight(650);
-        stage.setMinWidth(900);
+        stage.setTitle(title);
+        stage.setResizable(resizable);
+        stage.setMinHeight(minHeight);
+        stage.setMinWidth(minWidth);
         stage.setOnCloseRequest(event -> {
             Platform.exit();
         });

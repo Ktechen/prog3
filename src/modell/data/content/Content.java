@@ -14,8 +14,11 @@ public class Content implements modell.mediaDB.Content, Serializable {
 
     static final long serialVersionUID = 123123L;
 
-    private final String address;
+    private String address;
     private Collection<Tag> tags;
+
+    public Content() {
+    }
 
     public Content(Collection<Tag> tags) {
         this.tags = tags;

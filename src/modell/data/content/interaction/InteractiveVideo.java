@@ -1,12 +1,15 @@
 package modell.data.content.interaction;
 
+import modell.data.content.Person;
 import modell.data.content.Video;
 import modell.data.storage.Storage;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploader;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.util.Collection;
+import java.util.Collections;
 
 public class InteractiveVideo extends Video implements modell.mediaDB.InteractiveVideo {
 
@@ -28,6 +31,11 @@ public class InteractiveVideo extends Video implements modell.mediaDB.Interactiv
     public InteractiveVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tags, Uploader uploader, String type) {
         super(width, height, encoding, bitrate, length, tags, uploader);
         this.type = type;
+    }
+
+    public InteractiveVideo() {
+        super(0, 0, "dummy", 0, Duration.ofDays(0), Collections.singleton(Tag.Lifestyle), new Person("Dummy"));
+        this.type = "dummy";
     }
 
     @Override

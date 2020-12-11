@@ -14,7 +14,7 @@ import java.time.Duration;
 import java.util.Collection;
 import java.util.LinkedList;
 
-public class TestSaveOptionalSaving {
+public class TestSaveJOSOptionalSaving {
 
     @Test
     public void saveAFile() {

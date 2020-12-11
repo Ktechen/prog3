@@ -5,6 +5,7 @@ import modell.mediaDB.Tag;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.Collection;
+import java.util.Collections;
 
 public class MediaContent extends Content implements modell.mediaDB.MediaContent {
 
@@ -16,6 +17,11 @@ public class MediaContent extends Content implements modell.mediaDB.MediaContent
         super(tags);
         this.bitrate = bitrate;
         this.duration = duration;
+    }
+
+    public MediaContent() {
+        super(Collections.singleton(Tag.News));
+        this.duration = Duration.ofDays(0);
     }
 
     @Override

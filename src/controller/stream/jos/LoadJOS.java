@@ -1,20 +1,19 @@
 package controller.stream.jos;
 
 
-import controller.stream.Const;
+import controller.stream.StreamParameter;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-class Load {
+class LoadJOS {
 
     private String filename;
-    private Object listo;
+    private Object o;
 
-    public Load(String filename) {
+    public LoadJOS(String filename) {
         this.filename = filename;
-        this.filename = Const.path + this.filename;
         this.load();
     }
 
@@ -26,7 +25,7 @@ class Load {
             fs = new FileInputStream(filename);
             os = new ObjectInputStream(fs);
 
-            listo = os.readObject();
+            this.o = os.readObject();
 
         } catch (IOException | ClassNotFoundException e) {
             e.getStackTrace();
@@ -43,6 +42,6 @@ class Load {
     }
 
     public Object getList() {
-        return listo;
+        return this.o;
     }
 }

@@ -34,14 +34,22 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
     /**
      * Gibt denn Linkverweis an
      */
-    public static final String TYPE_OF_SOURCE = "FILE:///";
+    public static final transient String TYPE_OF_SOURCE = "FILE:///";
 
     public synchronized List<T> getMedia() {
         return new LinkedList<>(this.media);
     }
 
+    public synchronized void setMedia(List<T> media) {
+        this.media = media;
+    }
+
     public HashSet<E> getPerson() {
         return new HashSet<>(this.person);
+    }
+
+    public synchronized void setPerson(HashSet<E> person) {
+        this.person = person;
     }
 
     public HashMap<String, Boolean> getUsedTags() {
@@ -164,4 +172,13 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
         this.countOfUse = new HashMap<>();
     }
 
+    @Override
+    public String toString() {
+        return "Storage{" +
+                "media=" + media +
+                ", person=" + person +
+                ", countOfUse=" + countOfUse +
+                ", usedTags=" + usedTags +
+                '}';
+    }
 }

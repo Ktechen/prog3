@@ -1,11 +1,14 @@
 package modell.data.content.licensed;
 
 import modell.data.content.AudioVideo;
+import modell.data.content.Person;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploader;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.util.Collection;
+import java.util.Collections;
 
 public class LicensedAudioVideo extends AudioVideo implements modell.mediaDB.LicensedAudioVideo {
 
@@ -28,6 +31,11 @@ public class LicensedAudioVideo extends AudioVideo implements modell.mediaDB.Lic
     public LicensedAudioVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Uploader person, int sampleRate, String holder) {
         super(width, height, encoding, bitrate, length, tag, person, sampleRate);
         this.holder = holder;
+    }
+
+    public LicensedAudioVideo() {
+        super(0, 0, "dummy", 0, Duration.ofDays(0), Collections.singleton(Tag.Lifestyle), new Person("Dummy"), 0);
+        this.holder = "dummy";
     }
 
     @Override

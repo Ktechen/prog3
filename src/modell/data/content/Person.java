@@ -8,6 +8,10 @@ public class Person implements modell.mediaDB.Uploader, Serializable {
 
     private final String name;
 
+    public Person() {
+        this.name = "Dummy";
+    }
+
     public Person(String name) {
         if (name == null) {
             throw new NullPointerException("Name is null");

@@ -1,5 +1,6 @@
 package controller.gui;
 
+import controller.gui.delegate.IO.ActionJBP;
 import controller.gui.delegate.IO.ActionJOS;
 import controller.gui.delegate.IO.ActionRandomAccessFile;
 import controller.gui.delegate.Utils;
@@ -28,6 +29,7 @@ public class IOController implements Initializable {
     @FXML
     private ListView<String> listOfViewJOS;
 
+
     @FXML
     private TextField inputJOS;
 
@@ -38,7 +40,8 @@ public class IOController implements Initializable {
     private ListView<Uploadable> listViewMedia;
 
     private List<String> optional = new LinkedList<>();
-    private List<String> jos = new LinkedList<>();
+    private List<String> listJos = new LinkedList<>();
+    private List<String> listJbp = new LinkedList<>();
 
     @FXML
     private TextField inputOptional;
@@ -52,37 +55,49 @@ public class IOController implements Initializable {
     private Storage storage;
     private final Utils utils;
     private final ActionJOS actionJOS;
+    private final ActionJBP actionJBP;
     private final ActionRandomAccessFile accessFile;
 
     public IOController() {
         this.utils = new Utils();
         this.actionJOS = new ActionJOS();
         this.accessFile = new ActionRandomAccessFile();
+        this.actionJBP = new ActionJBP();
         this.storage = StorageAsSingelton.getInstance();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.utils.loadDir(this.optional, "@optional");
-        this.utils.loadDir(this.jos, "@JOS");
+        this.utils.loadDir(this.listJos, "@JOS");
+        this.utils.loadDir(this.listJbp, "@JBP");
         this.update();
         this.display.setText("initialized");
     }
 
     private void update() {
         this.viewListOptional.setItems(FXCollections.observableList(optional));
-        this.listOfViewJOS.setItems(FXCollections.observableList(jos));
+        this.listOfViewJOS.setItems(FXCollections.observableList(listJos));
+        this.viewListJBP.setItems(FXCollections.observableList(listJbp));
     }
 
     //#region JOS
 
     public void OnActionSaveJOS(ActionEvent actionEvent) {
-        this.actionJOS.save(actionEvent, this.inputJOS, this.storage.hashCode(), this.storage, this.display, this.jos);
+        this.actionJOS.save(actionEvent, this.inputJOS, this.storage.hashCode(), this.storage, this.display, this.listJos);
         this.update();
     }
 
     public void onActionLoadJOS(ActionEvent actionEvent) {
-        this.storage = this.actionJOS.load(actionEvent, this.inputJOS, this.display);
+        Storage temp = this.actionJOS.load(actionEvent, this.inputJOS, this.display);
+
+        if (null != temp) {
+            this.storage.setMedia(temp.getMedia());
+            this.storage.setPerson(temp.getPerson());
+            this.storage.setCountOfUse(temp.getCountOfUse());
+            this.storage.setUsedTags(temp.getUsedTags());
+        }
+
         this.update();
     }
 
@@ -102,20 +117,35 @@ public class IOController implements Initializable {
 
 
     public void onClickJOS(MouseEvent event) {
-        this.utils.addTextFromViewList(event, this.inputOptional);
+        this.utils.addTextFromViewList(event, this.inputJOS);
     }
 
     //#endregion
 
     //#region JBP
     public void onActionSaveJBP(ActionEvent actionEvent) {
+        this.actionJBP.save(actionEvent, this.inputJBP, this.storage.hashCode(), this.display, this.listJbp);
+        this.update();
     }
 
     public void onActionLoadJBP(ActionEvent actionEvent) {
+        Storage temp = this.actionJBP.load(actionEvent, this.inputJBP, this.display);
+
+        if (null != temp) {
+            this.storage.setMedia(temp.getMedia());
+            this.storage.setPerson(temp.getPerson());
+            this.storage.setCountOfUse(temp.getCountOfUse());
+            this.storage.setUsedTags(temp.getUsedTags());
+        }
+
+        this.update();
     }
 
     public void onClickJBP(MouseEvent event) {
         this.utils.addTextFromViewList(event, this.inputJBP);
+    }
+
+    public void onClickOptionalSaving(MouseEvent event) {
     }
 
 

@@ -6,6 +6,7 @@ import modell.mediaDB.Uploader;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.Collection;
+import java.util.Collections;
 
 public class AudioVideo extends Audio implements modell.mediaDB.AudioVideo {
 
@@ -31,6 +32,10 @@ public class AudioVideo extends Audio implements modell.mediaDB.AudioVideo {
         this.width = width;
         this.height = height;
         this.size = caluSize(BigDecimal.valueOf(width), BigDecimal.valueOf(height));
+    }
+
+    public AudioVideo() {
+        super(0, Duration.ofDays(0), Collections.singleton(Tag.News), 0, "Dummy", new Person("Dummy"));
     }
 
     @Override
