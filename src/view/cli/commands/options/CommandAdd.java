@@ -1,6 +1,5 @@
 package view.cli.commands.options;
 
-import controller.handle.Const;
 import controller.handle.InputConverter;
 import controller.event.EventHandler;
 import controller.event.EventListener;
@@ -118,8 +117,8 @@ public class CommandAdd implements ICommand {
 
     @Override
     public String toString() {
-        return Const.USER_TEXT + "\n" +
-                Const.INTER_VIDEO_TEXT + "\n" +
-                Const.LICENSED_AUDIO_VIDEO_TEXT;
+        return InputConverter.USER_TEXT + "\n" +
+                InputConverter.INTER_VIDEO_TEXT + "\n" +
+                InputConverter.LICENSED_AUDIO_VIDEO_TEXT;
     }
 }

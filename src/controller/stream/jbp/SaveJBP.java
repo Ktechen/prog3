@@ -32,10 +32,8 @@ class SaveJBP {
 
         XMLEncoder xmlEncoder = null;
 
-
         try {
             xmlEncoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(filename)));
-
             xmlEncoder.writeObject(StorageAsSingelton.getInstance());
 
         } catch (IOException e) {

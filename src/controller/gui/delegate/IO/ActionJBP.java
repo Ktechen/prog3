@@ -41,7 +41,7 @@ public class ActionJBP {
      * @param display     = info text
      * @return storage object
      */
-    public Storage load(ActionEvent actionEvent, TextField inputJOS, Label display) {
+    public Object load(ActionEvent actionEvent, TextField inputJOS, Label display) {
         String filename = inputJOS.getText();
 
         if (filename.isEmpty()) {
@@ -50,7 +50,7 @@ public class ActionJBP {
             JBP jbp = new JBP(filename);
             Object o = jbp.load();
             display.setText("Load Storage by JBP ...");
-            return (Storage) o;
+            return o;
         }
 
         return null;

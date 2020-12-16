@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import modell.data.storage.Storage;
 import modell.data.storage.StorageAsSingelton;
+import modell.mediaDB.MediaContent;
 import modell.mediaDB.Uploadable;
 
 import java.net.URL;
@@ -129,7 +130,8 @@ public class IOController implements Initializable {
     }
 
     public void onActionLoadJBP(ActionEvent actionEvent) {
-        Storage temp = this.actionJBP.load(actionEvent, this.inputJBP, this.display);
+        LinkedList<MediaContent> contents = (LinkedList<MediaContent>) this.actionJBP.load(actionEvent, this.inputJBP, this.display);
+        /*Storage temp = this.actionJBP.load(actionEvent, this.inputJBP, this.display);
 
         if (null != temp) {
             this.storage.setMedia(temp.getMedia());
@@ -138,6 +140,7 @@ public class IOController implements Initializable {
             this.storage.setUsedTags(temp.getUsedTags());
         }
 
+         */
         this.update();
     }
 

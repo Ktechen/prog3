@@ -1,7 +1,6 @@
 package controller.stream.jos;
 
 
-import controller.stream.StreamParameter;
 import modell.data.storage.Storage;
 
 import java.io.FileOutputStream;

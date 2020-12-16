@@ -30,7 +30,6 @@ class LoadJBP {
             if (dec != null)
                 dec.close();
         }
-
     }
 
     Object getObject() {

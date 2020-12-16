@@ -1,7 +1,5 @@
 package controller.handle.create;
 
-import controller.handle.Const;
-
 /**
  * Handle die Eingabe vom Benutzer
  */

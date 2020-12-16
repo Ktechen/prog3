@@ -1,5 +1,7 @@
 package modell.data.storage;
 
+import javafx.beans.property.SimpleIntegerProperty;
+
 public final class StorageAsSingelton{
 
     private volatile static Storage instance;

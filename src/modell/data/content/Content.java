@@ -1,8 +1,6 @@
 package modell.data.content;
 
-import controller.crud.Update;
 import modell.data.storage.Storage;
-import modell.data.storage.StorageAsSingelton;
 import modell.mediaDB.Tag;
 
 import java.io.Serializable;
@@ -53,6 +51,7 @@ public class Content implements modell.mediaDB.Content, Serializable {
 
     @Override
     public long getAccessCount() {
-        return (long) StorageAsSingelton.getInstance().getCountOfUse().get(this.getAddress());
+        //TODO Fix Counter
+        return 0;
     }
 }

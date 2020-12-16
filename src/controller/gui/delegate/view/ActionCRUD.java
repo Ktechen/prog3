@@ -1,7 +1,7 @@
 package controller.gui.delegate.view;
 
 import controller.crud.Update;
-import controller.handle.Const;
+import controller.handle.InputConverter;
 import controller.handle.create.CreateOption;
 import controller.handle.delete.DeleteOption;
 import javafx.event.ActionEvent;
@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class ActionCRUD {
 
     public void create(ActionEvent actionEvent, Label updateDisplay) {
-        String text = Const.LICENSED_AUDIO_VIDEO_TEXT + "\n" + Const.INTER_VIDEO_TEXT + " \n" + Const.USER_TEXT;
+        String text = InputConverter.LICENSED_AUDIO_VIDEO_TEXT + "\n" + InputConverter.INTER_VIDEO_TEXT + " \n" + InputConverter.USER_TEXT;
         MediaAlert mediaAlert = new MediaAlert("Create a Media File", text, "Media/Person:");
 
         if (mediaAlert.getButtonType() == ButtonType.CANCEL) {
