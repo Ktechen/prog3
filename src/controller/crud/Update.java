@@ -1,7 +1,6 @@
 package controller.crud;
 
 import modell.data.storage.Storage;
-import modell.data.storage.StorageAsSingelton;
 
 import java.util.HashMap;
 
@@ -10,7 +9,7 @@ public class Update {
     private final Storage storage;
 
     public Update() {
-        this.storage = StorageAsSingelton.getInstance();
+        this.storage = Storage.getInstance();
     }
 
     public Update(Storage storage) {

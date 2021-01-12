@@ -13,7 +13,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import modell.data.storage.Storage;
-import modell.data.storage.StorageAsSingelton;
 import modell.mediaDB.Uploadable;
 import modell.mediaDB.Uploader;
 
@@ -46,7 +45,7 @@ public class ViewController implements Initializable {
         this.actionSort = new ActionSort();
         this.actionWindow = new ActionWindow();
         this.actionDebug = new ActionDebug();
-        this.storage = StorageAsSingelton.getInstance();
+        this.storage = Storage.getInstance();
     }
 
     /**

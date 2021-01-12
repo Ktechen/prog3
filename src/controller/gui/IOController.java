@@ -13,7 +13,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import modell.data.storage.Storage;
-import modell.data.storage.StorageAsSingelton;
 import modell.mediaDB.MediaContent;
 import modell.mediaDB.Uploadable;
 
@@ -64,7 +63,7 @@ public class IOController implements Initializable {
         this.actionJOS = new ActionJOS();
         this.accessFile = new ActionRandomAccessFile();
         this.actionJBP = new ActionJBP();
-        this.storage = StorageAsSingelton.getInstance();
+        this.storage = Storage.getInstance();
     }
 
     @Override

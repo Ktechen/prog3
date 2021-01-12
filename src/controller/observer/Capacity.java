@@ -1,7 +1,6 @@
 package controller.observer;
 
 import modell.data.storage.Storage;
-import modell.data.storage.StorageAsSingelton;
 
 import java.math.BigDecimal;
 
@@ -31,7 +30,7 @@ public class Capacity {
     }
 
     public Capacity() {
-        this.storage = StorageAsSingelton.getInstance();
+        this.storage = Storage.getInstance();
     }
 
     public Capacity(BigDecimal max, BigDecimal procent, BigDecimal checkValue) {

@@ -4,7 +4,6 @@ import controller.crud.Create;
 import controller.stream.optionalsaving.OptionalSaving;
 import modell.data.content.Person;
 import modell.data.storage.Storage;
-import modell.data.storage.StorageAsSingelton;
 import modell.mediaDB.Tag;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,7 @@ public class TestSaveJOSOptionalSaving {
     public void saveAFile() {
         final String filename = "my.txt";
         try {
-            Storage storage = StorageAsSingelton.getInstance();
+            Storage storage = Storage.getInstance();
             storage.clear();
 
             final Collection<Tag> t = new LinkedList<>();
@@ -48,7 +47,7 @@ public class TestSaveJOSOptionalSaving {
     public void loadAFile() {
         final String filename = "joFileALter.txt";
         try {
-            Storage storage = StorageAsSingelton.getInstance();
+            Storage storage = Storage.getInstance();
             storage.clear();
 
             final Collection<Tag> t = new LinkedList<>();

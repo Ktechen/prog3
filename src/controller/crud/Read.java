@@ -1,7 +1,6 @@
 package controller.crud;
 
 import modell.data.storage.Storage;
-import modell.data.storage.StorageAsSingelton;
 import modell.mediaDB.*;
 
 import java.util.*;
@@ -11,7 +10,7 @@ public class Read {
     private final Storage storage;
 
     public Read() {
-        this.storage = StorageAsSingelton.getInstance();
+        this.storage = Storage.getInstance();
     }
 
     public Read(Storage storage) {

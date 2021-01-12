@@ -1,6 +1,6 @@
 package simulation.s2;
 
-import modell.data.storage.StorageAsSingelton;
+import modell.data.storage.Storage;
 import simulation.InputMedia;
 import simulation.RemoveMedia;
 import simulation.UpdateMedia;
@@ -8,7 +8,7 @@ import simulation.UpdateMedia;
 public class Simulation2 {
 
     public Simulation2() {
-        StorageAsSingelton.getInstance().clear();
+        Storage.getInstance().clear();
         InputMedia inputMedia = new InputMedia();
         RemoveMedia removeMedia = new RemoveMedia();
         UpdateMedia updateMedia = new UpdateMedia();

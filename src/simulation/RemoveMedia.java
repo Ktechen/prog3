@@ -2,14 +2,13 @@ package simulation;
 
 import controller.crud.Delete;
 import modell.data.storage.Storage;
-import modell.data.storage.StorageAsSingelton;
 import modell.mediaDB.MediaContent;
 
 import java.util.List;
 
 public class RemoveMedia extends Thread {
 
-    private final Storage storage = StorageAsSingelton.getInstance();
+    private final Storage storage = Storage.getInstance();
 
     @Override
     public void run() {
@@ -21,7 +20,7 @@ public class RemoveMedia extends Thread {
             //Thread mit sync e.g per Storage
             synchronized (this.storage) {
 
-                int size = StorageAsSingelton.getInstance().getMedia().size();
+                int size = Storage.getInstance().getMedia().size();
 
                 if (size != 0) {
 

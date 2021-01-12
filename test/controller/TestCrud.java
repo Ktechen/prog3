@@ -4,7 +4,6 @@ import controller.crud.*;
 import modell.data.storage.Storage;
 import modell.data.content.Person;
 
-import modell.data.storage.StorageAsSingelton;
 import modell.mediaDB.*;
 import modell.mediaDB.Tag;
 import org.junit.jupiter.api.*;
@@ -21,7 +20,7 @@ public class TestCrud {
     @Test
     public void create() throws InterruptedException {
 
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
         storage.clear();
 
         t.add(Tag.Lifestyle);
@@ -43,7 +42,7 @@ public class TestCrud {
         t.add(Tag.Animal);
 
         Create create = new Create();
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
         storage.clear();
 
         create.person("Kevin Techen");
@@ -71,7 +70,7 @@ public class TestCrud {
         t.add(Tag.Lifestyle);
         t.add(Tag.Animal);
 
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
         storage.clear();
         Create create = new Create();
 
@@ -100,7 +99,7 @@ public class TestCrud {
         t.add(Tag.Lifestyle);
         t.add(Tag.Animal);
 
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
         storage.clear();
         Create create = new Create();
 
@@ -126,7 +125,7 @@ public class TestCrud {
         t.add(Tag.Lifestyle);
         t.add(Tag.Animal);
 
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
         storage.clear();
 
         Create create = new Create();
@@ -153,7 +152,7 @@ public class TestCrud {
         t.add(Tag.Lifestyle);
         t.add(Tag.Animal);
 
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
         storage.clear();
 
         Create create = new Create();
@@ -179,7 +178,7 @@ public class TestCrud {
         final Create create = new Create();
         final Delete delete = new Delete();
         final Collection<Tag> t = new LinkedList<>();
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
         storage.clear();
 
         t.add(Tag.Lifestyle);
@@ -204,7 +203,7 @@ public class TestCrud {
         final Create create = new Create();
         final Delete delete = new Delete();
         final Collection<Tag> t = new LinkedList<>();
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
         storage.clear();
 
         t.add(Tag.Lifestyle);
@@ -231,7 +230,7 @@ public class TestCrud {
         t.add(Tag.Lifestyle);
         t.add(Tag.Animal);
 
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
         storage.clear();
         Create create = new Create();
 
@@ -254,7 +253,7 @@ public class TestCrud {
         t.add(Tag.Lifestyle);
         t.add(Tag.Animal);
 
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
         storage.clear();
         Create create = new Create();
         Update update = new Update();
@@ -278,7 +277,7 @@ public class TestCrud {
 
     @Test
     public void updateRun() throws InterruptedException {
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
         storage.clear();
         Create create = new Create();
         Update update = new Update();
@@ -299,7 +298,7 @@ public class TestCrud {
         t.add(Tag.Lifestyle);
         t.add(Tag.Animal);
 
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
         storage.clear();
         Create create = new Create();
 
@@ -335,7 +334,7 @@ public class TestCrud {
     @Test
     public void readTyp() throws InterruptedException {
 
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
         storage.clear();
         Create create = new Create();
 
@@ -359,7 +358,7 @@ public class TestCrud {
     @Test
     public void readTypIsNull() throws InterruptedException {
 
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
         storage.clear();
         Create create = new Create();
 
@@ -384,7 +383,7 @@ public class TestCrud {
         t.add(Tag.Lifestyle);
         t.add(Tag.Animal);
 
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
         storage.clear();
 
         Create create = new Create();

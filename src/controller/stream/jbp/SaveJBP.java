@@ -1,15 +1,12 @@
 package controller.stream.jbp;
 
-import modell.data.storage.StorageAsSingelton;
-import modell.mediaDB.MediaContent;
-import modell.mediaDB.Uploader;
+
+import modell.data.storage.Storage;
 
 import java.beans.XMLEncoder;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
 
 class SaveJBP {
 
@@ -34,7 +31,7 @@ class SaveJBP {
 
         try {
             xmlEncoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(filename)));
-            xmlEncoder.writeObject(StorageAsSingelton.getInstance());
+            xmlEncoder.writeObject(Storage.getInstance());
 
         } catch (IOException e) {
             e.getStackTrace();

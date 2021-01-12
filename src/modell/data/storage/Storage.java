@@ -13,11 +13,29 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
     private HashMap<String, Long> countOfUse;
     private HashMap<String, Boolean> usedTags;
 
-    public Storage() {
+    private Storage() {
         this.media = new ArrayList<>();
         this.person = new HashSet<>();
         this.usedTags = new HashMap<>();
         this.countOfUse = new HashMap<>();
+    }
+
+    private volatile static Storage instance;
+
+    /**
+     * Singelton option
+     * https://de.wikibooks.org/wiki/Muster:_Java:_Singleton
+     * https://stackoverflow.com/questions/1300655/whats-alternative-to-singleton
+     *
+     * @return memory
+     */
+    public static Storage getInstance() {
+        synchronized(Storage.class){
+            if (null == Storage.instance) {
+                Storage.instance = new Storage();
+            }
+            return Storage.instance;
+        }
     }
 
     /**

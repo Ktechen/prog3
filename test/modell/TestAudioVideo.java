@@ -4,7 +4,6 @@ import controller.crud.Create;
 import modell.data.content.interaction.InteractiveVideo;
 import modell.data.storage.Storage;
 import modell.data.content.Person;
-import modell.data.storage.StorageAsSingelton;
 import modell.mediaDB.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,7 +31,7 @@ public class TestAudioVideo {
         t.add(Tag.Animal);
 
         Create create = new Create();
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
         storage.clear();
 
         create.person("Kevin Techen");
@@ -50,7 +49,7 @@ public class TestAudioVideo {
     @Test
     public void createMedia() {
 
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
         storage.clear();
 
         Person person = new Person("Kevin Techen");
@@ -69,7 +68,7 @@ public class TestAudioVideo {
     @Test
     public void createUserMoreUser() {
 
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
         storage.clear();
 
         try {
@@ -85,7 +84,7 @@ public class TestAudioVideo {
     @Test
     public void createUser() {
 
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
         storage.clear();
 
         try {

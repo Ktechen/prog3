@@ -31,7 +31,7 @@ public class CommandAdd implements ICommand {
     }
 
     /**
-     * Run a
+     * Server a
      * @throws NullPointerException = input was null or empty
      */
     @Override
@@ -63,6 +63,7 @@ public class CommandAdd implements ICommand {
             case 1:
             case 2:
 
+                //TODO serial per TCP or UDP
                 EventAddUploader eventAddUploader = new EventAddUploader(this, videoArray[0]);
 
                 //TODO Config in Main

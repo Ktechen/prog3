@@ -2,7 +2,6 @@ package modell;
 
 import controller.crud.Create;
 import modell.data.storage.Storage;
-import modell.data.storage.StorageAsSingelton;
 import modell.data.content.Person;
 import modell.mediaDB.Tag;
 import org.junit.jupiter.api.Assertions;
@@ -16,7 +15,7 @@ public class TestStorage {
 
     @Test
     public void equalsStorage() throws InterruptedException {
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
         storage.clear();
 
         final Collection<Tag> t = new LinkedList<>();
@@ -29,7 +28,7 @@ public class TestStorage {
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
         create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reiner fall"), "Tdas");
 
-        Assertions.assertEquals(storage.getMedia().size(), StorageAsSingelton.getInstance().getMedia().size());
+        Assertions.assertEquals(storage.getMedia().size(), Storage.getInstance().getMedia().size());
     }
 
 }

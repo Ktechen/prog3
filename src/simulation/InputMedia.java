@@ -2,7 +2,6 @@ package simulation;
 
 import controller.crud.Create;
 import modell.data.storage.Storage;
-import modell.data.storage.StorageAsSingelton;
 import modell.data.content.Person;
 import modell.mediaDB.Tag;
 
@@ -15,7 +14,7 @@ public class InputMedia extends Thread {
     private static Person person = new Person("Peter Random");
     private static Person person1 = new Person("Rammel lopw");
 
-    private Storage storage = StorageAsSingelton.getInstance();
+    private Storage storage = Storage.getInstance();
 
     @Override
     public void run() {
@@ -38,7 +37,7 @@ public class InputMedia extends Thread {
 
                     create.interactiveVideo(width, height, "mix", bitrate, Duration.parse("PT" + time + "m"), t, person, "kp");
                     create.interactiveVideo(width, height, "mix", bitrate, Duration.parse("PT20m"), t, person1, "kp");
-                    System.out.println(" ADD " + " length: " + StorageAsSingelton.getInstance().getMedia().size());
+                    System.out.println(" ADD " + " length: " + Storage.getInstance().getMedia().size());
 
                     Thread.sleep(0);
                 } catch (InterruptedException e) {

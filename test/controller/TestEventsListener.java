@@ -1,14 +1,12 @@
 package controller;
 
-import modell.data.content.interaction.InteractiveVideo;
-import modell.data.storage.Storage;
-import modell.data.storage.StorageAsSingelton;
-import modell.data.content.Person;
 import controller.event.events.event.add.EventAddMediaFiles;
 import controller.event.events.event.add.EventAddUploader;
 import controller.event.events.listener.add.ELAddMediafiles;
 import controller.event.events.listener.add.ELAddUploader;
-import modell.mediaDB.MediaContent;
+import modell.data.content.Person;
+import modell.data.content.interaction.InteractiveVideo;
+import modell.data.storage.Storage;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploader;
 import modell.mediaDB.Video;
@@ -45,7 +43,7 @@ public class TestEventsListener {
 
     @Test
     public void EventListenerAddUpdate() {
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
         storage.clear();
         EventAddUploader event = Mockito.mock(EventAddUploader.class);
         Mockito.when(event.getText()).thenReturn("PaulPanzer");
@@ -60,7 +58,7 @@ public class TestEventsListener {
 
     @Test
     public void EventListenerAddMediaFiles() throws InterruptedException {
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
         storage.clear();
         EventAddMediaFiles eventAddMediaFiles = Mockito.mock(EventAddMediaFiles.class);
         Mockito.when(eventAddMediaFiles.getType()).thenReturn(InteractiveVideo.class.getSimpleName());

@@ -6,7 +6,6 @@ import modell.data.content.Person;
 import modell.data.content.interaction.InteractiveVideo;
 import modell.data.content.licensed.LicensedAudioVideo;
 import modell.data.storage.Storage;
-import modell.data.storage.StorageAsSingelton;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploader;
 
@@ -29,10 +28,10 @@ public class Create implements Observable {
 
     /**
      * Create a Video or Audio
-     * Storage is {@link StorageAsSingelton}
+     * Storage is {@link Storage}
      */
     public Create() {
-        this.storage = StorageAsSingelton.getInstance();
+        this.storage = Storage.getInstance();
     }
 
     /**

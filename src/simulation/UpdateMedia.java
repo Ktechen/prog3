@@ -2,7 +2,6 @@ package simulation;
 
 import controller.crud.Update;
 import modell.data.storage.Storage;
-import modell.data.storage.StorageAsSingelton;
 import modell.mediaDB.MediaContent;
 
 import java.util.List;
@@ -13,7 +12,7 @@ public class UpdateMedia extends Thread {
     public void run() {
         boolean check = true;
         Update update = new Update();
-        Storage storage = StorageAsSingelton.getInstance();
+        Storage storage = Storage.getInstance();
 
         while (check) {
             try {

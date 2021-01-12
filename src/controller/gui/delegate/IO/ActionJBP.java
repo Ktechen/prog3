@@ -4,7 +4,6 @@ import controller.stream.jbp.JBP;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import modell.data.storage.Storage;
 
 import java.util.List;
 

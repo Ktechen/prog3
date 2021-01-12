@@ -1,7 +1,6 @@
 package controller.crud;
 
 import modell.data.storage.Storage;
-import modell.data.storage.StorageAsSingelton;
 import modell.mediaDB.*;
 
 import java.util.*;
@@ -11,7 +10,7 @@ public class Delete {
     private final Storage storage;
 
     public Delete() {
-        this.storage = StorageAsSingelton.getInstance();
+        this.storage = Storage.getInstance();
     }
 
     public Delete(Storage storage) {
