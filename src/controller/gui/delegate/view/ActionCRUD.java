@@ -1,9 +1,9 @@
 package controller.gui.delegate.view;
 
 import controller.crud.Update;
-import controller.handle.InputConverter;
-import controller.handle.create.CreateOption;
-import controller.handle.delete.DeleteOption;
+import controller.handleInput.InputConverter;
+import controller.handleInput.create.CreateOption;
+import controller.handleInput.delete.DeleteOption;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -33,7 +33,7 @@ public class ActionCRUD {
             try {
                 msg = createOption.run(temp, tag[0]);
                 updateDisplay.setText(msg + " | was been created");
-            } catch (NullPointerException e) {
+            } catch (NullPointerException | InterruptedException e) {
                 updateDisplay.setText(e.getMessage());
             }
         }

@@ -1,6 +1,6 @@
 package controller.gui.delegate.IO;
 
-import controller.handle.create.IO.CreateOptionIO;
+import controller.handleInput.create.IO.CreateOptionIO;
 import controller.stream.optionalsaving.OptionalSaving;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;

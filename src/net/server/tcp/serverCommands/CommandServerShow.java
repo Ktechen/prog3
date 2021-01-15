@@ -1,17 +1,37 @@
 package net.server.tcp.serverCommands;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import controller.handleInput.InputConverter;
 
-public class CommandServerShow extends CommandServer{
+import java.io.*;
+
+public class CommandServerShow extends CommandServer {
 
 
     public CommandServerShow(DataInputStream in, DataOutputStream out) {
         super(in, out);
     }
 
-    public void run() {
+    public void run() throws IOException {
+        this.sendMessage(InputConverter.SHOW_ALL + InputConverter.SHOW_PER_INDEX + InputConverter.SHOW_TAGS);
+        this.handleArgs(this.getMessage().toString());
+    }
+
+    private void handleArgs(String args) throws IOException {
+        switch (args) {
+            case "1":
+                this.sendMessage("Pls Enter a Filter or Press Enter");
+                System.out.println(this.getMessage().toString());
+                break;
+            case "2":
+                break;
+            case "3":
+                break;
+            default:
+                break;
+        }
+    }
+
+    private String showAll() {
+        return "";
     }
 }

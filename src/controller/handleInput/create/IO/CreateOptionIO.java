@@ -1,9 +1,10 @@
-package controller.handle.create.IO;
+package controller.handleInput.create.IO;
 
 import controller.crud.Create;
 import modell.mediaDB.InteractiveVideo;
 import modell.mediaDB.LicensedAudioVideo;
 
+@Deprecated
 public class CreateOptionIO {
 
     public CreateOptionIO(Object o) {

@@ -1,9 +1,12 @@
 package net.server.tcp.serverCommands;
 
-import controller.handle.InputConverter;
-import controller.handle.create.CreateOption;
+import controller.handleInput.InputConverter;
+import controller.handleInput.create.CreateOption;
 
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 public class CommandServerAdd extends CommandServer {
@@ -14,7 +17,6 @@ public class CommandServerAdd extends CommandServer {
     }
 
     public void run() throws IOException {
-        System.out.println("Send Message");
         this.sendMessage(InputConverter.USER_TEXT + "\n" + InputConverter.INTER_VIDEO_TEXT + "\n" + InputConverter.LICENSED_AUDIO_VIDEO_TEXT);
         this.handleArgs(this.getMessage().toString());
     }
@@ -25,12 +27,15 @@ public class CommandServerAdd extends CommandServer {
         String[] value = args.split("\\s+");
         String[] tag = value[0].split(":");
         String[] temp = Arrays.copyOfRange(value, 1, value.length);
-        String msg = createOption.run(temp, tag[0]);
 
+        String msg = null;
+        try {
+            msg = createOption.run(temp, tag[0]);
+        } catch (NullPointerException | InterruptedException | ArrayIndexOutOfBoundsException | DateTimeParseException | IllegalArgumentException e) {
+            this.sendMessage(e.getMessage());
+            return;
+        }
         this.sendMessage("Add " + msg);
     }
 
-    private void handleTags(){
-        //switch ()
-    }
 }

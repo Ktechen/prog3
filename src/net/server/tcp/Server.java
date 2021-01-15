@@ -1,5 +1,6 @@
 package net.server.tcp;
 
+import modell.data.storage.Storage;
 import net.server.tcp.serverCommands.*;
 
 import java.io.*;
@@ -34,7 +35,7 @@ public class Server {
         }
     }
 
-    private void handleConnection(Socket socket) {
+    public void handleConnection(Socket socket) {
         new Thread(() -> {
             try (DataOutputStream out = new DataOutputStream(socket.getOutputStream());
                  DataInputStream in = new DataInputStream(socket.getInputStream())) {
@@ -60,35 +61,48 @@ public class Server {
         }).start();
     }
 
-    private void executeSession(DataInputStream in, DataOutputStream out) throws IOException {
+    public void executeSession(DataInputStream in, DataOutputStream out) throws IOException {
         // System.out.println("Sender object: " + in.readObject());
         String commando = in.readUTF();
 
         switch (commando) {
             case ":c":
+                System.out.println("Select Add option");
                 new CommandServerAdd(in, out).run();
                 break;
             case ":r":
+                System.out.println("Select Show option");
                 new CommandServerShow(in, out).run();
                 break;
             case ":d":
+                System.out.println("Select Delete option");
                 new CommandServerDelete(in, out).run();
                 break;
             case ":u":
+                System.out.println("Select Update option");
                 new CommandServerUpdate(in, out).run();
                 break;
             case ":config":
+                System.out.println("Select Config option");
                 new CommandServerConfig(in, out).run();
                 break;
             case ":p":
+                System.out.println("Select Persistence option");
                 new CommandServerPersistence(in, out).run();
                 break;
             case ":back":
                 break;
             default:
+                System.out.println("Select Default option");
                 new CommandServerDefault(in, out).run();
                 break;
         }
+
+        System.out.println("Length of User: " + Storage.getInstance().getPerson().size());
+        System.out.println("Length of Media: " + Storage.getInstance().getMedia().size());
     }
 
+    public ServerSocket getServerSocket() {
+        return serverSocket;
+    }
 }

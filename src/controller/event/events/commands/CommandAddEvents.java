@@ -1,4 +1,4 @@
-package controller.cli.commands.options.events;
+package controller.event.events.commands;
 
 import controller.event.EventHandler;
 import controller.event.EventListener;
@@ -6,18 +6,18 @@ import controller.event.events.event.add.EventAddMediaFiles;
 import controller.event.events.event.add.EventAddUploader;
 import controller.event.events.listener.add.ELAddMediafiles;
 import controller.event.events.listener.add.ELAddUploader;
-import controller.handle.InputConverter;
+import controller.handleInput.InputConverter;
 import modell.data.content.interaction.InteractiveVideo;
 import modell.data.content.licensed.LicensedAudioVideo;
 
 import java.time.format.DateTimeParseException;
 
-public class CommandEvents {
+public class CommandAddEvents {
 
     private InputConverter converter;
     private EventHandler<EventListener> eventHandler;
 
-    public CommandEvents(InputConverter converter, EventHandler<EventListener> eventHandler) {
+    public CommandAddEvents(InputConverter converter, EventHandler<EventListener> eventHandler) {
         this.converter = converter;
         this.eventHandler = eventHandler;
     }
@@ -26,18 +26,15 @@ public class CommandEvents {
         this.eventHandler = handler;
     }
 
-    public void eventInteractiveVideo(String[] arr) throws InterruptedException {
+    public void eventInteractiveVideo(String[] arr) throws InterruptedException, ArrayIndexOutOfBoundsException, DateTimeParseException, IllegalArgumentException {
 
         Object[] convertArray = null;
-        try {
-            convertArray = converter.convertInteractionVideo(arr);
-        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | NumberFormatException e) {
-            System.out.println(e.getMessage());
-        }
+
+        convertArray = converter.convertInteractionVideo(arr);
 
         EventAddMediaFiles eventInterVideo = new EventAddMediaFiles(this, convertArray, InteractiveVideo.class.getSimpleName());
 
-        //TODO Config in Main
+        //TODO Config in MainGUI
         ELAddMediafiles interVideo = new ELAddMediafiles();
         eventHandler.add(interVideo);
         setHandler(eventHandler);
@@ -46,17 +43,14 @@ public class CommandEvents {
         eventHandler.handle(eventInterVideo);
     }
 
-    public void eventLicenseVideo(String[] arr) throws InterruptedException {
+    public void eventLicenseVideo(String[] arr) throws InterruptedException, ArrayIndexOutOfBoundsException, DateTimeParseException, IllegalArgumentException {
         Object[] convertArray = null;
-        try {
-            convertArray = converter.convertLicensedVideo(arr);
-        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+
+        convertArray = converter.convertLicensedVideo(arr);
 
         EventAddMediaFiles eventLicVideo = new EventAddMediaFiles(this, convertArray, LicensedAudioVideo.class.getSimpleName());
 
-        //TODO Config in Main
+        //TODO Config in MainGUI
         ELAddMediafiles licVideo = new ELAddMediafiles();
         eventHandler.add(licVideo);
         setHandler(eventHandler);
@@ -65,11 +59,11 @@ public class CommandEvents {
         eventHandler.handle(eventLicVideo);
     }
 
-    public void eventUser(String[] arr) throws InterruptedException {
+    public void eventUser(String arr) throws InterruptedException {
         //TODO serial per TCP or UDP
-        EventAddUploader eventAddUploader = new EventAddUploader(this, arr[0]);
+        EventAddUploader eventAddUploader = new EventAddUploader(this, arr);
 
-        //TODO Config in Main
+        //TODO Config in MainGUI
         ELAddUploader elAddUploader = new ELAddUploader();
         eventHandler.add(elAddUploader); //TODO EventHandler genauer definieren
         setHandler(eventHandler);

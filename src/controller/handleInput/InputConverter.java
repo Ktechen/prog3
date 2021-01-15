@@ -1,4 +1,4 @@
-package controller.handle;
+package controller.handleInput;
 
 import modell.data.content.Person;
 import modell.mediaDB.Tag;
@@ -11,13 +11,20 @@ import java.util.Collection;
 
 public class InputConverter {
 
-    public final static String NAME = "name:";
-    public final static String LICENSED_AUDIO_VIDEO = "lav:";
-    public final static String INTERACTIVE_VIDEO = "iv:";
-    public final static String AUDIO = "a:";
-    public final static String AUDIO_VIDEO = "av:";
-    public final static String MEDIA_CONTENT = "mc:";
-    public final static String VIDEO = "v:";
+    public final static String NAME = "name";
+    public final static String LICENSED_AUDIO_VIDEO = "lav";
+    public final static String INTERACTIVE_VIDEO = "iv";
+    public final static String AUDIO = "a";
+    public final static String AUDIO_VIDEO = "av";
+    public final static String MEDIA_CONTENT = "mc";
+    public final static String VIDEO = "v";
+
+    public final static int LICENSED_AUDIO_VIDEO_LENGTH = 8;
+    public final static int INTERACTIVE_VIDEO_LENGTH = 9;
+
+    public final static String SHOW_ALL = "1. Showall or filter\n";
+    public final static String SHOW_PER_INDEX =  "2. User per Index \n";
+    public final static String SHOW_TAGS = "3. Show used tags\n";
 
     private static final String usedTag = "Enter TAG: ";
 
@@ -32,9 +39,6 @@ public class InputConverter {
     public static final String USER_TEXT = usedTag + NAME + " [Produzentenname] fügt einen Produzentein";
 
 
-    public InputConverter() {
-    }
-
     /**
      * Convert e.g Interactive
      * Split your Array before you start (value.split("\\s+");)
@@ -42,7 +46,12 @@ public class InputConverter {
      * @param arr
      * @return length = 9 and arr with all option from Lic Video
      */
-    public Object[] convertLicensedVideo(String[] arr) {
+    public Object[] convertLicensedVideo(String[] arr) throws IllegalArgumentException{
+
+        if(arr.length != 9){
+            throw new IllegalArgumentException("Format isn't incorrect ");
+        }
+
         Object[] array = convertInteractionVideo(arr);
 
         try {
@@ -62,7 +71,7 @@ public class InputConverter {
      * @param value
      * @return length = 8 and arr with all option from Video
      */
-    public Object[] convertInteractionVideo(String[] value) {
+    public Object[] convertInteractionVideo(String[] value) throws NumberFormatException{
 
         Object[] o = new Object[value.length];
 
@@ -100,7 +109,7 @@ public class InputConverter {
         return value;
     }
 
-    private int intConverter(String[] value, int index) {
+    private int intConverter(String[] value, int index) throws NumberFormatException{
         return Integer.parseInt(value[index]);
     }
 

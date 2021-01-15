@@ -1,24 +1,24 @@
 package controller.cli.commands.options;
 
-import controller.handle.InputConverter;
+import controller.handleInput.InputConverter;
 import controller.event.EventHandler;
 import controller.event.EventListener;
 import controller.cli.Console;
 import controller.cli.ICommand;
-import controller.cli.commands.options.events.CommandEvents;
+import controller.event.events.commands.CommandAddEvents;
 
 public class CommandAdd implements ICommand {
 
     private EventHandler<EventListener> eventHandler;
     private final Console cs;
     private InputConverter converter;
-    private final CommandEvents commandEvents;
+    private final CommandAddEvents commandAddEvents;
 
     public CommandAdd() {
         this.eventHandler = new EventHandler<>();
         this.cs = new Console();
         this.converter = new InputConverter();
-        this.commandEvents = new CommandEvents(this.converter, this.eventHandler);
+        this.commandAddEvents = new CommandAddEvents(this.converter, this.eventHandler);
     }
 
     /**
@@ -52,13 +52,13 @@ public class CommandAdd implements ICommand {
         switch (videoArray.length) {
             case 1:
             case 2:
-                this.commandEvents.eventUser(videoArray);
+               // this.commandAddEvents.eventUser(videoArray);
                 break;
             case 8:
-                this.commandEvents.eventInteractiveVideo(videoArray);
+                this.commandAddEvents.eventInteractiveVideo(videoArray);
                 break;
             case 9:
-                this.commandEvents.eventLicenseVideo(videoArray);
+                this.commandAddEvents.eventLicenseVideo(videoArray);
                 break;
         }
     }
