@@ -1,4 +1,4 @@
-import view.cli.StartServer;
+import net.StartServer;
 
 public class MainServer {
     public static void main(String[] args) {

@@ -13,7 +13,7 @@ public class CommandServerAdd extends CommandServer {
         super(in, out);
     }
 
-    public void run() throws IOException, ClassNotFoundException {
+    public void run() throws IOException {
         System.out.println("Send Message");
         this.sendMessage(InputConverter.USER_TEXT + "\n" + InputConverter.INTER_VIDEO_TEXT + "\n" + InputConverter.LICENSED_AUDIO_VIDEO_TEXT);
         this.handleArgs(this.getMessage().toString());
