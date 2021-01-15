@@ -1,7 +1,7 @@
-package view.cli.commands.options;
+package controller.cli.commands.options;
 
-import view.cli.Console;
-import view.cli.commands.ICommand;
+import controller.cli.Console;
+import controller.cli.ICommand;
 import controller.event.EventHandler;
 import controller.event.EventListener;
 import controller.event.events.event.update.EventUpdateCounter;

@@ -8,10 +8,8 @@ public class CreateOptionIO {
 
     public CreateOptionIO(Object o) {
         Create create = new Create();
-
         InteractiveVideo(o, create);
         LicensedAudioVideo(o, create);
-
     }
 
     private void InteractiveVideo(Object o, Create create) {

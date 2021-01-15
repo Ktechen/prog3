@@ -1,4 +1,4 @@
-package view.cli.commands;
+package controller.cli;
 
 public enum Keys {
     ADD(":c"), SHOW(":r"), DELETE(":d"), CHANGE(":u"), CONFIG(":config"), PERSISTENCE(":p");

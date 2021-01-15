@@ -120,6 +120,7 @@ public class InputConverter {
     private Collection<Tag> tagCollectionConverter(String[] value, int index) {
         Collection<Tag> collection = new ArrayList<>();
         String[] tagArr = value[5].split("\\s*,\\s*");
+
         for (String s : tagArr) {
             collection.add(Tag.valueOf(s));
         }

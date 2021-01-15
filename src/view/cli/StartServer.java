@@ -1,7 +1,10 @@
-package net.server.tcp;
+package view.cli;
+
+import net.server.tcp.Server;
 
 public class StartServer {
-    public static void main(String[] args) {
+
+    public StartServer() {
         System.out.println("Server is starting...");
         Server server = new Server();
         server.run();

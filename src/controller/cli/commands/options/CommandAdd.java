@@ -1,0 +1,73 @@
+package controller.cli.commands.options;
+
+import controller.handle.InputConverter;
+import controller.event.EventHandler;
+import controller.event.EventListener;
+import controller.cli.Console;
+import controller.cli.ICommand;
+import controller.cli.commands.options.events.CommandEvents;
+
+public class CommandAdd implements ICommand {
+
+    private EventHandler<EventListener> eventHandler;
+    private final Console cs;
+    private InputConverter converter;
+    private final CommandEvents commandEvents;
+
+    public CommandAdd() {
+        this.eventHandler = new EventHandler<>();
+        this.cs = new Console();
+        this.converter = new InputConverter();
+        this.commandEvents = new CommandEvents(this.converter, this.eventHandler);
+    }
+
+    /**
+     * Server a
+     *
+     * @throws NullPointerException = input was null or empty
+     */
+    @Override
+    public void run() throws NullPointerException, InterruptedException {
+
+        //TODO Change to Updated code versions show controller/handle
+
+        System.out.println(toString());
+        Console console = new Console();
+        String value = console.input("--------------------");
+
+        //Convert a String to String[]
+        String[] videoArray = value.split("\\s+");
+
+        if (videoArray.length == 0) {
+            throw new NullPointerException("Input cannot be analyse");
+        }
+
+        //Name convert to one string
+        if (videoArray.length == 2) {
+            videoArray[0] = videoArray[0] + videoArray[1];
+            videoArray[1] = null;
+        }
+
+        //TODO Vorher erstellen in der Config
+        switch (videoArray.length) {
+            case 1:
+            case 2:
+                this.commandEvents.eventUser(videoArray);
+                break;
+            case 8:
+                this.commandEvents.eventInteractiveVideo(videoArray);
+                break;
+            case 9:
+                this.commandEvents.eventLicenseVideo(videoArray);
+                break;
+        }
+    }
+
+
+    @Override
+    public String toString() {
+        return InputConverter.USER_TEXT + "\n" +
+                InputConverter.INTER_VIDEO_TEXT + "\n" +
+                InputConverter.LICENSED_AUDIO_VIDEO_TEXT;
+    }
+}

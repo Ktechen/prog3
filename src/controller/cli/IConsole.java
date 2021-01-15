@@ -1,4 +1,4 @@
-package view.cli;
+package controller.cli;
 
 import modell.mediaDB.Tag;
 

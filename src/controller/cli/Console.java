@@ -1,4 +1,4 @@
-package view.cli;
+package controller.cli;
 
 import modell.mediaDB.Tag;
 
@@ -171,7 +171,7 @@ public class Console implements IConsole {
                     tags.add(tag);
                 }
 
-                System.out.println("Add more press " + triggerElement);
+                System.out.println("CommandServerAdd more press " + triggerElement);
                 String next = reader.readLine().trim();
                 if (next.compareTo(triggerElement) != 0) {
                     return tags;

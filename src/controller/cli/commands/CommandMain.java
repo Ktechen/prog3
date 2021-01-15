@@ -1,10 +1,12 @@
-package view.cli.commands;
+package controller.cli.commands;
 
-import view.cli.Console;
-import view.cli.commands.options.CommandAdd;
-import view.cli.commands.options.CommandDelete;
-import view.cli.commands.options.CommandShow;
-import view.cli.commands.options.CommandUpdate;
+import controller.cli.Console;
+import controller.cli.ICommand;
+import controller.cli.Keys;
+import controller.cli.commands.options.CommandAdd;
+import controller.cli.commands.options.CommandDelete;
+import controller.cli.commands.options.CommandShow;
+import controller.cli.commands.options.CommandUpdate;
 import controller.crud.Create;
 import controller.observer.observers.ObserverConsoleSize;
 
@@ -26,7 +28,7 @@ public class CommandMain implements ICommand {
                 case ":c":
                     try {
                         Create create = new Create();
-                        ObserverConsoleSize observerConsoleSize = new ObserverConsoleSize(create);
+                        new ObserverConsoleSize(create);
                         new CommandAdd().run();
                     } catch (IllegalArgumentException | NullPointerException | InterruptedException e) {
                         System.out.println(e.getMessage());

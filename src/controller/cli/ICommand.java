@@ -1,4 +1,4 @@
-package view.cli.commands;
+package controller.cli;
 
 
 import java.io.IOException;

@@ -1,6 +1,6 @@
 package view;
 
-import view.cli.Console;
+import controller.cli.Console;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
