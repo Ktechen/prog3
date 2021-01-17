@@ -44,27 +44,6 @@ public class MediaContent extends Content implements modell.mediaDB.MediaContent
         return (v1.multiply(v2).divide(value));
     }
 
-    /*
-    private String generator() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(getClass().getSimpleName());
-        builder.append("-");
-        builder.append(Storage.TYPE_OF_SOURCE);
-        builder.append(this.bitrate);
-        builder.append("-");
-        builder.append(UUID.randomUUID());
-        builder.append("-");
-        builder.append(this.duration);
-        builder.append("-");
-        final String tmp = new Date().toString();
-        builder.append(tmp.trim());
-        builder.append("-");
-        builder.append(System.currentTimeMillis());
-
-        return builder.toString();
-    }
-    */
-
 
     @Override
     public String toString() {

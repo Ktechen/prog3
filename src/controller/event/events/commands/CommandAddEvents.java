@@ -72,5 +72,4 @@ public class CommandAddEvents {
         eventHandler.handle(eventAddUploader);
     }
 
-
 }

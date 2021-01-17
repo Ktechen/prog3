@@ -55,13 +55,13 @@ public class TestCrud {
         create.interactiveVideo(500, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Tdas");
         create.interactiveVideo(500, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Tdas");
 
-        String name = "KevinTechen";
+        String name = "HöchenFlug";
 
         Read read = new Read();
 
         HashMap<String, Integer> map = read.listAllUsernamePerIndexValue(name);
 
-        Assertions.assertEquals(4, map.get(name));
+        Assertions.assertEquals(5, map.get(name));
     }
 
     @Test
@@ -272,7 +272,7 @@ public class TestCrud {
         update.accessCount(contents.get(3).getAddress());
         update.accessCount(contents.get(3).getAddress());
 
-        Assertions.assertEquals(4, storage.getCountOfUse().get(contents.get(3).getAddress()));
+        Assertions.assertEquals(Long.parseLong("4"), storage.getCountOfUse().get(contents.get(3).getAddress()));
     }
 
     @Test

@@ -12,13 +12,13 @@ import java.util.Collection;
 
 public class InputConverter {
 
-    public final static String NAME = "name";
-    public final static String LICENSED_AUDIO_VIDEO = "lav";
-    public final static String INTERACTIVE_VIDEO = "iv";
-    public final static String AUDIO = "a";
-    public final static String AUDIO_VIDEO = "av";
-    public final static String MEDIA_CONTENT = "mc";
-    public final static String VIDEO = "v";
+    public final static String NAME = "name:";
+    public final static String LICENSED_AUDIO_VIDEO = "lav:";
+    public final static String INTERACTIVE_VIDEO = "iv:";
+    public final static String AUDIO = "a:";
+    public final static String AUDIO_VIDEO = "av:";
+    public final static String MEDIA_CONTENT = "mc:";
+    public final static String VIDEO = "v:";
 
     public final static int LICENSED_AUDIO_VIDEO_LENGTH = 8;
     public final static int INTERACTIVE_VIDEO_LENGTH = 9;
@@ -26,6 +26,9 @@ public class InputConverter {
     public final static String SHOW_ALL = "1. Showall or filter\n";
     public final static String SHOW_PER_INDEX = "2. User per Index \n";
     public final static String SHOW_TAGS = "3. Show used tags\n";
+
+    public final static String DELETE_USER = "[Produzentenname]löscht den Produzenten";
+    public final static String DELETE_ADDRESSE = "[Abrufadresse]löscht die Mediadatei";
 
     private static final String usedTag = "Enter TAG: ";
 

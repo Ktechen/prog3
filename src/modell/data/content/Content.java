@@ -11,6 +11,7 @@ import java.util.UUID;
 public class Content implements modell.mediaDB.Content, Serializable {
 
     static final long serialVersionUID = 123123L;
+    private long counter = 0;
 
     private String address;
     private Collection<Tag> tags;
@@ -52,6 +53,6 @@ public class Content implements modell.mediaDB.Content, Serializable {
     @Override
     public long getAccessCount() {
         //TODO Fix Counter
-        return 0;
+        return this.counter;
     }
 }
