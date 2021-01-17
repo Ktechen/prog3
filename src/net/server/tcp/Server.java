@@ -1,5 +1,6 @@
 package net.server.tcp;
 
+import controller.handleInput.InputConverter;
 import modell.data.storage.Storage;
 import net.server.tcp.serverCommands.*;
 
@@ -67,33 +68,27 @@ public class Server {
 
         switch (commando) {
             case ":c":
-                System.out.println("Select Add option");
                 new CommandServerAdd(in, out).run();
                 break;
             case ":r":
-                System.out.println("Select Show option");
                 new CommandServerShow(in, out).run();
                 break;
             case ":d":
-                System.out.println("Select Delete option");
                 new CommandServerDelete(in, out).run();
                 break;
             case ":u":
-                System.out.println("Select Update option");
                 new CommandServerUpdate(in, out).run();
                 break;
             case ":config":
-                System.out.println("Select Config option");
                 new CommandServerConfig(in, out).run();
                 break;
             case ":p":
-                System.out.println("Select Persistence option");
                 new CommandServerPersistence(in, out).run();
                 break;
             case ":back":
+                out.writeUTF(InputConverter.MAIN_TEXT);
                 break;
             default:
-                System.out.println("Select Default option");
                 new CommandServerDefault(in, out).run();
                 break;
         }
@@ -102,7 +97,4 @@ public class Server {
         System.out.println("Length of Media: " + Storage.getInstance().getMedia().size());
     }
 
-    public ServerSocket getServerSocket() {
-        return serverSocket;
-    }
 }

@@ -26,7 +26,7 @@ public class CommandAddEvents {
         this.eventHandler = handler;
     }
 
-    public void eventInteractiveVideo(String[] arr) throws InterruptedException, ArrayIndexOutOfBoundsException, DateTimeParseException, IllegalArgumentException {
+    public void eventInteractiveVideo(String[] arr) throws ArrayIndexOutOfBoundsException, DateTimeParseException, IllegalArgumentException {
 
         Object[] convertArray = null;
 
@@ -43,7 +43,7 @@ public class CommandAddEvents {
         eventHandler.handle(eventInterVideo);
     }
 
-    public void eventLicenseVideo(String[] arr) throws InterruptedException, ArrayIndexOutOfBoundsException, DateTimeParseException, IllegalArgumentException {
+    public void eventLicenseVideo(String[] arr) throws ArrayIndexOutOfBoundsException, DateTimeParseException, IllegalArgumentException {
         Object[] convertArray = null;
 
         convertArray = converter.convertLicensedVideo(arr);
@@ -59,7 +59,7 @@ public class CommandAddEvents {
         eventHandler.handle(eventLicVideo);
     }
 
-    public void eventUser(String arr) throws InterruptedException {
+    public void eventUser(String arr) {
         //TODO serial per TCP or UDP
         EventAddUploader eventAddUploader = new EventAddUploader(this, arr);
 

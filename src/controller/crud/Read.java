@@ -17,7 +17,6 @@ public class Read {
         this.storage = storage;
     }
 
-    @Deprecated
     /**
      *
      * List of user filter by name
@@ -37,7 +36,6 @@ public class Read {
         return hashMap;
     }
 
-    @Deprecated
     private int countList(List<? extends Uploadable> v, String name) {
 
         int counter = 0;

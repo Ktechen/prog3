@@ -1,5 +1,6 @@
 package controller.handleInput;
 
+import controller.cli.Keys;
 import modell.data.content.Person;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploader;
@@ -23,7 +24,7 @@ public class InputConverter {
     public final static int INTERACTIVE_VIDEO_LENGTH = 9;
 
     public final static String SHOW_ALL = "1. Showall or filter\n";
-    public final static String SHOW_PER_INDEX =  "2. User per Index \n";
+    public final static String SHOW_PER_INDEX = "2. User per Index \n";
     public final static String SHOW_TAGS = "3. Show used tags\n";
 
     private static final String usedTag = "Enter TAG: ";
@@ -38,6 +39,13 @@ public class InputConverter {
 
     public static final String USER_TEXT = usedTag + NAME + " [Produzentenname] fügt einen Produzentein";
 
+    public static final String MAIN_TEXT = "\n" + Keys.ADD.get() + " Wechsel in den Einfügemodus\n" +
+            Keys.SHOW.get() + " - Wechsel in den Anzeigemodus\n" +
+            Keys.DELETE.get() + " - Wechsel in den Löschmodus\n" +
+            Keys.CHANGE.get() + " - Wechsel in den Änderungsmodus\n" +
+            Keys.CONFIG.get() + " - Wechsel in den Konfigurationsmodus\n" +
+            Keys.PERSISTENCE.get() + " - Wechsel in den Persistenzmodus\n" +
+            ":back - Show default view\n";
 
     /**
      * Convert e.g Interactive
@@ -46,9 +54,9 @@ public class InputConverter {
      * @param arr
      * @return length = 9 and arr with all option from Lic Video
      */
-    public Object[] convertLicensedVideo(String[] arr) throws IllegalArgumentException{
+    public Object[] convertLicensedVideo(String[] arr) throws IllegalArgumentException {
 
-        if(arr.length != 9){
+        if (arr.length != 9) {
             throw new IllegalArgumentException("Format isn't incorrect ");
         }
 
@@ -71,7 +79,7 @@ public class InputConverter {
      * @param value
      * @return length = 8 and arr with all option from Video
      */
-    public Object[] convertInteractionVideo(String[] value) throws NumberFormatException{
+    public Object[] convertInteractionVideo(String[] value) throws NumberFormatException {
 
         Object[] o = new Object[value.length];
 
@@ -109,7 +117,7 @@ public class InputConverter {
         return value;
     }
 
-    private int intConverter(String[] value, int index) throws NumberFormatException{
+    private int intConverter(String[] value, int index) throws NumberFormatException {
         return Integer.parseInt(value[index]);
     }
 

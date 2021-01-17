@@ -6,7 +6,7 @@ import controller.event.EventListener;
 
 public class ELDeleteVideoPerAdress implements EventListener {
     @Override
-    public void onInputEvent(Event event) throws InterruptedException {
+    public void onInputEvent(Event event)  {
         new Delete().perAddress(event.getText());
     }
 }

@@ -1,5 +1,6 @@
 package net.client.tcp;
 
+import controller.handleInput.InputConverter;
 import net.server.tcp.Server;
 import controller.cli.Console;
 import controller.cli.Keys;
@@ -32,9 +33,12 @@ public class Client {
         Console console = new Console();
         String input = console.input("-------------");
 
+        /*
         while (input.isEmpty()) {
             input = console.input("-------------");
         }
+
+         */
 
         out.writeUTF(input);
 
@@ -43,11 +47,6 @@ public class Client {
     }
 
     public String toString() {
-        return "\n" + Keys.ADD.get() + " Wechsel in den Einfügemodus\n" +
-                Keys.SHOW.get() + " Wechsel in den Anzeigemodus\n" +
-                Keys.DELETE.get() + " Wechsel in den Löschmodus\n" +
-                Keys.CHANGE.get() + " Wechsel in den Änderungsmodus\n" +
-                Keys.CONFIG.get() + " Wechsel in den Konfigurationsmodus\n" +
-                Keys.PERSISTENCE.get() + " Wechsel in den Persistenzmodus";
+        return InputConverter.MAIN_TEXT;
     }
 }

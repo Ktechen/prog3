@@ -29,12 +29,20 @@ public class CommandServerAdd extends CommandServer {
         String[] temp = Arrays.copyOfRange(value, 1, value.length);
 
         String msg = null;
+
         try {
             msg = createOption.run(temp, tag[0]);
-        } catch (NullPointerException | InterruptedException | ArrayIndexOutOfBoundsException | DateTimeParseException | IllegalArgumentException e) {
+
+        } catch (NullPointerException |
+                InterruptedException |
+                ArrayIndexOutOfBoundsException |
+                DateTimeParseException |
+                IllegalArgumentException e) {
+
             this.sendMessage(e.getMessage());
             return;
         }
+
         this.sendMessage("Add " + msg);
     }
 
