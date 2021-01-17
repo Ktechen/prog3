@@ -1,7 +1,6 @@
 package controller.event.events.commands;
 
 import controller.crud.Read;
-import controller.event.Event;
 import controller.event.EventHandler;
 import controller.event.EventListener;
 import controller.event.events.event.show.EventShowAll;

@@ -10,7 +10,6 @@ import java.io.IOException;
 
 public class CommandServerDelete extends CommandServer {
 
-
     public CommandServerDelete(DataInputStream in, DataOutputStream out) {
         super(in, out);
     }
@@ -20,7 +19,8 @@ public class CommandServerDelete extends CommandServer {
         this.handleArgs(this.getMessage().toString());
     }
 
-    private void handleArgs(String args) {
+    private void handleArgs(String args) throws IOException {
         new CommandDeleteEvents(new InputConverter(), new EventHandler<>(), args).eventDelete();
+        this.sendMessage(args + " was been deleted");
     }
 }

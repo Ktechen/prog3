@@ -50,18 +50,18 @@ public class TestCrud {
         create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("TimPorsche"), "Tdas");
         create.interactiveVideo(200, 400, "edcs", 9174, d, t, new Person("Reinerfall"), "Tdas");
         create.interactiveVideo(300, 400, "edcs", 9174, d, t, new Person("HöchenFlug"), "Tdas");
-        create.interactiveVideo(500, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Tdas");
-        create.interactiveVideo(500, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Tdas");
-        create.interactiveVideo(500, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Tdas");
-        create.interactiveVideo(500, 400, "edcs", 9174, d, t, (Uploader) storage.getPerson().iterator().next(), "Tdas");
+        create.interactiveVideo(500, 400, "edcs", 9174, d, t, new Person("KevinTechen"), "Tdas");
+        create.interactiveVideo(500, 400, "edcs", 9174, d, t, new Person("KevinTechen"), "Tdas");
+        create.interactiveVideo(500, 400, "edcs", 9174, d, t, new Person("KevinTechen"), "Tdas");
+        create.interactiveVideo(500, 400, "edcs", 9174, d, t, new Person("KevinTechen"), "Tdas");
 
-        String name = "HöchenFlug";
+        String name = "KevinTechen";
 
         Read read = new Read();
 
         HashMap<String, Integer> map = read.listAllUsernamePerIndexValue(name);
 
-        Assertions.assertEquals(5, map.get(name));
+        Assertions.assertEquals(4, map.get(name));
     }
 
     @Test

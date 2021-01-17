@@ -53,7 +53,7 @@ public class MediaContent extends Content implements modell.mediaDB.MediaContent
                 ", size=" + size +
                 ", address='" + this.getAddress() + '\'' +
                 ", tags=" + this.getTags() +
-                ", accessCount=" + this.getAccessCount() +
+                ", accessCount=" + this.getCounter() +
                 '}';
     }
 }

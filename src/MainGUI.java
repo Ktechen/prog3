@@ -4,7 +4,7 @@ import javafx.stage.Stage;
 
 public class MainGUI extends Application {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         launch(args);
     }
 

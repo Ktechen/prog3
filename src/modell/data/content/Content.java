@@ -1,23 +1,23 @@
 package modell.data.content;
 
+import controller.crud.Update;
 import modell.data.storage.Storage;
 import modell.mediaDB.Tag;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class Content implements modell.mediaDB.Content, Serializable {
 
     static final long serialVersionUID = 123123L;
-    private long counter = 0;
 
     private String address;
     private Collection<Tag> tags;
+    private long counter;
 
-    public Content() {
-    }
 
     public Content(Collection<Tag> tags) {
         this.tags = tags;
@@ -50,9 +50,13 @@ public class Content implements modell.mediaDB.Content, Serializable {
         return this.tags;
     }
 
+    long getCounter() {
+        return counter;
+    }
+
     @Override
     public long getAccessCount() {
-        //TODO Fix Counter
+        this.counter = (long) Storage.getInstance().getCountOfUse().get(this.address);
         return this.counter;
     }
 }

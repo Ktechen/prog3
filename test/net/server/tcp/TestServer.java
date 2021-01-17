@@ -1,4 +1,4 @@
-package controller.net;
+package net.server.tcp;
 
 import net.server.tcp.Server;
 import org.junit.jupiter.api.Test;

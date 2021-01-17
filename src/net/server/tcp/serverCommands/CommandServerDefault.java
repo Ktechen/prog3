@@ -4,7 +4,6 @@ import java.io.*;
 
 public class CommandServerDefault extends CommandServer {
 
-
     public CommandServerDefault(DataInputStream in, DataOutputStream out) {
         super(in, out);
     }

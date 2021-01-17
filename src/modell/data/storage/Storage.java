@@ -165,7 +165,7 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
      */
     public HashMap<String, Long> getCountOfUse() {
         synchronized (this) {
-            return new HashMap<>(this.countOfUse);
+            return new HashMap<String, Long>(this.countOfUse);
         }
     }
 

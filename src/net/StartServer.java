@@ -23,7 +23,7 @@ public class StartServer {
                 this.tcp();
                 break;
             case "udp":
-                System.out.println("Server TCP is starting...");
+                System.out.println("Server UDP is starting...");
                 break;
             default:
                 System.out.println("Protocol Unknown");

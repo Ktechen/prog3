@@ -8,11 +8,14 @@ import controller.event.events.listener.delete.ELDeleteVideoPerUser;
 import controller.handleInput.InputConverter;
 import modell.data.storage.Storage;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class CommandDeleteEvents {
 
     private InputConverter converter;
     private EventHandler<EventListener> eventHandler;
-    private final String value;
+    private String value;
 
     public CommandDeleteEvents(InputConverter converter, EventHandler<EventListener> eventHandler, final String value) {
         this.converter = converter;
@@ -29,7 +32,10 @@ public class CommandDeleteEvents {
         ELDeleteVideoPerAdress elDeleteVideoPerAdress = new ELDeleteVideoPerAdress();
         ELDeleteVideoPerUser elDeleteVideoPerUser = new ELDeleteVideoPerUser();
 
-        if (value.indexOf(Storage.TYPE_OF_SOURCE) == 0) {
+        Pattern pattern = Pattern.compile(Storage.TYPE_OF_SOURCE);
+        Matcher matcher = pattern.matcher(value);
+
+        if (matcher.find()) {
             eventHandler.add(elDeleteVideoPerAdress);
         } else {
             eventHandler.add(elDeleteVideoPerUser);
