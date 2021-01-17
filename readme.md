@@ -5,3 +5,4 @@
 ### Aufgabe 3: 13
 ### Aufgabe 4: 15
 ### Aufgabe 5: 8
+### Aufgabe 6: 

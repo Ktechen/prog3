@@ -12,6 +12,7 @@ import controller.observer.observers.ObserverConsoleSize;
 
 import java.io.IOException;
 
+@Deprecated
 public class CommandMain implements ICommand {
 
     public CommandMain() {

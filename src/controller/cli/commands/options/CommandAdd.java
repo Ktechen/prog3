@@ -7,6 +7,7 @@ import controller.cli.Console;
 import controller.cli.ICommand;
 import controller.event.events.commands.CommandAddEvents;
 
+@Deprecated
 public class CommandAdd implements ICommand {
 
     private EventHandler<EventListener> eventHandler;

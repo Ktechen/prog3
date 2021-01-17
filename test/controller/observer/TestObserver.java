@@ -1,4 +1,4 @@
-package controller;
+package controller.observer;
 
 import controller.crud.Create;
 import modell.data.storage.Storage;

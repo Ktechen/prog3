@@ -1,5 +1,6 @@
 package controller.handleInput;
 
+import com.sun.istack.internal.NotNull;
 import controller.cli.Keys;
 import modell.data.content.Person;
 import modell.mediaDB.Tag;
@@ -59,6 +60,10 @@ public class InputConverter {
      */
     public Object[] convertLicensedVideo(String[] arr) throws IllegalArgumentException {
 
+        if (null == arr) {
+            throw new NullPointerException("Array is null or empty");
+        }
+
         if (arr.length != 9) {
             throw new IllegalArgumentException("Format isn't incorrect ");
         }
@@ -82,7 +87,11 @@ public class InputConverter {
      * @param value
      * @return length = 8 and arr with all option from Video
      */
-    public Object[] convertInteractionVideo(String[] value) throws NumberFormatException {
+    public Object[] convertInteractionVideo(String[] value) {
+
+        if (null == value) {
+            throw new NullPointerException("Array is null or empty");
+        }
 
         Object[] o = new Object[value.length];
 
@@ -111,6 +120,10 @@ public class InputConverter {
      */
     public String convertedUploader(String[] arr) {
 
+        if (null == arr) {
+            throw new NullPointerException("Array is null or empty");
+        }
+
         String value = "";
 
         for (String var : arr) {
@@ -137,7 +150,7 @@ public class InputConverter {
         return Duration.parse(value[index]);
     }
 
-    private Collection<Tag> tagCollectionConverter(String[] value, int index) {
+    public Collection<Tag> tagCollectionConverter(String[] value, int index) {
         Collection<Tag> collection = new ArrayList<>();
         String[] tagArr = value[5].split("\\s*,\\s*");
 
@@ -148,7 +161,7 @@ public class InputConverter {
         return collection;
     }
 
-    private Uploader uploaderConverter(String[] value, int index) {
+    public Uploader uploaderConverter(String[] value, int index) {
         Uploader uploader = new Person(value[index]);
         return uploader;
     }

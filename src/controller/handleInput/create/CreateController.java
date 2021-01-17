@@ -18,17 +18,17 @@ final class CreateController {
         this.commandAddEvents = new CommandAddEvents(new InputConverter(), new EventHandler<>());
     }
 
-    public final void person(String[] value) throws InterruptedException {
+    public final void person(String[] value) {
         String lic = new InputConverter().convertedUploader(value);
         this.commandAddEvents.eventUser(lic);
     }
 
-    public final void licensedAudioVideo(String[] value) throws InterruptedException {
+    public final void licensedAudioVideo(String[] value) {
         //Object[] lic = new InputConverter().convertLicensedVideo(value);
         this.commandAddEvents.eventLicenseVideo(value);
     }
 
-    public final void interactiveVideo(String[] value) throws InterruptedException {
+    public final void interactiveVideo(String[] value) {
         //Object[] inter = new InputConverter().convertInteractionVideo(value);
         this.commandAddEvents.eventInteractiveVideo(value);
     }

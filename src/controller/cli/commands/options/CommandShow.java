@@ -14,6 +14,7 @@ import controller.event.events.listener.show.ELShowUsernamePerIndexValue;
 
 import java.io.IOException;
 
+@Deprecated
 public class CommandShow implements ICommand {
 
     private EventHandler<EventListener> eventHandler;
