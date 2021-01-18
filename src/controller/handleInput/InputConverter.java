@@ -21,8 +21,8 @@ public class InputConverter {
     public final static String MEDIA_CONTENT = "mc:";
     public final static String VIDEO = "v:";
 
-    public final static int LICENSED_AUDIO_VIDEO_LENGTH = 8;
-    public final static int INTERACTIVE_VIDEO_LENGTH = 9;
+    public final static int LICENSED_AUDIO_VIDEO_LENGTH = 9;
+    public final static int INTERACTIVE_VIDEO_LENGTH = 8;
 
     public final static String SHOW_ALL = "1. Showall or filter\n";
     public final static String SHOW_PER_INDEX = "2. User per Index \n";
@@ -50,6 +50,9 @@ public class InputConverter {
             Keys.CONFIG.get() + " - Wechsel in den Konfigurationsmodus\n" +
             Keys.PERSISTENCE.get() + " - Wechsel in den Persistenzmodus\n" +
             ":back - Show default view\n";
+
+    public static final String CONFIG_ADD = "add [Klassenname]";
+    public static final String CONFIG_REMOVE = "remove [Klassenname]";
 
     /**
      * Convert e.g Interactive

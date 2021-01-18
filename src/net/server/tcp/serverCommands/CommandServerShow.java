@@ -9,19 +9,21 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class CommandServerShow extends CommandServer {
+public class CommandServerShow extends CommandServer implements Command{
 
 
     public CommandServerShow(DataInputStream in, DataOutputStream out) {
         super(in, out);
     }
 
+    @Override
     public void run() throws IOException {
         this.sendMessage(InputConverter.SHOW_ALL + InputConverter.SHOW_PER_INDEX + InputConverter.SHOW_TAGS);
         this.handleArgs(this.getMessage().toString());
     }
 
-    private void handleArgs(String args) throws IOException {
+    @Override
+    public void handleArgs(String args) throws IOException {
         switch (args) {
             case "1":
                 this.sendMessage("Please enter a filter like: " + InteractiveVideo.class.getSimpleName() + " or No Filter enter 'No'");

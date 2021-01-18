@@ -9,19 +9,21 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
-public class CommandServerAdd extends CommandServer {
+public class CommandServerAdd extends CommandServer implements Command {
 
 
     public CommandServerAdd(DataInputStream in, DataOutputStream out) {
         super(in, out);
     }
 
+    @Override
     public void run() throws IOException {
         this.sendMessage(InputConverter.USER_TEXT + "\n" + InputConverter.INTER_VIDEO_TEXT + "\n" + InputConverter.LICENSED_AUDIO_VIDEO_TEXT);
         this.handleArgs(this.getMessage().toString());
     }
 
-    private void handleArgs(String args) throws IOException {
+    @Override
+    public void handleArgs(String args) throws IOException {
         CreateOption createOption = new CreateOption();
 
         String[] value = args.split("\\s+");
@@ -34,7 +36,6 @@ public class CommandServerAdd extends CommandServer {
             msg = createOption.run(temp, tag[0]);
 
         } catch (NullPointerException |
-                InterruptedException |
                 ArrayIndexOutOfBoundsException |
                 DateTimeParseException |
                 IllegalArgumentException e) {

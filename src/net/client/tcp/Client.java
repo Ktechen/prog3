@@ -6,7 +6,6 @@ import net.server.tcp.Server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -31,7 +30,7 @@ public class Client {
 
     }
 
-    private void executeSession(DataInputStream in, DataOutputStream out) throws IOException, EOFException {
+    private void executeSession(DataInputStream in, DataOutputStream out) throws IOException {
         Console console = new Console();
         String input = console.input("-------------");
 

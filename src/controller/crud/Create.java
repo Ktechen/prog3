@@ -11,6 +11,7 @@ import modell.mediaDB.Uploader;
 
 import java.math.BigDecimal;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -43,7 +44,7 @@ public class Create implements Observable {
         this.storage = storage;
     }
 
-    public void interactiveVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Uploader person, String type)  {
+    public void interactiveVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Uploader person, String type) {
         synchronized (this.storage) {
 
             //TODO Uploader to string es muss vorher ein Benutzer erstellt werden der hinzugefügt werden kann
@@ -85,6 +86,10 @@ public class Create implements Observable {
         synchronized (this.storage) {
             this.storage.addPerson(new Person(name));
         }
+    }
+
+    public List<Observer> getList() {
+        return new LinkedList<>(this.list);
     }
 
     @Override

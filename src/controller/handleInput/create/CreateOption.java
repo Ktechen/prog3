@@ -21,7 +21,7 @@ public final class CreateOption {
      * @return which value was been created e.g uploader or Mediafile ...
      * @throws NullPointerException
      */
-    public String run(String[] value, String select) throws NullPointerException, InterruptedException {
+    public String run(String[] value, String select) throws NullPointerException {
         switch (select) {
             case "name":
                 createController.person(value);
@@ -38,10 +38,11 @@ public final class CreateOption {
                 }
                 createController.licensedAudioVideo(value);
                 return "LICENSED_AUDIO_VIDEO";
+            default:
+                throw new NullPointerException("Selected element no found");
         }
         //TODO ADD ALL MEDIA
 
-        throw new NullPointerException("Selected element no found");
     }
 
 }
