@@ -6,21 +6,16 @@ import controller.event.EventListener;
 import controller.event.events.event.show.EventShowAll;
 import controller.event.events.event.show.EventShowUsedTags;
 import controller.event.events.event.show.EventShowUsernamePerIndex;
+import controller.handleInput.InputConverter;
 import modell.mediaDB.MediaContent;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class CommandShowEvents {
+public class CommandShowEvents extends CommandEvent{
 
-    private EventHandler<EventListener> eventHandler;
-
-    public CommandShowEvents(EventHandler<EventListener> eventHandler) {
-        this.eventHandler = eventHandler;
-    }
-
-    private void setHandler(EventHandler<controller.event.EventListener> handler) {
-        this.eventHandler = handler;
+    public CommandShowEvents(InputConverter converter, EventHandler<EventListener> eventHandler) {
+        super(converter, eventHandler);
     }
 
     public StringBuffer eventShowAll(String filterby) {

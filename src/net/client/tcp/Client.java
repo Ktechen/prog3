@@ -2,7 +2,7 @@ package net.client.tcp;
 
 import controller.cli.Console;
 import controller.handleInput.InputConverter;
-import net.server.tcp.Server;
+import net.server.tcp.ServerTCP;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -17,7 +17,7 @@ public class Client {
 
     public void run() {
         //TODO split in and out
-        try (Socket socket = new Socket(Server.IP, Server.PORT);
+        try (Socket socket = new Socket(ServerTCP.IP, ServerTCP.PORT);
              DataInputStream in = new DataInputStream(socket.getInputStream());
              DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
             while (true) {

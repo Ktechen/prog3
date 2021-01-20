@@ -11,7 +11,7 @@ public class MainServer {
         new ActionDebug().setupOne(null);
 
         while (true) {
-            System.out.println("Der Server wird mit 2 Argumenten gestartet: Protokoll und Lagerkapazität.");
+            System.out.println("Der ServerTCP wird mit 2 Argumenten gestartet: Protokoll und Lagerkapazität.");
             final Console console = new Console();
             String protocol = console.input("--------------");
             StartServer startServer = new StartServer(protocol, 5000);

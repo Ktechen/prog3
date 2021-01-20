@@ -15,22 +15,24 @@ import java.util.LinkedList;
 
 public class ActionDebug {
 
-    public void onClick(MouseEvent mouseEvent) {
-        if (mouseEvent.getClickCount() == 2) {
-            PickResult pickResult = mouseEvent.getPickResult();
-            String value = pickResult.toString();
-
-            String searchLength = "address=";
-            int start = value.indexOf("address=");
-            int end = value.indexOf("}");
-            String address = value.substring(start + searchLength.length(), end);
-            Update update = new Update();
-            update.accessCount(address);
-
-            System.out.println(address);
-            System.out.println("Clicks: " + update.getAccessCount(address));
-        }
-    }
+    /**
+     * public void onClick(MouseEvent mouseEvent) {
+     * if (mouseEvent.getClickCount() == 2) {
+     * PickResult pickResult = mouseEvent.getPickResult();
+     * String value = pickResult.toString();
+     * <p>
+     * String searchLength = "address=";
+     * int start = value.indexOf("address=");
+     * int end = value.indexOf("}");
+     * String address = value.substring(start + searchLength.length(), end);
+     * Update update = new Update();
+     * update.accessCount(address);
+     * <p>
+     * System.out.println(address);
+     * System.out.println("Clicks: " + update.getAccessCount(address));
+     * }
+     * }
+     */
 
     public void clearAll(ActionEvent actionEvent, Storage storage) {
         storage.clear();

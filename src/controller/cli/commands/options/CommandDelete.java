@@ -9,7 +9,7 @@ import controller.event.events.event.delete.EventDeletePerString;
 import controller.event.events.listener.delete.ELDeleteVideoPerAdress;
 import controller.event.events.listener.delete.ELDeleteVideoPerUser;
 
-@Deprecated
+
 public class CommandDelete implements ICommand {
 
     private EventHandler<EventListener> eventHandler;

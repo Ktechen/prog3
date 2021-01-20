@@ -27,7 +27,4 @@ public class ObserverConsoleSize implements Observer {
         }
     }
 
-    public String getErrAlert() {
-        return errAlert;
-    }
 }

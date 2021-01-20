@@ -1,4 +1,4 @@
-package net.server.tcp.serverCommands;
+package net.server.serverCommands;
 
 import controller.event.EventHandler;
 import controller.event.events.commands.CommandShowEvents;
@@ -9,7 +9,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class CommandServerShow extends CommandServer implements Command{
+public class CommandServerShow extends CommandServer implements Command {
 
 
     public CommandServerShow(DataInputStream in, DataOutputStream out) {
@@ -31,20 +31,20 @@ public class CommandServerShow extends CommandServer implements Command{
                 StringBuffer buffer1;
                 String msg = this.getMessage().toString();
                 if (msg.toLowerCase().equals("no")) {
-                    buffer1 = new CommandShowEvents(new EventHandler<>()).eventShowAll(null);
+                    buffer1 = new CommandShowEvents(new InputConverter(), new EventHandler<>()).eventShowAll(null);
                 } else {
-                    buffer1 = new CommandShowEvents(new EventHandler<>()).eventShowAll(msg);
+                    buffer1 = new CommandShowEvents(new InputConverter(), new EventHandler<>()).eventShowAll(msg);
                 }
 
                 this.sendMessage(buffer1.toString());
                 break;
             case "2":
                 this.sendMessage("Please enter your name");
-                StringBuffer stringBuffer2 = new CommandShowEvents(new EventHandler<>()).eventUsernamePerIndexValue(this.getMessage().toString());
+                StringBuffer stringBuffer2 = new CommandShowEvents(new InputConverter(), new EventHandler<>()).eventUsernamePerIndexValue(this.getMessage().toString());
                 this.sendMessage(stringBuffer2.toString());
                 break;
             case "3":
-                StringBuffer buffer3 = new CommandShowEvents(new EventHandler<>()).eventShowUsedTags();
+                StringBuffer buffer3 = new CommandShowEvents(new InputConverter(), new EventHandler<>()).eventShowUsedTags();
                 this.sendMessage(buffer3.toString());
                 break;
             default:

@@ -1,4 +1,4 @@
-package net.server.tcp.serverCommands;
+package net.server.serverCommands;
 
 import controller.handleInput.InputConverter;
 import controller.handleInput.create.CreateOption;

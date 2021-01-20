@@ -1,13 +1,11 @@
 package modell.data.content;
 
-import controller.crud.Update;
 import modell.data.storage.Storage;
 import modell.mediaDB.Tag;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.UUID;
 
 public class Content implements modell.mediaDB.Content, Serializable {

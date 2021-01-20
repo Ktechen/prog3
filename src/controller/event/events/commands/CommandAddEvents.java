@@ -12,18 +12,11 @@ import modell.data.content.licensed.LicensedAudioVideo;
 
 import java.time.format.DateTimeParseException;
 
-public class CommandAddEvents {
+public class CommandAddEvents extends CommandEvent{
 
-    private InputConverter converter;
-    private EventHandler<EventListener> eventHandler;
 
     public CommandAddEvents(InputConverter converter, EventHandler<EventListener> eventHandler) {
-        this.converter = converter;
-        this.eventHandler = eventHandler;
-    }
-
-    public void setHandler(EventHandler<controller.event.EventListener> handler) {
-        this.eventHandler = handler;
+        super(converter, eventHandler);
     }
 
     public void eventInteractiveVideo(String[] arr) throws ArrayIndexOutOfBoundsException, DateTimeParseException, IllegalArgumentException {

@@ -2,19 +2,19 @@ package net.server.tcp;
 
 import controller.handleInput.InputConverter;
 import modell.data.storage.Storage;
-import net.server.tcp.serverCommands.*;
+import net.server.serverCommands.*;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
+public class ServerTCP {
 
     public final static String IP = "Localhost";
     public final static int PORT = 8080;
     private ServerSocket serverSocket;
 
-    public Server(ServerSocket serverSocket) {
+    public ServerTCP(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
     }
 
@@ -23,7 +23,7 @@ public class Server {
      * Source: https://github.com/Tryken/SimpleServerClient/
      */
     public void run() {
-        System.out.println("Server is started " + this.hashCode());
+        System.out.println("ServerTCP is started " + this.hashCode());
         Socket socket = null;
         while (true) {
             try {

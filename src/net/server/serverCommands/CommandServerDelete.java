@@ -1,4 +1,4 @@
-package net.server.tcp.serverCommands;
+package net.server.serverCommands;
 
 import controller.event.EventHandler;
 import controller.event.events.commands.CommandDeleteEvents;

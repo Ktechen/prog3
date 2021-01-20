@@ -33,7 +33,7 @@ public class ActionCRUD {
             try {
                 msg = createOption.run(temp, tag[0]);
                 updateDisplay.setText(msg + " | was been created");
-            } catch (NullPointerException | InterruptedException e) {
+            } catch (NullPointerException e) {
                 updateDisplay.setText(e.getMessage());
             }
         }

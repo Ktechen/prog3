@@ -1,8 +1,4 @@
-package net.server.tcp.serverCommands;
-
-import controller.crud.Create;
-import controller.observer.observers.ObserverConsoleSize;
-import controller.observer.observers.ObserverConsoleTags;
+package net.server.serverCommands;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

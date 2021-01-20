@@ -152,7 +152,7 @@ public class ViewController implements Initializable {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public void mediafileOnClick(MouseEvent mouseEvent) {
-        this.actionDebug.onClick(mouseEvent);
+        //this.actionDebug.onClick(mouseEvent);
         this.updateAllLists();
     }
 

@@ -1,15 +1,21 @@
 package net;
 
-import net.server.tcp.Server;
+import net.server.tcp.ServerTCP;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 
+/**
+ * TCP ServerTCP = mehrere Clients sind verfügbar
+ * UDP ServerTCP = nur ein Client verfügbar
+ */
 public class StartServer {
 
     private boolean debug = false;
     private String protocol;
     private int Lagerkapazität;
+    public final static String TCP_START_TEXT = "ServerTCP TCP is starting...";
+    public final static String UDP_START_TEXT = "ServerTCP UDP is starting...";
 
     public StartServer(String protocol, int Lagerkapazität) {
         this.protocol = protocol;
@@ -23,23 +29,28 @@ public class StartServer {
                 this.tcp();
                 break;
             case "udp":
-                System.out.println("Server UDP is starting...");
+                System.out.println("ServerTCP UDP is starting...");
                 break;
             default:
                 System.out.println("Protocol Unknown");
+                //TODO Start Default console
                 break;
         }
     }
 
     private void tcp() {
-        System.out.println("Server TCP is starting...");
-        Server server = null;
+        System.out.println(TCP_START_TEXT);
+        ServerTCP serverTCP = null;
         try {
-            ServerSocket serverSocket = new ServerSocket(Server.PORT);
-            server = new Server(serverSocket);
+            ServerSocket serverSocket = new ServerSocket(ServerTCP.PORT);
+            serverTCP = new ServerTCP(serverSocket);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        server.run();
+        serverTCP.run();
+    }
+
+    private void udp() {
+        System.out.println(UDP_START_TEXT);
     }
 }

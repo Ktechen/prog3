@@ -7,7 +7,7 @@ import controller.cli.Console;
 import controller.cli.ICommand;
 import controller.event.events.commands.CommandAddEvents;
 
-@Deprecated
+
 public class CommandAdd implements ICommand {
 
     private EventHandler<EventListener> eventHandler;
@@ -23,7 +23,7 @@ public class CommandAdd implements ICommand {
     }
 
     /**
-     * Server a
+     * ServerTCP a
      *
      * @throws NullPointerException = input was null or empty
      */
@@ -53,7 +53,7 @@ public class CommandAdd implements ICommand {
         switch (videoArray.length) {
             case 1:
             case 2:
-               // this.commandAddEvents.eventUser(videoArray);
+                this.commandAddEvents.eventUser(videoArray[0]);
                 break;
             case 8:
                 this.commandAddEvents.eventInteractiveVideo(videoArray);

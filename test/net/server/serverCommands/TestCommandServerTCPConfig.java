@@ -1,8 +1,8 @@
-package net.server.tcp.serverCommands;
+package net.server.serverCommands;
 
 import org.junit.jupiter.api.Test;
 
-public class TestCommandServerConfig {
+public class TestCommandServerTCPConfig {
 
     @Test
     public void testConfig(){

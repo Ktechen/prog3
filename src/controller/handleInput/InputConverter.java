@@ -1,6 +1,5 @@
 package controller.handleInput;
 
-import com.sun.istack.internal.NotNull;
 import controller.cli.Keys;
 import modell.data.content.Person;
 import modell.mediaDB.Tag;
@@ -27,23 +26,25 @@ public class InputConverter {
     public final static String SHOW_ALL = "1. Showall or filter\n";
     public final static String SHOW_PER_INDEX = "2. User per Index \n";
     public final static String SHOW_TAGS = "3. Show used tags\n";
+    public final static String SHOW_CONTENT = "content[[Typ]] Anzeige der Mediadateien-ggf. \n " +
+            "gefiltert nach Typ1-mit Abrufadresse, Upload-Datumund Anzahl der Abrufe";
 
     public final static String DELETE_USER = "[Produzentenname]löscht den Produzenten";
     public final static String DELETE_ADDRESSE = "[Abrufadresse]löscht die Mediadatei";
 
-    private static final String usedTag = "Enter TAG: ";
+    private final static String usedTag = "Enter TAG: ";
 
-    public static final String LICENSED_AUDIO_VIDEO_TEXT = usedTag + LICENSED_AUDIO_VIDEO + " LicensedAudioVideo: " +
+    public final static String LICENSED_AUDIO_VIDEO_TEXT = usedTag + LICENSED_AUDIO_VIDEO + " LicensedAudioVideo: " +
             "(int width, int height, String encoding, long bitrate, Duration length, " +
             "Collection<Tag> tag, Person person, String holder, int samplingRate)";
 
-    public static final String INTER_VIDEO_TEXT = usedTag + INTERACTIVE_VIDEO + " Interactive: " +
+    public final static String INTER_VIDEO_TEXT = usedTag + INTERACTIVE_VIDEO + " Interactive: " +
             "(int width, int height, String encoding, long bitrate, Duration length, " +
             "Collection<Tag> tag, Person person, String type)";
 
-    public static final String USER_TEXT = usedTag + NAME + " [Produzentenname] fügt einen Produzentein";
+    public final static String USER_TEXT = usedTag + NAME + " [Produzentenname] fügt einen Produzentein";
 
-    public static final String MAIN_TEXT = "\n" + Keys.ADD.get() + " Wechsel in den Einfügemodus\n" +
+    public final static String MAIN_TEXT = "\n" + Keys.ADD.get() + " Wechsel in den Einfügemodus\n" +
             Keys.SHOW.get() + " - Wechsel in den Anzeigemodus\n" +
             Keys.DELETE.get() + " - Wechsel in den Löschmodus\n" +
             Keys.CHANGE.get() + " - Wechsel in den Änderungsmodus\n" +
@@ -51,8 +52,10 @@ public class InputConverter {
             Keys.PERSISTENCE.get() + " - Wechsel in den Persistenzmodus\n" +
             ":back - Show default view\n";
 
-    public static final String CONFIG_ADD = "add [Klassenname]";
-    public static final String CONFIG_REMOVE = "remove [Klassenname]";
+    public final static String CONFIG_ADD_TEXT = "add [Klassenname]";
+    public final static String CONFIG_REMOVE_TEXT = "remove [Klassenname]";
+
+    public final static String UPDATE_TEXT = "[Abrufadresse] erhöht den Zähler für die Abrufe um eins";
 
     /**
      * Convert e.g Interactive

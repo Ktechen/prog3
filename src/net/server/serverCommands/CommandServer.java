@@ -1,4 +1,4 @@
-package net.server.tcp.serverCommands;
+package net.server.serverCommands;
 
 import java.io.*;
 

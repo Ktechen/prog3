@@ -11,20 +11,13 @@ import modell.data.storage.Storage;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CommandDeleteEvents {
+public class CommandDeleteEvents extends CommandEvent {
 
-    private InputConverter converter;
-    private EventHandler<EventListener> eventHandler;
     private String value;
 
-    public CommandDeleteEvents(InputConverter converter, EventHandler<EventListener> eventHandler, final String value) {
-        this.converter = converter;
-        this.eventHandler = eventHandler;
+    public CommandDeleteEvents(InputConverter converter, EventHandler<EventListener> eventHandler, String value) {
+        super(converter, eventHandler);
         this.value = value;
-    }
-
-    public void setHandler(EventHandler<controller.event.EventListener> handler) {
-        this.eventHandler = handler;
     }
 
     public void eventDelete() {
