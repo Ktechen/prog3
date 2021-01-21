@@ -28,17 +28,17 @@ public class CommandServerConfig extends CommandServer implements Command {
 
         if (args.indexOf("add") == 0) {
             create.join(new ObserverConsoleSize(create));
-            this.sendMessage("ObserverConsoleSize was been added");
+            this.sendMessage(InputConverter.CONFIG_ADD_TEXT_VIEW);
         } else if (args.indexOf("remove") == 0) {
             if (args.equals(ObserverConsoleSize.class.getSimpleName())) {
                 create.leave(this.foundInstanceOf(ObserverConsoleSize.class, create));
-                this.sendMessage(ObserverConsoleSize.class.getSimpleName() + " was been removed");
+                this.sendMessage(InputConverter.CONFIG_REMOVE_TEXT_VIEW);
 
             } else {
-                this.sendMessage("Observer not found");
+                this.sendMessage(InputConverter.CONFIG_NOT_FOUND);
             }
         } else {
-            this.sendMessage("Command not found");
+            this.sendMessage(InputConverter.OPTION_NOT_VALID);
         }
     }
 

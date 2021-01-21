@@ -15,18 +15,17 @@ public class TestCommandServerTCPAdd {
 
         //Kann man auch ohne mockito machen
 
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        DataOutputStream out = new DataOutputStream(baos);
+
         byte[] bytes = new byte[1024];
-        ByteArrayOutputStream baus = new ByteArrayOutputStream(1024);
-        DataOutputStream out = new DataOutputStream(baus);
-
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
-        DataInputStream in = new DataInputStream(byteArrayInputStream);
-
-        //before out
-        CommandServerAdd commandServerAdd = new CommandServerAdd(in, out);
+        DataInputStream in = new DataInputStream(new ByteArrayInputStream(bytes));
 
         String name = "name: KevinTechen";
         out.writeUTF(name);
+        //before out
+        CommandServerAdd commandServerAdd = new CommandServerAdd(in, out);
+
 
         commandServerAdd.run();
 

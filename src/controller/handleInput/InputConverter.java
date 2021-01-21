@@ -1,7 +1,9 @@
 package controller.handleInput;
 
 import controller.cli.Keys;
+import controller.observer.observers.ObserverConsoleSize;
 import modell.data.content.Person;
+import modell.data.content.interaction.InteractiveVideo;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploader;
 
@@ -29,6 +31,9 @@ public class InputConverter {
     public final static String SHOW_CONTENT = "content[[Typ]] Anzeige der Mediadateien-ggf. \n " +
             "gefiltert nach Typ1-mit Abrufadresse, Upload-Datumund Anzahl der Abrufe";
 
+    public final static String SHOW_ALL_TEXT_VIEW = "Please enter a filter like: " + InteractiveVideo.class.getSimpleName() + " or No Filter press enter";
+    public final static String SHOW_Uploader_TEXT_VIEW = "Please enter your name";
+
     public final static String DELETE_USER = "[Produzentenname]löscht den Produzenten";
     public final static String DELETE_ADDRESSE = "[Abrufadresse]löscht die Mediadatei";
 
@@ -54,8 +59,14 @@ public class InputConverter {
 
     public final static String CONFIG_ADD_TEXT = "add [Klassenname]";
     public final static String CONFIG_REMOVE_TEXT = "remove [Klassenname]";
+    public final static String CONFIG_ADD_TEXT_VIEW = "ObserverConsoleSize was been added";
+    public final static String CONFIG_REMOVE_TEXT_VIEW = ObserverConsoleSize.class.getSimpleName() + " was been removed";
+    public final static String CONFIG_NOT_FOUND = "Observer not found";
 
     public final static String UPDATE_TEXT = "[Abrufadresse] erhöht den Zähler für die Abrufe um eins";
+
+    public final static String OPTION_NOT_VALID = "The option is not valid";
+
 
     /**
      * Convert e.g Interactive
