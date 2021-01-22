@@ -1,6 +1,9 @@
 package net.server.serverCommands;
 
 import controller.crud.Update;
+import controller.event.EventHandler;
+import controller.event.events.commands.CommandDeleteEvents;
+import controller.event.events.commands.CommandUpdateEvent;
 import controller.handleInput.InputConverter;
 
 import java.io.*;
@@ -20,8 +23,8 @@ public class CommandServerUpdate extends CommandServer implements Command {
     @Override
     public void handleArgs(String args) throws IOException {
         try {
+            new CommandUpdateEvent(new InputConverter(), new EventHandler<>()).eventUpdateCounter(args);
             final Update update = new Update();
-            update.accessCount(args);
             long current = update.getAccessCount(args);
             this.sendMessage("Click: " + current);
         } catch (IllegalArgumentException e) {

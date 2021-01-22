@@ -54,7 +54,7 @@ public class Create implements Observable {
             this.capacity = BigDecimal.valueOf(width).multiply(BigDecimal.valueOf(height));
 
             read.tagFinder(video.getTags());
-            //Validierung.checkSize(video.getSize());
+            Validierung.checkSize(video.getSize());
 
             this.storage.addMedia(video);
 
@@ -71,7 +71,7 @@ public class Create implements Observable {
             LicensedAudioVideo video = new LicensedAudioVideo(width, height, encoding, bitrate, length, tag, person, samplingRate, holder);
 
             read.tagFinder(video.getTags());
-            //Validierung.checkSize(video.getSize());
+            Validierung.checkSize(video.getSize());
 
             this.person(person.getName());
             this.storage.addMedia(video);
