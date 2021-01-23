@@ -7,9 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashSet;
 
 public class TestCommandServerTCPAdd {
@@ -17,34 +15,43 @@ public class TestCommandServerTCPAdd {
     /**
      * Das Senden vom DataInput oder DataOutput hat nicht richtig funktioniert
      */
-    /**
-     * @Test public void testAddUser() throws IOException {
-     * Storage.getInstance().clear();
-     * <p>
-     * //Kann man auch ohne mockito machen
-     * <p>
-     * ByteArrayOutputStream baos = new ByteArrayOutputStream();
-     * DataOutputStream out = new DataOutputStream(baos);
-     * <p>
-     * byte[] bytes = new byte[1024];
-     * DataInputStream in = new DataInputStream(new ByteArrayInputStream(bytes));
-     * <p>
-     * String name = "name: KevinTechen";
-     * out.writeUTF(name);
-     * //before out
-     * CommandServerAdd commandServerAdd = new CommandServerAdd(in, out);
-     * commandServerAdd.run();
-     * <p>
-     * in.readUTF();
-     * <p>
-     * //after in
-     * <p>
-     * //Cli ohne netzwerk sollte observer funktion da sein
-     * <p>
-     * Assertions.assertEquals(1, Storage.getInstance().getPerson().size());
-     * Assertions.assertEquals("KevinTechen", Storage.getInstance().getPerson().iterator().next());
-     * }
-     */
+    @Test
+    public void testAddUser() throws IOException {
+        Storage.getInstance().clear();
+
+        //Kann man auch ohne mockito machen
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        DataOutputStream out = new DataOutputStream(baos);
+
+        //before out
+        String name = "name: KevinTechen";
+        //out.writeUTF(name);
+        //out.flush();
+
+        //Input Stream and Outputstream sind verstauscht deswegen muss dem bekommt der Input denn Output
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
+        dataOutputStream.writeUTF(name);
+
+        DataInputStream in = new DataInputStream(new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
+
+        CommandServerAdd commandServerAdd = new CommandServerAdd(in, out);
+
+        commandServerAdd.run();
+
+        //in.readUTF();
+
+        //after in
+
+        //Cli ohne netzwerk sollte observer funktion da sein
+
+        Uploader uploader = (Uploader) Storage.getInstance().getPerson().iterator().next();
+
+        Assertions.assertEquals(1, Storage.getInstance().getPerson().size());
+        Assertions.assertEquals("KevinTechen", uploader.getName());
+    }
+
 
     @Test
     public void testAddUserHandleArgs() throws IOException {

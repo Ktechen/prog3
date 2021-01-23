@@ -19,6 +19,7 @@ public abstract class CommandServer {
 
     public void sendMessage(String msg) throws IOException {
         this.out.writeUTF(msg);
+        this.out.flush();
     }
 
     public Object getMessage() throws IOException {

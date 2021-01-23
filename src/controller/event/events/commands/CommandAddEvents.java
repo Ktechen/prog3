@@ -21,9 +21,7 @@ public class CommandAddEvents extends CommandEvent{
 
     public void eventInteractiveVideo(String[] arr) throws ArrayIndexOutOfBoundsException, DateTimeParseException, IllegalArgumentException {
 
-        Object[] convertArray = null;
-
-        convertArray = converter.convertInteractionVideo(arr);
+        Object[] convertArray = converter.convertInteractionVideo(arr);
 
         EventAddMediaFiles eventInterVideo = new EventAddMediaFiles(this, convertArray, InteractiveVideo.class.getSimpleName());
 
@@ -37,9 +35,7 @@ public class CommandAddEvents extends CommandEvent{
     }
 
     public void eventLicenseVideo(String[] arr) throws ArrayIndexOutOfBoundsException, DateTimeParseException, IllegalArgumentException {
-        Object[] convertArray = null;
-
-        convertArray = converter.convertLicensedVideo(arr);
+        Object[] convertArray = converter.convertLicensedVideo(arr);
 
         EventAddMediaFiles eventLicVideo = new EventAddMediaFiles(this, convertArray, LicensedAudioVideo.class.getSimpleName());
 
