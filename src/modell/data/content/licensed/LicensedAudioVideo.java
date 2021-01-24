@@ -10,7 +10,7 @@ import java.time.Duration;
 import java.util.Collection;
 import java.util.Collections;
 
-public class LicensedAudioVideo extends AudioVideo implements modell.mediaDB.LicensedAudioVideo {
+public class LicensedAudioVideo extends AudioVideo implements modell.mediaDB.LicensedAudioVideo, Serializable {
 
     private final String holder;
 

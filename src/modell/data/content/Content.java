@@ -16,10 +16,12 @@ public class Content implements modell.mediaDB.Content, Serializable {
     private Collection<Tag> tags;
     private long counter;
 
-
     public Content(Collection<Tag> tags) {
         this.tags = tags;
         this.address = generator();
+    }
+
+    public Content() {
     }
 
     private String generator() {

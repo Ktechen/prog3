@@ -2,12 +2,13 @@ package modell.data.content;
 
 import modell.mediaDB.Tag;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Collections;
 
-public class MediaContent extends Content implements modell.mediaDB.MediaContent {
+public class MediaContent extends Content implements modell.mediaDB.MediaContent, Serializable {
 
     private long bitrate;
     private final Duration duration;

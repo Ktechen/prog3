@@ -3,12 +3,13 @@ package modell.data.content;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploader;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Collections;
 
-public class AudioVideo extends Audio implements modell.mediaDB.AudioVideo {
+public class AudioVideo extends Audio implements modell.mediaDB.AudioVideo, Serializable {
 
     private int width;
     private int height;

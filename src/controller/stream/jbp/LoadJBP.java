@@ -32,7 +32,7 @@ class LoadJBP {
         }
     }
 
-    Object getObject() {
+    public Object getObject() {
         return this.o;
     }
 }

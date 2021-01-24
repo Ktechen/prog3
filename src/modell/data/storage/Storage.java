@@ -13,8 +13,12 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
     private HashMap<String, Long> countOfUse;
     private HashMap<String, Boolean> usedTags;
 
-    private Storage() {
-        this.media = new ArrayList<>();
+    public Storage() {
+
+    }
+
+    private Storage(boolean beanCon) {
+        this.media = new LinkedList<>();
         this.person = new HashSet<>();
         this.usedTags = new HashMap<>();
         this.countOfUse = new HashMap<>();
@@ -30,9 +34,9 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
      * @return memory
      */
     public static Storage getInstance() {
-        synchronized(Storage.class){
+        synchronized (Storage.class) {
             if (null == Storage.instance) {
-                Storage.instance = new Storage();
+                Storage.instance = new Storage(true);
             }
             return Storage.instance;
         }
@@ -58,11 +62,19 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
         return new LinkedList<>(this.media);
     }
 
+    public synchronized List<MediaContent> getMediaAsMediaContent() {
+        return new LinkedList<>(this.media);
+    }
+
     public synchronized void setMedia(List<T> media) {
         this.media = media;
     }
 
-    public HashSet<E> getPerson() {
+    public synchronized HashSet<E> getPerson() {
+        return new HashSet<>(this.person);
+    }
+
+    public synchronized HashSet<Uploader> getPersonAsUploader() {
         return new HashSet<>(this.person);
     }
 
@@ -165,7 +177,7 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
      */
     public HashMap<String, Long> getCountOfUse() {
         synchronized (this) {
-            return new HashMap<String, Long>(this.countOfUse);
+            return new HashMap<>(this.countOfUse);
         }
     }
 

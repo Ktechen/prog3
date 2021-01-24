@@ -4,12 +4,13 @@ import modell.data.storage.Storage;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploader;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Date;
 
-public class Video extends MediaContent implements modell.mediaDB.Video {
+public class Video extends MediaContent implements modell.mediaDB.Video, Serializable {
 
     private int width;
     private int height;
@@ -38,6 +39,9 @@ public class Video extends MediaContent implements modell.mediaDB.Video {
         this.date = new Date();
         this.uploader = uploader;
         this.size = caluSize(BigDecimal.valueOf(height), BigDecimal.valueOf(height));
+    }
+
+    public Video() {
     }
 
     @Override
