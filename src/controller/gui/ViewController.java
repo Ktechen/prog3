@@ -4,23 +4,31 @@ import controller.gui.delegate.IO.ActionWindow;
 import controller.gui.delegate.view.ActionCRUD;
 import controller.gui.delegate.view.ActionDebug;
 import controller.gui.delegate.view.ActionSort;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 import modell.data.storage.Storage;
 import modell.mediaDB.Uploadable;
 import modell.mediaDB.Uploader;
+import view.gui.ViewModel;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static javafx.collections.FXCollections.*;
 
 public class ViewController implements Initializable {
 
@@ -39,6 +47,9 @@ public class ViewController implements Initializable {
     private final ActionSort actionSort;
     private final ActionWindow actionWindow;
     private final ActionDebug actionDebug;
+    private ViewModel viewModel;
+    private int sizeMedia;
+    private int sizeUploader;
 
     public ViewController() {
         this.actionCRUD = new ActionCRUD();
@@ -46,6 +57,15 @@ public class ViewController implements Initializable {
         this.actionWindow = new ActionWindow();
         this.actionDebug = new ActionDebug();
         this.storage = Storage.getInstance();
+        this.viewModel = new ViewModel();
+
+        //TODO Databinding wäre besser
+        /**
+        https://www.java-forum.org/thema/automatisches-aktualisieren-der-seite.184880/
+         */
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> updateAllLists()));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 
     /**
@@ -56,7 +76,10 @@ public class ViewController implements Initializable {
      */
     public void initialize(URL location, ResourceBundle resources) {
         this.updateAllLists();
+        this.viewModel.updateProperties();
         this.updateDisplay.setText("initialized");
+        this.sizeMedia = Storage.getInstance().getMedia().size();
+        this.sizeUploader = Storage.getInstance().getPerson().size();
     }
 
     /**
@@ -64,8 +87,8 @@ public class ViewController implements Initializable {
      */
     private void updateAllLists() {
         //TODO Property elemente
-        this.listViewMedia.setItems(FXCollections.observableArrayList(this.storage.getMedia()));
-        this.ListViewUser.setItems(FXCollections.observableArrayList(this.storage.getPerson()));
+        this.listViewMedia.setItems(observableArrayList(this.storage.getMedia()));
+        this.ListViewUser.setItems(observableArrayList(this.storage.getPerson()));
     }
 
     /**
@@ -75,8 +98,8 @@ public class ViewController implements Initializable {
      * @param uploader
      */
     private <T extends Uploadable> void updateAllLists(List<T> uploadable, HashSet<Uploader> uploader) {
-        this.listViewMedia.setItems(FXCollections.observableArrayList(uploadable));
-        this.ListViewUser.setItems(FXCollections.observableArrayList(uploader));
+        this.listViewMedia.setItems(observableArrayList(uploadable));
+        this.ListViewUser.setItems(observableArrayList(uploader));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

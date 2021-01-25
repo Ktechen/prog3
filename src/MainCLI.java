@@ -1,8 +1,11 @@
-import view.cli.Cli;
+import controller.cli.commands.CommandMain;
 
 public class MainCLI {
-
     public static void main(String[] args) {
-        new Cli();
+        try {
+            new CommandMain().run();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

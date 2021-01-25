@@ -1,20 +1,18 @@
 package controller.stream.jbp;
 
 
-import modell.data.content.MediaContent;
 import modell.data.storage.Storage;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploadable;
 import modell.mediaDB.Uploader;
 
 import java.beans.XMLEncoder;
-import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Duration;
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
 
 class SaveJBP {
 
