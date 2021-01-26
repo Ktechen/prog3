@@ -1,5 +1,6 @@
 package controller.sort;
 
+import controller.crud.Update;
 import modell.data.content.Audio;
 import modell.data.content.AudioVideo;
 import modell.data.content.Person;
@@ -7,21 +8,19 @@ import modell.data.storage.Storage;
 import modell.mediaDB.Content;
 import modell.mediaDB.MediaContent;
 import modell.mediaDB.Tag;
+import modell.mediaDB.Uploadable;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Spy;
 
 import java.time.Duration;
 import java.util.*;
 
 public class TestSortTo {
 
-    @Test
-    public void sortByAddress() {
-        Storage.getInstance().clear();
+    private void dataSet() {
         Collection<Tag> tagCollection = new ArrayList<>();
         tagCollection.add(Tag.News);
-
-
 
         Storage.getInstance().addMedia(
                 new Audio(9403, Duration.parse("PT20m"),
@@ -64,8 +63,14 @@ public class TestSortTo {
                         new Person("FBI"), 3932)
         );
 
-
         Collections.shuffle(Storage.getInstance().getMedia());
+    }
+
+    @Test
+    public void TestSortByAddress() {
+        Storage.getInstance().clear();
+
+        this.dataSet();
 
         List<MediaContent> contentList = Storage.getInstance().getMedia();
         contentList.sort(Comparator.comparing(Content::getAddress));
@@ -77,5 +82,78 @@ public class TestSortTo {
             Assertions.assertEquals(list.get(i), contentList.get(i));
         }
     }
+
+    @Test
+    public void TestSortByClicks() {
+        Storage.getInstance().clear();
+
+        this.dataSet();
+
+        MediaContent one = (MediaContent) Storage.getInstance().getMedia().get(0);
+        MediaContent two = (MediaContent) Storage.getInstance().getMedia().get(3);
+        MediaContent third = (MediaContent) Storage.getInstance().getMedia().get(1);
+
+        Update update = new Update();
+        update.accessCount(one.getAddress());
+        update.accessCount(one.getAddress());
+        update.accessCount(one.getAddress());
+        update.accessCount(one.getAddress());
+        update.accessCount(one.getAddress());
+        update.accessCount(one.getAddress());
+        update.accessCount(one.getAddress());
+
+        update.accessCount(two.getAddress());
+        update.accessCount(two.getAddress());
+        update.accessCount(two.getAddress());
+        update.accessCount(two.getAddress());
+        update.accessCount(two.getAddress());
+        update.accessCount(two.getAddress());
+        update.accessCount(two.getAddress());
+        update.accessCount(two.getAddress());
+        update.accessCount(two.getAddress());
+        update.accessCount(two.getAddress());
+        update.accessCount(two.getAddress());
+        update.accessCount(two.getAddress());
+        update.accessCount(two.getAddress());
+        update.accessCount(two.getAddress());
+        update.accessCount(two.getAddress());
+        update.accessCount(two.getAddress());
+        update.accessCount(two.getAddress());
+        update.accessCount(two.getAddress());
+        update.accessCount(two.getAddress());
+        update.accessCount(two.getAddress());
+        update.accessCount(two.getAddress());
+        update.accessCount(two.getAddress());
+        update.accessCount(two.getAddress());
+
+        update.accessCount(third.getAddress());
+
+        List<MediaContent> contentList = Storage.getInstance().getMedia();
+        contentList.sort(Comparator.comparing(Content::getAccessCount));
+
+        SortTo sortTo = new SortTo();
+        List<MediaContent> list = sortTo.clicks();
+
+        for (int i = 0; i < contentList.size(); i++) {
+            Assertions.assertEquals(list.get(i), contentList.get(i));
+        }
+    }
+
+    @Test
+    public void TestSortByUser(){
+        Storage.getInstance().clear();
+        this.dataSet();
+
+        List<Uploadable> contentList = Storage.getInstance().getMedia();
+        contentList.sort(Comparator.comparing(o -> o.getUploader().getName()));
+
+        SortTo sortTo = new SortTo();
+        List<Uploadable> list = sortTo.user();
+
+        for (int i = 0; i < contentList.size(); i++) {
+            Assertions.assertEquals(list.get(i), contentList.get(i));
+        }
+    }
+
 
 }
