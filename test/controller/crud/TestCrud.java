@@ -1,15 +1,19 @@
-package controller;
+package controller.crud;
 
-import controller.crud.*;
-import modell.data.storage.Storage;
 import modell.data.content.Person;
-
-import modell.mediaDB.*;
+import modell.data.storage.Storage;
+import modell.mediaDB.MediaContent;
 import modell.mediaDB.Tag;
-import org.junit.jupiter.api.*;
+import modell.mediaDB.Uploadable;
+import modell.mediaDB.Uploader;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class TestCrud {

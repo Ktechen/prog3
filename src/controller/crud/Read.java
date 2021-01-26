@@ -13,10 +13,6 @@ public class Read {
         this.storage = Storage.getInstance();
     }
 
-    public Read(Storage storage) {
-        this.storage = storage;
-    }
-
     /**
      *
      * List of user filter by name
@@ -120,16 +116,12 @@ public class Read {
     }
 
 
-    /**
-     * Is user created
-     *
-     * @param name
-     * @return true = found | false = not found
-     */
+    @Deprecated
     public boolean isPersonCreated(String name) {
         return this.storage.getPerson().contains(name);
     }
 
+    @Deprecated
     public Uploader foundPerson(String name) {
 
         Uploader person = null;

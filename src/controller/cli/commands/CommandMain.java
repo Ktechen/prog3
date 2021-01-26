@@ -21,7 +21,7 @@ public class CommandMain implements ICommand {
     @Override
     public void run() throws InterruptedException {
 
-        Console console = new Console();
+         Console console = new Console();
 
         do {
             System.out.println(toString());
@@ -31,7 +31,7 @@ public class CommandMain implements ICommand {
                         Create create = new Create();
                         new ObserverConsoleSize(create);
                         new CommandAdd().run();
-                    } catch (IllegalArgumentException | NullPointerException | InterruptedException e) {
+                    } catch (IllegalArgumentException | NullPointerException e) {
                         System.out.println(e.getMessage());
                     }
                     break;

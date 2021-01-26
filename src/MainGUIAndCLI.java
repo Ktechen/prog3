@@ -9,9 +9,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * Source: https://stackoverflow.com/questions/2016083/what-is-the-easiest-way-to-parallelize-a-task-in-java
- */
+
 public class MainGUIAndCLI extends Application {
     public static void main(String[] args) throws InterruptedException {
         ParallelTasks tasks = new ParallelTasks();
@@ -30,9 +28,7 @@ public class MainGUIAndCLI extends Application {
         tasks.add(cli);
         tasks.add(gui);
 
-        final long start = System.currentTimeMillis();
         tasks.go();
-        System.err.println(System.currentTimeMillis() - start);
     }
 
     @Override
@@ -40,6 +36,9 @@ public class MainGUIAndCLI extends Application {
         new ActionMainWindow().run(stage);
     }
 
+    /**
+     * Source: https://stackoverflow.com/questions/2016083/what-is-the-easiest-way-to-parallelize-a-task-in-java
+     */
     static class ParallelTasks {
         private final Collection<Runnable> tasks = new ArrayList<>();
 
@@ -48,8 +47,7 @@ public class MainGUIAndCLI extends Application {
         }
 
         public void go() throws InterruptedException {
-            final ExecutorService threads = Executors.newFixedThreadPool(Runtime.getRuntime()
-                    .availableProcessors());
+            final ExecutorService threads = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
             try {
                 final CountDownLatch latch = new CountDownLatch(tasks.size());
                 for (final Runnable task : tasks)

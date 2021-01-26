@@ -1,4 +1,4 @@
-package controller;
+package controller.crud;
 
 import modell.data.content.Person;
 import modell.mediaDB.Uploader;

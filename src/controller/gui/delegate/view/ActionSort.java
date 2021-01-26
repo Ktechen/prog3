@@ -1,36 +1,28 @@
 package controller.gui.delegate.view;
 
+import controller.sort.SortTo;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
-import modell.data.storage.Storage;
-import modell.mediaDB.Content;
+import modell.mediaDB.MediaContent;
 import modell.mediaDB.Uploadable;
-import modell.mediaDB.Video;
 
 
-import java.util.Comparator;
 import java.util.List;
 
 public class ActionSort {
 
-    public List<Video> address(ActionEvent actionEvent, Storage storage, Label updateDisplay) {
-        List<Video> video = storage.getMedia();
-        video.sort(Comparator.comparing(Content::getAddress));
+    public List<MediaContent> address(ActionEvent actionEvent, Label updateDisplay) {
         updateDisplay.setText("Sorted by Abrufaddresse");
-        return video;
+        return new SortTo().address();
     }
 
-    public List<Video> clicks(ActionEvent actionEvent, Storage storage, Label updateDisplay) {
-        List<Video> video = storage.getMedia();
-        video.sort(Comparator.comparing(Content::getAccessCount));
+    public List<MediaContent> clicks(ActionEvent actionEvent, Label updateDisplay) {
         updateDisplay.setText("Sorted by AccessCount");
-        return video;
+        return new SortTo().clicks();
     }
 
-    public List<Uploadable> user(ActionEvent actionEvent, Storage storage, Label updateDisplay) {
-        List<Uploadable> video = storage.getMedia();
-        video.sort(Comparator.comparing(o -> o.getUploader().getName()));
+    public List<Uploadable> user(ActionEvent actionEvent, Label updateDisplay) {
         updateDisplay.setText("Sorted by Uploader");
-        return video;
+        return new SortTo().user();
     }
 }

@@ -15,14 +15,13 @@ public class Update {
         this.storage = Storage.getInstance();
     }
 
-    public Update(Storage storage) {
-        this.storage = storage;
-    }
 
     public boolean accessCount(String address) throws IllegalArgumentException {
         HashMap<String, Long> map = this.storage.getCountOfUse();
 
         LinkedList<String> list = this.getListOfAllAddresses();
+
+
         boolean addressFound = false;
 
         for (String add : list) {
@@ -40,6 +39,7 @@ public class Update {
         } else {
             map.replace(address, map.get(address) + 1);
         }
+
         this.storage.setCountOfUse(map);
 
         return false;

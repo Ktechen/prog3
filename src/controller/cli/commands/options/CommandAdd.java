@@ -28,7 +28,7 @@ public class CommandAdd implements ICommand {
      * @throws NullPointerException = input was null or empty
      */
     @Override
-    public void run() throws NullPointerException, InterruptedException {
+    public void run() throws NullPointerException {
 
         //TODO Change to Updated code versions show controller/handle
 

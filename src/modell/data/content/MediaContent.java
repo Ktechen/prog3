@@ -12,12 +12,13 @@ public class MediaContent extends Content implements modell.mediaDB.MediaContent
 
     private long bitrate;
     private final Duration duration;
-    private BigDecimal size = BigDecimal.valueOf(this.bitrate);
+    private BigDecimal size;
 
     public MediaContent(Collection<Tag> tags, long bitrate, Duration duration) {
         super(tags);
         this.bitrate = bitrate;
         this.duration = duration;
+        this.size = BigDecimal.valueOf(this.bitrate);
     }
 
     public MediaContent() {

@@ -13,10 +13,6 @@ public class Delete {
         this.storage = Storage.getInstance();
     }
 
-    public Delete(Storage storage) {
-        this.storage = storage;
-    }
-
     /**
      * Delete AudioVideo and person
      *
@@ -75,7 +71,7 @@ public class Delete {
         }
     }
 
-
+    @Deprecated
     private void clearPerson(String name) {
         synchronized (this.storage) {
             Set<Uploader> list = this.storage.getPerson();

@@ -34,15 +34,6 @@ public class Create implements Observable {
         this.storage = Storage.getInstance();
     }
 
-    /**
-     * Create a Video or Audio
-     *
-     * @param storage = add storage for you management
-     */
-    public Create(Storage storage) {
-        this.storage = storage;
-    }
-
     public void interactiveVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Uploader person, String type) {
         synchronized (this.storage) {
 

@@ -6,10 +6,8 @@ import controller.gui.delegate.view.ActionDebug;
 import controller.gui.delegate.view.ActionSort;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -18,6 +16,7 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import modell.data.storage.Storage;
+import modell.mediaDB.MediaContent;
 import modell.mediaDB.Uploadable;
 import modell.mediaDB.Uploader;
 import view.gui.ViewModel;
@@ -28,14 +27,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static javafx.collections.FXCollections.*;
+import static javafx.collections.FXCollections.observableArrayList;
 
-public class ViewController implements Initializable {
+public class ViewController<T> implements Initializable {
 
     private Storage storage;
 
     @FXML
-    private ListView<Uploadable> listViewMedia;
+    private ListView<T> listViewMedia;
+
 
     @FXML
     private ListView<Uploader> ListViewUser;
@@ -61,11 +61,11 @@ public class ViewController implements Initializable {
 
         //TODO Databinding wäre besser
         /**
-        https://www.java-forum.org/thema/automatisches-aktualisieren-der-seite.184880/
+         https://www.java-forum.org/thema/automatisches-aktualisieren-der-seite.184880/
          */
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> updateAllLists()));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+        //Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> updateAllLists()));
+       // timeline.setCycleCount(Timeline.INDEFINITE);
+       // timeline.play();
     }
 
     /**
@@ -97,8 +97,8 @@ public class ViewController implements Initializable {
      * @param uploadable
      * @param uploader
      */
-    private <T extends Uploadable> void updateAllLists(List<T> uploadable, HashSet<Uploader> uploader) {
-        this.listViewMedia.setItems(observableArrayList(uploadable));
+    private void updateAllLists(List<T> uploadable, HashSet<Uploader> uploader) {
+        this.listViewMedia.setItems(FXCollections.observableArrayList(uploadable));
         this.ListViewUser.setItems(observableArrayList(uploader));
     }
 
@@ -127,10 +127,6 @@ public class ViewController implements Initializable {
         this.updateAllLists();
     }
 
-    public void configOnAction(ActionEvent actionEvent) {
-
-    }
-
     public void PersistenzmodusOnAction(ActionEvent actionEvent) throws IOException {
         this.actionWindow.run(actionEvent);
     }
@@ -156,16 +152,17 @@ public class ViewController implements Initializable {
 
     //#region sort
 
+
     public void sortAdressOnAction(ActionEvent actionEvent) {
-        this.updateAllLists(this.actionSort.address(actionEvent, this.storage, this.updateDisplay), this.storage.getPerson());
+        this.updateAllLists((List<T>) this.actionSort.address(actionEvent, this.updateDisplay), this.storage.getPerson());
     }
 
     public void sortAnzahlOnAction(ActionEvent actionEvent) {
-        this.updateAllLists(this.actionSort.clicks(actionEvent, this.storage, this.updateDisplay), this.storage.getPerson());
+        this.updateAllLists((List<T>) this.actionSort.clicks(actionEvent, this.updateDisplay), this.storage.getPerson());
     }
 
     public void sortProduzentOnAction(ActionEvent actionEvent) {
-        this.updateAllLists(this.actionSort.user(actionEvent, this.storage, this.updateDisplay), this.storage.getPerson());
+        this.updateAllLists((List<T>) this.actionSort.user(actionEvent, this.updateDisplay), this.storage.getPerson());
     }
 
     //#endregion
@@ -191,5 +188,8 @@ public class ViewController implements Initializable {
 
     public void onActionUpdateAll(ActionEvent actionEvent) {
         this.updateAllLists();
+    }
+
+    public void configOnAction(ActionEvent actionEvent) {
     }
 }
