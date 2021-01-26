@@ -21,6 +21,8 @@ public class TestSortTo {
         Collection<Tag> tagCollection = new ArrayList<>();
         tagCollection.add(Tag.News);
 
+
+
         Storage.getInstance().addMedia(
                 new Audio(9403, Duration.parse("PT20m"),
                         tagCollection, 333, "Mix",
@@ -65,15 +67,14 @@ public class TestSortTo {
 
         Collections.shuffle(Storage.getInstance().getMedia());
 
-
-        Storage.getInstance().getMedia().sort(Comparator.comparing(Content::getAddress));
         List<MediaContent> contentList = Storage.getInstance().getMedia();
+        contentList.sort(Comparator.comparing(Content::getAddress));
 
         SortTo sortTo = new SortTo();
         List<MediaContent> list = sortTo.address();
 
         for (int i = 0; i < contentList.size(); i++) {
-            Assertions.assertEquals(list.get(0), contentList.get(0));
+            Assertions.assertEquals(list.get(i), contentList.get(i));
         }
     }
 
