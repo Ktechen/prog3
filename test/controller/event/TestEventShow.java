@@ -18,11 +18,11 @@ import java.util.LinkedList;
 
 public class TestEventShow {
 
-    private final Collection<Tag> t = new LinkedList<>();
-    private final Duration d = Duration.ofSeconds(2000);
 
     @BeforeEach
     public void setup() {
+        final Collection<Tag> t = new LinkedList<>();
+        final Duration d = Duration.ofSeconds(2000);
         Create create = new Create();
         Storage storage = Storage.getInstance();
         storage.clear();
@@ -70,6 +70,24 @@ public class TestEventShow {
         CommandShowEvents commandShowEvents = new CommandShowEvents(new InputConverter(), new EventHandler<>());
         StringBuffer stringBuffer = commandShowEvents.eventShowUsedTags();
         String expected = "[Tutorial, Lifestyle, Animal, News] | [false, true, false, true]";
+
+        Assertions.assertEquals(expected, stringBuffer.toString());
+    }
+
+    @Test
+    public void showUsedTagsChangeAllToTrue() {
+        final Create create = new Create();
+        final Collection<Tag> t = new LinkedList<>();
+        t.add(Tag.News);
+        t.add(Tag.Lifestyle);
+        t.add(Tag.Animal);
+        t.add(Tag.Tutorial);
+
+        create.interactiveVideo(500, 400, "edcs", 9174, Duration.ofSeconds(2000), t, new Person("KevinTechen"), "Tdas");
+
+        CommandShowEvents commandShowEvents = new CommandShowEvents(new InputConverter(), new EventHandler<>());
+        StringBuffer stringBuffer = commandShowEvents.eventShowUsedTags();
+        String expected = "[Tutorial, Lifestyle, Animal, News] | [true, true, true, true]";
 
         Assertions.assertEquals(expected, stringBuffer.toString());
     }
