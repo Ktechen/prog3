@@ -2,7 +2,11 @@ package controller.handleInput.create;
 
 import controller.crud.Create;
 import controller.event.EventHandler;
-import controller.event.events.commands.CommandAddEvents;
+import controller.event.EventListener;
+import controller.event.events.commands.add.CommandAddEventsMedia;
+import controller.event.events.commands.add.CommandAddEventsUploader;
+import controller.event.events.listener.add.ELAddMediafiles;
+import controller.event.events.listener.add.ELAddUploader;
 import controller.handleInput.InputConverter;
 
 /**
@@ -11,29 +15,37 @@ import controller.handleInput.InputConverter;
 final class CreateController {
 
     private final Create create;
-    private final CommandAddEvents commandAddEvents;
+    private final CommandAddEventsMedia commandAddEventsMedia;
+    private final CommandAddEventsUploader commandAddEventsUploader;
 
     public CreateController() {
         this.create = new Create();
 
-        //TODO EL_EVENTS
+        EventHandler<ELAddMediafiles> handler = new EventHandler();
+        ELAddMediafiles elAddMediafiles = new ELAddMediafiles();
+        handler.add(elAddMediafiles);
 
-        this.commandAddEvents = new CommandAddEvents(new InputConverter(), new EventHandler<>());
+        EventHandler<ELAddUploader> handleUploader = new EventHandler<>();
+        ELAddUploader elAddUploader = new ELAddUploader();
+        handleUploader.add(elAddUploader);
+
+        this.commandAddEventsMedia = new CommandAddEventsMedia(new InputConverter(), handler);
+        this.commandAddEventsUploader = new CommandAddEventsUploader(new InputConverter(), handleUploader);
     }
 
     public final void person(String[] value) {
         String lic = new InputConverter().convertedUploader(value);
-        this.commandAddEvents.eventUser(lic);
+        this.commandAddEventsUploader.eventUser(lic);
     }
 
     public final void licensedAudioVideo(String[] value) {
         //Object[] lic = new InputConverter().convertLicensedVideo(value);
-        this.commandAddEvents.eventLicenseVideo(value);
+        this.commandAddEventsMedia.eventLicenseVideo(value);
     }
 
     public final void interactiveVideo(String[] value) {
         //Object[] inter = new InputConverter().convertInteractionVideo(value);
-        this.commandAddEvents.eventInteractiveVideo(value);
+        this.commandAddEventsMedia.eventInteractiveVideo(value);
     }
 
     //TODO ADD ALL MEDIA

@@ -14,6 +14,10 @@ public class CommandManagementDefault extends CommandManagement implements Comma
         super(in, out);
     }
 
+    public CommandManagementDefault() {
+        super(null, null);
+    }
+
     @Override
     public void run() throws IOException {
         this.handleArgs(SEND_MSG);

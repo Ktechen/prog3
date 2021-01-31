@@ -1,6 +1,6 @@
 package controller.gui.delegate;
 
-import controller.stream.StreamParameter;
+import controller.stream.jos.JOS;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
@@ -24,7 +24,7 @@ public class Utils {
      * Source: https://stackoverflow.com/questions/1844688/how-to-read-all-files-in-a-folder-from-java?page=1&tab=votes#tab-top
      */
     public void loadDir(List<String> optional, String search) {
-        File folder = new File(StreamParameter.PATH);
+        File folder = new File(JOS.PATH);
         File[] listOfFiles = folder.listFiles();
 
         for (File file : listOfFiles) {

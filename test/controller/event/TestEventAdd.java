@@ -1,6 +1,7 @@
 package controller.event;
 
-import controller.event.events.commands.CommandAddEvents;
+import controller.event.events.commands.add.CommandAddEventsMedia;
+import controller.event.events.listener.add.ELAddMediafiles;
 import controller.handleInput.InputConverter;
 import modell.data.storage.Storage;
 import org.junit.jupiter.api.Assertions;
@@ -11,7 +12,11 @@ public class TestEventAdd {
     @Test
     public void testAddEventInteractiveVideo() {
         Storage.getInstance().clear();
-        final CommandAddEvents commandAddEvents = new CommandAddEvents(new InputConverter(), new EventHandler<>());
+        EventHandler<ELAddMediafiles> handler = new EventHandler();
+        ELAddMediafiles elAddMediafiles = new ELAddMediafiles();
+        handler.add(elAddMediafiles);
+
+        final CommandAddEventsMedia commandAddEventsMedia = new CommandAddEventsMedia(new InputConverter(), handler);
 
         String[] value = new String[8];
         value[0] = "300";
@@ -23,7 +28,7 @@ public class TestEventAdd {
         value[6] = "KevinTechen";
         value[7] = "F.B.I Gaming Studio";
 
-        commandAddEvents.eventInteractiveVideo(value);
+        commandAddEventsMedia.eventInteractiveVideo(value);
 
         Assertions.assertEquals(1, Storage.getInstance().getMedia().size());
     }
@@ -31,10 +36,10 @@ public class TestEventAdd {
     @Test
     public void testAddEventInteractiveVideoWithNull() {
         Storage.getInstance().clear();
-        final CommandAddEvents commandAddEvents = new CommandAddEvents(new InputConverter(), new EventHandler<>());
+        final CommandAddEventsMedia commandAddEventsMedia = new CommandAddEventsMedia(new InputConverter(), new EventHandler<>());
 
         Assertions.assertThrows(NullPointerException.class, () -> {
-            commandAddEvents.eventInteractiveVideo(null);
+            commandAddEventsMedia.eventInteractiveVideo(null);
         });
 
         Assertions.assertEquals(0, Storage.getInstance().getMedia().size());
@@ -43,7 +48,7 @@ public class TestEventAdd {
     @Test
     public void testAddEventInteractiveVideoWrongArray() {
         Storage.getInstance().clear();
-        final CommandAddEvents commandAddEvents = new CommandAddEvents(new InputConverter(), new EventHandler<>());
+        final CommandAddEventsMedia commandAddEventsMedia = new CommandAddEventsMedia(new InputConverter(), new EventHandler<>());
 
         String[] value = new String[8];
         value[0] = "300";
@@ -55,7 +60,7 @@ public class TestEventAdd {
         value[6] = "KevinTechen";
 
         try {
-            commandAddEvents.eventInteractiveVideo(value);
+            commandAddEventsMedia.eventInteractiveVideo(value);
         } catch (IllegalArgumentException e) {
             Assertions.assertEquals("One Parameter is null", e.getMessage());
         }

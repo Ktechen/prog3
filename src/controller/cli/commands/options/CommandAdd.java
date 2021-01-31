@@ -5,7 +5,6 @@ import controller.event.EventHandler;
 import controller.event.EventListener;
 import controller.cli.Console;
 import controller.cli.ICommand;
-import controller.event.events.commands.CommandAddEvents;
 
 @Deprecated
 public class CommandAdd implements ICommand {
@@ -13,13 +12,13 @@ public class CommandAdd implements ICommand {
     private EventHandler<EventListener> eventHandler;
     private final Console cs;
     private InputConverter converter;
-    private final CommandAddEvents commandAddEvents;
+    //private final CommandAddEventsMedia commandAddEvents;
 
     public CommandAdd() {
         this.eventHandler = new EventHandler<>();
         this.cs = new Console();
         this.converter = new InputConverter();
-        this.commandAddEvents = new CommandAddEvents(this.converter, this.eventHandler);
+        //this.commandAddEvents = new CommandAddEventsMedia(this.converter);
     }
 
     /**
@@ -53,13 +52,13 @@ public class CommandAdd implements ICommand {
         switch (videoArray.length) {
             case 1:
             case 2:
-                this.commandAddEvents.eventUser(videoArray[0]);
+               // this.commandAddEvents.eventUser(videoArray[0]);
                 break;
             case 8:
-                this.commandAddEvents.eventInteractiveVideo(videoArray);
+               // this.commandAddEvents.eventInteractiveVideo(videoArray);
                 break;
             case 9:
-                this.commandAddEvents.eventLicenseVideo(videoArray);
+              //  this.commandAddEvents.eventLicenseVideo(videoArray);
                 break;
         }
     }

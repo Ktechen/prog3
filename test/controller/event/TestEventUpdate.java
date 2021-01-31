@@ -2,7 +2,7 @@ package controller.event;
 
 import controller.crud.Create;
 import controller.crud.Update;
-import controller.event.events.commands.CommandUpdateEvent;
+import controller.event.events.commands.update.CommandUpdateEvent;
 import controller.handleInput.InputConverter;
 import modell.data.content.Person;
 import modell.data.storage.Storage;

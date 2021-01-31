@@ -18,6 +18,7 @@ public class ParallelTasks {
      */
     public void go() throws InterruptedException {
         final ExecutorService threads = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+
         try {
             final CountDownLatch latch = new CountDownLatch(tasks.size());
             for (final Runnable task : tasks)

@@ -1,9 +1,7 @@
 package controller.stream.jos;
 
-import controller.stream.StreamParameter;
-
 public class JOS  {
-
+    public static final String PATH = "testfiles/";
     private LoadJOS loadJOS;
     private SaveJOS saveJOS;
     private String filename;
@@ -13,7 +11,7 @@ public class JOS  {
             throw new NullPointerException("filename is null");
         }
         this.filename = filename;
-        this.filename = StreamParameter.PATH + this.filename;
+        this.filename = PATH + this.filename;
     }
 
     /**

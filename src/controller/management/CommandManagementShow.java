@@ -1,7 +1,7 @@
 package controller.management;
 
 import controller.event.EventHandler;
-import controller.event.events.commands.CommandShowEvents;
+import controller.event.events.commands.show.CommandShowEvents;
 import controller.handleInput.InputConverter;
 
 import java.io.DataInputStream;
@@ -14,6 +14,10 @@ public class CommandManagementShow extends CommandManagement implements Command 
 
     public CommandManagementShow(DataInputStream in, DataOutputStream out) {
         super(in, out);
+    }
+
+    public CommandManagementShow() {
+        super(null, null);
     }
 
     @Override

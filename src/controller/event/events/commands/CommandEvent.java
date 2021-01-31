@@ -4,17 +4,17 @@ import controller.event.EventHandler;
 import controller.event.EventListener;
 import controller.handleInput.InputConverter;
 
-public abstract class CommandEvent {
+public abstract class CommandEvent<T extends EventListener> {
 
-    InputConverter converter;
-    EventHandler<EventListener> eventHandler;
+    protected InputConverter converter;
+    protected EventHandler<T> eventHandler;
 
-    public CommandEvent(InputConverter converter, EventHandler<EventListener> eventHandler) {
+    public CommandEvent(InputConverter converter, EventHandler<T> eventHandler) {
         this.converter = converter;
         this.eventHandler = eventHandler;
     }
 
-    public void setHandler(EventHandler<controller.event.EventListener> handler) {
+    public void setHandler(EventHandler<T> handler) {
         this.eventHandler = handler;
     }
 }

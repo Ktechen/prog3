@@ -1,8 +1,9 @@
-package controller.event.events.commands;
+package controller.event.events.commands.show;
 
 import controller.crud.Read;
 import controller.event.EventHandler;
 import controller.event.EventListener;
+import controller.event.events.commands.CommandEvent;
 import controller.event.events.event.show.EventShowAll;
 import controller.event.events.event.show.EventShowUsedTags;
 import controller.event.events.event.show.EventShowUsernamePerIndex;
@@ -12,7 +13,7 @@ import modell.mediaDB.MediaContent;
 import java.util.HashMap;
 import java.util.List;
 
-public class CommandShowEvents extends CommandEvent{
+public class CommandShowEvents extends CommandEvent {
 
     public CommandShowEvents(InputConverter converter, EventHandler<EventListener> eventHandler) {
         super(converter, eventHandler);
@@ -65,12 +66,13 @@ public class CommandShowEvents extends CommandEvent{
     }
 
     public StringBuffer eventUsernamePerIndexValue(String name) {
-        EventShowUsernamePerIndex eventShowUsernamePerIndex = new EventShowUsernamePerIndex(this, name);
+        EventShowUsernamePerIndex eventShowUsernamePerIndex = new EventShowUsernamePerIndex(this, name.replaceAll("\\s", ""));
         StringBuffer stringBuffer = new StringBuffer();
 
         EventListener eventListener = event -> {
             final Read read = new Read();
-            HashMap<String, Integer> map = read.listAllUsernamePerIndexValue(name);
+            String nameChange = name.replaceAll("\\s", "");
+            HashMap<String, Integer> map = read.listAllUsernamePerIndexValue(nameChange);
             stringBuffer.append(map.keySet()).append(" | ").append(map.values());
         };
 

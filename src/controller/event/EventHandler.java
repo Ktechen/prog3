@@ -11,12 +11,12 @@ public class EventHandler<T extends EventListener> {
         this.listenerList.add(listener);
     }
 
-    public void remove(EventListener listener) {
+    public void remove(T listener) {
         this.listenerList.remove(listener);
     }
 
     public void handle(Event event) {
-        for (EventListener listener : listenerList) listener.onInputEvent(event);
+        for (T listener : listenerList) listener.onInputEvent(event);
     }
 
 }

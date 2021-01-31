@@ -2,7 +2,7 @@ package controller.management;
 
 import controller.crud.Update;
 import controller.event.EventHandler;
-import controller.event.events.commands.CommandUpdateEvent;
+import controller.event.events.commands.update.CommandUpdateEvent;
 import controller.handleInput.InputConverter;
 
 import java.io.*;
@@ -13,6 +13,10 @@ public class CommandManagementUpdate extends CommandManagement implements Comman
 
     public CommandManagementUpdate(DataInputStream in, DataOutputStream out) {
         super(in, out);
+    }
+
+    public CommandManagementUpdate() {
+        super(null, null);
     }
 
     @Override

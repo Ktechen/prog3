@@ -18,6 +18,10 @@ public class CommandManagementConfig extends CommandManagement implements Comman
         super(in, out);
     }
 
+    public CommandManagementConfig() {
+        super(null, null);
+    }
+
     @Override
     public void run() throws IOException {
         this.sendMessage(SEND_MSG);

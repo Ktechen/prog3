@@ -1,7 +1,7 @@
 package controller.management;
 
 import controller.event.EventHandler;
-import controller.event.events.commands.CommandDeleteEvents;
+import controller.event.events.commands.delete.CommandDeleteEvents;
 import controller.handleInput.InputConverter;
 
 import java.io.DataInputStream;
@@ -14,6 +14,10 @@ public class CommandManagementDelete extends CommandManagement implements Comman
 
     public CommandManagementDelete(DataInputStream in, DataOutputStream out) {
         super(in, out);
+    }
+
+    public CommandManagementDelete() {
+        super(null, null);
     }
 
     @Override

@@ -1,9 +1,7 @@
 package controller.stream.jbp;
 
-import controller.stream.StreamParameter;
-
 public class JBP {
-
+    public static final String PATH = "testfiles/";
     private String filename;
     private LoadJBP loadJBP;
     private SaveJBP saveJBP;
@@ -13,7 +11,7 @@ public class JBP {
             throw new NullPointerException("filename is null");
         }
         this.filename = filename;
-        this.filename = StreamParameter.PATH + this.filename;
+        this.filename = PATH + this.filename;
     }
 
     public void save() {

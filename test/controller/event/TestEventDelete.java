@@ -1,8 +1,7 @@
 package controller.event;
 
-import controller.cli.commands.options.CommandDelete;
 import controller.crud.Create;
-import controller.event.events.commands.CommandDeleteEvents;
+import controller.event.events.commands.delete.CommandDeleteEvents;
 import controller.handleInput.InputConverter;
 import modell.data.content.Person;
 import modell.data.storage.Storage;

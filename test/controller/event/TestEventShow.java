@@ -1,7 +1,7 @@
 package controller.event;
 
 import controller.crud.Create;
-import controller.event.events.commands.CommandShowEvents;
+import controller.event.events.commands.show.CommandShowEvents;
 import controller.handleInput.InputConverter;
 import modell.data.content.Audio;
 import modell.data.content.Person;
@@ -17,7 +17,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 public class TestEventShow {
-
 
     @BeforeEach
     public void setup() {
@@ -88,6 +87,35 @@ public class TestEventShow {
         CommandShowEvents commandShowEvents = new CommandShowEvents(new InputConverter(), new EventHandler<>());
         StringBuffer stringBuffer = commandShowEvents.eventShowUsedTags();
         String expected = "[Tutorial, Lifestyle, Animal, News] | [true, true, true, true]";
+
+        Assertions.assertEquals(expected, stringBuffer.toString());
+    }
+
+    @Test
+    public void UsernamePerIndexValue() {
+        final CommandShowEvents commandShowEvents = new CommandShowEvents(new InputConverter(), new EventHandler<>());
+        StringBuffer stringBuffer = commandShowEvents.eventUsernamePerIndexValue("KevinTechen");
+
+        String expected = "[KevinTechen] | [4]";
+
+        Assertions.assertEquals(expected, stringBuffer.toString());
+    }
+
+
+    @Test
+    public void UsernamePerIndexValueWithWhiteSpaceInName() {
+        final CommandShowEvents commandShowEvents = new CommandShowEvents(new InputConverter(), new EventHandler<>());
+        StringBuffer stringBuffer = commandShowEvents.eventUsernamePerIndexValue("Kevin Techen");
+        String expected = "[KevinTechen] | [4]";
+
+        Assertions.assertEquals(expected, stringBuffer.toString());
+    }
+
+    @Test
+    public void UsernamePerIndexValueWrongName(){
+        final CommandShowEvents commandShowEvents = new CommandShowEvents(new InputConverter(), new EventHandler<>());
+        StringBuffer stringBuffer = commandShowEvents.eventUsernamePerIndexValue("Paul Reiner");
+        String expected = "[PaulReiner] | [0]";
 
         Assertions.assertEquals(expected, stringBuffer.toString());
     }

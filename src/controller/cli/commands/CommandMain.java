@@ -27,28 +27,29 @@ public class CommandMain implements Command {
         this.create = new Create();
         this.console = new Console();
 
-        this.commandManagementAdd = new CommandManagementAdd(null, null);
+        this.commandManagementAdd = new CommandManagementAdd();
         this.commandManagementAdd.setOffline(true);
 
+        this.commandManagementDelete = new CommandManagementDelete();
+        this.commandManagementDelete.setOffline(true);
+
+        this.commandManagementUpdate = new CommandManagementUpdate();
+        this.commandManagementUpdate.setOffline(true);
+
+        this.commandManagementConfig = new CommandManagementConfig();
+        this.commandManagementConfig.setOffline(true);
+
+        this.commandManagementPersistence = new CommandManagementPersistence();
+        this.commandManagementPersistence.setOffline(true);
+
+        this.commandManagementDefault = new CommandManagementDefault();
+        this.commandManagementDefault.setOffline(true);
+
         /*
-        this.commandManagementShow = new CommandManagementShow(null, null);
+        this.commandManagementShow = new CommandManagementShow();
         this.commandManagementShow.setOffline(true);
          */
 
-        this.commandManagementDelete = new CommandManagementDelete(null, null);
-        this.commandManagementDelete.setOffline(true);
-
-        this.commandManagementUpdate = new CommandManagementUpdate(null, null);
-        this.commandManagementUpdate.setOffline(true);
-
-        this.commandManagementConfig = new CommandManagementConfig(null, null);
-        this.commandManagementConfig.setOffline(true);
-
-        this.commandManagementPersistence = new CommandManagementPersistence(null, null);
-        this.commandManagementPersistence.setOffline(true);
-
-        this.commandManagementDefault = new CommandManagementDefault(null, null);
-        this.commandManagementDefault.setOffline(true);
     }
 
     @Override

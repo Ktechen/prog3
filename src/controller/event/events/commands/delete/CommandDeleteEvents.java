@@ -1,7 +1,8 @@
-package controller.event.events.commands;
+package controller.event.events.commands.delete;
 
 import controller.event.EventHandler;
 import controller.event.EventListener;
+import controller.event.events.commands.CommandEvent;
 import controller.event.events.event.delete.EventDeletePerString;
 import controller.event.events.listener.delete.ELDeleteVideoPerAdress;
 import controller.event.events.listener.delete.ELDeleteVideoPerUser;

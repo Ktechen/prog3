@@ -17,6 +17,10 @@ public class CommandManagementAdd extends CommandManagement implements Command {
         super(in, out);
     }
 
+    public CommandManagementAdd() {
+        super(null, null);
+    }
+
     @Override
     public void run() throws IOException {
         this.sendMessage(SEND_MSG);

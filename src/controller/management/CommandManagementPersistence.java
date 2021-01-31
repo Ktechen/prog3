@@ -12,6 +12,10 @@ public class CommandManagementPersistence extends CommandManagement implements C
         super(in, out);
     }
 
+    public CommandManagementPersistence() {
+        super(null, null);
+    }
+
     @Override
     public void run() {
     }
