@@ -7,7 +7,7 @@ import controller.event.EventListener;
 import controller.event.events.event.update.EventUpdateCounter;
 import controller.event.events.listener.update.ELUpdateCounter;
 
-
+@Deprecated
 public class CommandUpdate implements ICommand {
 
     private Console console;

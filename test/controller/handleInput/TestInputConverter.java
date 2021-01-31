@@ -42,11 +42,20 @@ public class TestInputConverter {
     public void testArrayLengthIs9ConvertLicensedVideo() {
         final InputConverter inputConverter = new InputConverter();
 
-        String[] strings = new String[9];
+        String[] value = new String[9];
+        value[0] = "300";
+        value[1] = "300";
+        value[2] = "mix";
+        value[3] = "3043";
+        value[4] = "PT30m";
+        value[5] = "News";
+        value[6] = "KevinTechen";
+        value[7] = "F.B.I Gaming Studio";
+        value[8] = null;
 
         try {
-            inputConverter.convertLicensedVideo(strings);
-        } catch (NumberFormatException e) {
+            inputConverter.convertLicensedVideo(value);
+        } catch (IllegalArgumentException e) {
             Assertions.assertTrue(true);
         }
     }

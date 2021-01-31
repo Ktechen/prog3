@@ -25,10 +25,8 @@ public class CommandShow implements ICommand {
     }
 
     public CommandShow() {
-
         eventHandler = new EventHandler();
         console = new Console();
-
     }
 
     @Override
