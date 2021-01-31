@@ -1,4 +1,4 @@
-package controller.sort;
+package controller.management;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
@@ -8,10 +8,12 @@ import modell.mediaDB.MediaContent;
 import modell.mediaDB.Uploadable;
 import modell.mediaDB.Video;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.util.Comparator;
 import java.util.List;
 
-public class SortTo {
+public class CommandSort {
 
     public List<MediaContent> address() {
         List<MediaContent> video = Storage.getInstance().getMedia();

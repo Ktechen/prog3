@@ -9,7 +9,7 @@ import modell.mediaDB.Uploadable;
 import java.util.List;
 
 public class ELShowAll implements EventListener {
-    @Deprecated
+
     @Override
     public void onInputEvent(Event event) {
         Read read = new Read();

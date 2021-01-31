@@ -4,18 +4,18 @@ import controller.cli.Console;
 import controller.handleInput.InputConverter;
 import net.server.tcp.ServerTCP;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 
 public class Client {
 
-    public Client() {
+    public Client(boolean server) {
         System.out.println(toString());
+
+        this.run();
     }
 
-    public void run() {
+    private void run() {
         //TODO split in and out
         try (Socket socket = new Socket(ServerTCP.IP, ServerTCP.PORT);
              DataInputStream in = new DataInputStream(socket.getInputStream());
@@ -27,15 +27,12 @@ public class Client {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private void executeSession(DataInputStream in, DataOutputStream out) throws IOException {
         Console console = new Console();
         String input = console.input("-------------");
-
         out.writeUTF(input);
-
         String da = in.readUTF();
         System.out.println(da);
     }

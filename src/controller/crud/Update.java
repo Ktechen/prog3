@@ -16,7 +16,7 @@ public class Update {
     }
 
 
-    public boolean accessCount(String address) throws IllegalArgumentException {
+    public synchronized boolean accessCount(String address) throws IllegalArgumentException {
         HashMap<String, Long> map = this.storage.getCountOfUse();
 
         LinkedList<String> list = this.getListOfAllAddresses();

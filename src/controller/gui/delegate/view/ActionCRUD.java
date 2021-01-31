@@ -4,14 +4,34 @@ import controller.crud.Update;
 import controller.handleInput.InputConverter;
 import controller.handleInput.create.CreateOption;
 import controller.handleInput.delete.DeleteOption;
+import controller.management.CommandManagement;
+import controller.management.CommandManagementAdd;
+import controller.management.CommandManagementDelete;
+import controller.management.CommandManagementUpdate;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import view.gui.MediaAlert;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 public class ActionCRUD {
+
+    private CommandManagementAdd commandManagementAdd;
+    private CommandManagementUpdate commandManagementUpdate;
+    private CommandManagementDelete commandManagementDelete;
+
+    public ActionCRUD() {
+        this.commandManagementAdd = new CommandManagementAdd(null, null);
+        this.commandManagementAdd.setOffline(true);
+
+        this.commandManagementDelete = new CommandManagementDelete(null, null);
+        this.commandManagementDelete.setOffline(true);
+
+        this.commandManagementUpdate = new CommandManagementUpdate(null, null);
+        this.commandManagementUpdate.setOffline(true);
+    }
 
     public void create(ActionEvent actionEvent, Label updateDisplay) {
         String text = InputConverter.LICENSED_AUDIO_VIDEO_TEXT + "\n" + InputConverter.INTER_VIDEO_TEXT + " \n" + InputConverter.USER_TEXT;
@@ -22,19 +42,10 @@ public class ActionCRUD {
         }
 
         if (mediaAlert.getButtonType() == ButtonType.OK) {
-            CreateOption createOption = new CreateOption();
-
-            String[] value = mediaAlert.getText().split("\\s+");
-            String[] tag = value[0].split(":");
-            String[] temp = Arrays.copyOfRange(value, 1, value.length);
-
-            String msg = null;
-
             try {
-                msg = createOption.run(temp, tag[0]);
-                updateDisplay.setText(msg + " | was been created");
-            } catch (NullPointerException e) {
-                updateDisplay.setText(e.getMessage());
+                this.commandManagementAdd.handleArgs(mediaAlert.getText());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -48,9 +59,12 @@ public class ActionCRUD {
         }
 
         if (mediaAlert.getButtonType() == ButtonType.OK) {
-            DeleteOption deleteOption = new DeleteOption();
-            String msg = deleteOption.run(mediaAlert.getText());
-            updateDisplay.setText("Element deleted: " + msg);
+            try {
+                this.commandManagementDelete.handleArgs(mediaAlert.getText());
+                updateDisplay.setText("Element was been deleted");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -67,11 +81,11 @@ public class ActionCRUD {
         }
 
         if (mediaAlert.getButtonType() == ButtonType.OK) {
-            Update update = new Update();
-            update.accessCount(mediaAlert.getText());
-            updateDisplay.setText("Update");
-            System.out.println(mediaAlert.getText());
-            System.out.println("Clicks: " + update.getAccessCount(mediaAlert.getText()));
+            try {
+                this.commandManagementUpdate.handleArgs(mediaAlert.getText());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

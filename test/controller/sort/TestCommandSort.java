@@ -1,6 +1,7 @@
 package controller.sort;
 
 import controller.crud.Update;
+import controller.management.CommandSort;
 import modell.data.content.Audio;
 import modell.data.content.AudioVideo;
 import modell.data.content.Person;
@@ -11,12 +12,11 @@ import modell.mediaDB.Tag;
 import modell.mediaDB.Uploadable;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Spy;
 
 import java.time.Duration;
 import java.util.*;
 
-public class TestSortTo {
+public class TestCommandSort {
 
     private void dataSet() {
         Collection<Tag> tagCollection = new ArrayList<>();
@@ -75,8 +75,8 @@ public class TestSortTo {
         List<MediaContent> contentList = Storage.getInstance().getMedia();
         contentList.sort(Comparator.comparing(Content::getAddress));
 
-        SortTo sortTo = new SortTo();
-        List<MediaContent> list = sortTo.address();
+        CommandSort commandSort = new CommandSort();
+        List<MediaContent> list = commandSort.address();
 
         for (int i = 0; i < contentList.size(); i++) {
             Assertions.assertEquals(list.get(i), contentList.get(i));
@@ -131,8 +131,8 @@ public class TestSortTo {
         List<MediaContent> contentList = Storage.getInstance().getMedia();
         contentList.sort(Comparator.comparing(Content::getAccessCount));
 
-        SortTo sortTo = new SortTo();
-        List<MediaContent> list = sortTo.clicks();
+        CommandSort commandSort = new CommandSort();
+        List<MediaContent> list = commandSort.clicks();
 
         for (int i = 0; i < contentList.size(); i++) {
             Assertions.assertEquals(list.get(i), contentList.get(i));
@@ -147,8 +147,8 @@ public class TestSortTo {
         List<Uploadable> contentList = Storage.getInstance().getMedia();
         contentList.sort(Comparator.comparing(o -> o.getUploader().getName()));
 
-        SortTo sortTo = new SortTo();
-        List<Uploadable> list = sortTo.user();
+        CommandSort commandSort = new CommandSort();
+        List<Uploadable> list = commandSort.user();
 
         for (int i = 0; i < contentList.size(); i++) {
             Assertions.assertEquals(list.get(i), contentList.get(i));

@@ -6,6 +6,7 @@ import modell.data.content.Person;
 import modell.data.content.interaction.InteractiveVideo;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploader;
+import net.StartServer;
 
 import java.time.Duration;
 import java.time.format.DateTimeParseException;
@@ -69,6 +70,13 @@ public class InputConverter {
 
     public final static String TCP_SERVER_TEXT = "Der ServerTCP wird mit 2 Argumenten gestartet: Protokoll und Lagerkapazität.";
 
+    public final static String PERSISTENCE_TEXT = "saveJOSspeichert mittels JOS" +
+            "loadJOSlädt mittels JOS" + "\n" +
+            "saveJBPspeichert mittels JBP" + "\n" +
+            "loadJBPlädt mittels JBP" + "\n" +
+            "save [Abrufadresse]speichert eine einzelne Instanzineine Datei für alle Instanzen, falls die Datei nicht existiert werden alle Instanzen in eine neue gespeichert" + "\n" +
+            "load [Abrufadresse]lädt eine einzelne Instanz aus der Datei";
+
     /**
      * Convert e.g Interactive
      * Split your Array before you start (value.split("\\s+");)
@@ -82,8 +90,8 @@ public class InputConverter {
             throw new NullPointerException("Array is null or empty");
         }
 
-        if (arr.length != 9) {
-            throw new IllegalArgumentException("Format isn't incorrect ");
+        if (arr[arr.length - 1] == null) {
+            throw new IllegalArgumentException("Last Parameter of LicensedVideo is null");
         }
 
         Object[] array = convertInteractionVideo(arr);
@@ -109,6 +117,12 @@ public class InputConverter {
 
         if (null == value) {
             throw new NullPointerException("Array is null or empty");
+        }
+
+        for (String s : value) {
+            if (s == null) {
+                throw new IllegalArgumentException("One Parameter is null");
+            }
         }
 
         Object[] o = new Object[value.length];

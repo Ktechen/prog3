@@ -32,7 +32,7 @@ public class CommandShow implements ICommand {
     }
 
     @Override
-    public void run() throws IOException, InterruptedException {
+    public void run() throws IOException {
         System.out.println(toString());
         String input = console.input("-------------");
 

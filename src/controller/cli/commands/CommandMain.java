@@ -1,72 +1,104 @@
 package controller.cli.commands;
 
 import controller.cli.Console;
-import controller.cli.ICommand;
-import controller.cli.Keys;
-import controller.cli.commands.options.CommandAdd;
-import controller.cli.commands.options.CommandDelete;
 import controller.cli.commands.options.CommandShow;
-import controller.cli.commands.options.CommandUpdate;
 import controller.crud.Create;
+import controller.handleInput.InputConverter;
+import controller.management.*;
 import controller.observer.observers.ObserverConsoleSize;
 
-import java.io.IOException;
+import java.io.*;
 
 
-public class CommandMain implements ICommand {
+public class CommandMain implements Command {
+
+    private Console console;
+    private Create create;
+
+    private final CommandManagementAdd commandManagementAdd;
+    //private final CommandManagementShow commandManagementShow;
+    private final CommandManagementDelete commandManagementDelete;
+    private final CommandManagementUpdate commandManagementUpdate;
+    private final CommandManagementConfig commandManagementConfig;
+    private final CommandManagementPersistence commandManagementPersistence;
+    private final CommandManagementDefault commandManagementDefault;
 
     public CommandMain() {
+        this.create = new Create();
+        this.console = new Console();
+
+        this.commandManagementAdd = new CommandManagementAdd(null, null);
+        this.commandManagementAdd.setOffline(true);
+
+        /*
+        this.commandManagementShow = new CommandManagementShow(null, null);
+        this.commandManagementShow.setOffline(true);
+         */
+
+        this.commandManagementDelete = new CommandManagementDelete(null, null);
+        this.commandManagementDelete.setOffline(true);
+
+        this.commandManagementUpdate = new CommandManagementUpdate(null, null);
+        this.commandManagementUpdate.setOffline(true);
+
+        this.commandManagementConfig = new CommandManagementConfig(null, null);
+        this.commandManagementConfig.setOffline(true);
+
+        this.commandManagementPersistence = new CommandManagementPersistence(null, null);
+        this.commandManagementPersistence.setOffline(true);
+
+        this.commandManagementDefault = new CommandManagementDefault(null, null);
+        this.commandManagementDefault.setOffline(true);
     }
 
     @Override
-    public void run() throws InterruptedException {
-
-         Console console = new Console();
-
-        do {
+    public void run() throws IOException {
+        while (true) {
             System.out.println(toString());
-            switch (console.input("-------------")) {
-                case ":c":
-                    try {
-                        Create create = new Create();
-                        new ObserverConsoleSize(create);
-                        new CommandAdd().run();
-                    } catch (IllegalArgumentException | NullPointerException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case ":r":
-                    try {
-                        new CommandShow().run();
-                    } catch (IllegalArgumentException | NullPointerException | InterruptedException | IOException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case ":d":
-                    try {
-                        new CommandDelete().run();
-                    } catch (IllegalArgumentException | NullPointerException | InterruptedException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case ":u":
-                    new CommandUpdate().run();
-                    break;
-                case ":config":
-                    break;
-                case ":p":
-                    break;
-            }
-        } while (true);
+            this.handleArgs(this.console.input("-------------"));
+        }
+    }
 
+    @Override
+    public void handleArgs(String args) throws IOException {
+        switch (args) {
+            case ":c":
+                new ObserverConsoleSize(create);
+                System.out.println(CommandManagementAdd.SEND_MSG);
+                this.commandManagementAdd.handleArgs(this.console.input("----------"));
+                break;
+            case ":r":
+                CommandShow commandShow = new CommandShow();
+                commandShow.run();
+                break;
+            case ":d":
+                System.out.println(CommandManagementDefault.SEND_MSG);
+                this.commandManagementDelete.handleArgs(this.console.input("----------"));
+                break;
+            case ":u":
+                System.out.println(CommandManagementUpdate.SEND_MSG);
+                this.commandManagementUpdate.handleArgs(this.console.input("----------"));
+                break;
+            case ":config":
+                System.out.println(CommandManagementConfig.SEND_MSG);
+                this.commandManagementConfig.handleArgs(this.console.input("----------"));
+                break;
+            case ":p":
+                System.out.println(CommandManagementPersistence.SEND_MSG);
+                this.commandManagementPersistence.handleArgs(this.console.input("----------"));
+                break;
+            case ":back":
+                System.out.println(InputConverter.MAIN_TEXT);
+                break;
+            default:
+                System.out.println(CommandManagementDefault.SEND_MSG);
+                this.commandManagementDefault.handleArgs(this.console.input("----------"));
+                break;
+        }
     }
 
     public String toString() {
-        return "\n" + Keys.ADD.get() + " Wechsel in den Einfügemodus\n" +
-                Keys.SHOW.get() + " Wechsel in den Anzeigemodus\n" +
-                Keys.DELETE.get() + " Wechsel in den Löschmodus\n" +
-                Keys.CHANGE.get() + " Wechsel in den Änderungsmodus\n" +
-                Keys.CONFIG.get() + " Wechsel in den Konfigurationsmodus\n" +
-                Keys.PERSISTENCE.get() + " Wechsel in den Persistenzmodus";
+        return InputConverter.MAIN_TEXT;
     }
+
 }

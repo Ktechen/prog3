@@ -1,4 +1,4 @@
-package net.server.serverCommands;
+package controller.management;
 
 import modell.data.storage.Storage;
 import org.junit.jupiter.api.Assertions;
@@ -9,7 +9,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class TestCommandServerTCPDelete {
+public class TestCommandManagementTCPDelete {
 
     @Test
     public void handleArgsDeleteUser() throws IOException {
@@ -20,10 +20,10 @@ public class TestCommandServerTCPDelete {
 
         final String name = "name: Kevin";
 
-        CommandServerAdd commandServerAdd = new CommandServerAdd(in, out);
+        CommandManagementAdd commandServerAdd = new CommandManagementAdd(in, out);
         commandServerAdd.handleArgs(name);
 
-        CommandServerDelete commandServerDelete = new CommandServerDelete(in, out);
+        CommandManagementDelete commandServerDelete = new CommandManagementDelete(in, out);
         commandServerDelete.handleArgs("Kevin");
 
         Assertions.assertEquals(0, Storage.getInstance().getPerson().size());
@@ -38,10 +38,10 @@ public class TestCommandServerTCPDelete {
 
         final String name = "iv: Kevin";
 
-        CommandServerAdd commandServerAdd = new CommandServerAdd(in, out);
+        CommandManagementAdd commandServerAdd = new CommandManagementAdd(in, out);
         commandServerAdd.handleArgs(name);
 
-        CommandServerDelete commandServerDelete = new CommandServerDelete(in, out);
+        CommandManagementDelete commandServerDelete = new CommandManagementDelete(in, out);
         commandServerDelete.handleArgs("Kevin");
 
         Assertions.assertEquals(0, Storage.getInstance().getPerson().size());

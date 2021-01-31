@@ -17,6 +17,6 @@ public class Simulation2 {
         updateMedia.start();
         removeMedia.start();
 
-        //TODO CommandServerAdd Simulation 2
+        //TODO CommandManagementAdd Simulation 2
     }
 }

@@ -1,26 +1,25 @@
-package net.server.serverCommands;
+package controller.management;
 
 import controller.event.EventHandler;
 import controller.event.events.commands.CommandShowEvents;
 import controller.handleInput.InputConverter;
-import modell.data.content.interaction.InteractiveVideo;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class CommandServerShow extends CommandServer implements Command {
+public class CommandManagementShow extends CommandManagement implements Command {
 
+    public static final String SEND_MSG = InputConverter.SHOW_ALL + InputConverter.SHOW_PER_INDEX + InputConverter.SHOW_TAGS;
 
-
-    public CommandServerShow(DataInputStream in, DataOutputStream out) {
+    public CommandManagementShow(DataInputStream in, DataOutputStream out) {
         super(in, out);
     }
 
     @Override
     public void run() throws IOException {
-        this.sendMessage(InputConverter.SHOW_ALL + InputConverter.SHOW_PER_INDEX + InputConverter.SHOW_TAGS);
-        this.handleArgs(this.getMessage().toString());
+        this.sendMessage(SEND_MSG);
+        this.handleArgs(this.getMessage());
     }
 
     @Override
@@ -30,8 +29,9 @@ public class CommandServerShow extends CommandServer implements Command {
                 //Show all
                 this.sendMessage(InputConverter.SHOW_ALL_TEXT_VIEW);
                 StringBuffer buffer1;
-                String msg = this.getMessage().toString();
+                String msg = this.getMessage();
                 buffer1 = new CommandShowEvents(new InputConverter(), new EventHandler<>()).eventShowAll(msg);
+
                 this.sendMessage(buffer1.toString());
                 break;
             case "2":

@@ -1,4 +1,4 @@
-package net.server.serverCommands;
+package controller.management;
 
 import modell.data.content.Person;
 import modell.data.storage.Storage;
@@ -10,7 +10,7 @@ import org.mockito.Mockito;
 import java.io.*;
 import java.util.HashSet;
 
-public class TestCommandServerTCPAdd {
+public class TestCommandManagementTCPAdd {
 
     /**
      * Das Senden vom DataInput oder DataOutput hat nicht richtig funktioniert
@@ -36,7 +36,7 @@ public class TestCommandServerTCPAdd {
 
         DataInputStream in = new DataInputStream(new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
 
-        CommandServerAdd commandServerAdd = new CommandServerAdd(in, out);
+        CommandManagementAdd commandServerAdd = new CommandManagementAdd(in, out);
 
         commandServerAdd.run();
 
@@ -65,7 +65,7 @@ public class TestCommandServerTCPAdd {
 
         final Person person = new Person(expected);
 
-        CommandServerAdd commandServerAdd = new CommandServerAdd(in, out);
+        CommandManagementAdd commandServerAdd = new CommandManagementAdd(in, out);
         commandServerAdd.handleArgs(name);
 
         HashSet<Uploader> uploaders = Storage.getInstance().getPerson();
@@ -85,7 +85,7 @@ public class TestCommandServerTCPAdd {
         final String name = "lost: person";
 
         try {
-            CommandServerAdd commandServerAdd = new CommandServerAdd(in, out);
+            CommandManagementAdd commandServerAdd = new CommandManagementAdd(in, out);
             commandServerAdd.handleArgs(name);
         } catch (NullPointerException e) {
             Assertions.assertTrue(true);
@@ -104,7 +104,7 @@ public class TestCommandServerTCPAdd {
         final String name = "iv: person";
 
         try {
-            CommandServerAdd commandServerAdd = new CommandServerAdd(in, out);
+            CommandManagementAdd commandServerAdd = new CommandManagementAdd(in, out);
             commandServerAdd.handleArgs(name);
         } catch (IllegalArgumentException e) {
             Assertions.assertTrue(true);
@@ -123,7 +123,7 @@ public class TestCommandServerTCPAdd {
         //(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Person person, String holder, int samplingRate)
         final String name = "lav: 300 400 Mix 9382 20m News Kevin Paul 2035";
 
-        CommandServerAdd commandServerAdd = new CommandServerAdd(in, out);
+        CommandManagementAdd commandServerAdd = new CommandManagementAdd(in, out);
         commandServerAdd.handleArgs(name);
 
         Assertions.assertEquals(1, Storage.getInstance().getMedia().size());

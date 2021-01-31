@@ -1,8 +1,10 @@
+import controller.ParallelTasks;
 import controller.cli.commands.CommandMain;
 import controller.gui.delegate.view.ActionMainWindow;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.CountDownLatch;
@@ -16,7 +18,7 @@ public class MainGUIAndCLI extends Application {
         final Runnable cli = () -> {
             try {
                 new CommandMain().run();
-            } catch (InterruptedException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         };
@@ -36,34 +38,6 @@ public class MainGUIAndCLI extends Application {
         new ActionMainWindow().run(stage);
     }
 
-    /**
-     * Source: https://stackoverflow.com/questions/2016083/what-is-the-easiest-way-to-parallelize-a-task-in-java
-     */
-    static class ParallelTasks {
-        private final Collection<Runnable> tasks = new ArrayList<>();
-
-        public void add(final Runnable task) {
-            tasks.add(task);
-        }
-
-        public void go() throws InterruptedException {
-            final ExecutorService threads = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-            try {
-                final CountDownLatch latch = new CountDownLatch(tasks.size());
-                for (final Runnable task : tasks)
-                    threads.execute(() -> {
-                        try {
-                            task.run();
-                        } finally {
-                            latch.countDown();
-                        }
-                    });
-                latch.await();
-            } finally {
-                threads.shutdown();
-            }
-        }
-    }
 
 }
 

@@ -29,6 +29,9 @@ public class Person implements modell.mediaDB.Uploader, Serializable {
         return this.name;
     }
 
+    //TODO Set für Bean
+    //TODO PersistenceDelegate
+
     @Override
     public String toString() {
         return "Uploader" +

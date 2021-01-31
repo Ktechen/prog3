@@ -7,7 +7,7 @@ import controller.event.EventListener;
 import java.util.HashMap;
 
 public class ELShowUsedTags implements EventListener {
-    @Deprecated
+
     @Override
     public void onInputEvent(Event event) {
         HashMap<String, Boolean> map = new Read().getFindedTags();

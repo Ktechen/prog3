@@ -171,7 +171,7 @@ public class Console implements IConsole {
                     tags.add(tag);
                 }
 
-                System.out.println("CommandServerAdd more press " + triggerElement);
+                System.out.println("CommandManagementAdd more press " + triggerElement);
                 String next = reader.readLine().trim();
                 if (next.compareTo(triggerElement) != 0) {
                     return tags;

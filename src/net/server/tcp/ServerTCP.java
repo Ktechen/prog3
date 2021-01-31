@@ -1,14 +1,12 @@
 package net.server.tcp;
 
-import controller.handleInput.InputConverter;
-import modell.data.storage.Storage;
-import net.server.serverCommands.*;
+import controller.management.*;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ServerTCP {
+public class ServerTCP implements CommandExecute{
 
     public final static String IP = "Localhost";
     public final static int PORT = 8080;
@@ -62,39 +60,9 @@ public class ServerTCP {
         }).start();
     }
 
+    @Override
     public void executeSession(DataInputStream in, DataOutputStream out) throws IOException {
-        // System.out.println("Sender object: " + in.readObject());
-        String commando = in.readUTF();
-
-        switch (commando) {
-            case ":c":
-                new CommandServerAdd(in, out).run();
-                break;
-            case ":r":
-                new CommandServerShow(in, out).run();
-                break;
-            case ":d":
-                new CommandServerDelete(in, out).run();
-                break;
-            case ":u":
-                new CommandServerUpdate(in, out).run();
-                break;
-            case ":config":
-                new CommandServerConfig(in, out).run();
-                break;
-            case ":p":
-                new CommandServerPersistence(in, out).run();
-                break;
-            case ":back":
-                out.writeUTF(InputConverter.MAIN_TEXT);
-                break;
-            default:
-                new CommandServerDefault(in, out).run();
-                break;
-        }
-
-        System.out.println("Length of User: " + Storage.getInstance().getPerson().size());
-        System.out.println("Length of Media: " + Storage.getInstance().getMedia().size());
+        new CommandManagementExecuteSession().executeSession(in, out);
     }
 
 }

@@ -4,8 +4,10 @@ import controller.gui.delegate.IO.ActionWindow;
 import controller.gui.delegate.view.ActionCRUD;
 import controller.gui.delegate.view.ActionDebug;
 import controller.gui.delegate.view.ActionSort;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,10 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Duration;
 import modell.data.storage.Storage;
-import modell.mediaDB.MediaContent;
-import modell.mediaDB.Uploadable;
 import modell.mediaDB.Uploader;
 import view.gui.ViewModel;
 
@@ -33,9 +32,42 @@ public class ViewController<T> implements Initializable {
 
     private Storage storage;
 
+    private final IntegerProperty defaultSizeProperty = new SimpleIntegerProperty(0);
+    private IntegerProperty storageSizeProperty = new SimpleIntegerProperty(Storage.getInstance().getMedia().size());
+
+    public int getDefaultSizeProperty() {
+        return defaultSizeProperty.get();
+    }
+
+    public IntegerProperty defaultSizePropertyProperty() {
+        return defaultSizeProperty;
+    }
+
+    public void setDefaultSizeProperty(int defaultSizeProperty) {
+        this.defaultSizeProperty.set(defaultSizeProperty);
+    }
+
+    public int getStorageSizeProperty() {
+        return storageSizeProperty.get();
+    }
+
+    public IntegerProperty storageSizePropertyProperty() {
+        return storageSizeProperty;
+    }
+
+    public void setStorageSizeProperty(int storageSizeProperty) {
+        this.storageSizeProperty.set(storageSizeProperty);
+    }
+
+    private class UpdateListener implements ChangeListener<Number> {
+        @Override
+        public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+            updateAllLists();
+        }
+    }
+
     @FXML
     private ListView<T> listViewMedia;
-
 
     @FXML
     private ListView<Uploader> ListViewUser;
@@ -64,8 +96,8 @@ public class ViewController<T> implements Initializable {
          https://www.java-forum.org/thema/automatisches-aktualisieren-der-seite.184880/
          */
         //Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> updateAllLists()));
-       // timeline.setCycleCount(Timeline.INDEFINITE);
-       // timeline.play();
+        // timeline.setCycleCount(Timeline.INDEFINITE);
+        // timeline.play();
     }
 
     /**
@@ -80,6 +112,9 @@ public class ViewController<T> implements Initializable {
         this.updateDisplay.setText("initialized");
         this.sizeMedia = Storage.getInstance().getMedia().size();
         this.sizeUploader = Storage.getInstance().getPerson().size();
+
+        this.defaultSizeProperty.bindBidirectional(this.storageSizeProperty);
+        this.storageSizeProperty.addListener(new UpdateListener());
     }
 
     /**
@@ -104,7 +139,7 @@ public class ViewController<T> implements Initializable {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Start                                                                                                              //
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //#region start
     public void createOnAction(ActionEvent actionEvent) {

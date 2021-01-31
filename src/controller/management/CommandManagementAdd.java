@@ -1,4 +1,4 @@
-package net.server.serverCommands;
+package controller.management;
 
 import controller.handleInput.InputConverter;
 import controller.handleInput.create.CreateOption;
@@ -9,17 +9,18 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
-public class CommandServerAdd extends CommandServer implements Command {
+public class CommandManagementAdd extends CommandManagement implements Command {
 
+    public static final String SEND_MSG = InputConverter.USER_TEXT + "\n" + InputConverter.INTER_VIDEO_TEXT + "\n" + InputConverter.LICENSED_AUDIO_VIDEO_TEXT;
 
-    public CommandServerAdd(DataInputStream in, DataOutputStream out) {
+    public CommandManagementAdd(DataInputStream in, DataOutputStream out) {
         super(in, out);
     }
 
     @Override
     public void run() throws IOException {
-        this.sendMessage(InputConverter.USER_TEXT + "\n" + InputConverter.INTER_VIDEO_TEXT + "\n" + InputConverter.LICENSED_AUDIO_VIDEO_TEXT);
-        this.handleArgs(this.getMessage().toString());
+        this.sendMessage(SEND_MSG);
+        this.handleArgs(this.getMessage());
     }
 
     @Override
@@ -40,11 +41,20 @@ public class CommandServerAdd extends CommandServer implements Command {
                 DateTimeParseException |
                 IllegalArgumentException e) {
 
-            this.sendMessage(e.getMessage());
+            if (!this.isOffline()) {
+                this.sendMessage(e.getMessage());
+            } else {
+                System.err.println(e.getMessage());
+            }
+
             return;
         }
+        if (!this.isOffline()) {
+            this.sendMessage("Add " + msg);
+        } else {
+            System.out.println("Add " + msg);
+        }
 
-        this.sendMessage("Add " + msg);
     }
 
 }

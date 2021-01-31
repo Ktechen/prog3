@@ -1,4 +1,4 @@
-package net.server.serverCommands;
+package controller.management;
 
 import controller.crud.Create;
 import org.junit.jupiter.api.Assertions;
@@ -9,7 +9,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class TestCommandServerTCPConfig {
+public class TestCommandManagementTCPConfig {
 
     @Test
     public void testConfig() throws IOException {
@@ -18,7 +18,7 @@ public class TestCommandServerTCPConfig {
 
         final Create create = new Create();
 
-        final CommandServerConfig commandServerConfig = new CommandServerConfig(in, out);
+        final CommandManagementConfig commandServerConfig = new CommandManagementConfig(in, out);
         commandServerConfig.handleArgs("remove");
 
         Assertions.assertEquals(0, create.getList().size());
