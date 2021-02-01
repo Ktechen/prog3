@@ -3,17 +3,15 @@ package modell.data.content;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploader;
 
-import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.Collection;
-import java.util.Date;
 
-public class LicensedAudio extends Audio implements modell.mediaDB.LicensedAudio {
+public class LicensedVideo extends Video implements modell.mediaDB.LicensedVideo {
 
     private String holder;
 
-    public LicensedAudio(long bitrate, Duration duration, Collection<Tag> tags, int samplingRate, String endcoding, Uploader uploader, String holder) {
-        super(bitrate, duration, tags, samplingRate, endcoding, uploader);
+    public LicensedVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tags, Uploader uploader, String holder) {
+        super(width, height, encoding, bitrate, length, tags, uploader);
         this.holder = holder;
     }
 
@@ -31,7 +29,7 @@ public class LicensedAudio extends Audio implements modell.mediaDB.LicensedAudio
                 ", tag=" + this.getTags() +
                 ", uploader=" + this.getUploader().getName() +
                 ", updateDate=" + this.getUploadDate() +
-                ", holder=" + this.getHolder() +
+                ", holder=" + this.holder +
                 ", clicks=" + this.getAccessCount() +
                 ", address=" + this.getAddress() +
                 "}";

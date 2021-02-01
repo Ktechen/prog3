@@ -94,6 +94,14 @@ public class Create implements Observable {
         }
     }
 
+    public void licensedVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tags, Uploader uploader, String holder) {
+        synchronized (this.storage) {
+            LicensedVideo licensedVideo = new LicensedVideo(width, height, encoding, bitrate, length, tags, uploader, holder);
+            this.capacity = BigDecimal.valueOf(width).multiply(BigDecimal.valueOf(height));
+            this.execute(licensedVideo);
+        }
+    }
+
     public void person(String name) {
         synchronized (this.storage) {
             this.storage.addPerson(new Person(name));
