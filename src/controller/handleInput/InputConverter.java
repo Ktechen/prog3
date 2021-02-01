@@ -3,10 +3,9 @@ package controller.handleInput;
 import controller.cli.Keys;
 import controller.observer.observers.ObserverConsoleSize;
 import modell.data.content.Person;
-import modell.data.content.interaction.InteractiveVideo;
+import modell.data.content.InteractiveVideo;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploader;
-import net.StartServer;
 
 import java.time.Duration;
 import java.time.format.DateTimeParseException;

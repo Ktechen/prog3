@@ -1,4 +1,4 @@
-package modell.data.content.interaction;
+package modell.data.content;
 
 import modell.data.content.Person;
 import modell.data.content.Video;

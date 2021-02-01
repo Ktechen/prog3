@@ -5,7 +5,7 @@ import controller.event.events.commands.show.CommandShowEvents;
 import controller.handleInput.InputConverter;
 import modell.data.content.Audio;
 import modell.data.content.Person;
-import modell.data.content.interaction.InteractiveVideo;
+import modell.data.content.InteractiveVideo;
 import modell.data.storage.Storage;
 import modell.mediaDB.Tag;
 import org.junit.jupiter.api.Assertions;

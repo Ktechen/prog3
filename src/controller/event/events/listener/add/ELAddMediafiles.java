@@ -1,10 +1,9 @@
 package controller.event.events.listener.add;
 
 import controller.crud.Create;
-import controller.observer.observers.ObserverConsoleSize;
 import modell.data.content.Person;
-import modell.data.content.interaction.InteractiveVideo;
-import modell.data.content.licensed.LicensedAudioVideo;
+import modell.data.content.InteractiveVideo;
+import modell.data.content.LicensedAudioVideo;
 import controller.event.Event;
 import controller.event.EventListener;
 import modell.mediaDB.Tag;

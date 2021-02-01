@@ -5,7 +5,7 @@ import controller.event.events.event.add.EventAddUploader;
 import controller.event.events.listener.add.ELAddMediafiles;
 import controller.event.events.listener.add.ELAddUploader;
 import modell.data.content.Person;
-import modell.data.content.interaction.InteractiveVideo;
+import modell.data.content.InteractiveVideo;
 import modell.data.storage.Storage;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploader;

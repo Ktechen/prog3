@@ -1,15 +1,12 @@
 package controller.event.events.commands.add;
 
 import controller.event.EventHandler;
-import controller.event.EventListener;
 import controller.event.events.commands.CommandEvent;
 import controller.event.events.event.add.EventAddMediaFiles;
-import controller.event.events.event.add.EventAddUploader;
 import controller.event.events.listener.add.ELAddMediafiles;
-import controller.event.events.listener.add.ELAddUploader;
 import controller.handleInput.InputConverter;
-import modell.data.content.interaction.InteractiveVideo;
-import modell.data.content.licensed.LicensedAudioVideo;
+import modell.data.content.InteractiveVideo;
+import modell.data.content.LicensedAudioVideo;
 
 import java.time.format.DateTimeParseException;
 

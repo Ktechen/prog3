@@ -1,4 +1,4 @@
-package modell.data.content.licensed;
+package modell.data.content;
 
 import modell.data.content.AudioVideo;
 import modell.data.content.Person;

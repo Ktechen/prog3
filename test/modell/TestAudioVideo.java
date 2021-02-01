@@ -1,7 +1,7 @@
 package modell;
 
 import controller.crud.Create;
-import modell.data.content.interaction.InteractiveVideo;
+import modell.data.content.InteractiveVideo;
 import modell.data.storage.Storage;
 import modell.data.content.Person;
 import modell.mediaDB.*;
