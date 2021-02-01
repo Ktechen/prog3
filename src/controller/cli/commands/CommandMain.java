@@ -13,7 +13,6 @@ import java.io.*;
 public class CommandMain implements Command {
 
     private Console console;
-    private Create create;
 
     private final CommandManagementAdd commandManagementAdd;
     //private final CommandManagementShow commandManagementShow;
@@ -24,7 +23,6 @@ public class CommandMain implements Command {
     private final CommandManagementDefault commandManagementDefault;
 
     public CommandMain() {
-        this.create = new Create();
         this.console = new Console();
 
         this.commandManagementAdd = new CommandManagementAdd();
@@ -64,7 +62,6 @@ public class CommandMain implements Command {
     public void handleArgs(String args) throws IOException {
         switch (args) {
             case ":c":
-                new ObserverConsoleSize(create);
                 System.out.println(CommandManagementAdd.SEND_MSG);
                 this.commandManagementAdd.handleArgs(this.console.input("----------"));
                 break;

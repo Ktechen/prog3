@@ -14,6 +14,9 @@ public class CommandManagementDefault extends CommandManagement implements Comma
         super(in, out);
     }
 
+    /**
+     * Without Network Data Stream
+     */
     public CommandManagementDefault() {
         super(null, null);
     }

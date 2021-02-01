@@ -16,6 +16,9 @@ public class CommandManagementDelete extends CommandManagement implements Comman
         super(in, out);
     }
 
+    /**
+     * Without Network Data Stream
+     */
     public CommandManagementDelete() {
         super(null, null);
     }

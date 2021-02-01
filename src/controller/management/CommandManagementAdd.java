@@ -17,6 +17,9 @@ public class CommandManagementAdd extends CommandManagement implements Command {
         super(in, out);
     }
 
+    /**
+     * Without Network Data Stream
+     */
     public CommandManagementAdd() {
         super(null, null);
     }

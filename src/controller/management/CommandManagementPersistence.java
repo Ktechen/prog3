@@ -12,6 +12,9 @@ public class CommandManagementPersistence extends CommandManagement implements C
         super(in, out);
     }
 
+    /**
+     * Without Network Data Stream
+     */
     public CommandManagementPersistence() {
         super(null, null);
     }

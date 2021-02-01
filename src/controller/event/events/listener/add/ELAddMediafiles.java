@@ -1,6 +1,7 @@
 package controller.event.events.listener.add;
 
 import controller.crud.Create;
+import controller.observer.observers.ObserverConsoleSize;
 import modell.data.content.Person;
 import modell.data.content.interaction.InteractiveVideo;
 import modell.data.content.licensed.LicensedAudioVideo;

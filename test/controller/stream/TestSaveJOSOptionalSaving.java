@@ -1,4 +1,4 @@
-package controller.stream.jos;
+package controller.stream;
 
 import controller.crud.Create;
 import controller.stream.optionalsaving.OptionalSaving;

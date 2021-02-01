@@ -36,7 +36,10 @@ public class TestEventAdd {
     @Test
     public void testAddEventInteractiveVideoWithNull() {
         Storage.getInstance().clear();
-        final CommandAddEventsMedia commandAddEventsMedia = new CommandAddEventsMedia(new InputConverter(), new EventHandler<>());
+        EventHandler<ELAddMediafiles> handler = new EventHandler();
+        ELAddMediafiles elAddMediafiles = new ELAddMediafiles();
+        handler.add(elAddMediafiles);
+        final CommandAddEventsMedia commandAddEventsMedia = new CommandAddEventsMedia(new InputConverter(), handler);
 
         Assertions.assertThrows(NullPointerException.class, () -> {
             commandAddEventsMedia.eventInteractiveVideo(null);
@@ -48,7 +51,10 @@ public class TestEventAdd {
     @Test
     public void testAddEventInteractiveVideoWrongArray() {
         Storage.getInstance().clear();
-        final CommandAddEventsMedia commandAddEventsMedia = new CommandAddEventsMedia(new InputConverter(), new EventHandler<>());
+        EventHandler<ELAddMediafiles> handler = new EventHandler();
+        ELAddMediafiles elAddMediafiles = new ELAddMediafiles();
+        handler.add(elAddMediafiles);
+        final CommandAddEventsMedia commandAddEventsMedia = new CommandAddEventsMedia(new InputConverter(), handler);
 
         String[] value = new String[8];
         value[0] = "300";

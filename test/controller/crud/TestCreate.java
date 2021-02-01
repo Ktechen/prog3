@@ -45,9 +45,10 @@ public class TestCreate {
     public void AddObserver() {
         Storage.getInstance().clear();
         final Create create = new Create();
-        new ObserverConsoleSize(create);
+        ObserverConsoleSize observerConsoleSize =new ObserverConsoleSize(create);
 
-        Assertions.assertEquals(1, create.getList().size());
+        Assertions.assertEquals(1, Create.getList().size());
+        create.leave(observerConsoleSize);
     }
 
     @Test
@@ -56,11 +57,11 @@ public class TestCreate {
         final Create create = new Create();
         ObserverConsoleSize observerConsoleSize = new ObserverConsoleSize(create);
 
-        Assertions.assertEquals(1, create.getList().size());
+        Assertions.assertEquals(1, Create.getList().size());
 
         create.leave(observerConsoleSize);
 
-        Assertions.assertEquals(0, create.getList().size());
+        Assertions.assertEquals(0, Create.getList().size());
     }
 
 }

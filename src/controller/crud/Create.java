@@ -19,12 +19,19 @@ public class Create implements Observable {
 
     private final Storage storage;
     private final Read read = new Read();
-    private final List<Observer> list = new LinkedList<>();
+    private static List<Observer> list;
     private BigDecimal capacity = BigDecimal.valueOf(0);
 
     public BigDecimal getCapacity() {
         return capacity;
     }
+
+    public static List<Observer> getList() {
+        synchronized (Create.class) {
+            return list;
+        }
+    }
+
 
     /**
      * Create a Video or Audio
@@ -32,6 +39,9 @@ public class Create implements Observable {
      */
     public Create() {
         this.storage = Storage.getInstance();
+        if (null == list) {
+            list = new LinkedList<>();
+        }
     }
 
     public void interactiveVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Uploader person, String type) {
@@ -76,10 +86,6 @@ public class Create implements Observable {
         synchronized (this.storage) {
             this.storage.addPerson(new Person(name));
         }
-    }
-
-    public List<Observer> getList() {
-        return new LinkedList<>(this.list);
     }
 
     @Override

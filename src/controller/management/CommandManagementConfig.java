@@ -18,6 +18,9 @@ public class CommandManagementConfig extends CommandManagement implements Comman
         super(in, out);
     }
 
+    /**
+     * Without Network Data Stream
+     */
     public CommandManagementConfig() {
         super(null, null);
     }
@@ -32,6 +35,8 @@ public class CommandManagementConfig extends CommandManagement implements Comman
     public void handleArgs(String args) throws IOException {
         final Create create = new Create();
 
+        //TODO ONLY FOR NOT NETWORK CLI
+
         if (args.indexOf("add") == 0) {
             create.join(new ObserverConsoleSize(create));
             if (!this.isOffline()) {
@@ -41,7 +46,9 @@ public class CommandManagementConfig extends CommandManagement implements Comman
             }
 
         } else if (args.indexOf("remove") == 0) {
-            if (args.equals(ObserverConsoleSize.class.getSimpleName())) {
+            String temp = args.replace("remove", "");
+            String value = temp.trim();
+            if (value.compareTo(ObserverConsoleSize.class.getSimpleName()) == 0) {
                 create.leave(this.foundInstanceOf(ObserverConsoleSize.class, create));
                 if (!this.isOffline()) {
                     this.sendMessage(InputConverter.CONFIG_REMOVE_TEXT_VIEW);

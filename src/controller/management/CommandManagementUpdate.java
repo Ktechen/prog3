@@ -15,6 +15,9 @@ public class CommandManagementUpdate extends CommandManagement implements Comman
         super(in, out);
     }
 
+    /**
+     * Without Network Data Stream
+     */
     public CommandManagementUpdate() {
         super(null, null);
     }
