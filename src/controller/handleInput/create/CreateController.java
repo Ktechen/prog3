@@ -15,22 +15,12 @@ import controller.handleInput.InputConverter;
 final class CreateController {
 
     private final Create create;
-    private final CommandAddEventsMedia commandAddEventsMedia;
-    private final CommandAddEventsUploader commandAddEventsUploader;
+    private CommandAddEventsMedia commandAddEventsMedia;
+    private CommandAddEventsUploader commandAddEventsUploader;
 
     public CreateController() {
         this.create = new Create();
-
-        EventHandler<ELAddMediafiles> handler = new EventHandler();
-        ELAddMediafiles elAddMediafiles = new ELAddMediafiles();
-        handler.add(elAddMediafiles);
-
-        EventHandler<ELAddUploader> handleUploader = new EventHandler<>();
-        ELAddUploader elAddUploader = new ELAddUploader();
-        handleUploader.add(elAddUploader);
-
-        this.commandAddEventsMedia = new CommandAddEventsMedia(new InputConverter(), handler);
-        this.commandAddEventsUploader = new CommandAddEventsUploader(new InputConverter(), handleUploader);
+        this.config();
     }
 
     public final void person(String[] value) {
@@ -46,6 +36,19 @@ final class CreateController {
     public final void interactiveVideo(String[] value) {
         //Object[] inter = new InputConverter().convertInteractionVideo(value);
         this.commandAddEventsMedia.eventInteractiveVideo(value);
+    }
+
+    private void config(){
+        EventHandler<ELAddMediafiles> handler = new EventHandler();
+        ELAddMediafiles elAddMediafiles = new ELAddMediafiles();
+        handler.add(elAddMediafiles);
+
+        EventHandler<ELAddUploader> handleUploader = new EventHandler<>();
+        ELAddUploader elAddUploader = new ELAddUploader();
+        handleUploader.add(elAddUploader);
+
+        this.commandAddEventsMedia = new CommandAddEventsMedia(new InputConverter(), handler);
+        this.commandAddEventsUploader = new CommandAddEventsUploader(new InputConverter(), handleUploader);
     }
 
     //TODO ADD ALL MEDIA
