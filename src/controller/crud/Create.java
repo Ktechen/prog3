@@ -2,11 +2,11 @@ package controller.crud;
 
 import controller.observer.Observable;
 import controller.observer.Observer;
-import modell.data.content.Person;
-import modell.data.content.InteractiveVideo;
-import modell.data.content.LicensedAudioVideo;
+import modell.data.content.*;
 import modell.data.storage.Storage;
+import modell.mediaDB.MediaContent;
 import modell.mediaDB.Tag;
+import modell.mediaDB.Uploadable;
 import modell.mediaDB.Uploader;
 
 import java.math.BigDecimal;
@@ -44,41 +44,53 @@ public class Create implements Observable {
         }
     }
 
+    //TODO Add MEDIAs
+
     public void interactiveVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Uploader person, String type) {
         synchronized (this.storage) {
-
-            //TODO Uploader to string es muss vorher ein Benutzer erstellt werden der hinzugefügt werden kann
-            this.person(person.getName());
-
-            InteractiveVideo video = new InteractiveVideo(width, height, encoding, bitrate, length, tag, person, type);
-
             this.capacity = BigDecimal.valueOf(width).multiply(BigDecimal.valueOf(height));
-
-            read.tagFinder(video.getTags());
-            Validierung.checkSize(video.getSize());
-
-            this.storage.addMedia(video);
-
-            this.message();
-            this.capacity = BigDecimal.valueOf(0);
+            InteractiveVideo video = new InteractiveVideo(width, height, encoding, bitrate, length, tag, person, type);
+            this.execute(video);
         }
     }
 
     public void licensedAudioVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Uploader person, String holder, int samplingRate) {
         synchronized (this.storage) {
-
-            this.capacity = BigDecimal.valueOf(width).multiply(BigDecimal.valueOf(height));
-
             LicensedAudioVideo video = new LicensedAudioVideo(width, height, encoding, bitrate, length, tag, person, samplingRate, holder);
+            this.capacity = BigDecimal.valueOf(width).multiply(BigDecimal.valueOf(height));
+            this.execute(video);
+        }
+    }
 
-            read.tagFinder(video.getTags());
-            Validierung.checkSize(video.getSize());
+    public void audio(long bitrate, Duration duration, Collection<Tag> tags, int samplingRate, String endcoding, Uploader uploader) {
+        synchronized (this.storage) {
+            Audio audio = new Audio(bitrate, duration, tags, samplingRate, endcoding, uploader);
+            this.capacity = BigDecimal.valueOf(bitrate);
+            this.execute(audio);
+        }
+    }
 
-            this.person(person.getName());
-            this.storage.addMedia(video);
+    public void video(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tags, Uploader uploader) {
+        synchronized (this.storage) {
+            Video video = new Video(width, height, encoding, bitrate, length, tags, uploader);
+            this.capacity = BigDecimal.valueOf(width).multiply(BigDecimal.valueOf(height));
+            this.execute(video);
+        }
+    }
 
-            this.message();
-            this.capacity = BigDecimal.valueOf(0);
+    public void audioVideo(int width, int height, String encoding, long bitrate, Duration duration, Collection<Tag> tags, Uploader uploader, int samplingRate) {
+        synchronized (this.storage) {
+            AudioVideo audioVideo = new AudioVideo(width, height, encoding, bitrate, duration, tags, uploader, samplingRate);
+            this.capacity = BigDecimal.valueOf(width).multiply(BigDecimal.valueOf(height));
+            this.execute(audioVideo);
+        }
+    }
+
+    public void licensedAudio(long bitrate, Duration duration, Collection<Tag> tags, int samplingRate, String endcoding, Uploader uploader, String holder) {
+        synchronized (this.storage) {
+            LicensedAudio licensedAudio = new LicensedAudio(bitrate, duration, tags, samplingRate, endcoding, uploader, holder);
+            this.capacity = BigDecimal.valueOf(bitrate);
+            this.execute(licensedAudio);
         }
     }
 
@@ -86,6 +98,23 @@ public class Create implements Observable {
         synchronized (this.storage) {
             this.storage.addPerson(new Person(name));
         }
+    }
+
+    private <T extends Uploadable & MediaContent> void execute(T t) {
+        this.infoParameter(t);
+        this.person(t.getUploader().getName());
+        this.storage.addMedia(t);
+        this.executeParameter();
+    }
+
+    private <T extends Uploadable & MediaContent> void infoParameter(T t) {
+        read.tagFinder(t.getTags());
+        Validierung.checkSize(t.getSize());
+    }
+
+    private void executeParameter() {
+        this.message();
+        this.capacity = BigDecimal.valueOf(0);
     }
 
     @Override
