@@ -3,10 +3,12 @@ package controller.management;
 import controller.event.EventHandler;
 import controller.event.events.commands.show.CommandShowEvents;
 import controller.handleInput.InputConverter;
+import modell.mediaDB.MediaContent;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 public class CommandManagementShow extends CommandManagement implements Command {
 
@@ -51,6 +53,33 @@ public class CommandManagementShow extends CommandManagement implements Command 
                 //ShowUsedTags
                 StringBuffer buffer3 = new CommandShowEvents(new InputConverter(), new EventHandler<>()).eventShowUsedTags();
                 this.sendMessage(buffer3.toString());
+                break;
+            case "4":
+                //SortByInput
+                this.sendMessage(InputConverter.SHOW_CONTENT);
+                CommandSort commandSort = new CommandSort();
+                String typ = this.getMessage();
+
+                StringBuffer buffer4 = new StringBuffer();
+
+                switch (typ) {
+                    case "address":
+                        List<MediaContent> address = commandSort.address();
+                        address.forEach(buffer4::append);
+                        this.sendMessage(buffer4.toString());
+                        break;
+                    case "clicks":
+                        List<MediaContent> clicks = commandSort.clicks();
+                        clicks.forEach(buffer4::append);
+                        this.sendMessage(buffer4.toString());
+                        break;
+                    case "date":
+                        break;
+                    default:
+                        this.sendMessage("Not sortable");
+                        break;
+                }
+
                 break;
             default:
                 this.sendMessage(InputConverter.OPTION_NOT_VALID);

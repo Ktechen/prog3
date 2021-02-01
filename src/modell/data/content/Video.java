@@ -79,7 +79,6 @@ public class Video extends MediaContent implements modell.mediaDB.Video, Seriali
         return this.date;
     }
 
-
     @Override
     public String toString() {
         return "Video{" +

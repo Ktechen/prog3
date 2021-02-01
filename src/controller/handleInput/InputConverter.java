@@ -30,7 +30,8 @@ public class InputConverter {
     public final static String SHOW_PER_INDEX = "2. User per Index \n";
     public final static String SHOW_TAGS = "3. Show used tags\n";
     public final static String SHOW_CONTENT = "content[[Typ]] Anzeige der Mediadateien-ggf. \n " +
-            "gefiltert nach Typ1-mit Abrufadresse, Upload-Datumund Anzahl der Abrufe";
+            "gefiltert nach Typ1-mit Abrufadresse, Upload-Datumund Anzahl der Abrufe" + "\n"
+            + "Typs: (date, clicks, address)";
 
     public final static String SHOW_ALL_TEXT_VIEW = "Please enter a filter like: " + InteractiveVideo.class.getSimpleName() + " or No Filter press enter";
     public final static String SHOW_Uploader_TEXT_VIEW = "Please enter your name";

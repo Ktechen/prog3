@@ -17,4 +17,5 @@ public abstract class CommandEvent<T extends EventListener> {
     public void setHandler(EventHandler<T> handler) {
         this.eventHandler = handler;
     }
+
 }

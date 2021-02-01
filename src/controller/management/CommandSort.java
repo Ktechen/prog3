@@ -27,4 +27,10 @@ public class CommandSort {
         video.sort(Comparator.comparing(o -> o.getUploader().getName()));
         return video;
     }
+
+    public List<Uploadable> date() {
+        List<Uploadable> video = Storage.getInstance().getMedia();
+        video.sort(Comparator.comparing(Uploadable::getUploadDate));
+        return video;
+    }
 }
