@@ -1,6 +1,7 @@
-package controller.management;
+package net.server.tcp;
 
 import controller.crud.Create;
+import controller.management.CommandManagementConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

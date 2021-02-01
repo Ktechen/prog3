@@ -1,5 +1,6 @@
-package controller.management;
+package net.server.tcp;
 
+import controller.management.CommandManagementAdd;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

@@ -47,7 +47,6 @@ public class CommandMain implements Command {
         this.commandManagementShow = new CommandManagementShow();
         this.commandManagementShow.setOffline(true);
          */
-
     }
 
     @Override

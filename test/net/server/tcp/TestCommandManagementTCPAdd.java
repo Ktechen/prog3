@@ -1,5 +1,6 @@
-package controller.management;
+package net.server.tcp;
 
+import controller.management.CommandManagementAdd;
 import modell.data.content.Person;
 import modell.data.storage.Storage;
 import modell.mediaDB.Uploader;
@@ -28,6 +29,10 @@ public class TestCommandManagementTCPAdd {
         String name = "name: KevinTechen";
         //out.writeUTF(name);
         //out.flush();
+
+        /**
+         * DataOutputStream zur um DataInputStream gewandelt
+         */
 
         //Input Stream and Outputstream sind verstauscht deswegen muss dem bekommt der Input denn Output
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

@@ -1,5 +1,7 @@
-package controller.management;
+package net.server.tcp;
 
+import controller.management.CommandManagementAdd;
+import controller.management.CommandManagementDelete;
 import modell.data.storage.Storage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
