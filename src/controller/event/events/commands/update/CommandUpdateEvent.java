@@ -7,17 +7,15 @@ import controller.event.events.event.update.EventUpdateCounter;
 import controller.event.events.listener.update.ELUpdateCounter;
 import controller.handleInput.InputConverter;
 
-public class CommandUpdateEvent extends CommandEvent {
+public class CommandUpdateEvent extends CommandEvent<ELUpdateCounter> {
 
 
-    public CommandUpdateEvent(InputConverter converter, EventHandler<EventListener> eventHandler) {
+    public CommandUpdateEvent(InputConverter converter, EventHandler<ELUpdateCounter> eventHandler) {
         super(converter, eventHandler);
     }
 
     public void eventUpdateCounter(String address) {
         EventUpdateCounter eventUpdateCounter = new EventUpdateCounter(this, address);
-        ELUpdateCounter elUpdateCounter = new ELUpdateCounter();
-        eventHandler.add(elUpdateCounter);
         eventHandler.handle(eventUpdateCounter);
     }
 }

@@ -4,6 +4,8 @@ import controller.crud.Update;
 import controller.event.EventHandler;
 import controller.event.events.commands.update.CommandUpdateEvent;
 import controller.handleInput.InputConverter;
+import controller.handleInput.update.UpdateOption;
+import modell.data.storage.Storage;
 
 import java.io.*;
 
@@ -31,13 +33,13 @@ public class CommandManagementUpdate extends CommandManagement implements Comman
     @Override
     public void handleArgs(String args) throws IOException {
         try {
-            new CommandUpdateEvent(new InputConverter(), new EventHandler<>()).eventUpdateCounter(args);
-            final Update update = new Update();
-            long current = update.getAccessCount(args);
+            UpdateOption updateOption = new UpdateOption();
+            updateOption.run(args);
+
             if (!isOffline()) {
-                this.sendMessage("Click: " + current);
+                this.sendMessage("Click: " + Storage.getInstance().getCountOfUse().get(args));
             } else {
-                System.out.println("Click: " + current);
+                System.out.println("Click: " + Storage.getInstance().getCountOfUse().get(args));
             }
 
         } catch (IllegalArgumentException e) {

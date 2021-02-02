@@ -24,7 +24,7 @@ public class TestDeleteOption {
 
         String check = deleteOption.run(address);
 
-        Assertions.assertEquals(check, "Mediafile Status: " + false);
+        Assertions.assertEquals(check, "Delete via Address");
     }
 
     @Test
@@ -35,6 +35,6 @@ public class TestDeleteOption {
 
         String check = deleteOption.run(name);
 
-        Assertions.assertEquals(check, "User Status: " + false);
+        Assertions.assertEquals(check, "Delete via User");
     }
 }

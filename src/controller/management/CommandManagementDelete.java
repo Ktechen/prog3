@@ -1,8 +1,7 @@
 package controller.management;
 
-import controller.event.EventHandler;
-import controller.event.events.commands.delete.CommandDeleteEvents;
 import controller.handleInput.InputConverter;
+import controller.handleInput.delete.DeleteOption;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -31,11 +30,12 @@ public class CommandManagementDelete extends CommandManagement implements Comman
 
     @Override
     public void handleArgs(String args) throws IOException {
-        new CommandDeleteEvents(new InputConverter(), new EventHandler<>(), args).eventDelete();
+
+        DeleteOption deleteOption = new DeleteOption();
         if (!isOffline()) {
-            this.sendMessage(args + " was been deleted");
+            this.sendMessage(deleteOption.run(args));
         } else {
-            System.out.println("Element was been deleted");
+            System.out.println(deleteOption.run(args));
         }
     }
 }

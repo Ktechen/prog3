@@ -7,12 +7,13 @@ import controller.event.events.commands.add.CommandAddEventsMedia;
 import controller.event.events.commands.add.CommandAddEventsUploader;
 import controller.event.events.listener.add.ELAddMediafiles;
 import controller.event.events.listener.add.ELAddUploader;
+import controller.handleInput.CommandController;
 import controller.handleInput.InputConverter;
 
 /**
  * Stellt die Beziehung zwischen dem Input und der Verarbeiter der Daten da
  */
-final class CreateController {
+final class CreateController implements CommandController {
 
     private final Create create;
     private CommandAddEventsMedia commandAddEventsMedia;
@@ -38,7 +39,11 @@ final class CreateController {
         this.commandAddEventsMedia.eventInteractiveVideo(value);
     }
 
-    private void config(){
+
+    //TODO ADD ALL MEDIA
+
+    @Override
+    public void config() {
         EventHandler<ELAddMediafiles> handler = new EventHandler();
         ELAddMediafiles elAddMediafiles = new ELAddMediafiles();
         handler.add(elAddMediafiles);
@@ -51,5 +56,4 @@ final class CreateController {
         this.commandAddEventsUploader = new CommandAddEventsUploader(new InputConverter(), handleUploader);
     }
 
-    //TODO ADD ALL MEDIA
 }

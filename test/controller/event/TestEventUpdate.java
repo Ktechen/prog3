@@ -3,6 +3,7 @@ package controller.event;
 import controller.crud.Create;
 import controller.crud.Update;
 import controller.event.events.commands.update.CommandUpdateEvent;
+import controller.event.events.listener.update.ELUpdateCounter;
 import controller.handleInput.InputConverter;
 import modell.data.content.Person;
 import modell.data.storage.Storage;
@@ -33,8 +34,11 @@ public class TestEventUpdate {
         );
 
         MediaContent content = (MediaContent) Storage.getInstance().getMedia().get(0);
+        EventHandler<ELUpdateCounter> handler = new EventHandler<>();
+        ELUpdateCounter elUpdateCounter = new ELUpdateCounter();
+        handler.add(elUpdateCounter);
+        final CommandUpdateEvent commandUpdateEvent = new CommandUpdateEvent(new InputConverter(), handler);
 
-        final CommandUpdateEvent commandUpdateEvent = new CommandUpdateEvent(new InputConverter(), new EventHandler<>());
         commandUpdateEvent.eventUpdateCounter(content.getAddress()); // 1
         commandUpdateEvent.eventUpdateCounter(content.getAddress()); // 3 +2
         commandUpdateEvent.eventUpdateCounter(content.getAddress()); // 6 +3
@@ -44,7 +48,9 @@ public class TestEventUpdate {
 
         final Update update = new Update();
 
-        Assertions.assertEquals(13,  update.getAccessCount(content.getAddress()));
+        //Bug fixed
+
+        Assertions.assertEquals(6,  update.getAccessCount(content.getAddress()));
     }
 
 }

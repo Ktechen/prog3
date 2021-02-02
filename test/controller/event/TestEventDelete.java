@@ -1,7 +1,8 @@
 package controller.event;
 
 import controller.crud.Create;
-import controller.event.events.commands.delete.CommandDeleteEvents;
+import controller.event.events.commands.delete.CommandDeleteEventAddress;
+import controller.event.events.listener.delete.ELDeleteVideoPerAdress;
 import controller.handleInput.InputConverter;
 import modell.data.content.Person;
 import modell.data.storage.Storage;
@@ -33,8 +34,11 @@ public class TestEventDelete {
 
         MediaContent content = (MediaContent) Storage.getInstance().getMedia().get(0);
 
-        final CommandDeleteEvents commandDeleteEvents = new CommandDeleteEvents(new InputConverter(), new EventHandler<>(), content.getAddress());
-        commandDeleteEvents.eventDelete();
+        EventHandler<ELDeleteVideoPerAdress> address = new EventHandler<>();
+        ELDeleteVideoPerAdress elDeleteVideoPerAdress = new ELDeleteVideoPerAdress();
+        address.add(elDeleteVideoPerAdress);
+        final CommandDeleteEventAddress commandDeleteEventAddress = new CommandDeleteEventAddress(new InputConverter(), address);
+        commandDeleteEventAddress.eventDeletePerAddress(content.getAddress());
 
         Assertions.assertEquals(0, Storage.getInstance().getMedia().size());
     }
