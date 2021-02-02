@@ -6,8 +6,8 @@ import controller.event.events.event.delete.EventDeletePerAddress;
 import controller.event.events.listener.delete.ELDeleteVideoPerAdress;
 import controller.handleInput.InputConverter;
 
-public class CommandDeleteEventAddress extends CommandEvent<ELDeleteVideoPerAdress> {
-    public CommandDeleteEventAddress(InputConverter converter, EventHandler<ELDeleteVideoPerAdress> eventHandler) {
+public class CommandDeleteEventAddress extends CommandEvent {
+    public CommandDeleteEventAddress(InputConverter converter, EventHandler eventHandler) {
         super(converter, eventHandler);
     }
 

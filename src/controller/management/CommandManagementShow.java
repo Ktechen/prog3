@@ -3,6 +3,7 @@ package controller.management;
 import controller.event.EventHandler;
 import controller.event.events.commands.show.CommandShowEvents;
 import controller.handleInput.InputConverter;
+import controller.handleInput.show.ShowOption;
 import modell.mediaDB.MediaContent;
 
 import java.io.DataInputStream;
@@ -33,53 +34,29 @@ public class CommandManagementShow extends CommandManagement implements Command 
 
     @Override
     public void handleArgs(String args) throws IOException {
+
+        ShowOption showOption = new ShowOption();
+
         switch (args) {
             case "1":
                 //Show all
                 this.sendMessage(InputConverter.SHOW_ALL_TEXT_VIEW);
-                StringBuffer buffer1;
                 String msg = this.getMessage();
-                buffer1 = new CommandShowEvents(new InputConverter(), new EventHandler<>()).eventShowAll(msg);
-
+                StringBuffer buffer1 = showOption.run("1", msg);
                 this.sendMessage(buffer1.toString());
                 break;
             case "2":
                 //Uploader
                 this.sendMessage(InputConverter.SHOW_Uploader_TEXT_VIEW);
-                StringBuffer stringBuffer2 = new CommandShowEvents(new InputConverter(), new EventHandler<>()).eventUsernamePerIndexValue(this.getMessage().toString());
+                String msgUser = this.getMessage();
+                StringBuffer stringBuffer2 = showOption.run("2", msgUser);
                 this.sendMessage(stringBuffer2.toString());
                 break;
             case "3":
                 //ShowUsedTags
-                StringBuffer buffer3 = new CommandShowEvents(new InputConverter(), new EventHandler<>()).eventShowUsedTags();
+                //TODO add e and i options
+                StringBuffer buffer3 = showOption.run("3", "");
                 this.sendMessage(buffer3.toString());
-                break;
-            case "4":
-                //SortByInput
-                this.sendMessage(InputConverter.SHOW_CONTENT);
-                CommandSort commandSort = new CommandSort();
-                String typ = this.getMessage();
-
-                StringBuffer buffer4 = new StringBuffer();
-
-                switch (typ) {
-                    case "address":
-                        List<MediaContent> address = commandSort.address();
-                        address.forEach(buffer4::append);
-                        this.sendMessage(buffer4.toString());
-                        break;
-                    case "clicks":
-                        List<MediaContent> clicks = commandSort.clicks();
-                        clicks.forEach(buffer4::append);
-                        this.sendMessage(buffer4.toString());
-                        break;
-                    case "date":
-                        break;
-                    default:
-                        this.sendMessage("Not sortable");
-                        break;
-                }
-
                 break;
             default:
                 this.sendMessage(InputConverter.OPTION_NOT_VALID);

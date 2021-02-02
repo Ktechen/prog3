@@ -44,7 +44,7 @@ final class CreateController implements CommandController {
 
     @Override
     public void config() {
-        EventHandler<ELAddMediafiles> handler = new EventHandler();
+        EventHandler<ELAddMediafiles> handler = new EventHandler<>();
         ELAddMediafiles elAddMediafiles = new ELAddMediafiles();
         handler.add(elAddMediafiles);
 

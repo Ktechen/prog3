@@ -10,9 +10,9 @@ import modell.data.content.LicensedAudioVideo;
 
 import java.time.format.DateTimeParseException;
 
-public class CommandAddEventsMedia extends CommandEvent<ELAddMediafiles> {
+public class CommandAddEventsMedia extends CommandEvent {
 
-    public CommandAddEventsMedia(InputConverter converter, EventHandler<ELAddMediafiles> eventHandler) {
+    public CommandAddEventsMedia(InputConverter converter, EventHandler eventHandler) {
         super(converter, eventHandler);
     }
 

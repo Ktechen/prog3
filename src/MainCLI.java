@@ -1,11 +1,20 @@
 import controller.cli.commands.CommandMain;
 import controller.crud.Create;
+import controller.gui.delegate.view.ActionDebug;
 import controller.observer.observers.ObserverConsoleSize;
 
 import java.io.IOException;
 
 public class MainCLI {
+
+
     public static void main(String[] args) {
+
+        /**
+         * Set Default elemente
+         */
+        new ActionDebug().setupOne(null);
+
         try {
             config();
             new CommandMain().run();

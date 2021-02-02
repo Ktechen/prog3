@@ -7,9 +7,9 @@ import controller.event.events.event.add.EventAddUploader;
 import controller.event.events.listener.add.ELAddUploader;
 import controller.handleInput.InputConverter;
 
-public class CommandAddEventsUploader extends CommandEvent<ELAddUploader> {
+public class CommandAddEventsUploader extends CommandEvent {
 
-    public CommandAddEventsUploader(InputConverter converter, EventHandler<ELAddUploader> eventHandler) {
+    public CommandAddEventsUploader(InputConverter converter, EventHandler eventHandler) {
         super(converter, eventHandler);
     }
 

@@ -7,10 +7,9 @@ import controller.event.events.event.update.EventUpdateCounter;
 import controller.event.events.listener.update.ELUpdateCounter;
 import controller.handleInput.InputConverter;
 
-public class CommandUpdateEvent extends CommandEvent<ELUpdateCounter> {
+public class CommandUpdateEvent extends CommandEvent {
 
-
-    public CommandUpdateEvent(InputConverter converter, EventHandler<ELUpdateCounter> eventHandler) {
+    public CommandUpdateEvent(InputConverter converter, EventHandler eventHandler) {
         super(converter, eventHandler);
     }
 
