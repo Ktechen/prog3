@@ -3,7 +3,6 @@ package controller.event.events.commands.show;
 import controller.event.EventHandler;
 import controller.event.events.commands.CommandEvent;
 import controller.event.events.event.show.EventShowUsernamePerIndex;
-import controller.event.events.listener.show.ELShowUsernamePerIndexValue;
 import controller.handleInput.InputConverter;
 
 public class CommandShowEventUsername extends CommandEvent {

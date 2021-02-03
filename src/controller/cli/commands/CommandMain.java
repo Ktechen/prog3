@@ -15,7 +15,7 @@ public class CommandMain implements Command {
     private Console console;
 
     private final CommandManagementAdd commandManagementAdd;
-    //private final CommandManagementShow commandManagementShow;
+    private final CommandManagementShow commandManagementShow;
     private final CommandManagementDelete commandManagementDelete;
     private final CommandManagementUpdate commandManagementUpdate;
     private final CommandManagementConfig commandManagementConfig;
@@ -43,10 +43,8 @@ public class CommandMain implements Command {
         this.commandManagementDefault = new CommandManagementDefault();
         this.commandManagementDefault.setOffline(true);
 
-        /*
         this.commandManagementShow = new CommandManagementShow();
         this.commandManagementShow.setOffline(true);
-         */
     }
 
     @Override

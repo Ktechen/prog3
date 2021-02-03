@@ -1,15 +1,11 @@
 package controller.management;
 
-import controller.event.EventHandler;
-import controller.event.events.commands.show.CommandShowEvents;
 import controller.handleInput.InputConverter;
 import controller.handleInput.show.ShowOption;
-import modell.mediaDB.MediaContent;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.List;
 
 public class CommandManagementShow extends CommandManagement implements Command {
 
@@ -36,6 +32,8 @@ public class CommandManagementShow extends CommandManagement implements Command 
     public void handleArgs(String args) throws IOException {
 
         ShowOption showOption = new ShowOption();
+
+        //TODO add isOffline mode
 
         switch (args) {
             case "1":
