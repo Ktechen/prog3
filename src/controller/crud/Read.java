@@ -4,6 +4,7 @@ import modell.data.storage.Storage;
 import modell.mediaDB.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Read {
 
@@ -14,8 +15,8 @@ public class Read {
     }
 
     /**
-     *
      * List of user filter by name
+     *
      * @param name
      * @return hashMap
      */
@@ -50,7 +51,7 @@ public class Read {
      *
      * @return
      */
-    public  List<MediaContent> fullList() {
+    public List<MediaContent> fullList() {
         return storage.getMedia();
     }
 
@@ -104,6 +105,28 @@ public class Read {
                 me.replace(o.toString(), true);
                 storage.setUsedTags(me);
             }
+        }
+    }
+
+    /**
+     * Get filter from Tags
+     *
+     * @param found true = true Tags | false = false Tags
+     */
+    public LinkedList<String> getTagsByFilter(boolean found) {
+        synchronized (this.storage) {
+            HashMap<String, Boolean> map = this.getFindedTags();
+
+            LinkedList<String> strings = new LinkedList<>();
+
+            for (String key : map.keySet()) {
+                Boolean value = map.get(key);
+                if (value.equals(found)) {
+                    strings.add(key);
+                }
+            }
+
+            return strings;
         }
     }
 

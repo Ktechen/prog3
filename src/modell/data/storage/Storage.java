@@ -13,11 +13,7 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
     private HashMap<String, Long> countOfUse;
     private HashMap<String, Boolean> usedTags;
 
-    public Storage() {
-
-    }
-
-    private Storage(boolean beanCon) {
+    private Storage() {
         this.media = new LinkedList<>();
         this.person = new HashSet<>();
         this.usedTags = new HashMap<>();
@@ -36,7 +32,7 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
     public static Storage getInstance() {
         synchronized (Storage.class) {
             if (null == Storage.instance) {
-                Storage.instance = new Storage(true);
+                Storage.instance = new Storage();
             }
             return Storage.instance;
         }
