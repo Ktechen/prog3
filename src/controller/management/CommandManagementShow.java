@@ -37,45 +37,70 @@ public class CommandManagementShow extends CommandManagement implements Command 
         switch (args) {
             case "1":
                 //Show all
-                if (!this.isOffline()) {
-                    this.sendMessage(InputConverter.SHOW_ALL_TEXT_VIEW);
-                    String msg = this.getMessage();
-                    StringBuffer buffer1 = showOption.run("1", msg);
-                    this.sendMessage(buffer1.toString());
-                } else {
-                    System.out.println(InputConverter.SHOW_ALL_TEXT_VIEW);
-                    String msg = new Console().input("------------");
-                    StringBuffer buffer1 = showOption.run("1", msg);
-                    System.out.println(buffer1.toString());
-                }
 
+                if (!this.isOffline()) {
+                    try {
+                        this.sendMessage(InputConverter.SHOW_ALL_TEXT_VIEW);
+                        String msg = this.getMessage();
+                        StringBuffer buffer1 = showOption.run("1", msg);
+                        this.sendMessage(buffer1.toString());
+                    } catch (NullPointerException e) {
+                        this.sendMessage(e.getMessage());
+                    }
+                } else {
+                    try {
+                        System.out.println(InputConverter.SHOW_ALL_TEXT_VIEW);
+                        String msg = new Console().input("------------");
+                        StringBuffer buffer1 = showOption.run("1", msg);
+                        System.out.println(buffer1.toString());
+                    } catch (NullPointerException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
                 break;
             case "2":
                 //Uploader
                 if (!this.isOffline()) {
-                    this.sendMessage(InputConverter.SHOW_Uploader_TEXT_VIEW);
-                    String msgUser = this.getMessage();
-                    StringBuffer stringBuffer2 = showOption.run("2", msgUser);
-                    this.sendMessage(stringBuffer2.toString());
+                    try {
+                        this.sendMessage(InputConverter.SHOW_Uploader_TEXT_VIEW);
+                        String msgUser = this.getMessage();
+                        StringBuffer stringBuffer2 = showOption.run("2", msgUser);
+                        this.sendMessage(stringBuffer2.toString());
+                    } catch (NullPointerException e) {
+                        this.sendMessage(e.getMessage());
+                    }
+
                 } else {
-                    System.out.println(InputConverter.SHOW_Uploader_TEXT_VIEW);
-                    String msg = new Console().input("------------");
-                    StringBuffer buffer1 = showOption.run("2", msg);
-                    System.out.println(buffer1.toString());
+                    try {
+                        System.out.println(InputConverter.SHOW_Uploader_TEXT_VIEW);
+                        String msg = new Console().input("------------");
+                        StringBuffer buffer1 = showOption.run("2", msg);
+                        System.out.println(buffer1.toString());
+                    } catch (NullPointerException e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
                 break;
             case "3":
                 //ShowUsedTags
                 if (!this.isOffline()) {
-                    //TODO add e and i options
-                    this.sendMessage(InputConverter.SHOW_TAG);
-                    StringBuffer buffer3 = showOption.run("3", this.getMessage());
-                    this.sendMessage(buffer3.toString());
+                    try {
+                        //TODO add e and i options
+                        this.sendMessage(InputConverter.SHOW_TAG);
+                        StringBuffer buffer3 = showOption.run("3", this.getMessage());
+                        this.sendMessage(buffer3.toString());
+                    } catch (NullPointerException e) {
+                        this.sendMessage(e.getMessage());
+                    }
                 } else {
-                    System.out.println(InputConverter.SHOW_TAG);
-                    String msg = new Console().input("------------");
-                    StringBuffer buffer1 = showOption.run("3", msg);
-                    System.out.println(buffer1.toString());
+                    try {
+                        System.out.println(InputConverter.SHOW_TAG);
+                        String msg = new Console().input("------------");
+                        StringBuffer buffer1 = showOption.run("3", msg);
+                        System.out.println(buffer1.toString());
+                    } catch (NullPointerException e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
 
                 break;

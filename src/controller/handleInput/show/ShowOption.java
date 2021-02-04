@@ -8,7 +8,12 @@ public class ShowOption {
         this.showController = new ShowController();
     }
 
-    public StringBuffer run(String nr, String value) {
+    public StringBuffer run(String nr, String value) throws NullPointerException {
+
+        if (null == value) {
+            throw new NullPointerException("Value is null");
+        }
+
         switch (nr) {
             case "1":
                 return this.showController.showFilter(value);
@@ -17,11 +22,12 @@ public class ShowOption {
             case "3":
 
                 String param = null;
-
                 if (value.equals("e")) {
                     param = "true";
                 } else if (value.equals("i")) {
                     param = "false";
+                } else {
+                    return new StringBuffer().append("Enter 'e' or 'i'");
                 }
 
                 return this.showController.showUsedTags(param);

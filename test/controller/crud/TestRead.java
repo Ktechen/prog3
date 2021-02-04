@@ -44,8 +44,8 @@ public class TestRead {
         LinkedList<String> list = read.getTagsByFilter(true);
 
         Assertions.assertEquals(2, list.size());
-        Assertions.assertEquals(Tag.News.toString(), list.get(1));
-        Assertions.assertEquals(Tag.Animal.toString(), list.get(0));
+        Assertions.assertEquals(Tag.News.toString()+", ", list.get(1));
+        Assertions.assertEquals(Tag.Animal.toString()+", ", list.get(0));
 
     }
 

@@ -13,6 +13,7 @@ import modell.mediaDB.MediaContent;
 import java.util.HashMap;
 import java.util.List;
 
+@Deprecated
 public class CommandShowEvents extends CommandEvent {
 
     public CommandShowEvents(InputConverter converter, EventHandler<EventListener> eventHandler) {

@@ -1,8 +1,11 @@
 package controller.event;
 
 import controller.crud.Create;
+import controller.event.events.commands.show.CommandShowEventUsedTags;
 import controller.event.events.commands.show.CommandShowEvents;
+import controller.event.events.listener.show.ELShowUsedTags;
 import controller.handleInput.InputConverter;
+import controller.handleInput.show.ShowOption;
 import modell.data.content.Audio;
 import modell.data.content.Person;
 import modell.data.content.InteractiveVideo;
@@ -92,7 +95,7 @@ public class TestEventShow {
     }
 
     @Test
-    public void UsernamePerIndexValue() {
+    public void usernamePerIndexValue() {
         final CommandShowEvents commandShowEvents = new CommandShowEvents(new InputConverter(), new EventHandler<>());
         StringBuffer stringBuffer = commandShowEvents.eventUsernamePerIndexValue("KevinTechen");
 
@@ -103,7 +106,7 @@ public class TestEventShow {
 
 
     @Test
-    public void UsernamePerIndexValueWithWhiteSpaceInName() {
+    public void usernamePerIndexValueWithWhiteSpaceInName() {
         final CommandShowEvents commandShowEvents = new CommandShowEvents(new InputConverter(), new EventHandler<>());
         StringBuffer stringBuffer = commandShowEvents.eventUsernamePerIndexValue("Kevin Techen");
         String expected = "[KevinTechen] | [4]";
@@ -112,11 +115,60 @@ public class TestEventShow {
     }
 
     @Test
-    public void UsernamePerIndexValueWrongName(){
+    public void usernamePerIndexValueWrongName() {
         final CommandShowEvents commandShowEvents = new CommandShowEvents(new InputConverter(), new EventHandler<>());
         StringBuffer stringBuffer = commandShowEvents.eventUsernamePerIndexValue("Paul Reiner");
         String expected = "[PaulReiner] | [0]";
 
         Assertions.assertEquals(expected, stringBuffer.toString());
+    }
+
+    @Test
+    public void eventTagsUserUseTrue() {
+        final ShowOption showOption = new ShowOption();
+        StringBuffer stringBuffer = showOption.run("3", "i");
+        String expected = "Tutorial, Animal, ";
+        Assertions.assertEquals(expected, stringBuffer.toString());
+    }
+
+    @Test
+    public void eventTagsUserUseFalse() {
+        final ShowOption showOption = new ShowOption();
+        StringBuffer stringBuffer = showOption.run("3", "e");
+        String expected = "Lifestyle, News, ";
+        System.out.println(stringBuffer.toString());
+        Assertions.assertEquals(expected, stringBuffer.toString());
+    }
+
+    @Test
+    public void eventTagsUserUseWrongInput() {
+        final ShowOption showOption = new ShowOption();
+        StringBuffer stringBuffer = showOption.run("3", "Mülllllll");
+        String expected = "Enter 'e' or 'i'";
+        Assertions.assertEquals(expected, stringBuffer.toString());
+    }
+
+    @Test
+    public void eventTagsUserUseNull() {
+        final ShowOption showOption = new ShowOption();
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            StringBuffer stringBuffer = showOption.run("3", null);
+        });
+    }
+
+    @Test
+    public void eventFilterIsNull() {
+        final ShowOption showOption = new ShowOption();
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            StringBuffer stringBuffer = showOption.run("1", null);
+        });
+    }
+
+    @Test
+    public void eventFilter() {
+        final ShowOption showOption = new ShowOption();
+        StringBuffer stringBuffer = showOption.run("1", "");
+        Assertions.assertNotEquals(0, stringBuffer.length());
+
     }
 }
