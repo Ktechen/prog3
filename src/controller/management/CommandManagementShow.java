@@ -1,5 +1,6 @@
 package controller.management;
 
+import controller.cli.Console;
 import controller.handleInput.InputConverter;
 import controller.handleInput.show.ShowOption;
 
@@ -33,31 +34,57 @@ public class CommandManagementShow extends CommandManagement implements Command 
 
         ShowOption showOption = new ShowOption();
 
-        //TODO add isOffline mode
-
         switch (args) {
             case "1":
                 //Show all
-                this.sendMessage(InputConverter.SHOW_ALL_TEXT_VIEW);
-                String msg = this.getMessage();
-                StringBuffer buffer1 = showOption.run("1", msg);
-                this.sendMessage(buffer1.toString());
+                if (!this.isOffline()) {
+                    this.sendMessage(InputConverter.SHOW_ALL_TEXT_VIEW);
+                    String msg = this.getMessage();
+                    StringBuffer buffer1 = showOption.run("1", msg);
+                    this.sendMessage(buffer1.toString());
+                } else {
+                    System.out.println(InputConverter.SHOW_ALL_TEXT_VIEW);
+                    String msg = new Console().input("------------");
+                    StringBuffer buffer1 = showOption.run("1", msg);
+                    System.out.println(buffer1.toString());
+                }
+
                 break;
             case "2":
                 //Uploader
-                this.sendMessage(InputConverter.SHOW_Uploader_TEXT_VIEW);
-                String msgUser = this.getMessage();
-                StringBuffer stringBuffer2 = showOption.run("2", msgUser);
-                this.sendMessage(stringBuffer2.toString());
+                if (!this.isOffline()) {
+                    this.sendMessage(InputConverter.SHOW_Uploader_TEXT_VIEW);
+                    String msgUser = this.getMessage();
+                    StringBuffer stringBuffer2 = showOption.run("2", msgUser);
+                    this.sendMessage(stringBuffer2.toString());
+                } else {
+                    System.out.println(InputConverter.SHOW_Uploader_TEXT_VIEW);
+                    String msg = new Console().input("------------");
+                    StringBuffer buffer1 = showOption.run("2", msg);
+                    System.out.println(buffer1.toString());
+                }
                 break;
             case "3":
                 //ShowUsedTags
-                //TODO add e and i options
-                StringBuffer buffer3 = showOption.run("3", "");
-                this.sendMessage(buffer3.toString());
+                if (!this.isOffline()) {
+                    //TODO add e and i options
+                    this.sendMessage(InputConverter.SHOW_TAG);
+                    StringBuffer buffer3 = showOption.run("3", this.getMessage());
+                    this.sendMessage(buffer3.toString());
+                } else {
+                    System.out.println(InputConverter.SHOW_TAG);
+                    String msg = new Console().input("------------");
+                    StringBuffer buffer1 = showOption.run("3", msg);
+                    System.out.println(buffer1.toString());
+                }
+
                 break;
             default:
-                this.sendMessage(InputConverter.OPTION_NOT_VALID);
+                if (!this.isOffline()) {
+                    this.sendMessage(InputConverter.OPTION_NOT_VALID);
+                } else {
+                    System.out.println(InputConverter.OPTION_NOT_VALID);
+                }
                 break;
         }
     }

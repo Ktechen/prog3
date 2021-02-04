@@ -44,8 +44,8 @@ public class CommandShowEvents extends CommandEvent {
         return stringBuffer;
     }
 
-    public StringBuffer eventShowUsedTags() {
-        EventShowUsedTags eventShowUsedTags = new EventShowUsedTags(this);
+    public StringBuffer eventShowUsedTags(String value) {
+        EventShowUsedTags eventShowUsedTags = new EventShowUsedTags(this, value);
         StringBuffer stringBuffer = new StringBuffer();
 
         EventListener eventListener = event -> {

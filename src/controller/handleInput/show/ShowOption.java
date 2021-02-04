@@ -15,7 +15,16 @@ public class ShowOption {
             case "2":
                 return this.showController.showUsername(value);
             case "3":
-                return this.showController.showUsedTags();
+
+                String param = null;
+
+                if (value.equals("e")) {
+                    param = "true";
+                } else if (value.equals("i")) {
+                    param = "false";
+                }
+
+                return this.showController.showUsedTags(param);
         }
 
         return null;

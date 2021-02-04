@@ -1,6 +1,6 @@
 import view.cli.Cli;
 
-public class MainCLIServer {
+public class MainClient {
 
     public static void main(String[] args) {
         new Cli();

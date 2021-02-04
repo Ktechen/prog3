@@ -10,8 +10,8 @@ public class CommandShowEventUsedTags extends CommandEvent {
         super(converter, eventHandler);
     }
 
-    public void eventusedTags() {
-        EventShowUsedTags eventShowUsedTags = new EventShowUsedTags(this);
+    public void eventUsedTags(boolean value) {
+        EventShowUsedTags eventShowUsedTags = new EventShowUsedTags(this, String.valueOf(value));
         eventHandler.handle(eventShowUsedTags);
     }
 }

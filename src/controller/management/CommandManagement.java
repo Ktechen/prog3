@@ -8,6 +8,8 @@ public abstract class CommandManagement {
     private DataOutputStream out;
     private boolean offline = false;
 
+    //TODO Alle überstream realiseren  (Wenn Zeit dafür ist)
+
     /**
      * handle the in and out stream form server
      * @param in

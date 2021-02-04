@@ -32,6 +32,8 @@ public class InputConverter {
             "gefiltert nach Typ1-mit Abrufadresse, Upload-Datumund Anzahl der Abrufe" + "\n"
             + "Typs: (date, clicks, address)";
 
+    public final static String SHOW_TAG = "tag[enthalten(i)/nicht enthalten(e)]";
+
     public final static String SHOW_ALL_TEXT_VIEW = "Please enter a filter like: " + InteractiveVideo.class.getSimpleName() + " or No Filter press enter";
     public final static String SHOW_Uploader_TEXT_VIEW = "Please enter your name";
 

@@ -11,6 +11,7 @@ import controller.handleInput.InputConverter;
 import modell.mediaDB.MediaContent;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 final class ShowController implements CommandController {
@@ -36,9 +37,9 @@ final class ShowController implements CommandController {
         return stringBuffer;
     }
 
-    public final StringBuffer showUsedTags() {
+    public final StringBuffer showUsedTags(String op) {
         this.stringBuffer = new StringBuffer();
-        this.commandShowEventUsedTags.eventusedTags();
+        this.commandShowEventUsedTags.eventUsedTags(Boolean.parseBoolean(op));
         return stringBuffer;
     }
 
@@ -58,15 +59,17 @@ final class ShowController implements CommandController {
         EventHandler<EventListener> elShowUsedTagsEventHandler = new EventHandler<>();
         elShowUsedTagsEventHandler.add(event -> {
             final Read read = new Read();
-
-            HashMap<String, Boolean> map = read.getFindedTags();
-            stringBuffer.append(map.keySet()).append(" | ").append(map.values());
+            LinkedList<String> list = read.getTagsByFilter(Boolean.parseBoolean(event.getText()));
+            list.forEach(e -> {
+                stringBuffer.append(e);
+            });
         });
 
         EventHandler<EventListener> elShowUsernamePerIndexValueEventHandler = new EventHandler<>();
         elShowUsernamePerIndexValueEventHandler.add(event -> {
             final Read read = new Read();
             HashMap<String, Integer> map = read.listAllUsernamePerIndexValue(event.getText());
+
             stringBuffer.append(map.keySet()).append(" | ").append(map.values());
         });
 

@@ -63,8 +63,8 @@ public class CommandMain implements Command {
                 this.commandManagementAdd.handleArgs(this.console.input("----------"));
                 break;
             case ":r":
-                CommandShow commandShow = new CommandShow();
-                commandShow.run();
+                System.out.println(CommandManagementShow.SEND_MSG);
+                this.commandManagementShow.handleArgs(this.console.input("----------"));
                 break;
             case ":d":
                 System.out.println(CommandManagementDefault.SEND_MSG);

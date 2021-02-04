@@ -30,15 +30,12 @@ final class CreateController implements CommandController {
     }
 
     public final void licensedAudioVideo(String[] value) {
-        //Object[] lic = new InputConverter().convertLicensedVideo(value);
         this.commandAddEventsMedia.eventLicenseVideo(value);
     }
 
     public final void interactiveVideo(String[] value) {
-        //Object[] inter = new InputConverter().convertInteractionVideo(value);
         this.commandAddEventsMedia.eventInteractiveVideo(value);
     }
-
 
     //TODO ADD ALL MEDIA
 

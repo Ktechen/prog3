@@ -67,7 +67,7 @@ public class TestEventShow {
     @Test
     public void showUsedTags() {
         CommandShowEvents commandShowEvents = new CommandShowEvents(new InputConverter(), new EventHandler<>());
-        StringBuffer stringBuffer = commandShowEvents.eventShowUsedTags();
+        StringBuffer stringBuffer = commandShowEvents.eventShowUsedTags("true");
         String expected = "[Tutorial, Lifestyle, Animal, News] | [false, true, false, true]";
 
         Assertions.assertEquals(expected, stringBuffer.toString());
@@ -85,7 +85,7 @@ public class TestEventShow {
         create.interactiveVideo(500, 400, "edcs", 9174, Duration.ofSeconds(2000), t, new Person("KevinTechen"), "Tdas");
 
         CommandShowEvents commandShowEvents = new CommandShowEvents(new InputConverter(), new EventHandler<>());
-        StringBuffer stringBuffer = commandShowEvents.eventShowUsedTags();
+        StringBuffer stringBuffer = commandShowEvents.eventShowUsedTags("true");
         String expected = "[Tutorial, Lifestyle, Animal, News] | [true, true, true, true]";
 
         Assertions.assertEquals(expected, stringBuffer.toString());

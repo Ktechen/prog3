@@ -122,7 +122,7 @@ public class Read {
             for (String key : map.keySet()) {
                 Boolean value = map.get(key);
                 if (value.equals(found)) {
-                    strings.add(key);
+                    strings.add(key + ", ");
                 }
             }
 

@@ -14,7 +14,7 @@ import controller.event.events.listener.show.ELShowUsernamePerIndexValue;
 
 import java.io.IOException;
 
-
+@Deprecated
 public class CommandShow implements ICommand {
 
     private EventHandler<EventListener> eventHandler;
@@ -71,7 +71,7 @@ public class CommandShow implements ICommand {
                 break;
             case "3":
 
-                EventShowUsedTags eventShowUsedTags = new EventShowUsedTags(this);
+                EventShowUsedTags eventShowUsedTags = new EventShowUsedTags(this, "das");
                 ELShowUsedTags elShowUsedTags = new ELShowUsedTags();
 
                 eventHandler.add(elShowUsedTags);
