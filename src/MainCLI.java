@@ -2,6 +2,7 @@ import controller.cli.commands.CommandMain;
 import controller.crud.Create;
 import controller.gui.delegate.view.ActionDebug;
 import controller.observer.observers.ObserverConsoleSize;
+import controller.observer.observers.ObserverConsoleTags;
 
 import java.io.IOException;
 
@@ -26,5 +27,6 @@ public class MainCLI {
     private static void config() {
         final Create create = new Create();
         new ObserverConsoleSize(create);
+        new ObserverConsoleTags(create);
     }
 }

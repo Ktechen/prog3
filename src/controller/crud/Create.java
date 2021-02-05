@@ -20,9 +20,9 @@ public class Create implements Observable {
     private final Storage storage;
     private final Read read = new Read();
     private static List<Observer> list;
-    private BigDecimal capacity = BigDecimal.valueOf(0);
+    private static BigDecimal capacity;
 
-    public BigDecimal getCapacity() {
+    public static BigDecimal getCapacity() {
         return capacity;
     }
 
@@ -32,13 +32,14 @@ public class Create implements Observable {
         }
     }
 
-
     /**
      * Create a Video or Audio
      * Storage is {@link Storage}
      */
     public Create() {
         this.storage = Storage.getInstance();
+        this.capacity = new BigDecimal(0);
+
         if (null == list) {
             list = new LinkedList<>();
         }

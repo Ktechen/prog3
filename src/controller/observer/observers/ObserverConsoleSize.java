@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 public class ObserverConsoleSize implements Observer {
 
     private Create observable;
-    private String errAlert;
 
     public ObserverConsoleSize(Create observable) {
         this.observable = observable;
@@ -19,10 +18,10 @@ public class ObserverConsoleSize implements Observer {
     @Override
     public void update() {
         BigDecimal number = observable.getCapacity();
-        final Capacity capacity = new Capacity(BigDecimal.valueOf(90), number);
-        final String text = "Die Capacity von " + capacity.getProcent() + " % wurde überschritten";
-        this.errAlert = text;
-        if (capacity.cautionOfOverLoad()) {
+        Capacity capacity = new Capacity(BigDecimal.valueOf(90), number);
+        final String text = "Die Capacity von 90 % wurde überschritten";
+        boolean check = capacity.cautionOfOverLoad();
+        if (check) {
             System.out.print(text);
         }
     }

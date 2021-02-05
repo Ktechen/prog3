@@ -13,7 +13,7 @@ public class TestCapacity {
 
         try {
             capacity.procentCalu(BigDecimal.valueOf(3000), BigDecimal.valueOf(101));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             Assertions.assertTrue(true);
         }
     }
@@ -24,9 +24,8 @@ public class TestCapacity {
 
         try {
             capacity.procentCalu(BigDecimal.valueOf(3000), BigDecimal.valueOf(-1203));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             Assertions.assertTrue(true);
         }
     }
-
 }

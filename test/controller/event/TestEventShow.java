@@ -165,10 +165,55 @@ public class TestEventShow {
     }
 
     @Test
-    public void eventFilter() {
+    public void eventFilterWithEmptyInput() {
         final ShowOption showOption = new ShowOption();
         StringBuffer stringBuffer = showOption.run("1", "");
         Assertions.assertNotEquals(0, stringBuffer.length());
+    }
 
+
+    @Test
+    public void eventUsername() {
+        final ShowOption showOption = new ShowOption();
+        StringBuffer stringBuffer = showOption.run("2", "KevinTechen");
+        String expected = "[KevinTechen] | [4]";
+        Assertions.assertEquals(expected, stringBuffer.toString());
+    }
+
+    @Test
+    public void eventUsernameWithWhiteSpace() {
+        final ShowOption showOption = new ShowOption();
+        StringBuffer stringBuffer = showOption.run("2", "Kevin Techen");
+        String expected = "[KevinTechen] | [4]";
+        Assertions.assertEquals(expected, stringBuffer.toString());
+    }
+
+    @Test
+    public void eventUsernameWithWhiteSpaceAllWrong() {
+        final ShowOption showOption = new ShowOption();
+        StringBuffer stringBuffer = showOption.run("2", "Ke v in Tec h e n ");
+        String expected = "[KevinTechen] | [4]";
+        Assertions.assertEquals(expected, stringBuffer.toString());
+    }
+
+    @Test
+    public void eventUsernameIsNull() {
+        final ShowOption showOption = new ShowOption();
+
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            StringBuffer stringBuffer = showOption.run("2", null);
+        });
+    }
+
+    @Test
+    public void eventUsernameCall2Names() {
+        final ShowOption showOption = new ShowOption();
+        StringBuffer stringBuffer = null;
+        stringBuffer = showOption.run("2", "KevinTechen");
+        String expected1 = "[KevinTechen] | [4]";
+        Assertions.assertEquals(expected1, stringBuffer.toString());
+        stringBuffer = showOption.run("2", "TimPorsche");
+        String expected2 = "[TimPorsche] | [1]";
+        Assertions.assertEquals(expected2, stringBuffer.toString());
     }
 }

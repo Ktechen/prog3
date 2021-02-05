@@ -138,7 +138,6 @@ public class Read {
         }
     }
 
-
     @Deprecated
     public boolean isPersonCreated(String name) {
         return this.storage.getPerson().contains(name);

@@ -9,9 +9,20 @@ public class Capacity {
     private BigDecimal max;
     private BigDecimal procent;
     private BigDecimal checkValue;
-    private Storage storage;
 
-    private BigDecimal result;
+
+    /**
+     * (2000height * 2000 weight) / 8 = 450.000
+     * <p>
+     * 500.000      x
+     * -------  --------
+     * 100%        90%
+     * <p>
+     * x = 450.000
+     */
+    public static final BigDecimal valueOf90 = BigDecimal.valueOf(450000);
+
+    private BigDecimal capacity;
 
     public BigDecimal getMax() {
         return max;
@@ -26,11 +37,10 @@ public class Capacity {
     }
 
     public BigDecimal getCapacity() {
-        return result;
+        return capacity;
     }
 
     public Capacity() {
-        this.storage = Storage.getInstance();
     }
 
     public Capacity(BigDecimal max, BigDecimal procent, BigDecimal checkValue) {
@@ -57,18 +67,28 @@ public class Capacity {
 
     /**
      * Check if procent exceeded to Size
-
-     * @return if number over Procent of value
+     *
+     * @return if number over Procent of value = true
      * @throws IllegalArgumentException
      */
     public boolean cautionOfOverLoad() throws IllegalArgumentException {
-        checkValue = convertToByte(checkValue);
-        result = procentCalu(max, procent);
 
-        //Unter x% e.g 90%
-        return checkValue.compareTo(result) > 0;
+        BigDecimal basicValue = this.checkValue;
+        BigDecimal divBy8 = basicValue.divide(BigDecimal.valueOf(8));
+        BigDecimal divBy100 = divBy8.divide(BigDecimal.valueOf(100));
+        BigDecimal multiProc = divBy100.multiply(this.procent);
+
+        this.capacity = multiProc;
+
+        if (multiProc.equals(valueOf90)) {
+            return true;
+        }
+
+        return multiProc.compareTo(valueOf90) > 0;
     }
 
+
+    @Deprecated
     public BigDecimal procentCalu(BigDecimal size, BigDecimal procent) {
         if (procent.compareTo(BigDecimal.valueOf(0)) < 0 || procent.compareTo(BigDecimal.valueOf(100)) > 0) {
             throw new IllegalArgumentException("Value is not Procent");
@@ -77,6 +97,7 @@ public class Capacity {
         return procent.multiply(size).divide(BigDecimal.valueOf(100));
     }
 
+    @Deprecated
     public BigDecimal convertToByte(BigDecimal number) {
         return number.divide(BigDecimal.valueOf(8));
     }

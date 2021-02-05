@@ -94,4 +94,39 @@ public class TestObserver {
         BigDecimal value = capacity.procentCalu(Storage.MAX_SIZE_OF_FILE, BigDecimal.valueOf(90));
         Assertions.assertEquals(BigDecimal.valueOf(450000), value);
     }
+
+    @Test
+    public void ConsoleSizeGetSystemOutMessageSize1000x1000() {
+
+        final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        final PrintStream originalOut = System.out;
+
+        System.setOut(new PrintStream(outContent));
+
+        Create observer = Mockito.mock(Create.class);
+        Mockito.when(observer.getCapacity()).thenReturn(BigDecimal.valueOf(1000 * 1000));
+        ObserverConsoleSize observerConsoleSize = new ObserverConsoleSize(observer);
+        observerConsoleSize.update();
+        Assertions.assertEquals("", outContent.toString());
+
+        System.setOut(originalOut);
+    }
+
+    @Test
+    public void ConsoleSizeGetSystemOutMessageSize2000x2000() {
+
+        final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        final PrintStream originalOut = System.out;
+
+        System.setOut(new PrintStream(outContent));
+
+        Create observer = Mockito.mock(Create.class);
+        Mockito.when(observer.getCapacity()).thenReturn(BigDecimal.valueOf(2000 * 2000));
+        ObserverConsoleSize observerConsoleSize = new ObserverConsoleSize(observer);
+        observerConsoleSize.update();
+        Assertions.assertEquals("Die Capacity von 90 % wurde überschritten", outContent.toString());
+
+        System.setOut(originalOut);
+    }
+
 }
