@@ -6,24 +6,25 @@ import modell.mediaDB.Audio;
 import modell.mediaDB.Uploader;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class BeanStorage implements Serializable {
 
     private Storage storage;
     private List<BeanItem> media;
-    private Set<Uploader> uploaders;
+    private Set<BeanItemPerson> uploaders;
     private HashMap<String, Boolean> getUsedTags;
     private HashMap<String, Long> counter;
 
+    /**
+     * Created Bean Storage from Storage Logic
+     */
     public BeanStorage() {
         this.storage = Storage.getInstance();
         this.getUsedTags = this.storage.getUsedTags();
         this.counter = this.storage.getCountOfUse();
         this.media = new LinkedList<>();
+        this.uploaders = new HashSet<>();
     }
 
     public List<BeanItem> getMedia() {
@@ -34,11 +35,19 @@ public class BeanStorage implements Serializable {
         this.media = media;
     }
 
-    public Set<Uploader> getUploaders() {
+    public Storage getStorage() {
+        return storage;
+    }
+
+    public void setStorage(Storage storage) {
+        this.storage = storage;
+    }
+
+    public Set<BeanItemPerson> getUploaders() {
         return uploaders;
     }
 
-    public void setUploaders(Set<Uploader> uploaders) {
+    public void setUploaders(Set<BeanItemPerson> uploaders) {
         this.uploaders = uploaders;
     }
 
@@ -56,6 +65,17 @@ public class BeanStorage implements Serializable {
 
     public void setCounter(HashMap<String, Long> counter) {
         this.counter = counter;
+    }
+
+    public void addToUploaderList() {
+        synchronized (this.storage) {
+            Iterator<Uploader> it = this.storage.getPerson().iterator();
+            while (it.hasNext()) {
+                BeanItemPerson beanItemPerson = new BeanItemPerson();
+                beanItemPerson.setName(it.next().getName());
+                this.uploaders.add(beanItemPerson);
+            }
+        }
     }
 
     public void addToMediaList() {

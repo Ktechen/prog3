@@ -1,6 +1,8 @@
 package controller.stream.jbp;
 
 import controller.crud.Create;
+import modell.bean.BeanItemInteractiveVideo;
+import modell.bean.BeanStorage;
 import modell.data.content.Person;
 import modell.data.storage.Storage;
 import modell.mediaDB.Tag;
@@ -8,6 +10,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -38,8 +41,30 @@ public class TestJBP {
     }
 
     @Test
-    public void testJBP(){
-        JBP jbp = new JBP("test123.xml");
+    public void testJBP() {
+        String filename = "test123.xml";
+        File file = new File(filename);
+        JBP jbp = new JBP(filename);
         jbp.save();
+        file.delete();
+    }
+
+    @Test
+    public void testJBPSaveAndCheckLoadObject() {
+        String filename = "test123.xml";
+        File file = new File(filename);
+        JBP jbp = new JBP(filename);
+        jbp.save();
+        BeanStorage beanStorage = jbp.load();
+
+        Assertions.assertEquals(2, beanStorage.getMedia().size());
+        Assertions.assertEquals(2, beanStorage.getUploaders().size());
+
+        file.delete();
+    }
+
+    @Test
+    public void testJBPIsNull(){
+
     }
 }

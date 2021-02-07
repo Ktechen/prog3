@@ -9,7 +9,7 @@ import java.time.Duration;
 import java.util.Collection;
 import java.util.Date;
 
-class BeanItemAudioVideo implements Serializable, BeanItem {
+public class BeanItemAudioVideo implements Serializable, BeanItem {
     public String encoding;
     public Uploader uploader;
     public Date date;

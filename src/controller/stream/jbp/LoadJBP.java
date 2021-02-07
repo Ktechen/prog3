@@ -1,5 +1,7 @@
 package controller.stream.jbp;
 
+import modell.bean.BeanStorage;
+
 import java.beans.XMLDecoder;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -7,7 +9,7 @@ import java.io.IOException;
 class LoadJBP {
 
     private String filename;
-    private Object o;
+    private BeanStorage o;
 
     LoadJBP(String filename) {
         this.filename = filename;
@@ -23,7 +25,7 @@ class LoadJBP {
 
         try {
             dec = new XMLDecoder(new FileInputStream(filename));
-            this.o = dec.readObject();
+            this.o = (BeanStorage) dec.readObject();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -32,7 +34,7 @@ class LoadJBP {
         }
     }
 
-    public Object getObject() {
+    public BeanStorage getObject() {
         return this.o;
     }
 }

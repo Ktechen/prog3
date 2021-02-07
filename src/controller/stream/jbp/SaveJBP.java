@@ -20,11 +20,6 @@ class SaveJBP {
     private final String filename;
 
     public SaveJBP(String filename) {
-
-        if (null == filename) {
-            throw new NullPointerException("filename is null");
-        }
-
         this.filename = filename;
         this.save();
     }
@@ -41,14 +36,9 @@ class SaveJBP {
 
             BeanStorage beanStorage = new BeanStorage();
             beanStorage.addToMediaList();
+            beanStorage.addToUploaderList();
 
-            xmlEncoder.writeObject(beanStorage.getGetUsedTags());
-            xmlEncoder.flush();
-
-            xmlEncoder.writeObject(beanStorage.getCounter());
-            xmlEncoder.flush();
-
-            xmlEncoder.writeObject(beanStorage.getMedia());
+            xmlEncoder.writeObject(beanStorage);
             xmlEncoder.flush();
 
         } catch (IOException e) {

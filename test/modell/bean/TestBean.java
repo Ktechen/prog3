@@ -48,7 +48,7 @@ public class TestBean {
                 300, 300,
                 "Mix", 3983,
                 Duration.parse("PT20m"), tagCollection,
-                new Person("Uwe"), "Mix"
+                new Person("Kevin"), "Mix"
         );
         create.interactiveVideo(
                 300, 300,
@@ -62,9 +62,9 @@ public class TestBean {
     public void getConvertedMediaList() {
         BeanStorage beanStorage = new BeanStorage();
         beanStorage.addToMediaList();
+        beanStorage.addToUploaderList();
         Assertions.assertEquals(5, beanStorage.getMedia().size());
-
-
+        Assertions.assertEquals(4, beanStorage.getUploaders().size());
     }
 
 }
