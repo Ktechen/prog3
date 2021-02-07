@@ -37,4 +37,9 @@ public class TestJBP {
         });
     }
 
+    @Test
+    public void testJBP(){
+        JBP jbp = new JBP("test123.xml");
+        jbp.save();
+    }
 }

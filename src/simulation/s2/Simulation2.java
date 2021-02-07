@@ -1,9 +1,9 @@
 package simulation.s2;
 
 import modell.data.storage.Storage;
-import simulation.InputMedia;
-import simulation.RemoveMedia;
-import simulation.UpdateMedia;
+import simulation.s1.InputMedia;
+import simulation.s1.RemoveMedia;
+import simulation.s1.UpdateMedia;
 
 public class Simulation2 {
 

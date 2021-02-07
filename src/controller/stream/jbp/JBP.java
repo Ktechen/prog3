@@ -6,6 +6,8 @@ public class JBP {
     private LoadJBP loadJBP;
     private SaveJBP saveJBP;
 
+    //TODO PUBLIC 
+
     public JBP(String filename) {
         if (null == filename) {
             throw new NullPointerException("filename is null");

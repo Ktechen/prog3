@@ -1,6 +1,7 @@
 package controller.stream.jbp;
 
 
+import modell.bean.BeanStorage;
 import modell.data.storage.Storage;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploadable;
@@ -38,13 +39,16 @@ class SaveJBP {
         try {
             xmlEncoder = new XMLEncoder(new FileOutputStream(filename));
 
-            xmlEncoder.writeObject(Storage.getInstance().getPersonAsUploader());
+            BeanStorage beanStorage = new BeanStorage();
+            beanStorage.addToMediaList();
+
+            xmlEncoder.writeObject(beanStorage.getGetUsedTags());
             xmlEncoder.flush();
 
-            xmlEncoder.writeObject(Storage.getInstance().getUsedTags());
+            xmlEncoder.writeObject(beanStorage.getCounter());
             xmlEncoder.flush();
 
-            xmlEncoder.writeObject(Storage.getInstance().getCountOfUse());
+            xmlEncoder.writeObject(beanStorage.getMedia());
             xmlEncoder.flush();
 
         } catch (IOException e) {

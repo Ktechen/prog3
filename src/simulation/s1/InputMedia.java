@@ -1,4 +1,4 @@
-package simulation;
+package simulation.s1;
 
 import controller.crud.Create;
 import modell.data.storage.Storage;

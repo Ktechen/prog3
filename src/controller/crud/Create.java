@@ -20,9 +20,9 @@ public class Create implements Observable {
     private final Storage storage;
     private final Read read = new Read();
     private static List<Observer> list;
-    private static BigDecimal capacity;
+    private BigDecimal capacity;
 
-    public static BigDecimal getCapacity() {
+    public BigDecimal getCapacity() {
         return capacity;
     }
 

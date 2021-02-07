@@ -1,8 +1,5 @@
 package simulation.s1;
 
-import simulation.InputMedia;
-import simulation.RemoveMedia;
-
 public class Simulation1 {
 
     public Simulation1() {
