@@ -11,14 +11,14 @@ import java.util.Date;
 
 public class BeanItemLicensedAudioVideo implements Serializable, BeanItem {
     public String encoding;
-    public Uploader uploader;
+    public String uploader;
     public Date date;
     public int samplingRate;
     public Collection<Tag> tags;
-    public Duration duration;
+    public String length;
     public long bitrate;
     public BigDecimal size;
-    public long counter;
+    public long accessCount;
     public String address;
     public int width;
     public int height;

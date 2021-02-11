@@ -115,9 +115,9 @@ public class BeanStorage implements Serializable {
         BeanItemVideo bean = new BeanItemVideo();
         bean.address = o.getAddress();
         bean.bitrate = o.getBitrate();
-        bean.counter = o.getAccessCount();
+        bean.accessCount = o.getAccessCount();
         bean.date = o.getUploadDate();
-        bean.duration = o.getLength().toString();
+        bean.length = o.getLength().toString();
         bean.encoding = o.getEncoding();
         bean.height = o.getHeight();
         bean.width = o.getWidth();
@@ -132,14 +132,14 @@ public class BeanStorage implements Serializable {
         BeanItemLicensedAudioVideo bean = new BeanItemLicensedAudioVideo();
         bean.address = o.getAddress();
         bean.bitrate = o.getBitrate();
-        bean.counter = o.getAccessCount();
+        bean.accessCount = o.getAccessCount();
         bean.date = o.getUploadDate();
-        bean.duration = o.getLength();
+        bean.length = o.getLength().toString();
         bean.encoding = o.getEncoding();
         bean.height = o.getHeight();
         bean.width = o.getWidth();
         bean.holder = o.getHolder();
-        bean.uploader = o.getUploader();
+        bean.uploader = o.getUploader().getName();
         bean.tags = o.getTags();
         bean.samplingRate = o.getSamplingRate();
 
@@ -150,32 +150,31 @@ public class BeanStorage implements Serializable {
         BeanItemLicensedAudio bean = new BeanItemLicensedAudio();
         bean.address = o.getAddress();
         bean.bitrate = o.getBitrate();
-        bean.counter = o.getAccessCount();
+        bean.accessCount = o.getAccessCount();
         bean.date = o.getUploadDate();
-        bean.duration = o.getLength();
+        bean.length = o.getLength().toString();
         bean.encoding = o.getEncoding();
         bean.holder = o.getHolder();
         bean.size = o.getSize();
         bean.samplingRate = o.getSamplingRate();
         bean.tags = o.getTags();
-        bean.uploader = o.getUploader();
+        bean.uploader = o.getUploader().getName();
 
         this.media.add(bean);
     }
 
     private void addLicensedVideo(LicensedVideo o) {
         BeanItemLicensedVideo bean = new BeanItemLicensedVideo();
-        bean.uploader = o.getUploader();
+        bean.uploader = o.getUploader().getName();
         bean.tags = o.getTags();
         bean.address = o.getAddress();
         bean.bitrate = o.getBitrate();
-        bean.counter = o.getAccessCount();
+        bean.accessCount = o.getAccessCount();
         bean.date = o.getUploadDate();
         bean.holder = o.getHolder();
         bean.encoding = o.getEncoding();
         bean.height = o.getHeight();
         bean.width = o.getWidth();
-        bean.uploader = o.getUploader();
         bean.size = o.getSize();
 
         this.media.add(bean);
@@ -202,9 +201,9 @@ public class BeanStorage implements Serializable {
         BeanItemAudioVideo bean = new BeanItemAudioVideo();
         bean.address = o.getAddress();
         bean.bitrate = o.getBitrate();
-        bean.counter = o.getAccessCount();
+        bean.accessCount = o.getAccessCount();
         bean.date = o.getUploadDate();
-        bean.duration = o.getLength().toString();
+        bean.length = o.getLength().toString();
         bean.encoding = o.getEncoding();
         bean.tags = o.getTags();
         bean.height = o.getHeight();
@@ -220,13 +219,13 @@ public class BeanStorage implements Serializable {
         BeanItemAudio bean = new BeanItemAudio();
         bean.address = o.getAddress();
         bean.bitrate = o.getBitrate();
-        bean.counter = o.getAccessCount();
+        bean.accessCount = o.getAccessCount();
         bean.date = o.getUploadDate();
-        bean.duration = o.getLength();
+        bean.length = o.getLength().toString();
         bean.encoding = o.getEncoding();
         bean.size = o.getSize();
         bean.tags = o.getTags();
-        bean.uploader = o.getUploader();
+        bean.uploader = o.getUploader().getName();
         bean.samplingRate = o.getSamplingRate();
 
         this.media.add(bean);

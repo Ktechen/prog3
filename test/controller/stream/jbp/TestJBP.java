@@ -95,8 +95,6 @@ public class TestJBP {
         Assertions.assertEquals("Tdas", content.getType());
         Assertions.assertEquals("Reinerfall", content.getUploader().getName());
 
-        Storage storage = Storage.getInstance();
-
         file.delete();
     }
 

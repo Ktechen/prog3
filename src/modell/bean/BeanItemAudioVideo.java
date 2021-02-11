@@ -13,10 +13,10 @@ public class BeanItemAudioVideo implements Serializable, BeanItem {
     public Date date;
     public int samplingRate;
     public Collection<Tag> tags;
-    public String duration;
+    public String length;
     public long bitrate;
     public BigDecimal size;
-    public long counter;
+    public long accessCount;
     public String address;
     public int width;
     public int height;

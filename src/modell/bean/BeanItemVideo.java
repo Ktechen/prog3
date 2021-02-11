@@ -12,10 +12,10 @@ public class BeanItemVideo implements Serializable, BeanItem {
     public String uploader;
     public Date date;
     public Collection<Tag> tags;
-    public String duration;
+    public String length;
     public long bitrate;
     public BigDecimal size;
-    public long counter;
+    public long accessCount;
     public String address;
     public int width;
     public int height;

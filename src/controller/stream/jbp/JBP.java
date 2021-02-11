@@ -14,6 +14,8 @@ public class JBP {
     public static final String PATH = "testfiles/";
     private String filename;
     private final Storage storage;
+    private final Create create = new Create();
+    private final Update update = new Update();
 
     //TODO PUBLIC 
 
@@ -90,28 +92,76 @@ public class JBP {
     }
 
     private void loadLicensedAudioVideo(BeanItemLicensedAudioVideo e) {
+        long tempCount = e.accessCount;
+
+        create.licensedAudioVideo(
+                e.width, e.height,
+                e.encoding, e.bitrate,
+                Duration.parse(e.length), e.tags,
+                new Person(e.uploader), e.holder,
+                e.samplingRate
+        );
+
+        this.update(tempCount);
     }
 
     private void loadLicensedAudio(BeanItemLicensedAudio e) {
+        long tempCount = e.accessCount;
+
+        create.licensedAudio(
+                e.bitrate, Duration.parse(e.length), e.tags, e.samplingRate, e.encoding, new Person(e.uploader), e.holder
+        );
+
+        this.update(tempCount);
     }
 
     private void loadLicensedVideo(BeanItemLicensedVideo e) {
+        long tempCount = e.accessCount;
+
+        create.licensedVideo(
+                e.width, e.height,
+                e.encoding, e.bitrate,
+                Duration.parse(e.length), e.tags,
+                new Person(e.uploader), e.holder
+        );
+
+        this.update(tempCount);
     }
 
     private void loadAudioVideo(BeanItemAudioVideo e) {
+        long tempCount = e.accessCount;
+
+        create.audioVideo(
+                e.width, e.height,
+                e.encoding, e.bitrate,
+                Duration.parse(e.length), e.tags,
+                new Person(e.uploader), e.samplingRate
+        );
+
+        this.update(tempCount);
     }
 
     private void loadAudio(BeanItemAudio e) {
+        long tempCount = e.accessCount;
+
+        create.audio(
+                e.bitrate, Duration.parse(e.length), e.tags, e.samplingRate, e.encoding, new Person(e.uploader)
+        );
+
+        this.update(tempCount);
     }
 
     private void loadVideo(BeanItemVideo e) {
+        long tempCount = e.accessCount;
+
+        create.video(
+                e.width, e.height, e.encoding, e.bitrate, Duration.parse(e.length), e.tags, new Person(e.uploader)
+        );
+
+        this.update(tempCount);
     }
 
-
     private void loadInteractiveVideo(BeanItemInteractiveVideo e) {
-        final Create create = new Create();
-        final Update update = new Update();
-
         long tempCount = e.accessCount;
 
         create.interactiveVideo(
@@ -121,6 +171,10 @@ public class JBP {
                 new Person(e.uploader), e.type
         );
 
+        this.update(tempCount);
+    }
+
+    private void update(long tempCount) {
         //Get new Mediafile
         LinkedList<MediaContent> contents = (LinkedList<MediaContent>) Storage.getInstance().getMedia();
         MediaContent content = contents.getLast();
@@ -130,7 +184,6 @@ public class JBP {
         //Update new Media with old clicks
         for (long j = 0; j < tempCount; j++) {
             update.accessCount(address);
-        } 
+        }
     }
-
 }
