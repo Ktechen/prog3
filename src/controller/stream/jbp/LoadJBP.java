@@ -1,7 +1,5 @@
 package controller.stream.jbp;
 
-import modell.bean.BeanStorage;
-
 import java.beans.XMLDecoder;
 import java.io.FileInputStream;
 import java.io.IOException;

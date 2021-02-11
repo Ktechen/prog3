@@ -67,7 +67,7 @@ public class CommandManagementPersistence extends CommandManagement implements C
                     break;
 
                 case "loadJBP":
-
+                    jbp.load();
                     this.sendMessage(LOAD_JBP);
                     break;
                 default:

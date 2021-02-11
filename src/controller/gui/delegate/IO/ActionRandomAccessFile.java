@@ -1,7 +1,6 @@
 package controller.gui.delegate.IO;
 
-import controller.handleInput.create.IO.CreateOptionIO;
-import controller.stream.optionalsaving.OptionalSaving;
+
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -22,8 +21,6 @@ public class ActionRandomAccessFile {
             if (value.compareTo(mediaContent.getAddress()) == 0) {
                 String filename = mediaContent.getClass().getSimpleName() + "@" + mediaContent.hashCode() + "@" + "OptionalSaving" +
                         ".ser";
-                OptionalSaving optionalSaving = new OptionalSaving(filename);
-                optionalSaving.save(mediaContent);
 
                 found = true;
                 optional.add(filename);
@@ -43,11 +40,8 @@ public class ActionRandomAccessFile {
         if (search == -1) {
            display.setText("Text isn't a file type");
         } else {
-            OptionalSaving optionalSaving = new OptionalSaving(filename);
-            Object o = optionalSaving.load();
 
-            //Call this object
-            new CreateOptionIO(o);
+
             display.setText(filename + " was been loaded");
         }
     }
