@@ -72,12 +72,13 @@ public class InputConverter {
 
     public final static String TCP_SERVER_TEXT = "Der ServerTCP wird mit 2 Argumenten gestartet: Protokoll und Lagerkapazität.";
 
-    public final static String PERSISTENCE_TEXT = "saveJOSspeichert mittels JOS" +
-            "loadJOSlädt mittels JOS" + "\n" +
-            "saveJBPspeichert mittels JBP" + "\n" +
-            "loadJBPlädt mittels JBP" + "\n" +
-            "save [Abrufadresse]speichert eine einzelne Instanzineine Datei für alle Instanzen, falls die Datei nicht existiert werden alle Instanzen in eine neue gespeichert" + "\n" +
-            "load [Abrufadresse]lädt eine einzelne Instanz aus der Datei";
+    public final static String PERSISTENCE_TEXT =
+            "saveJOS speichert mittels JOS" +
+                    "loadJOS lädt mittels JOS" + "\n" +
+                    "saveJBP speichert mittels JBP" + "\n" +
+                    "loadJBP lädt mittels JBP" + "\n" +
+                    "save [Abrufadresse] speichert eine einzelne Instanzineine Datei für alle Instanzen, falls die Datei nicht existiert werden alle Instanzen in eine neue gespeichert" + "\n" +
+                    "load [Abrufadresse] lädt eine einzelne Instanz aus der Datei";
 
     /**
      * Convert e.g Interactive

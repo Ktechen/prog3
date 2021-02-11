@@ -15,36 +15,50 @@ public class Update {
         this.storage = Storage.getInstance();
     }
 
+    /**
+     * Update per Address
+     *
+     * @param address = address of media file
+     * @return
+     * @throws IllegalArgumentException
+     */
+    public boolean accessCount(String address) throws IllegalArgumentException {
+        synchronized (this.storage) {
+            HashMap<String, Long> map = this.storage.getCountOfUse();
 
-    public synchronized boolean accessCount(String address) throws IllegalArgumentException {
-        HashMap<String, Long> map = this.storage.getCountOfUse();
-
-        LinkedList<String> list = this.getListOfAllAddresses();
+            LinkedList<String> list = this.getListOfAllAddresses();
 
 
-        boolean addressFound = false;
+            boolean addressFound = false;
 
-        for (String add : list) {
-            if (add.equals(address)) {
-                addressFound = true;
+            for (String add : list) {
+                if (add.equals(address)) {
+                    addressFound = true;
+                }
             }
+
+            if (!addressFound) {
+                throw new IllegalArgumentException("Address not found");
+            }
+
+            if (!(map.containsKey(address))) {
+                map.put(address, (long) 1);
+            } else {
+                map.replace(address, map.get(address) + 1);
+            }
+
+            this.storage.setCountOfUse(map);
+
+            return false;
         }
-
-        if (!addressFound) {
-            throw new IllegalArgumentException("Address not found");
-        }
-
-        if (!(map.containsKey(address))) {
-            map.put(address, (long) 1);
-        } else {
-            map.replace(address, map.get(address) + 1);
-        }
-
-        this.storage.setCountOfUse(map);
-
-        return false;
     }
 
+    /**
+     * Get Address click of Media files
+     *
+     * @param address
+     * @return
+     */
     public long getAccessCount(String address) {
         return (long) this.storage.getCountOfUse().get(address);
     }

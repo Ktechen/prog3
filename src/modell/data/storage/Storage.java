@@ -82,11 +82,13 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
         return new HashMap<>(this.usedTags);
     }
 
-    public synchronized boolean addMedia(T video) {
-        this.media.add(video);
-        this.initCounter(video.getAddress());
-        System.out.println(video.getAddress());
-        return true;
+    public  boolean addMedia(T video) {
+        synchronized(Storage.class){
+            this.media.add(video);
+            this.initCounter(video.getAddress());
+            System.out.println(video.getAddress());
+            return true;
+        }
     }
 
     public boolean removeMedia(Object o) {

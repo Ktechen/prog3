@@ -4,7 +4,7 @@ import modell.mediaDB.Uploader;
 
 import java.io.Serializable;
 
-public class BeanItemPerson implements Serializable, BeanItem {
+public class BeanItemPerson implements Serializable, BeanItem, Uploader {
     private String name;
 
     public String getName() {

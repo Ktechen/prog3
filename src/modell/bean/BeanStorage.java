@@ -23,7 +23,7 @@ public class BeanStorage implements Serializable {
         this.storage = Storage.getInstance();
         this.getUsedTags = this.storage.getUsedTags();
         this.counter = this.storage.getCountOfUse();
-        this.media = new LinkedList<>();
+        this.media = new ArrayList<>();
         this.uploaders = new HashSet<>();
     }
 
@@ -33,14 +33,6 @@ public class BeanStorage implements Serializable {
 
     public void setMedia(List<BeanItem> media) {
         this.media = media;
-    }
-
-    public Storage getStorage() {
-        return storage;
-    }
-
-    public void setStorage(Storage storage) {
-        this.storage = storage;
     }
 
     public Set<BeanItemPerson> getUploaders() {
@@ -125,13 +117,13 @@ public class BeanStorage implements Serializable {
         bean.bitrate = o.getBitrate();
         bean.counter = o.getAccessCount();
         bean.date = o.getUploadDate();
-        bean.duration = o.getLength();
+        bean.duration = o.getLength().toString();
         bean.encoding = o.getEncoding();
         bean.height = o.getHeight();
         bean.width = o.getWidth();
         bean.size = o.getSize();
         bean.tags = o.getTags();
-        bean.uploader = o.getUploader();
+        bean.uploader = o.getUploader().toString();
 
         this.media.add(bean);
     }
@@ -193,14 +185,15 @@ public class BeanStorage implements Serializable {
         BeanItemInteractiveVideo bean = new BeanItemInteractiveVideo();
         bean.address = (o.getAddress());
         bean.bitrate = (o.getBitrate());
-        bean.counter = (o.getAccessCount());
-        bean.date = (o.getUploadDate());
-        bean.duration = (o.getLength().toString());
+        bean.accessCount = (o.getAccessCount());
+        bean.uploaderDate = (o.getUploadDate());
+        bean.length = (o.getLength().toString());
         bean.encoding = (o.getEncoding());
         bean.tags = (o.getTags());
         bean.height = (o.getHeight());
         bean.width = (o.getWidth());
         bean.uploader = (o.getUploader().getName());
+        bean.type = (o.getType());
 
         this.media.add(bean);
     }
@@ -211,13 +204,13 @@ public class BeanStorage implements Serializable {
         bean.bitrate = o.getBitrate();
         bean.counter = o.getAccessCount();
         bean.date = o.getUploadDate();
-        bean.duration = o.getLength();
+        bean.duration = o.getLength().toString();
         bean.encoding = o.getEncoding();
         bean.tags = o.getTags();
         bean.height = o.getHeight();
         bean.width = o.getWidth();
         bean.samplingRate = o.getSamplingRate();
-        bean.uploader = o.getUploader();
+        bean.uploader = o.getUploader().toString();
         bean.size = o.getSize();
 
         this.media.add(bean);

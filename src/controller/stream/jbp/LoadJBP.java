@@ -9,7 +9,7 @@ import java.io.IOException;
 class LoadJBP {
 
     private String filename;
-    private BeanStorage o;
+    private Object o;
 
     LoadJBP(String filename) {
         this.filename = filename;
@@ -25,7 +25,7 @@ class LoadJBP {
 
         try {
             dec = new XMLDecoder(new FileInputStream(filename));
-            this.o = (BeanStorage) dec.readObject();
+            this.o = dec.readObject();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -34,7 +34,7 @@ class LoadJBP {
         }
     }
 
-    public BeanStorage getObject() {
+    public Object getObject() {
         return this.o;
     }
 }

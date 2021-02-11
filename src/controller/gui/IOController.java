@@ -130,7 +130,7 @@ public class IOController implements Initializable {
 
     public void onActionLoadJBP(ActionEvent actionEvent) {
         //LinkedList<MediaContent> contents = (LinkedList<MediaContent>) this.actionJBP.load(actionEvent, this.inputJBP, this.display);
-        Storage temp = (Storage) this.actionJBP.load(actionEvent, this.inputJBP, this.display);
+        /*Storage temp = (Storage) this.actionJBP.load(actionEvent, this.inputJBP, this.display);
 
         if (null != temp) {
             this.storage.setMedia(temp.getMedia());
@@ -138,6 +138,8 @@ public class IOController implements Initializable {
             this.storage.setCountOfUse(temp.getCountOfUse());
             this.storage.setUsedTags(temp.getUsedTags());
         }
+        */
+
 
         this.update();
     }

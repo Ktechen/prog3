@@ -40,19 +40,18 @@ public class ActionJBP {
      * @param display     = info text
      * @return storage object
      */
-    public Object load(ActionEvent actionEvent, TextField inputJOS, Label display) {
+    public void load(ActionEvent actionEvent, TextField inputJOS, Label display) {
         String filename = inputJOS.getText();
 
         if (filename.isEmpty()) {
             display.setText("Enter a Filename");
         } else {
             JBP jbp = new JBP(filename);
-            Object o = jbp.load();
+            jbp.load();
             display.setText("Load Storage by JBP ...");
-            return o;
+
         }
 
-        return null;
     }
 
 }
