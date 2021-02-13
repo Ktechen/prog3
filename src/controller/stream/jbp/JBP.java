@@ -37,57 +37,7 @@ public class JBP {
      */
     public void load() {
         synchronized (this.storage) {
-            LoadJBP loadJBP = new LoadJBP(this.filename);
-            BeanStorage o = (BeanStorage) loadJBP.getObject();
-
-            for (int i = 0; i < o.getMedia().size(); i++) {
-                if (o.getMedia().get(i) instanceof BeanItemInteractiveVideo) {
-                    BeanItemInteractiveVideo e = (BeanItemInteractiveVideo) o.getMedia().get(i);
-                    this.loadInteractiveVideo(e);
-                    continue;
-                }
-
-                if (o.getMedia().get(i) instanceof BeanItemVideo) {
-                    BeanItemVideo e = (BeanItemVideo) o.getMedia().get(i);
-                    this.loadVideo(e);
-                    continue;
-                }
-
-                if (o.getMedia().get(i) instanceof BeanItemAudio) {
-                    BeanItemAudio e = (BeanItemAudio) o.getMedia().get(i);
-                    this.loadAudio(e);
-                    continue;
-                }
-
-                if (o.getMedia().get(i) instanceof BeanItemAudioVideo) {
-                    BeanItemAudioVideo e = (BeanItemAudioVideo) o.getMedia().get(i);
-                    this.loadAudioVideo(e);
-                    continue;
-                }
-
-                if (o.getMedia().get(i) instanceof BeanItemLicensedVideo) {
-                    BeanItemLicensedVideo e = (BeanItemLicensedVideo) o.getMedia().get(i);
-                    this.loadLicensedVideo(e);
-                    continue;
-                }
-
-                if (o.getMedia().get(i) instanceof BeanItemLicensedAudio) {
-                    BeanItemLicensedAudio e = (BeanItemLicensedAudio) o.getMedia().get(i);
-                    this.loadLicensedAudio(e);
-                    continue;
-                }
-
-                if (o.getMedia().get(i) instanceof BeanItemLicensedAudioVideo) {
-                    BeanItemLicensedAudioVideo e = (BeanItemLicensedAudioVideo) o.getMedia().get(i);
-                    this.loadLicensedAudioVideo(e);
-                }
-            }
-
-            /**
-             * Obsolete create by Create object
-             Storage.getInstance().setCountOfUse(o.getCounter());
-             Storage.getInstance().setUsedTags(o.getGetUsedTags());
-             */
+            this.loadImpl();
         }
     }
 
@@ -185,5 +135,59 @@ public class JBP {
         for (long j = 0; j < tempCount; j++) {
             update.accessCount(address);
         }
+    }
+
+    private void loadImpl() {
+        LoadJBP loadJBP = new LoadJBP(this.filename);
+        BeanStorage o = (BeanStorage) loadJBP.getObject();
+
+        for (int i = 0; i < o.getMedia().size(); i++) {
+            if (o.getMedia().get(i) instanceof BeanItemInteractiveVideo) {
+                BeanItemInteractiveVideo e = (BeanItemInteractiveVideo) o.getMedia().get(i);
+                this.loadInteractiveVideo(e);
+                continue;
+            }
+
+            if (o.getMedia().get(i) instanceof BeanItemVideo) {
+                BeanItemVideo e = (BeanItemVideo) o.getMedia().get(i);
+                this.loadVideo(e);
+                continue;
+            }
+
+            if (o.getMedia().get(i) instanceof BeanItemAudio) {
+                BeanItemAudio e = (BeanItemAudio) o.getMedia().get(i);
+                this.loadAudio(e);
+                continue;
+            }
+
+            if (o.getMedia().get(i) instanceof BeanItemAudioVideo) {
+                BeanItemAudioVideo e = (BeanItemAudioVideo) o.getMedia().get(i);
+                this.loadAudioVideo(e);
+                continue;
+            }
+
+            if (o.getMedia().get(i) instanceof BeanItemLicensedVideo) {
+                BeanItemLicensedVideo e = (BeanItemLicensedVideo) o.getMedia().get(i);
+                this.loadLicensedVideo(e);
+                continue;
+            }
+
+            if (o.getMedia().get(i) instanceof BeanItemLicensedAudio) {
+                BeanItemLicensedAudio e = (BeanItemLicensedAudio) o.getMedia().get(i);
+                this.loadLicensedAudio(e);
+                continue;
+            }
+
+            if (o.getMedia().get(i) instanceof BeanItemLicensedAudioVideo) {
+                BeanItemLicensedAudioVideo e = (BeanItemLicensedAudioVideo) o.getMedia().get(i);
+                this.loadLicensedAudioVideo(e);
+            }
+        }
+
+        /**
+         * Obsolete create by Create object
+         Storage.getInstance().setCountOfUse(o.getCounter());
+         Storage.getInstance().setUsedTags(o.getGetUsedTags());
+         */
     }
 }

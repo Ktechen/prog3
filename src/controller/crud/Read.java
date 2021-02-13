@@ -58,19 +58,25 @@ public class Read {
     /**
      * Get List filter by type
      *
-     * @param video
+     * @param filter
      * @return
      */
-    public List<MediaContent> getFullListOrFilterbyTyp(String video) {
+    public List<MediaContent> getFullListOrFilterbyTyp(String filter) {
 
-        if (video == null) {
+        if (filter == null) {
             return fullList();
+        }
+
+        if(filter.compareTo("Anzahl") == 0){
+            //TODO FILTER
+        }else if(filter.compareTo("Upload") == 0){
+
         }
 
         LinkedList<MediaContent> list = new LinkedList<>();
 
         for (int i = 0; i < this.storage.getMedia().size(); i++) {
-            if (storage.getMedia().get(i).toString().trim().indexOf(video.trim()) == 0) {
+            if (storage.getMedia().get(i).toString().trim().indexOf(filter.trim()) == 0) {
                 list.add((MediaContent) this.storage.getMedia().get(i));
             }
         }
@@ -84,7 +90,7 @@ public class Read {
      * @return
      */
     public HashMap<String, Boolean> getFindedTags() {
-        return new HashMap<>(this.storage.getUsedTags());
+        return new HashMap<String, Boolean>(this.storage.getUsedTags());
     }
 
     /**

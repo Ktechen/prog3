@@ -3,24 +3,30 @@ package controller.stream.randomAccess;
 import modell.data.storage.Storage;
 import modell.mediaDB.MediaContent;
 
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
 import java.io.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RandomAccessHandle {
 
-    public Object convertFromBytes(byte[] bytes) {
+    Object[] convertFromBytes(byte[] bytes) {
         ObjectInputStream in = null;
         try (ByteArrayInputStream bis = new ByteArrayInputStream(bytes)) {
             //Catch seeker number
             in = new ObjectInputStream(bis);
-            Object o = in.readObject();
+            Object[] o = new Object[2];
+            o[0] = in.readObject();
+            o[1] = in.readObject();
             return o;
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
             try {
-                if(in != null)
-                in.close();
+                if (in != null)
+                    in.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -28,7 +34,7 @@ public class RandomAccessHandle {
         return null;
     }
 
-    public byte[] convertToBytes(String address) {
+    byte[] convertToBytes(String address) {
         List<MediaContent> list = Storage.getInstance().getMedia();
         MediaContent content = null;
 
@@ -39,12 +45,15 @@ public class RandomAccessHandle {
             }
         }
 
-        byte[] bytes = new byte[2048];
+        return toByte(content);
+    }
 
+    byte[] toByte(Object o) {
+        byte[] bytes = new byte[2048];
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
              ObjectOutputStream oos = new ObjectOutputStream(bos)) {
 
-            oos.writeObject(content);
+            oos.writeObject(o);
             oos.flush();
             bytes = bos.toByteArray();
         } catch (IOException e) {
@@ -52,5 +61,25 @@ public class RandomAccessHandle {
         }
 
         return bytes;
+    }
+
+    void encoderToXML(String filename, Map<Long, String> map) {
+        try (XMLEncoder xmlEncoder = new XMLEncoder(new FileOutputStream(filename))) {
+
+            xmlEncoder.writeObject(map);
+            xmlEncoder.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    HashMap<Long, String> decoderToXML(String filename) throws IOException {
+
+        HashMap<Long, String> o = null;
+        XMLDecoder xmlDecoder = new XMLDecoder(new FileInputStream(filename));
+        o = (HashMap<Long, String>) xmlDecoder.readObject();
+
+        return o;
     }
 }

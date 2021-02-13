@@ -2,7 +2,6 @@ package controller.handleInput.create;
 
 import controller.crud.Create;
 import controller.event.EventHandler;
-import controller.event.EventListener;
 import controller.event.events.commands.add.CommandAddEventsMedia;
 import controller.event.events.commands.add.CommandAddEventsUploader;
 import controller.event.events.listener.add.ELAddMediafiles;
@@ -24,21 +23,6 @@ final class CreateController implements CommandController {
         this.config();
     }
 
-    public final void person(String[] value) {
-        String lic = new InputConverter().convertedUploader(value);
-        this.commandAddEventsUploader.eventUser(lic);
-    }
-
-    public final void licensedAudioVideo(String[] value) {
-        this.commandAddEventsMedia.eventLicenseVideo(value);
-    }
-
-    public final void interactiveVideo(String[] value) {
-        this.commandAddEventsMedia.eventInteractiveVideo(value);
-    }
-
-    //TODO ADD ALL MEDIA
-
     @Override
     public void config() {
         EventHandler<ELAddMediafiles> handler = new EventHandler<>();
@@ -53,4 +37,36 @@ final class CreateController implements CommandController {
         this.commandAddEventsUploader = new CommandAddEventsUploader(new InputConverter(), handleUploader);
     }
 
+    public final void person(String[] value) {
+        String lic = new InputConverter().convertedUploader(value);
+        this.commandAddEventsUploader.eventUser(lic);
+    }
+
+    public final void licensedAudioVideo(String[] value) {
+        this.commandAddEventsMedia.eventLicenseAudioVideo(value);
+    }
+
+    public final void interactiveVideo(String[] value) {
+        this.commandAddEventsMedia.eventInteractiveVideo(value);
+    }
+
+    public final void audio(String[] value) {
+        this.commandAddEventsMedia.eventAudio(value);
+    }
+
+    public final void audioVideo(String[] value) {
+        this.commandAddEventsMedia.eventAudioVideo(value);
+    }
+
+    public final void video(String[] value) {
+        this.commandAddEventsMedia.eventVideo(value);
+    }
+
+    public final void licensedAudio(String[] value) {
+        this.commandAddEventsMedia.eventLicenseAudio(value);
+    }
+
+    public void licensedVideo(String[] value) {
+        this.commandAddEventsMedia.eventLicensedVideo(value);
+    }
 }

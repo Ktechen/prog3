@@ -28,7 +28,7 @@ public class Create implements Observable {
 
     public static List<Observer> getList() {
         synchronized (Create.class) {
-            return list;
+            return new LinkedList<>(list);
         }
     }
 
@@ -136,8 +136,8 @@ public class Create implements Observable {
         list.remove(observer);
     }
 
-    @Override
-    public void message() {
+    //TODO make private
+    private void message() {
         for (Observer o : list) {
             o.update();
         }

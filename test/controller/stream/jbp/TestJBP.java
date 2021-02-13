@@ -94,8 +94,9 @@ public class TestJBP {
         jbp.save();
         jbp.load();
 
-        InteractiveVideo content1 = (InteractiveVideo) Storage.getInstance().getMedia().get(1);
-        InteractiveVideo content0 = (InteractiveVideo) Storage.getInstance().getMedia().get(0);
+        InteractiveVideo content0 = (InteractiveVideo) Storage.getInstance().getMedia().get(2);
+        InteractiveVideo content1 = (InteractiveVideo) Storage.getInstance().getMedia().get(3);
+
 
         Assertions.assertEquals(5, content1.getAccessCount());
         Assertions.assertEquals(9174, content1.getBitrate());

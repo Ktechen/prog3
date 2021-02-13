@@ -125,7 +125,7 @@ public class TestRandomAccess {
     @Test
     public void testSaveAndLoadRandomDataWithMoreMedias() throws IllegalAccessException {
         RandomAccess randomAccess = new RandomAccess();
-
+        Storage.getInstance().clear();
         final Create create = new Create();
         final Collection<Tag> tags = new ArrayList<>();
 

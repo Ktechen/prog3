@@ -82,12 +82,17 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
         return new HashMap<>(this.usedTags);
     }
 
-    public  boolean addMedia(T video) {
-        synchronized(Storage.class){
-            this.media.add(video);
-            this.initCounter(video.getAddress());
-            System.out.println(video.getAddress());
-            return true;
+    public boolean addMedia(T video) {
+        synchronized (Storage.class) {
+
+            if (video != null) {
+                this.media.add(video);
+                this.initCounter(video.getAddress());
+                System.out.println(video.getAddress());
+                return true;
+            }
+
+            return false;
         }
     }
 
@@ -178,7 +183,6 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
             return new HashMap<>(this.countOfUse);
         }
     }
-
 
     public void setCountOfUse(HashMap<String, Long> map) {
         this.countOfUse = map;

@@ -1,6 +1,5 @@
 package controller.stream.randomAccess;
 
-import controller.handleInput.InputConverter;
 import modell.data.storage.Storage;
 import modell.mediaDB.*;
 
@@ -16,6 +15,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class RandomAccess {
 
     public static final String PATH = "testfiles/";
+    public static final String XML_FILE = PATH + "RandomAccessMap.xml";
     public static final String FILE = PATH + "RandomAccess.txt";
 
     private HashMap<Long, String> listOfAddresses;
@@ -61,7 +61,6 @@ public class RandomAccess {
             this.saveImpl(address);
         }
     }
-
 
     /**
      * Load Randomly per Address
@@ -132,7 +131,7 @@ public class RandomAccess {
         AtomicLong seeker = new AtomicLong();
         seeker.set(-1);
 
-        listOfAddresses.forEach((key, value) -> {
+        this.listOfAddresses.forEach((key, value) -> {
             if (value.equals(address)) {
                 seeker.set(key);
             }
@@ -142,12 +141,13 @@ public class RandomAccess {
             throw new IllegalAccessException("Address not found in Random Access Table");
         }
 
-        /**
+        /*
          * https://stackoverflow.com/questions/22375924/how-the-randomaccessfile-class-returns-bytes-with-randomaccessfile-read-method
          */
         try (RandomAccessFile raf = new RandomAccessFile(FILE, "r")) {
             byte[] bytes = new byte[(int) raf.length()];
-            raf.seek(seeker.get());
+            //raf.seek(seeker.get());
+            raf.readLong();
             raf.read(bytes);
 
             this.o = this.randomAccessHandle.convertFromBytes(bytes);
@@ -169,7 +169,7 @@ public class RandomAccess {
         AtomicLong seeker = new AtomicLong();
 
         //Search Address
-        listOfAddresses.forEach((key, value) -> {
+        this.listOfAddresses.forEach((key, value) -> {
             if (value.equals(address)) {
                 seeker.set(key);
             } else {
@@ -177,13 +177,17 @@ public class RandomAccess {
             }
         });
 
+        //Speichern von listOfAddresses
         try (RandomAccessFile randomAccessFile = new RandomAccessFile(FILE, "rw")) {
+            this.listOfAddresses.put(seeker.get(), address);
+            randomAccessFile.write(this.randomAccessHandle.toByte(this.listOfAddresses));
             randomAccessFile.seek(seeker.get());
             randomAccessFile.write(this.randomAccessHandle.convertToBytes(address));
-            this.listOfAddresses.put(seeker.get(), address);
+
             this.seekNumber++;
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 }

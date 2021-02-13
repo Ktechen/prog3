@@ -2,14 +2,12 @@ package controller.handleInput;
 
 import modell.data.content.Person;
 import modell.mediaDB.Tag;
-import net.bytebuddy.implementation.auxiliary.MethodCallProxy;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
 public class TestInputConverter {
 
@@ -19,7 +17,7 @@ public class TestInputConverter {
         final InputConverter inputConverter = new InputConverter();
 
         try {
-            inputConverter.convertLicensedVideo(null);
+            inputConverter.licensedAudioVideo(null);
         } catch (NullPointerException e) {
             Assertions.assertEquals("Array is null or empty", e.getMessage());
         }
@@ -32,7 +30,7 @@ public class TestInputConverter {
         String[] strings = new String[3];
 
         try {
-            inputConverter.convertLicensedVideo(strings);
+            inputConverter.licensedAudioVideo(strings);
         } catch (IllegalArgumentException e) {
             Assertions.assertTrue(true);
         }
@@ -54,7 +52,7 @@ public class TestInputConverter {
         value[8] = null;
 
         try {
-            inputConverter.convertLicensedVideo(value);
+            inputConverter.licensedAudioVideo(value);
         } catch (IllegalArgumentException e) {
             Assertions.assertTrue(true);
         }
@@ -87,7 +85,7 @@ public class TestInputConverter {
         converted[6] = person;
         converted[7] = "F.B.I Gaming Studio";
 
-        Object[] result = inputConverter.convertInteractionVideo(value);
+        Object[] result = inputConverter.interactionVideo(value);
         Assertions.assertEquals(result[0], converted[0]);
         Assertions.assertEquals(result[1], converted[1]);
         Assertions.assertEquals(result[2], converted[2]);
@@ -125,7 +123,7 @@ public class TestInputConverter {
         converted[6] = person;
         converted[7] = "F.B.I Gaming Studio";
 
-        Object[] result = inputConverter.convertInteractionVideo(value);
+        Object[] result = inputConverter.interactionVideo(value);
         Assertions.assertEquals(result[0], converted[0]);
         Assertions.assertEquals(result[1], converted[1]);
         Assertions.assertEquals(result[2], converted[2]);
@@ -141,7 +139,7 @@ public class TestInputConverter {
         final InputConverter inputConverter = new InputConverter();
 
         try {
-            inputConverter.convertInteractionVideo(null);
+            inputConverter.interactionVideo(null);
         } catch (NullPointerException e) {
             Assertions.assertEquals("Array is null or empty", e.getMessage());
         }

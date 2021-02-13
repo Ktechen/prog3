@@ -2,28 +2,37 @@ package controller.handleInput;
 
 import controller.cli.Keys;
 import controller.observer.observers.ObserverConsoleSize;
-import modell.data.content.Person;
-import modell.data.content.InteractiveVideo;
+import modell.data.content.*;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploader;
 
+import java.lang.reflect.Constructor;
 import java.time.Duration;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 public class InputConverter {
 
     public final static String NAME = "name:";
     public final static String LICENSED_AUDIO_VIDEO = "lav:";
+    public final static String LICENSED_AUDIO = "la:";
+    public final static String LICENSED_VIDEO = "lv:";
     public final static String INTERACTIVE_VIDEO = "iv:";
     public final static String AUDIO = "a:";
     public final static String AUDIO_VIDEO = "av:";
-    public final static String MEDIA_CONTENT = "mc:";
     public final static String VIDEO = "v:";
 
-    public final static int LICENSED_AUDIO_VIDEO_LENGTH = 9;
-    public final static int INTERACTIVE_VIDEO_LENGTH = 8;
+    public final static String MEDIA_CONTENT = "mc:";
+
+    public final int AUDIO_LENGTH;
+    public final int VIDEO_LENGTH;
+    public final int AUDIO_VIDEO_LENGTH;
+    public final int LICENSED_AUDIO_LENGTH;
+    public final int LICENSED_VIDEO_LENGTH;
+    public final int LICENSED_AUDIO_VIDEO_LENGTH;
+    public final int INTERACTIVE_VIDEO_LENGTH;
 
     public final static String SHOW_ALL = "1. Showall or filter\n";
     public final static String SHOW_PER_INDEX = "2. User per Index \n";
@@ -80,43 +89,50 @@ public class InputConverter {
                     "save [Abrufadresse] speichert eine einzelne Instanzineine Datei für alle Instanzen, falls die Datei nicht existiert werden alle Instanzen in eine neue gespeichert" + "\n" +
                     "load [Abrufadresse] lädt eine einzelne Instanz aus der Datei";
 
-    /**
-     * Convert e.g Interactive
-     * Split your Array before you start (value.split("\\s+");)
-     *
-     * @param arr
-     * @return length = 9 and arr with all option from Lic Video
-     */
-    public Object[] convertLicensedVideo(String[] arr) throws IllegalArgumentException {
-
-        if (null == arr) {
-            throw new NullPointerException("Array is null or empty");
-        }
-
-        if (arr[arr.length - 1] == null) {
-            throw new IllegalArgumentException("Last Parameter of LicensedVideo is null");
-        }
-
-        Object[] array = convertInteractionVideo(arr);
-
-        try {
-            //sampling rate
-            array[array.length - 1] = Integer.parseInt(arr[array.length - 1]);
-        } catch (NumberFormatException e) {
-            System.out.println(e.getMessage());
-        }
-
-        return array;
+    public InputConverter() {
+        AUDIO_LENGTH = this.getParameter(Audio.class);
+        INTERACTIVE_VIDEO_LENGTH = this.getParameter(InteractiveVideo.class);
+        LICENSED_AUDIO_VIDEO_LENGTH = this.getParameter(LicensedAudioVideo.class);
+        AUDIO_VIDEO_LENGTH = this.getParameter(AudioVideo.class);
+        VIDEO_LENGTH = this.getParameter(Video.class);
+        LICENSED_AUDIO_LENGTH = this.getParameter(LicensedAudio.class);
+        LICENSED_VIDEO_LENGTH = this.getParameter(LicensedAudioVideo.class);
     }
 
     /**
-     * Handle InteractionVideo
-     * Split your Array before you start (value.split("\\s+");)
-     *
      * @param value
-     * @return length = 8 and arr with all option from Video
+     * @return
      */
-    public Object[] convertInteractionVideo(String[] value) {
+    public Object[] audio(String[] value) throws NullPointerException {
+
+        if (null == value) {
+            throw new NullPointerException("Array is null or empty");
+        }
+
+        Object[] o = new Object[value.length];
+
+        try {
+            o[0] = this.longConverter(value, 0); // bitrate
+            o[1] = this.durationConverter(value, 1); // duration
+            o[2] = this.tagCollectionConverter(value, 2); // tags
+            o[3] = this.intConverter(value, 3); // samplingRate
+            o[4] = value[4]; // endcoding
+            o[5] = this.uploaderConverter(value, 6); // uploader
+        } catch (NumberFormatException | DateTimeParseException e) {
+            e.printStackTrace();
+        }
+
+        return o;
+    }
+
+    public Object[] audioVideo(String[] value) {
+        Object[] video = this.video(value);
+        Object[] result = Arrays.copyOf(video, video.length + 1);
+        result[result.length - 1] = this.intConverter(value, result.length - 1);
+        return result;
+    }
+
+    public Object[] video(String[] value) {
 
         if (null == value) {
             throw new NullPointerException("Array is null or empty");
@@ -131,20 +147,71 @@ public class InputConverter {
         Object[] o = new Object[value.length];
 
         try {
-            o[0] = intConverter(value, 0);// Width
-            o[1] = intConverter(value, 1); // heigth
+            o[0] = this.intConverter(value, 0);// Width
+            o[1] = this.intConverter(value, 1); // heigth
             o[2] = value[2]; // encoding
-            o[3] = longConverter(value, 3); // bitrate
-            o[4] = durationConverter(value, 4); // duraction
-            o[5] = tagCollectionConverter(value, 5);
-            o[6] = uploaderConverter(value, 6); // Person
-            o[7] = value[7]; // type
-
+            o[3] = this.longConverter(value, 3); // bitrate
+            o[4] = this.durationConverter(value, 4); // duraction
+            o[5] = this.tagCollectionConverter(value, 5); // tags
+            o[6] = this.uploaderConverter(value, 6); // Person
         } catch (NumberFormatException | DateTimeParseException e) {
             e.printStackTrace();
         }
 
         return o;
+    }
+
+    public Object[] licenseAudio(String[] value) {
+        return null;
+    }
+
+    public Object[] licensedVideo(String[] value) {
+        return null;
+    }
+
+    /**
+     * Convert e.g Interactive
+     * Split your Array before you start (value.split("\\s+");)
+     *
+     * @param value
+     * @return length = 9 and arr with all option from Lic Video
+     */
+    public Object[] licensedAudioVideo(String[] value) throws IllegalArgumentException {
+
+        if (null == value) {
+            throw new NullPointerException("Array is null or empty");
+        }
+
+        if (value[value.length - 1] == null) {
+            throw new IllegalArgumentException("Last Parameter of LicensedVideo is null");
+        }
+
+        Object[] array = interactionVideo(value);
+
+        try {
+            //sampling rate
+            array[array.length - 1] = Integer.parseInt(value[array.length - 1]);
+        } catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return array;
+    }
+
+    /**
+     * Handle InteractionVideo
+     * Split your Array before you start (value.split("\\s+");)
+     *
+     * @param value
+     * @return length = 8 and arr with all option from Video
+     */
+    public Object[] interactionVideo(String[] value) {
+
+        Object[] video = this.video(value);
+        Object[] result = Arrays.copyOf(value, video.length + 1);
+        result[7] = value[7]; // type
+
+        return result;
     }
 
     /**
@@ -185,9 +252,9 @@ public class InputConverter {
         return Duration.parse(value[index]);
     }
 
-    public Collection<Tag> tagCollectionConverter(String[] value, int index) {
+    private Collection<Tag> tagCollectionConverter(String[] value, int index) {
         Collection<Tag> collection = new ArrayList<>();
-        String[] tagArr = value[5].split("\\s*,\\s*");
+        String[] tagArr = value[Tag.values().length].split("\\s*,\\s*");
 
         for (String s : tagArr) {
             collection.add(Tag.valueOf(s));
@@ -199,6 +266,31 @@ public class InputConverter {
     public Uploader uploaderConverter(String[] value, int index) {
         Uploader uploader = new Person(value[index]);
         return uploader;
+    }
+
+    /**
+     * Get max size of Parameter in Class
+     * https://www.geeksforgeeks.org/constructor-getparametercount-method-in-java-with-examples/
+     *
+     * @param c = Class from Media
+     * @return Integer
+     */
+    private int getParameter(Class c) {
+
+        // get Constructor object
+        // array from class object
+        Constructor[] cons = c.getConstructors();
+
+        ArrayList<Integer> list = new ArrayList<>();
+
+        for (int i = 0; i < cons.length; i++) {
+            int params = cons[i].getParameterCount();
+            list.add(params);
+        }
+
+        return list.stream()
+                .reduce(Integer::max)
+                .get();
     }
 
     @Override

@@ -3,10 +3,8 @@ package controller.event.events.commands.add;
 import controller.event.EventHandler;
 import controller.event.events.commands.CommandEvent;
 import controller.event.events.event.add.EventAddMediaFiles;
-import controller.event.events.listener.add.ELAddMediafiles;
 import controller.handleInput.InputConverter;
-import modell.data.content.InteractiveVideo;
-import modell.data.content.LicensedAudioVideo;
+import modell.data.content.*;
 
 import java.time.format.DateTimeParseException;
 
@@ -16,15 +14,43 @@ public class CommandAddEventsMedia extends CommandEvent {
         super(converter, eventHandler);
     }
 
-    public void eventInteractiveVideo(String[] arr) throws ArrayIndexOutOfBoundsException, DateTimeParseException, IllegalArgumentException {
-        Object[] convertArray = converter.convertInteractionVideo(arr);
-        EventAddMediaFiles eventInterVideo = new EventAddMediaFiles(this, convertArray, InteractiveVideo.class.getSimpleName());
+    private void handleEvent(Object[] convertArray, String simpleName) {
+        EventAddMediaFiles eventInterVideo = new EventAddMediaFiles(this, convertArray, simpleName);
         eventHandler.handle(eventInterVideo);
     }
 
-    public void eventLicenseVideo(String[] arr) throws ArrayIndexOutOfBoundsException, DateTimeParseException, IllegalArgumentException {
-        Object[] convertArray = converter.convertLicensedVideo(arr);
-        EventAddMediaFiles eventLicVideo = new EventAddMediaFiles(this, convertArray, LicensedAudioVideo.class.getSimpleName());
-        eventHandler.handle(eventLicVideo);
+    public void eventInteractiveVideo(String[] value) throws ArrayIndexOutOfBoundsException, DateTimeParseException, IllegalArgumentException {
+        Object[] convertArray = this.converter.interactionVideo(value);
+        this.handleEvent(convertArray, InteractiveVideo.class.getSimpleName());
+    }
+
+    public void eventLicenseAudioVideo(String[] value) throws ArrayIndexOutOfBoundsException, DateTimeParseException, IllegalArgumentException {
+        Object[] convertArray = this.converter.licensedAudioVideo(value);
+        this.handleEvent(convertArray, LicensedAudioVideo.class.getSimpleName());
+    }
+
+    public void eventAudio(String[] value) {
+        Object[] convertArray = this.converter.audio(value);
+        this.handleEvent(convertArray, Audio.class.getSimpleName());
+    }
+
+    public void eventAudioVideo(String[] value) {
+        Object[] convertArray = this.converter.audioVideo(value);
+        this.handleEvent(convertArray, AudioVideo.class.getSimpleName());
+    }
+
+    public void eventVideo(String[] value) {
+        Object[] convertArray = this.converter.video(value);
+        this.handleEvent(convertArray, Video.class.getSimpleName());
+    }
+
+    public void eventLicenseAudio(String[] value) {
+        Object[] convertArray = this.converter.licenseAudio(value);
+        this.handleEvent(convertArray, LicensedAudio.class.getSimpleName());
+    }
+
+    public void eventLicensedVideo(String[] value) {
+        Object[] convertArray = this.converter.licensedVideo(value);
+        this.handleEvent(convertArray, LicensedVideo.class.getSimpleName());
     }
 }

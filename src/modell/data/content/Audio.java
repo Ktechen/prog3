@@ -1,6 +1,5 @@
 package modell.data.content;
 
-import modell.data.storage.Storage;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploader;
 
@@ -9,7 +8,6 @@ import java.time.Duration;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import java.util.UUID;
 
 public class Audio extends MediaContent implements modell.mediaDB.Audio, Serializable {
 
