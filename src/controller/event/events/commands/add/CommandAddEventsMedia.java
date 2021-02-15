@@ -16,7 +16,7 @@ public class CommandAddEventsMedia extends CommandEvent {
 
     private void handleEvent(Object[] convertArray, String simpleName) {
         EventAddMediaFiles eventInterVideo = new EventAddMediaFiles(this, convertArray, simpleName);
-        eventHandler.handle(eventInterVideo);
+        this.eventHandler.handle(eventInterVideo);
     }
 
     public void eventInteractiveVideo(String[] value) throws ArrayIndexOutOfBoundsException, DateTimeParseException, IllegalArgumentException {

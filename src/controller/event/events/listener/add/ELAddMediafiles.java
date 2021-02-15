@@ -1,9 +1,7 @@
 package controller.event.events.listener.add;
 
 import controller.crud.Create;
-import modell.data.content.Person;
-import modell.data.content.InteractiveVideo;
-import modell.data.content.LicensedAudioVideo;
+import modell.data.content.*;
 import controller.event.Event;
 import controller.event.EventListener;
 import modell.mediaDB.Tag;
@@ -40,6 +38,16 @@ public class ELAddMediafiles implements EventListener {
                     (Person) event.getArr()[6],
                     (String) event.getArr()[7],
                     (Integer) event.getArr()[8]);
+        } else if (event.getType().compareTo(Audio.class.getSimpleName()) == 0) {
+
+        } else if (event.getType().compareTo(Video.class.getSimpleName()) == 0) {
+
+        } else if (event.getType().compareTo(LicensedAudio.class.getSimpleName()) == 0) {
+
+        } else if (event.getType().compareTo(LicensedVideo.class.getSimpleName()) == 0) {
+
+        } else if (event.getType().compareTo(AudioVideo.class.getSimpleName()) == 0) {
+
         }
 
     }

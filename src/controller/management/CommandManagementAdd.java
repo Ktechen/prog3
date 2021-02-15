@@ -51,7 +51,7 @@ public class CommandManagementAdd extends CommandManagement implements Command {
             if (!this.isOffline()) {
                 this.sendMessage(e.getMessage());
             } else {
-                System.err.println(e.getMessage());
+                e.printStackTrace();
             }
 
             return;

@@ -7,48 +7,43 @@ import modell.mediaDB.Tag;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ObserverConsoleTags implements Observer {
 
     private Create observable;
-    private boolean[] booleans;
+    private boolean[] init;
 
     public ObserverConsoleTags(Create observable) {
         this.observable = observable;
         this.observable.join(this);
+
+        this.init = new boolean[Tag.values().length];
+        for (int i = 0; i < Tag.values().length; i++) {
+            this.init[i] = false;
+        }
     }
 
     @Override
     public void update() {
         final Read read = new Read();
         HashMap<String, Boolean> readMap = read.getFindedTags();
+        Object[] elem = readMap.values().toArray();
 
-
-        Map<String, Boolean> show = readMap.entrySet()
-                .stream()
-                .filter(map -> map.getValue().equals(true))
-                .collect(Collectors.toMap(Map.Entry::getKey, stringBooleanEntry -> true));
-
-        /*
-        boolean life = readMap.get("Lifestyle");
-        boolean news = readMap.get("News");
-        boolean animal = readMap.get("Animal");
-        boolean tutorial = readMap.get("Tutorial");
-
-        booleans = new boolean[4];
-        booleans[0] = life;
-        booleans[1] = news;
-        booleans[2] = animal;
-        booleans[3] = tutorial;
-
-        for (int i = 0; i < booleans.length; i++) {
-            System.out.print(booleans[i]);
+        boolean[] temp = new boolean[Tag.values().length];
+        for (int i = 0; i < elem.length; i++) {
+            temp[i] = Boolean.parseBoolean(elem[i].toString());
         }
-        */
 
-        //Call Tags
-        System.out.println(Arrays.toString(show.entrySet().toArray()));
+        //Check if not equals
+        for (int i = 0; i < temp.length; i++) {
+            if (temp[i] != this.init[i]) {
+                System.out.println("Änderungen an den vorhandenen Tags informieren. Show: ");
+                System.out.println(Arrays.toString(readMap.entrySet().toArray()));
+                break;
+            }
+        }
+
+        this.init = temp;
     }
 }

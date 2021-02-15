@@ -12,6 +12,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Objects;
 
 public class InputConverter {
 
@@ -99,41 +100,7 @@ public class InputConverter {
         LICENSED_VIDEO_LENGTH = this.getParameter(LicensedAudioVideo.class);
     }
 
-    /**
-     * @param value
-     * @return
-     */
-    public Object[] audio(String[] value) throws NullPointerException {
-
-        if (null == value) {
-            throw new NullPointerException("Array is null or empty");
-        }
-
-        Object[] o = new Object[value.length];
-
-        try {
-            o[0] = this.longConverter(value, 0); // bitrate
-            o[1] = this.durationConverter(value, 1); // duration
-            o[2] = this.tagCollectionConverter(value, 2); // tags
-            o[3] = this.intConverter(value, 3); // samplingRate
-            o[4] = value[4]; // endcoding
-            o[5] = this.uploaderConverter(value, 6); // uploader
-        } catch (NumberFormatException | DateTimeParseException e) {
-            e.printStackTrace();
-        }
-
-        return o;
-    }
-
-    public Object[] audioVideo(String[] value) {
-        Object[] video = this.video(value);
-        Object[] result = Arrays.copyOf(video, video.length + 1);
-        result[result.length - 1] = this.intConverter(value, result.length - 1);
-        return result;
-    }
-
-    public Object[] video(String[] value) {
-
+    private void checkArray(String[] value) {
         if (null == value) {
             throw new NullPointerException("Array is null or empty");
         }
@@ -143,6 +110,17 @@ public class InputConverter {
                 throw new IllegalArgumentException("One Parameter is null");
             }
         }
+    }
+
+    /**
+     * Convert Video to arrays
+     *
+     * @param value
+     * @return
+     */
+    public Object[] video(String[] value) throws NullPointerException, IllegalArgumentException {
+
+        this.checkArray(value);
 
         Object[] o = new Object[value.length];
 
@@ -161,12 +139,54 @@ public class InputConverter {
         return o;
     }
 
+    /**
+     * Convert audio to arrays
+     *
+     * @param value
+     * @return
+     */
+    public Object[] audio(String[] value) throws NullPointerException, IllegalArgumentException {
+
+        this.checkArray(value);
+
+        Object[] o = new Object[value.length];
+
+        try {
+            o[0] = this.longConverter(value, 0); // bitrate
+            o[1] = this.durationConverter(value, 1); // duration
+            o[2] = this.tagCollectionConverter(value, 2); // tags
+            o[3] = this.intConverter(value, 3); // samplingRate
+            o[4] = value[4]; // endcoding
+            o[5] = this.uploaderConverter(value, 5); // uploader
+        } catch (NumberFormatException | DateTimeParseException e) {
+            e.printStackTrace();
+        }
+
+        return o;
+    }
+
+    public Object[] audioVideo(String[] value) {
+        Object[] video = this.video(value);
+        video[7] = this.intConverter(value, 7);
+        return video;
+    }
+
     public Object[] licenseAudio(String[] value) {
-        return null;
+        Object[] audio = this.audio(value);
+        audio[6] = value[6];
+        return audio;
     }
 
     public Object[] licensedVideo(String[] value) {
-        return null;
+        Object[] video = this.video(value);
+        video[7] = value[7];
+        return video;
+    }
+
+    public Object[] interactionVideo(String[] value) {
+        Object[] video = this.video(value);
+        video[7] = value[7];
+        return video;
     }
 
     /**
@@ -186,7 +206,7 @@ public class InputConverter {
             throw new IllegalArgumentException("Last Parameter of LicensedVideo is null");
         }
 
-        Object[] array = interactionVideo(value);
+        Object[] array = this.interactionVideo(value);
 
         try {
             //sampling rate
@@ -196,22 +216,6 @@ public class InputConverter {
         }
 
         return array;
-    }
-
-    /**
-     * Handle InteractionVideo
-     * Split your Array before you start (value.split("\\s+");)
-     *
-     * @param value
-     * @return length = 8 and arr with all option from Video
-     */
-    public Object[] interactionVideo(String[] value) {
-
-        Object[] video = this.video(value);
-        Object[] result = Arrays.copyOf(value, video.length + 1);
-        result[7] = value[7]; // type
-
-        return result;
     }
 
     /**
@@ -245,8 +249,8 @@ public class InputConverter {
 
     private Duration durationConverter(String[] value, int index) {
 
-        if (!value[4].contains("PT")) {
-            value[4] = "PT" + value[4];
+        if (!value[index].contains("PT")) {
+            value[index] = "PT" + value[index];
         }
 
         return Duration.parse(value[index]);
@@ -254,7 +258,7 @@ public class InputConverter {
 
     private Collection<Tag> tagCollectionConverter(String[] value, int index) {
         Collection<Tag> collection = new ArrayList<>();
-        String[] tagArr = value[Tag.values().length].split("\\s*,\\s*");
+        String[] tagArr = value[index].split("\\s*,\\s*");
 
         for (String s : tagArr) {
             collection.add(Tag.valueOf(s));
