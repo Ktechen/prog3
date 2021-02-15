@@ -52,15 +52,38 @@ public class InputConverter {
 
     private final static String usedTag = "Enter TAG: ";
 
-    public final static String LICENSED_AUDIO_VIDEO_TEXT = usedTag + LICENSED_AUDIO_VIDEO + " LicensedAudioVideo: " +
-            "(int width, int height, String encoding, long bitrate, Duration length, " +
-            "Collection<Tag> tag, Person person, String holder, int samplingRate)";
+    public final static String LICENSED_AUDIO_VIDEO_TEXT = usedTag + LICENSED_AUDIO_VIDEO + LicensedAudioVideo.class.getSimpleName() +
+            "(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Person person, String holder, int samplingRate)\n";
 
     public final static String INTER_VIDEO_TEXT = usedTag + INTERACTIVE_VIDEO + " Interactive: " +
             "(int width, int height, String encoding, long bitrate, Duration length, " +
-            "Collection<Tag> tag, Person person, String type)";
+            "Collection<Tag> tag, Person person, String type)\n";
 
-    public final static String USER_TEXT = usedTag + NAME + " [Produzentenname] fügt einen Produzentein";
+    public final static String AUDIO_TEXT = usedTag + Audio.class.getSimpleName() +
+            "int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tags, Uploader uploader)\n";
+
+    public final static String AUDIO_VIDEO_TEXT = usedTag + AudioVideo.class.getSimpleName() +
+            "(int width, int height, String encoding, long bitrate, Duration duration, Collection<Tag> tags, Uploader uploader, int samplingRate)\n";
+
+    public final static String VIDEO_TEXT = usedTag + Video.class.getSimpleName() +
+            "(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tags, Uploader uploader)\n";
+
+    public final static String LICENSED_VIDEO_TEXT = usedTag + LicensedVideo.class.getSimpleName() +
+            "(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tags, Uploader uploader, String holder)\n";
+
+    public final static String LICENSED_AUDIO_TEXT = usedTag + LicensedAudio.class.getSimpleName() +
+            "(long bitrate, Duration duration, Collection<Tag> tags, int samplingRate, String encoding, Uploader uploader, String holder)\n";
+
+    public final static String USER_TEXT = usedTag + NAME + " [Produzentenname] fügt einen Produzentein\n";
+
+    public final static String MEDIA_TEXT = USER_TEXT
+            + LICENSED_AUDIO_VIDEO_TEXT
+            + INTER_VIDEO_TEXT
+            + AUDIO_TEXT
+            + AUDIO_VIDEO_TEXT
+            + VIDEO_TEXT
+            + LICENSED_VIDEO_TEXT
+            + LICENSED_AUDIO_TEXT;
 
     public final static String MAIN_TEXT = "\n" + Keys.ADD.get() + " Wechsel in den Einfügemodus\n" +
             Keys.SHOW.get() + " - Wechsel in den Anzeigemodus\n" +
@@ -301,6 +324,11 @@ public class InputConverter {
     public String toString() {
         return LICENSED_AUDIO_VIDEO_TEXT + "\n" +
                 INTER_VIDEO_TEXT + "\n" +
+                AUDIO_TEXT + "\n" +
+                AUDIO_VIDEO_TEXT + "\n" +
+                VIDEO_TEXT + "\n" +
+                LICENSED_AUDIO_TEXT + "\n" +
+                LICENSED_VIDEO_TEXT + "\n" +
                 USER_TEXT;
     }
 }

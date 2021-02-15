@@ -2,6 +2,7 @@ package controller.management;
 
 import controller.handleInput.InputConverter;
 import controller.handleInput.create.CreateOption;
+import modell.mediaDB.Interactive;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -11,7 +12,7 @@ import java.util.Arrays;
 
 public class CommandManagementAdd extends CommandManagement implements Command {
 
-    public static final String SEND_MSG = InputConverter.USER_TEXT + "\n" + InputConverter.INTER_VIDEO_TEXT + "\n" + InputConverter.LICENSED_AUDIO_VIDEO_TEXT;
+    public static final String SEND_MSG = InputConverter.MEDIA_TEXT;
 
     public CommandManagementAdd(DataInputStream in, DataOutputStream out) {
         super(in, out);
@@ -51,7 +52,7 @@ public class CommandManagementAdd extends CommandManagement implements Command {
             if (!this.isOffline()) {
                 this.sendMessage(e.getMessage());
             } else {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }
 
             return;
