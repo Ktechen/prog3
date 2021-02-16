@@ -3,10 +3,10 @@ package controller.stream.randomAccess;
 import modell.data.storage.Storage;
 import modell.mediaDB.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.HashMap;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * https://www.tutorialspoint.com/java/io/randomaccessfile_readline.htm
@@ -18,37 +18,37 @@ public class RandomAccess {
     public static final String XML_FILE = PATH + "RandomAccessMap.xml";
     public static final String FILE = PATH + "RandomAccess.txt";
 
-    private HashMap<Long, String> listOfAddresses;
     private long seekNumber = -1;
     private Object o;
     private RandomAccessHandle randomAccessHandle;
+    private HashMap<Long, String> listOfAddresses;
+    boolean isAddressInCollection = false;
 
     public RandomAccess() {
         this.randomAccessHandle = new RandomAccessHandle();
-        this.listOfAddresses = new HashMap<>();
         this.prepareMap();
     }
 
     private void prepareMap() {
-
-        if (this.listOfAddresses.size() == 0) {
-            this.seekNumber = 0;
+        File file = new File(FILE);
+        if (file.exists()) {
+            try (RandomAccessFile raf = new RandomAccessFile(file, "r")) {
+                String line = null;
+                this.listOfAddresses = new HashMap<>();
+                while ((line = raf.readLine()) != null) {
+                    String newline = raf.readLine();
+                    listOfAddresses.put(Long.parseLong(line), newline);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
-        //Set next pointer number
-        this.seekNumber = this.listOfAddresses.size();
-    }
-
-    public HashMap<Long, String> getListOfAddresses() {
-        return new HashMap<>(this.listOfAddresses);
-    }
-
-    public long getSeekNumber() {
-        return seekNumber;
-    }
-
-    public Object getO() {
-        return o;
     }
 
     /**
@@ -58,6 +58,15 @@ public class RandomAccess {
      */
     public void save(String address) throws NullPointerException, IllegalArgumentException {
         synchronized (Storage.class) {
+
+            if (null == address) {
+                throw new NullPointerException("RandomAccess Address is null");
+            }
+
+            if (!address.contains(Storage.TYPE_OF_SOURCE)) {
+                throw new IllegalArgumentException("Type of address is unknown");
+            }
+
             this.saveImpl(address);
         }
     }
@@ -72,6 +81,15 @@ public class RandomAccess {
      */
     public void load(String address) throws IllegalAccessException, NullPointerException, IllegalArgumentException {
         synchronized (Storage.class) {
+
+            if (null == address) {
+                throw new NullPointerException("RandomAccess Address is null");
+            }
+
+            if (!address.contains(Storage.TYPE_OF_SOURCE)) {
+                throw new IllegalArgumentException("Type of address is unknown");
+            }
+
             this.loadImpl(address);
             boolean check = this.addToMedia();
         }
@@ -80,37 +98,37 @@ public class RandomAccess {
     private boolean addToMedia() {
         Storage storage = Storage.getInstance();
 
-        if (o instanceof LicensedAudioVideo) {
+        if (this.o instanceof LicensedAudioVideo) {
             storage.addMedia((LicensedAudioVideo) o);
             return true;
         }
 
-        if (o instanceof InteractiveVideo) {
+        if (this.o instanceof InteractiveVideo) {
             storage.addMedia((InteractiveVideo) o);
             return true;
         }
 
-        if (o instanceof AudioVideo) {
+        if (this.o instanceof AudioVideo) {
             storage.addMedia((AudioVideo) o);
             return true;
         }
 
-        if (o instanceof LicensedVideo) {
+        if (this.o instanceof LicensedVideo) {
             storage.addMedia((LicensedVideo) o);
             return true;
         }
 
-        if (o instanceof LicensedAudio) {
+        if (this.o instanceof LicensedAudio) {
             storage.addMedia((LicensedAudio) o);
             return true;
         }
 
-        if (o instanceof Video) {
+        if (this.o instanceof Video) {
             storage.addMedia((Video) o);
             return true;
         }
 
-        if (o instanceof Audio) {
+        if (this.o instanceof Audio) {
             storage.addMedia((Audio) o);
             return true;
         }
@@ -118,73 +136,35 @@ public class RandomAccess {
         return false;
     }
 
-    private void loadImpl(String address) throws IllegalAccessException, NullPointerException, IllegalArgumentException {
-
-        if (null == address) {
-            throw new NullPointerException("RandomAccess Address is null");
-        }
-
-        if (!address.contains(Storage.TYPE_OF_SOURCE)) {
-            throw new IllegalArgumentException("Type of address is unknown");
-        }
-
-        AtomicLong seeker = new AtomicLong();
-        seeker.set(-1);
-
-        this.listOfAddresses.forEach((key, value) -> {
-            if (value.equals(address)) {
-                seeker.set(key);
-            }
-        });
-
-        if (seeker.get() == -1) {
-            throw new IllegalAccessException("Address not found in Random Access Table");
-        }
-
+    private void loadImpl(String address) {
         /*
          * https://stackoverflow.com/questions/22375924/how-the-randomaccessfile-class-returns-bytes-with-randomaccessfile-read-method
          */
         try (RandomAccessFile raf = new RandomAccessFile(FILE, "r")) {
             byte[] bytes = new byte[(int) raf.length()];
-            //raf.seek(seeker.get());
-            raf.readLong();
+            long seeker = raf.readLong();
+            raf.seek(seeker);
             raf.read(bytes);
-
             this.o = this.randomAccessHandle.convertFromBytes(bytes);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void saveImpl(String address) throws NullPointerException, IllegalArgumentException {
-
-        if (null == address) {
-            throw new NullPointerException("RandomAccess Address is null");
-        }
-
-        if (!address.contains(Storage.TYPE_OF_SOURCE)) {
-            throw new IllegalArgumentException("Type of address is unknown");
-        }
-
-        AtomicLong seeker = new AtomicLong();
-
-        //Search Address
-        this.listOfAddresses.forEach((key, value) -> {
-            if (value.equals(address)) {
-                seeker.set(key);
-            } else {
-                seeker.set(seekNumber);
-            }
-        });
+    private void saveImpl(String address) {
 
         //Speichern von listOfAddresses
-        try (RandomAccessFile randomAccessFile = new RandomAccessFile(FILE, "rw")) {
-            this.listOfAddresses.put(seeker.get(), address);
-            randomAccessFile.write(this.randomAccessHandle.toByte(this.listOfAddresses));
-            randomAccessFile.seek(seeker.get());
-            randomAccessFile.write(this.randomAccessHandle.convertToBytes(address));
+        try (RandomAccessFile raf = new RandomAccessFile(FILE, "rw")) {
+            if (!isAddressInCollection) {
+                raf.seek(raf.length());
+                raf.writeLong(raf.length());
+                raf.write(this.randomAccessHandle.convertToBytes(address));
+            } else {
+
+            }
 
             this.seekNumber++;
+            System.out.println("After SeekerNumber:" + this.seekNumber);
         } catch (IOException e) {
             e.printStackTrace();
         }

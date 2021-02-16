@@ -1,5 +1,7 @@
 package controller.handleInput.show;
 
+import controller.handleInput.InputConverter;
+
 public class ShowOption {
 
     private ShowController showController;
@@ -31,8 +33,10 @@ public class ShowOption {
                 }
 
                 return this.showController.showUsedTags(param);
+            default:
+                StringBuffer stringBuffer = new StringBuffer();
+                stringBuffer.append(InputConverter.MAIN_TEXT);
+                return stringBuffer;
         }
-
-        return null;
     }
 }

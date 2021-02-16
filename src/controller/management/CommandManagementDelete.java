@@ -31,11 +31,20 @@ public class CommandManagementDelete extends CommandManagement implements Comman
     @Override
     public void handleArgs(String args) throws IOException {
 
-        DeleteOption deleteOption = new DeleteOption();
-        if (!isOffline()) {
-            this.sendMessage(deleteOption.run(args));
-        } else {
-            System.out.println(deleteOption.run(args));
+        try {
+            DeleteOption deleteOption = new DeleteOption();
+            if (!isOffline()) {
+                this.sendMessage(deleteOption.run(args));
+            } else {
+                System.out.println(deleteOption.run(args));
+            }
+        } catch (NullPointerException e) {
+            if (!isOffline()) {
+                this.sendMessage(e.getMessage());
+            } else {
+                System.out.println(e.getMessage());
+            }
         }
+
     }
 }

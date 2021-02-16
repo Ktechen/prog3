@@ -46,15 +46,6 @@ public class TestRandomAccess {
         AtomicLong actual1 = new AtomicLong();
         AtomicLong actual2 = new AtomicLong();
 
-        randomAccess.getListOfAddresses().forEach((key, value) -> {
-            if (content.getAddress().equals(value)) {
-                actual1.set(key);
-            }
-
-            if (content2.getAddress().equals(value)) {
-                actual2.set(key);
-            }
-        });
 
         Assertions.assertEquals(0, actual1.get());
         Assertions.assertEquals(1, actual2.get());

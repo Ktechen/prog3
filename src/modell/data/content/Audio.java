@@ -22,11 +22,11 @@ public class Audio extends MediaContent implements modell.mediaDB.Audio, Seriali
      * @param duration     = duration
      * @param tags         = Collection<tag>
      * @param samplingRate = int
-     * @param endcoding    = string
+     * @param encoding    = string
      * @param uploader     = uploader
      * @Paramlength = 6
      */
-    public Audio(long bitrate, Duration duration, Collection<Tag> tags, int samplingRate, String endcoding, Uploader uploader) {
+    public Audio(long bitrate, Duration duration, Collection<Tag> tags, int samplingRate, String encoding, Uploader uploader) {
         super(tags, bitrate, duration);
 
         if (uploader == null) {
@@ -34,7 +34,7 @@ public class Audio extends MediaContent implements modell.mediaDB.Audio, Seriali
         }
 
         this.samplingRate = samplingRate;
-        this.endcoding = endcoding;
+        this.endcoding = encoding;
         this.uploader = uploader;
         this.date = new Date();
     }

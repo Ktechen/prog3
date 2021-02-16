@@ -3,6 +3,7 @@ package controller.event;
 import controller.event.events.commands.add.CommandAddEventsMedia;
 import controller.event.events.listener.add.ELAddMediafiles;
 import controller.handleInput.InputConverter;
+import modell.data.content.*;
 import modell.data.storage.Storage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -31,10 +32,11 @@ public class TestEventAdd {
         commandAddEventsMedia.eventInteractiveVideo(value);
 
         Assertions.assertEquals(1, Storage.getInstance().getMedia().size());
+        Assertions.assertTrue(Storage.getInstance().getMedia().get(0) instanceof InteractiveVideo);
     }
 
     @Test
-    public void testAddEventAudio(){
+    public void testAddEventAudio() {
         Storage.getInstance().clear();
         EventHandler<ELAddMediafiles> handler = new EventHandler();
         ELAddMediafiles elAddMediafiles = new ELAddMediafiles();
@@ -53,6 +55,105 @@ public class TestEventAdd {
         commandAddEventsMedia.eventAudio(value);
 
         Assertions.assertEquals(1, Storage.getInstance().getMedia().size());
+        Assertions.assertTrue(Storage.getInstance().getMedia().get(0) instanceof Audio);
+    }
+
+    @Test
+    public void testAddEventVideo() {
+        Storage.getInstance().clear();
+        EventHandler<ELAddMediafiles> handler = new EventHandler();
+        ELAddMediafiles elAddMediafiles = new ELAddMediafiles();
+        handler.add(elAddMediafiles);
+
+        final CommandAddEventsMedia commandAddEventsMedia = new CommandAddEventsMedia(new InputConverter(), handler);
+
+        String[] value = new String[7];
+        value[0] = "300";
+        value[1] = "300";
+        value[2] = "mix";
+        value[3] = "3043";
+        value[4] = "PT30m";
+        value[5] = "News";
+        value[6] = "KevinTechen";
+
+        commandAddEventsMedia.eventVideo(value);
+
+        Assertions.assertEquals(1, Storage.getInstance().getMedia().size());
+        Assertions.assertTrue(Storage.getInstance().getMedia().get(0) instanceof Video);
+    }
+
+    @Test
+    public void testAddEventAudioVideo() {
+        Storage.getInstance().clear();
+        EventHandler<ELAddMediafiles> handler = new EventHandler();
+        ELAddMediafiles elAddMediafiles = new ELAddMediafiles();
+        handler.add(elAddMediafiles);
+
+        final CommandAddEventsMedia commandAddEventsMedia = new CommandAddEventsMedia(new InputConverter(), handler);
+
+        String[] value = new String[8];
+        value[0] = "300";
+        value[1] = "300";
+        value[2] = "mix";
+        value[3] = "3043";
+        value[4] = "PT30m";
+        value[5] = "News";
+        value[6] = "KevinTechen";
+        value[7] = "3232";
+
+        commandAddEventsMedia.eventAudioVideo(value);
+
+        Assertions.assertEquals(1, Storage.getInstance().getMedia().size());
+        Assertions.assertTrue(Storage.getInstance().getMedia().get(0) instanceof AudioVideo);
+    }
+
+    @Test
+    public void testAddEventLicensedAudio() {
+        Storage.getInstance().clear();
+        EventHandler<ELAddMediafiles> handler = new EventHandler();
+        ELAddMediafiles elAddMediafiles = new ELAddMediafiles();
+        handler.add(elAddMediafiles);
+
+        final CommandAddEventsMedia commandAddEventsMedia = new CommandAddEventsMedia(new InputConverter(), handler);
+
+        String[] value = new String[7];
+        value[0] = "3043";
+        value[1] = "PT30m";
+        value[2] = "News";
+        value[3] = "3232";
+        value[4] = "F.B.I Gaming Studio";
+        value[5] = "KevinTechen";
+        value[6] = "Paul";
+
+        commandAddEventsMedia.eventLicenseAudio(value);
+
+        Assertions.assertEquals(1, Storage.getInstance().getMedia().size());
+        Assertions.assertTrue(Storage.getInstance().getMedia().get(0) instanceof LicensedAudio);
+    }
+
+    @Test
+    public void testAddEventLicensedVideo() {
+        Storage.getInstance().clear();
+        EventHandler<ELAddMediafiles> handler = new EventHandler();
+        ELAddMediafiles elAddMediafiles = new ELAddMediafiles();
+        handler.add(elAddMediafiles);
+
+        final CommandAddEventsMedia commandAddEventsMedia = new CommandAddEventsMedia(new InputConverter(), handler);
+
+        String[] value = new String[8];
+        value[0] = "300";
+        value[1] = "300";
+        value[2] = "mix";
+        value[3] = "3043";
+        value[4] = "PT30m";
+        value[5] = "News";
+        value[6] = "KevinTechen";
+        value[7] = "Paule";
+
+        commandAddEventsMedia.eventLicensedVideo(value);
+
+        Assertions.assertEquals(1, Storage.getInstance().getMedia().size());
+        Assertions.assertTrue(Storage.getInstance().getMedia().get(0) instanceof LicensedVideo);
     }
 
     @Test

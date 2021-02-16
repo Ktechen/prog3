@@ -34,7 +34,7 @@ public class ActionCRUD {
     }
 
     public void create(ActionEvent actionEvent, Label updateDisplay) {
-        String text = InputConverter.LICENSED_AUDIO_VIDEO_TEXT + "\n" + InputConverter.INTER_VIDEO_TEXT + " \n" + InputConverter.USER_TEXT;
+        String text = InputConverter.MEDIA_TEXT;
         MediaAlert mediaAlert = new MediaAlert("Create a Media File", text, "Media/Person:");
 
         if (mediaAlert.getButtonType() == ButtonType.CANCEL) {

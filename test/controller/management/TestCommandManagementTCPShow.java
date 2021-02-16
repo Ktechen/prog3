@@ -1,4 +1,4 @@
-package net.server.tcp;
+package controller.management;
 
 import controller.management.CommandManagementAdd;
 import org.junit.jupiter.api.BeforeEach;

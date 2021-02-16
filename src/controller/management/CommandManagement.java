@@ -33,6 +33,11 @@ public abstract class CommandManagement {
         return offline;
     }
 
+    /**
+     * Change Stream from DataInputStream to System.out Stream
+     *
+     * @param offline
+     */
     public void setOffline(boolean offline) {
         this.offline = offline;
     }

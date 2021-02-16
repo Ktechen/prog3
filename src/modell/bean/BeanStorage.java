@@ -27,6 +27,10 @@ public class BeanStorage implements Serializable {
         this.uploaders = new HashSet<>();
     }
 
+    /**
+     * Getter and Setter Required for Bean conversion
+     */
+
     public List<BeanItem> getMedia() {
         return media;
     }

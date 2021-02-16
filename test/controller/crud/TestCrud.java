@@ -92,7 +92,7 @@ public class TestCrud {
 
         Read read = new Read();
 
-        List<MediaContent> list = read.fullList();
+        List<String> list = read.fullList();
 
         Assertions.assertEquals(8, list.size());
     }
@@ -352,7 +352,7 @@ public class TestCrud {
         try {
             Read read = new Read();
 
-            List<MediaContent> videos = read.getFullListOrFilterbyTyp("InteractiveVideo");
+            List<String> videos = read.getFullListOrFilterbyTyp("InteractiveVideo");
         } catch (IllegalArgumentException e) {
             Assertions.fail();
         }
@@ -376,8 +376,8 @@ public class TestCrud {
 
         Read read = new Read();
 
-        List<MediaContent> l = read.getFullListOrFilterbyTyp(null);
-        List<MediaContent> r = read.getFullListOrFilterbyTyp("interactiveVideo");
+        List<String> l = read.getFullListOrFilterbyTyp(null);
+        List<String> r = read.getFullListOrFilterbyTyp("interactiveVideo");
 
         Assertions.assertNotEquals(l.size(), r.size());
     }

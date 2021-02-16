@@ -14,9 +14,9 @@ public class ELShowAll implements EventListener {
     public void onInputEvent(Event event) {
         Read read = new Read();
 
-        List<MediaContent> videos = read.getFullListOrFilterbyTyp(event.getText());
+        List<String> videos = read.getFullListOrFilterbyTyp(event.getText());
 
-        for (MediaContent video : videos) {
+        for (String video : videos) {
             System.out.println(video.toString());
         }
     }

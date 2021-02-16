@@ -1,6 +1,5 @@
 package controller.handleInput;
 
-import controller.cli.Keys;
 import controller.observer.observers.ObserverConsoleSize;
 import modell.data.content.*;
 import modell.mediaDB.Tag;
@@ -10,20 +9,18 @@ import java.lang.reflect.Constructor;
 import java.time.Duration;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Objects;
 
 public class InputConverter {
 
-    public final static String NAME = "name:";
-    public final static String LICENSED_AUDIO_VIDEO = "lav:";
-    public final static String LICENSED_AUDIO = "la:";
-    public final static String LICENSED_VIDEO = "lv:";
-    public final static String INTERACTIVE_VIDEO = "iv:";
-    public final static String AUDIO = "a:";
-    public final static String AUDIO_VIDEO = "av:";
-    public final static String VIDEO = "v:";
+    public final static String NAME = "name: ";
+    public final static String LICENSED_AUDIO_VIDEO = "lav: ";
+    public final static String LICENSED_AUDIO = "la: ";
+    public final static String LICENSED_VIDEO = "lv: ";
+    public final static String INTERACTIVE_VIDEO = "iv: ";
+    public final static String AUDIO = "a: ";
+    public final static String AUDIO_VIDEO = "av: ";
+    public final static String VIDEO = "v: ";
 
     public final static String MEDIA_CONTENT = "mc:";
 
@@ -34,6 +31,13 @@ public class InputConverter {
     public final int LICENSED_VIDEO_LENGTH;
     public final int LICENSED_AUDIO_VIDEO_LENGTH;
     public final int INTERACTIVE_VIDEO_LENGTH;
+
+    public static final String SAVE_JOS = "File was save by JOS";
+    public static final String LOAD_JOS = "File was loaded by JOS";
+    public static final String SAVE_JBP = "File was save by JBP";
+    public static final String LOAD_JBP = "File was loaded by JBP";
+    public static final String SAVE_RANDOM_ACCESS = "File was save by Random Access";
+    public static final String LOAD_RANDOM_ACCESS = "File was Load by Random Access";
 
     public final static String SHOW_ALL = "1. Showall or filter\n";
     public final static String SHOW_PER_INDEX = "2. User per Index \n";
@@ -59,19 +63,19 @@ public class InputConverter {
             "(int width, int height, String encoding, long bitrate, Duration length, " +
             "Collection<Tag> tag, Person person, String type)\n";
 
-    public final static String AUDIO_TEXT = usedTag + Audio.class.getSimpleName() +
-            "int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tags, Uploader uploader)\n";
+    public final static String AUDIO_TEXT = usedTag + AUDIO + Audio.class.getSimpleName() +
+            "(long bitrate, Duration duration, Collection<Tag> tags, int samplingRate, String encoding, Uploader uploader)\n";
 
-    public final static String AUDIO_VIDEO_TEXT = usedTag + AudioVideo.class.getSimpleName() +
+    public final static String AUDIO_VIDEO_TEXT = usedTag + AUDIO_VIDEO + AudioVideo.class.getSimpleName() +
             "(int width, int height, String encoding, long bitrate, Duration duration, Collection<Tag> tags, Uploader uploader, int samplingRate)\n";
 
-    public final static String VIDEO_TEXT = usedTag + Video.class.getSimpleName() +
+    public final static String VIDEO_TEXT = usedTag + VIDEO + Video.class.getSimpleName() +
             "(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tags, Uploader uploader)\n";
 
-    public final static String LICENSED_VIDEO_TEXT = usedTag + LicensedVideo.class.getSimpleName() +
+    public final static String LICENSED_VIDEO_TEXT = usedTag + LICENSED_VIDEO + LicensedVideo.class.getSimpleName() +
             "(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tags, Uploader uploader, String holder)\n";
 
-    public final static String LICENSED_AUDIO_TEXT = usedTag + LicensedAudio.class.getSimpleName() +
+    public final static String LICENSED_AUDIO_TEXT = usedTag + LICENSED_AUDIO + LicensedAudio.class.getSimpleName() +
             "(long bitrate, Duration duration, Collection<Tag> tags, int samplingRate, String encoding, Uploader uploader, String holder)\n";
 
     public final static String USER_TEXT = usedTag + NAME + " [Produzentenname] fügt einen Produzentein\n";
@@ -85,12 +89,12 @@ public class InputConverter {
             + LICENSED_VIDEO_TEXT
             + LICENSED_AUDIO_TEXT;
 
-    public final static String MAIN_TEXT = "\n" + Keys.ADD.get() + " Wechsel in den Einfügemodus\n" +
-            Keys.SHOW.get() + " - Wechsel in den Anzeigemodus\n" +
-            Keys.DELETE.get() + " - Wechsel in den Löschmodus\n" +
-            Keys.CHANGE.get() + " - Wechsel in den Änderungsmodus\n" +
-            Keys.CONFIG.get() + " - Wechsel in den Konfigurationsmodus\n" +
-            Keys.PERSISTENCE.get() + " - Wechsel in den Persistenzmodus\n" +
+    public final static String MAIN_TEXT = "\n" + ":c Wechsel in den Einfügemodus\n" +
+            ":d Wechsel inden Löschmodus\n" +
+            ":r Wechsel in den Anzeigemodus\n" +
+            ":u Wechsel in den Änderungsmodus\n" +
+            ":p Wechsel in den Persistenzmodus\n" +
+            ":config Wechsel in den Konfigurationsmodus\n" +
             ":back - Show default view\n";
 
     public final static String CONFIG_ADD_TEXT = "add [Klassenname]";
@@ -120,7 +124,7 @@ public class InputConverter {
         AUDIO_VIDEO_LENGTH = this.getParameter(AudioVideo.class);
         VIDEO_LENGTH = this.getParameter(Video.class);
         LICENSED_AUDIO_LENGTH = this.getParameter(LicensedAudio.class);
-        LICENSED_VIDEO_LENGTH = this.getParameter(LicensedAudioVideo.class);
+        LICENSED_VIDEO_LENGTH = this.getParameter(LicensedVideo.class);
     }
 
     private void checkArray(String[] value) {

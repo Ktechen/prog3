@@ -37,36 +37,36 @@ final class CreateController implements CommandController {
         this.commandAddEventsUploader = new CommandAddEventsUploader(new InputConverter(), handleUploader);
     }
 
-    public final void person(String[] value) {
+    final void person(String[] value) {
         String lic = new InputConverter().convertedUploader(value);
         this.commandAddEventsUploader.eventUser(lic);
     }
 
-    public final void licensedAudioVideo(String[] value) {
+    final void licensedAudioVideo(String[] value) {
         this.commandAddEventsMedia.eventLicenseAudioVideo(value);
     }
 
-    public final void interactiveVideo(String[] value) {
+    final void interactiveVideo(String[] value) {
         this.commandAddEventsMedia.eventInteractiveVideo(value);
     }
 
-    public final void audio(String[] value) {
+    final void audio(String[] value) {
         this.commandAddEventsMedia.eventAudio(value);
     }
 
-    public final void audioVideo(String[] value) {
+    final void audioVideo(String[] value) {
         this.commandAddEventsMedia.eventAudioVideo(value);
     }
 
-    public final void video(String[] value) {
+    final void video(String[] value) {
         this.commandAddEventsMedia.eventVideo(value);
     }
 
-    public final void licensedAudio(String[] value) {
+    final void licensedAudio(String[] value) {
         this.commandAddEventsMedia.eventLicenseAudio(value);
     }
 
-    public void licensedVideo(String[] value) {
+    void licensedVideo(String[] value) {
         this.commandAddEventsMedia.eventLicensedVideo(value);
     }
 }

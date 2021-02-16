@@ -46,7 +46,7 @@ public class CommandManagementUpdate extends CommandManagement implements Comman
             if (!isOffline()) {
                 this.sendMessage(e.getMessage());
             } else {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }
         }
     }

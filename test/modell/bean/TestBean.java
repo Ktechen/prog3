@@ -32,30 +32,42 @@ public class TestBean {
                 new Person("Kevin"), "Mix"
         );
 
-        create.interactiveVideo(
+        create.video(
                 300, 300,
                 "Mix", 3983,
                 Duration.parse("PT20m"), tagCollection,
-                new Person("Amadeus"), "Mix"
+                new Person("Amadeus")
         );
-        create.interactiveVideo(
+
+        create.licensedVideo(
                 300, 300,
                 "Mix", 3983,
                 Duration.parse("PT20m"), tagCollection,
-                new Person("Rudi das Rüsselschwein"), "Mix"
+                new Person("Rudi das Rüsselschwein"), "Peter Uwe"
         );
-        create.interactiveVideo(
+
+        create.licensedAudioVideo(
                 300, 300,
                 "Mix", 3983,
                 Duration.parse("PT20m"), tagCollection,
-                new Person("Kevin"), "Mix"
+                new Person("Kevin"), "Mix", 2323
         );
-        create.interactiveVideo(
+
+        create.audio(
+                300, Duration.parse("PT20m"), tagCollection, 3232, "mix", new Person("Bieber")
+        );
+
+        create.licensedAudio(
+                300, Duration.parse("PT20m"), tagCollection, 3232, "mix", new Person("Bieber"), "Reiner"
+        );
+
+        create.audioVideo(
                 300, 300,
                 "Mix", 3983,
                 Duration.parse("PT20m"), tagCollection,
-                new Person("Peter"), "Mix"
+                new Person("Amadeus"), 31231
         );
+
     }
 
     @Test
@@ -63,8 +75,9 @@ public class TestBean {
         BeanStorage beanStorage = new BeanStorage();
         beanStorage.addToMediaList();
         beanStorage.addToUploaderList();
-        Assertions.assertEquals(5, beanStorage.getMedia().size());
+        Assertions.assertEquals(7, beanStorage.getMedia().size());
         Assertions.assertEquals(4, beanStorage.getUploaders().size());
     }
+
 
 }

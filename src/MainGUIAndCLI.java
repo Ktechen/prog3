@@ -1,15 +1,10 @@
 import controller.ParallelTasks;
-import controller.cli.commands.CommandMain;
+import controller.cli.CommandMain;
 import controller.gui.delegate.view.ActionMainWindow;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 
 public class MainGUIAndCLI extends Application {
@@ -37,7 +32,5 @@ public class MainGUIAndCLI extends Application {
     public void start(Stage stage) throws Exception {
         new ActionMainWindow().run(stage);
     }
-
-
 }
 

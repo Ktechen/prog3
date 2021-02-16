@@ -51,7 +51,7 @@ public class Read {
      *
      * @return
      */
-    public List<MediaContent> fullList() {
+    public List<String> fullList() {
         return storage.getMedia();
     }
 
@@ -61,16 +61,10 @@ public class Read {
      * @param filter
      * @return
      */
-    public List<MediaContent> getFullListOrFilterbyTyp(String filter) {
+    public List<String> getFullListOrFilterbyTyp(String filter) {
 
         if (filter == null) {
             return fullList();
-        }
-
-        if(filter.compareTo("Anzahl") == 0){
-            //TODO FILTER
-        }else if(filter.compareTo("Upload") == 0){
-
         }
 
         LinkedList<MediaContent> list = new LinkedList<>();
@@ -81,7 +75,14 @@ public class Read {
             }
         }
 
-        return list;
+        //prepare for gefiltert nach Typ 1-mit Abrufadresse, Upload-Datumund Anzahl der Abrufe
+
+        LinkedList<String> result = new LinkedList<>();
+        for (MediaContent content : list) {
+            result.add("Abrufadresse: " + content.getAddress() + " | Anzahl der Abrufe:" + content.getAccessCount() + " | Upload-Datum:" + ((Uploadable) content).getUploadDate());
+        }
+
+        return result;
     }
 
     /**

@@ -12,14 +12,12 @@ import java.util.Map;
 
 public class RandomAccessHandle {
 
-    Object[] convertFromBytes(byte[] bytes) {
+    Object convertFromBytes(byte[] bytes) {
         ObjectInputStream in = null;
         try (ByteArrayInputStream bis = new ByteArrayInputStream(bytes)) {
             //Catch seeker number
             in = new ObjectInputStream(bis);
-            Object[] o = new Object[2];
-            o[0] = in.readObject();
-            o[1] = in.readObject();
+            Object o = in.readObject();
             return o;
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

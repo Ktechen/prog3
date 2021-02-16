@@ -117,4 +117,25 @@ public class TestJBP {
         file.delete();
     }
 
+    @Test
+    public void testJBPSaveAllTypesOfMedia() {
+        Storage.getInstance().clear();
+        String filename = "test12356.xml";
+        File file = new File(JBP.PATH + filename);
+        JBP jbp = new JBP(filename);
+
+
+        final Collection<Tag> t = new LinkedList<>();
+        final Duration d = Duration.ofSeconds(2000);
+
+        t.add(Tag.Lifestyle);
+        t.add(Tag.Animal);
+
+        final Create create = new Create();
+        create.interactiveVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Tdas");
+        create.audioVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), 2323);
+        create.video(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"));
+        create.licensedVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Holder");
+
+    }
 }

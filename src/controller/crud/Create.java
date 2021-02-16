@@ -21,7 +21,7 @@ public class Create implements Observable {
     private final Read read = new Read();
     private static List<Observer> list;
     private BigDecimal capacity;
-    private Validierung validierung;
+    private Validated validated;
 
     public BigDecimal getCapacity() {
         return capacity;
@@ -40,7 +40,7 @@ public class Create implements Observable {
     public Create() {
         this.storage = Storage.getInstance();
         this.capacity = new BigDecimal(0);
-        this.validierung = new Validierung();
+        this.validated = new Validated();
 
         if (null == list) {
             list = new LinkedList<>();
@@ -49,8 +49,8 @@ public class Create implements Observable {
 
     public void interactiveVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Uploader person, String type) throws NullPointerException, NumberFormatException {
         synchronized (this.storage) {
-            this.validierung.isStringNotNull(type);
-            this.validierung.isVideoValid(width, height, bitrate, encoding);
+            this.validated.isStringNotNull(type, Validated.TYPE_MSG);
+            this.validated.isVideoValid(width, height, bitrate, encoding);
 
             this.capacity = BigDecimal.valueOf(width).multiply(BigDecimal.valueOf(height));
             InteractiveVideo video = new InteractiveVideo(width, height, encoding, bitrate, length, tag, person, type);
@@ -58,11 +58,11 @@ public class Create implements Observable {
         }
     }
 
-    public void licensedAudioVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Uploader person, String holder, int samplingRate) {
+    public void licensedAudioVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tag, Uploader person, String holder, int samplingRate) throws NullPointerException, NumberFormatException {
         synchronized (this.storage) {
-            this.validierung.isStringNotNull(holder);
-            this.validierung.isIntegerBiggerThanZero(samplingRate);
-            this.validierung.isVideoValid(width, height, bitrate, encoding);
+            this.validated.isStringNotNull(holder, Validated.HOLDER_MSG);
+            this.validated.isIntegerBiggerThanZero(samplingRate, Validated.SAMPLING_MSG);
+            this.validated.isVideoValid(width, height, bitrate, encoding);
 
             LicensedAudioVideo video = new LicensedAudioVideo(width, height, encoding, bitrate, length, tag, person, samplingRate, holder);
             this.capacity = BigDecimal.valueOf(width).multiply(BigDecimal.valueOf(height));
@@ -70,9 +70,9 @@ public class Create implements Observable {
         }
     }
 
-    public void audio(long bitrate, Duration duration, Collection<Tag> tags, int samplingRate, String encoding, Uploader uploader) {
+    public void audio(long bitrate, Duration duration, Collection<Tag> tags, int samplingRate, String encoding, Uploader uploader) throws NullPointerException, NumberFormatException {
         synchronized (this.storage) {
-            this.validierung.isAudioValid(bitrate, samplingRate, encoding);
+            this.validated.isAudioValid(bitrate, samplingRate, encoding);
 
             Audio audio = new Audio(bitrate, duration, tags, samplingRate, encoding, uploader);
             this.capacity = BigDecimal.valueOf(bitrate);
@@ -80,9 +80,9 @@ public class Create implements Observable {
         }
     }
 
-    public void video(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tags, Uploader uploader) {
+    public void video(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tags, Uploader uploader) throws NullPointerException, NumberFormatException {
         synchronized (this.storage) {
-            this.validierung.isVideoValid(width, height, bitrate, encoding);
+            this.validated.isVideoValid(width, height, bitrate, encoding);
 
             Video video = new Video(width, height, encoding, bitrate, length, tags, uploader);
             this.capacity = BigDecimal.valueOf(width).multiply(BigDecimal.valueOf(height));
@@ -90,10 +90,10 @@ public class Create implements Observable {
         }
     }
 
-    public void audioVideo(int width, int height, String encoding, long bitrate, Duration duration, Collection<Tag> tags, Uploader uploader, int samplingRate) {
+    public void audioVideo(int width, int height, String encoding, long bitrate, Duration duration, Collection<Tag> tags, Uploader uploader, int samplingRate) throws NullPointerException, NumberFormatException {
         synchronized (this.storage) {
-            this.validierung.isIntegerBiggerThanZero(samplingRate);
-            this.validierung.isVideoValid(width, height, bitrate, encoding);
+            this.validated.isIntegerBiggerThanZero(samplingRate, Validated.SAMPLING_MSG);
+            this.validated.isVideoValid(width, height, bitrate, encoding);
 
             AudioVideo audioVideo = new AudioVideo(width, height, encoding, bitrate, duration, tags, uploader, samplingRate);
             this.capacity = BigDecimal.valueOf(width).multiply(BigDecimal.valueOf(height));
@@ -101,9 +101,9 @@ public class Create implements Observable {
         }
     }
 
-    public void licensedAudio(long bitrate, Duration duration, Collection<Tag> tags, int samplingRate, String encoding, Uploader uploader, String holder) {
+    public void licensedAudio(long bitrate, Duration duration, Collection<Tag> tags, int samplingRate, String encoding, Uploader uploader, String holder) throws NullPointerException, NumberFormatException {
         synchronized (this.storage) {
-            this.validierung.isAudioValid(bitrate, samplingRate, encoding);
+            this.validated.isAudioValid(bitrate, samplingRate, encoding);
 
             LicensedAudio licensedAudio = new LicensedAudio(bitrate, duration, tags, samplingRate, encoding, uploader, holder);
             this.capacity = BigDecimal.valueOf(bitrate);
@@ -111,10 +111,10 @@ public class Create implements Observable {
         }
     }
 
-    public void licensedVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tags, Uploader uploader, String holder) {
+    public void licensedVideo(int width, int height, String encoding, long bitrate, Duration length, Collection<Tag> tags, Uploader uploader, String holder) throws NullPointerException, NumberFormatException {
         synchronized (this.storage) {
-            this.validierung.isStringNotNull(holder);
-            this.validierung.isVideoValid(width, height, bitrate, encoding);
+            this.validated.isStringNotNull(holder, Validated.HOLDER_MSG);
+            this.validated.isVideoValid(width, height, bitrate, encoding);
 
             LicensedVideo licensedVideo = new LicensedVideo(width, height, encoding, bitrate, length, tags, uploader, holder);
             this.capacity = BigDecimal.valueOf(width).multiply(BigDecimal.valueOf(height));
@@ -137,7 +137,7 @@ public class Create implements Observable {
 
     private <T extends Uploadable & MediaContent> void infoParameter(T t) {
         read.tagFinder(t.getTags());
-        this.validierung.checkSize(t.getSize());
+        this.validated.checkSize(t.getSize());
     }
 
     private void executeParameter() {

@@ -49,9 +49,9 @@ final class ShowController implements CommandController {
         elShowAllEventHandler.add(event -> {
             final Read read = new Read();
 
-            List<MediaContent> videos = read.getFullListOrFilterbyTyp(event.getText());
+            List<String> videos = read.getFullListOrFilterbyTyp(event.getText());
 
-            for (MediaContent video : videos) {
+            for (String video : videos) {
                 stringBuffer.append(video.toString()).append("\n");
             }
         });

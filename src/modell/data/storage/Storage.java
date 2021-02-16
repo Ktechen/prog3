@@ -8,6 +8,8 @@ import java.util.*;
 
 public class Storage<T extends Uploadable & MediaContent, E extends Uploader> implements Serializable {
 
+    //TODO Refactor for better overview
+
     private List<T> media;
     private Set<E> person;
     private HashMap<String, Long> countOfUse;
@@ -83,7 +85,7 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
     }
 
     public boolean addMedia(T video) {
-        synchronized (Storage.class) {
+        synchronized (this) {
 
             if (video != null) {
                 this.media.add(video);

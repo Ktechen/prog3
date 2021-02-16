@@ -31,11 +31,12 @@ public class CommandManagementConfig extends CommandManagement implements Comman
         this.handleArgs(this.getMessage().toString());
     }
 
+
+    //TODO Nur ein Observer wird benötigt
+
     @Override
     public void handleArgs(String args) throws IOException {
         final Create create = new Create();
-
-        //TODO ONLY FOR NOT NETWORK CLI
 
         if (args.indexOf("add") == 0) {
             create.join(new ObserverConsoleSize(create));

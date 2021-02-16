@@ -28,10 +28,10 @@ public class CommandShowEvents extends CommandEvent {
         EventListener eventListener = event -> {
             final Read read = new Read();
 
-            List<MediaContent> videos = read.getFullListOrFilterbyTyp(event.getText());
+            List<String> videos = read.getFullListOrFilterbyTyp(event.getText());
 
-            for (MediaContent video : videos) {
-                stringBuffer.append(video.toString() + "\n");
+            for (String video : videos) {
+                stringBuffer.append(video).append("\n");
             }
         };
 

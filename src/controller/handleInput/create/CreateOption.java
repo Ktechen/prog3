@@ -1,7 +1,6 @@
 package controller.handleInput.create;
 
 import controller.handleInput.InputConverter;
-import jdk.internal.util.xml.impl.Input;
 
 /**
  * Handle die Eingabe vom Benutzer
@@ -75,7 +74,6 @@ public final class CreateOption {
             default:
                 throw new NullPointerException("Selected element no found");
         }
-        //TODO ADD ALL MEDIA
     }
 
 }

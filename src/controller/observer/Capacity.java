@@ -28,16 +28,8 @@ public class Capacity {
         return max;
     }
 
-    public BigDecimal getProcent() {
-        return procent;
-    }
-
     public BigDecimal getCheckValue() {
         return checkValue;
-    }
-
-    public BigDecimal getCapacity() {
-        return capacity;
     }
 
     public Capacity() {

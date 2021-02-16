@@ -1,13 +1,9 @@
-package controller.cli.commands;
+package controller.cli;
 
-import controller.cli.Console;
-import controller.cli.commands.options.CommandShow;
-import controller.crud.Create;
 import controller.handleInput.InputConverter;
 import controller.management.*;
-import controller.observer.observers.ObserverConsoleSize;
 
-import java.io.*;
+import java.io.IOException;
 
 
 public class CommandMain implements Command {
@@ -67,7 +63,7 @@ public class CommandMain implements Command {
                 this.commandManagementShow.handleArgs(this.console.input("----------"));
                 break;
             case ":d":
-                System.out.println(CommandManagementDefault.SEND_MSG);
+                System.out.println(CommandManagementDelete.SEND_MSG);
                 this.commandManagementDelete.handleArgs(this.console.input("----------"));
                 break;
             case ":u":
