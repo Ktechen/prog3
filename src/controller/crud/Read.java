@@ -145,24 +145,4 @@ public class Read {
         }
     }
 
-    @Deprecated
-    public boolean isPersonCreated(String name) {
-        return this.storage.getPerson().contains(name);
-    }
-
-    @Deprecated
-    public Uploader foundPerson(String name) {
-
-        Uploader person = null;
-        Set<Uploader> uploaderSet = this.storage.getPerson();
-
-        for (Uploader uploader : uploaderSet) {
-            if (name.compareTo(uploader.getName()) == 0) {
-                person = uploader;
-            }
-        }
-
-        return person;
-    }
-
 }

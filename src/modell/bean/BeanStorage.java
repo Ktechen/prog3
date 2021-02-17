@@ -125,7 +125,6 @@ public class BeanStorage implements Serializable {
         bean.encoding = o.getEncoding();
         bean.height = o.getHeight();
         bean.width = o.getWidth();
-        bean.size = o.getSize();
         bean.tags = o.getTags();
         bean.uploader = o.getUploader().toString();
 
@@ -159,7 +158,6 @@ public class BeanStorage implements Serializable {
         bean.length = o.getLength().toString();
         bean.encoding = o.getEncoding();
         bean.holder = o.getHolder();
-        bean.size = o.getSize();
         bean.samplingRate = o.getSamplingRate();
         bean.tags = o.getTags();
         bean.uploader = o.getUploader().getName();
@@ -179,7 +177,7 @@ public class BeanStorage implements Serializable {
         bean.encoding = o.getEncoding();
         bean.height = o.getHeight();
         bean.width = o.getWidth();
-        bean.size = o.getSize();
+        bean.length = o.getLength().toString();
 
         this.media.add(bean);
     }
@@ -214,7 +212,6 @@ public class BeanStorage implements Serializable {
         bean.width = o.getWidth();
         bean.samplingRate = o.getSamplingRate();
         bean.uploader = o.getUploader().toString();
-        bean.size = o.getSize();
 
         this.media.add(bean);
     }
@@ -227,7 +224,6 @@ public class BeanStorage implements Serializable {
         bean.date = o.getUploadDate();
         bean.length = o.getLength().toString();
         bean.encoding = o.getEncoding();
-        bean.size = o.getSize();
         bean.tags = o.getTags();
         bean.uploader = o.getUploader().getName();
         bean.samplingRate = o.getSamplingRate();

@@ -26,8 +26,7 @@ public class ObserverConsoleTags implements Observer {
 
     @Override
     public void update() {
-        final Read read = new Read();
-        HashMap<String, Boolean> readMap = read.getFindedTags();
+        HashMap<String, Boolean> readMap = this.observable.getTags();
         Object[] elem = readMap.values().toArray();
 
         boolean[] temp = new boolean[Tag.values().length];

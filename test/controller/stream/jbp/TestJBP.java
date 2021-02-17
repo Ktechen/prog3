@@ -2,24 +2,22 @@ package controller.stream.jbp;
 
 import controller.crud.Create;
 import controller.crud.Update;
-import modell.bean.BeanItemInteractiveVideo;
-import modell.bean.BeanStorage;
+import javafx.beans.property.StringProperty;
 import modell.data.content.Person;
 import modell.data.storage.Storage;
 import modell.mediaDB.InteractiveVideo;
 import modell.mediaDB.MediaContent;
 import modell.mediaDB.Tag;
-import org.junit.jupiter.api.*;
-import org.mockito.Mockito;
-import sun.java2d.pipe.AAShapePipe;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.net.SocketTimeoutException;
 import java.time.Duration;
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 public class TestJBP {
 
@@ -118,12 +116,11 @@ public class TestJBP {
     }
 
     @Test
-    public void testJBPSaveAllTypesOfMedia() {
+    public void testJBPSaveAllTypesOfMediaAndCheckTheyAreInStorage() {
         Storage.getInstance().clear();
-        String filename = "test12356.xml";
-        File file = new File(JBP.PATH + filename);
-        JBP jbp = new JBP(filename);
-
+        final String filename = "test1235633.xml";
+        final File file = new File(JBP.PATH + filename);
+        final JBP jbp = new JBP(filename);
 
         final Collection<Tag> t = new LinkedList<>();
         final Duration d = Duration.ofSeconds(2000);
@@ -136,6 +133,17 @@ public class TestJBP {
         create.audioVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), 2323);
         create.video(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"));
         create.licensedVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Holder");
+        create.audio(300, Duration.parse("PT20m"), t, 3232, "mix", new Person("Kevin Power"));
+        create.licensedAudio(300, Duration.parse("PT20m"), t, 3232, "mix", new Person("Kevin Power"), "Peter");
+        create.licensedAudioVideo(100, 400, "edcs", 9174, d, t, new Person("Tim Porsche"), "Holder", 23232);
 
+        jbp.save();
+        jbp.load();
+
+        //Add as Duplication
+        Assertions.assertEquals(14, Storage.getInstance().getMedia().size());
+
+        file.delete();
     }
+
 }

@@ -14,7 +14,6 @@ public class BeanItemVideo implements Serializable, BeanItem {
     public Collection<Tag> tags;
     public String length;
     public long bitrate;
-    public BigDecimal size;
     public long accessCount;
     public String address;
     public int width;

@@ -44,22 +44,6 @@ public class TestEventShow {
     }
 
     @Test
-    public void filterByNull() {
-        CommandShowEvents commandShowEvents = new CommandShowEvents(new InputConverter(), new EventHandler<>());
-        StringBuffer stringBuffer = commandShowEvents.eventShowAll(null);
-        Assertions.assertTrue(stringBuffer.length() != 0);
-        Assertions.assertEquals(2181, stringBuffer.length());
-    }
-
-    @Test
-    public void filterByInteractiveVideo() {
-        CommandShowEvents commandShowEvents = new CommandShowEvents(new InputConverter(), new EventHandler<>());
-        StringBuffer stringBuffer = commandShowEvents.eventShowAll(InteractiveVideo.class.getSimpleName());
-        Assertions.assertTrue(stringBuffer.length() != 0);
-        Assertions.assertEquals(2181, stringBuffer.length());
-    }
-
-    @Test
     public void filterByNoTyps() {
         CommandShowEvents commandShowEvents = new CommandShowEvents(new InputConverter(), new EventHandler<>());
         StringBuffer stringBuffer = commandShowEvents.eventShowAll(Audio.class.getSimpleName());

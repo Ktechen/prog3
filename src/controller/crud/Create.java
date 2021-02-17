@@ -12,6 +12,7 @@ import modell.mediaDB.Uploader;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,12 +20,19 @@ public class Create implements Observable {
 
     private final Storage storage;
     private final Read read = new Read();
+
     private static List<Observer> list;
     private BigDecimal capacity;
+    private HashMap<String, Boolean> tags;
+
     private Validated validated;
 
     public BigDecimal getCapacity() {
         return capacity;
+    }
+
+    public HashMap<String, Boolean> getTags() {
+        return new HashMap<>(tags);
     }
 
     public static List<Observer> getList() {
@@ -136,8 +144,9 @@ public class Create implements Observable {
     }
 
     private <T extends Uploadable & MediaContent> void infoParameter(T t) {
-        read.tagFinder(t.getTags());
+        this.read.tagFinder(t.getTags());
         this.validated.checkSize(t.getSize());
+        this.tags = read.getFindedTags();
     }
 
     private void executeParameter() {

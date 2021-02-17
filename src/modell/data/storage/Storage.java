@@ -56,23 +56,13 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
      */
     public static final transient String TYPE_OF_SOURCE = "FILE:///";
 
-    public synchronized List<T> getMedia() {
-        return new LinkedList<>(this.media);
-    }
-
-    public synchronized List<MediaContent> getMediaAsMediaContent() {
-        return new LinkedList<>(this.media);
-    }
+    public synchronized List<T> getMedia() { return new LinkedList<>(this.media); }
 
     public synchronized void setMedia(List<T> media) {
         this.media = media;
     }
 
     public synchronized HashSet<E> getPerson() {
-        return new HashSet<>(this.person);
-    }
-
-    public synchronized HashSet<Uploader> getPersonAsUploader() {
         return new HashSet<>(this.person);
     }
 
@@ -96,11 +86,6 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
 
             return false;
         }
-    }
-
-    public boolean removeMedia(Object o) {
-        this.media.remove(o);
-        return true;
     }
 
     public boolean removeAllVideo(Collection<?> o) {
@@ -130,39 +115,6 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
         }
 
         return false;
-    }
-
-    public synchronized int personSize(String name) {
-
-        int counter = 0;
-
-        for (Uploader person : person) {
-            if (person.getName().compareTo(name) == 0) {
-                synchronized (this) {
-                    counter = +1;
-                }
-            }
-        }
-
-        return counter;
-    }
-
-    public boolean removePerson(int index) {
-        synchronized (this) {
-            if (index > person.size()) {
-                return false;
-            }
-            try {
-                this.person.remove(index);
-            } catch (IndexOutOfBoundsException e) {
-                //System.out.println("Index: " + index + "| Size " + getMedia().size());
-                e.printStackTrace();
-            }
-
-            this.notify();
-        }
-
-        return true;
     }
 
     public synchronized boolean removeAllPerson(Collection<?> o) {
