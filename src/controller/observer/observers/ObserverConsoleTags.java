@@ -1,13 +1,11 @@
 package controller.observer.observers;
 
 import controller.crud.Create;
-import controller.crud.Read;
 import controller.observer.Observer;
 import modell.mediaDB.Tag;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ObserverConsoleTags implements Observer {
 
@@ -45,4 +43,5 @@ public class ObserverConsoleTags implements Observer {
 
         this.init = temp;
     }
+
 }

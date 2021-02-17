@@ -15,17 +15,17 @@ public abstract class CommandManagement {
      * @param in
      * @param out
      */
-    public CommandManagement(DataInputStream in, DataOutputStream out) {
+    CommandManagement(DataInputStream in, DataOutputStream out) {
         this.in = in;
         this.out = out;
     }
 
-    public void sendMessage(String msg) throws IOException {
+    void sendMessage(String msg) throws IOException {
         this.out.writeUTF(msg);
         this.out.flush();
     }
 
-    public String getMessage() throws IOException {
+    String getMessage() throws IOException {
         return this.in.readUTF();
     }
 

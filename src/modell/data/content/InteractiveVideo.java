@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 
 public class InteractiveVideo extends Video implements modell.mediaDB.InteractiveVideo, Serializable {
 

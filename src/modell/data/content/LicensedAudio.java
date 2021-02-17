@@ -3,10 +3,8 @@ package modell.data.content;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploader;
 
-import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.Collection;
-import java.util.Date;
 
 public class LicensedAudio extends Audio implements modell.mediaDB.LicensedAudio {
 

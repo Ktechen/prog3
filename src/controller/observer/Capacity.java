@@ -10,9 +10,10 @@ public class Capacity {
     private BigDecimal procent;
     private BigDecimal checkValue;
 
-
     /**
-     * (2000height * 2000 weight) / 8 = 450.000
+     * (2000height * 2000 weight) / 8 = 500.000 = byte
+     * 500.000 / 1024 = 488,28125 =  Kibibyte
+     * (10 x 488,28125 = 4.882,8125 10 Medias)
      * <p>
      * 500.000      x
      * -------  --------

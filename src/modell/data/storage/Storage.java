@@ -15,6 +15,29 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
     private HashMap<String, Long> countOfUse;
     private HashMap<String, Boolean> usedTags;
 
+    /**
+     * Video: (2000height * 2000 weight) / 8 = 500.000 = byte
+     * 500.000 / 1024 = 488,28125 =  Kibibyte
+     * (10 x 488,28125 = 4.882,8125 10 Medias)
+     * <p>
+     * Audio: Bitrate only
+     */
+    private final double DEFAULT_SIZE = 4882.8125;
+    private BigDecimal maxSize = new BigDecimal(DEFAULT_SIZE);
+    private BigDecimal currentSize;
+
+    public BigDecimal getCurrentSize() {
+        return currentSize;
+    }
+
+    public BigDecimal getMaxSize() {
+        return maxSize;
+    }
+
+    public void setMaxSize(BigDecimal maxSize) {
+        this.maxSize = maxSize;
+    }
+
     private Storage() {
         this.media = new LinkedList<>();
         this.person = new HashSet<>();
@@ -56,7 +79,9 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
      */
     public static final transient String TYPE_OF_SOURCE = "FILE:///";
 
-    public synchronized List<T> getMedia() { return new LinkedList<>(this.media); }
+    public synchronized List<T> getMedia() {
+        return new LinkedList<>(this.media);
+    }
 
     public synchronized void setMedia(List<T> media) {
         this.media = media;
@@ -79,6 +104,7 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
 
             if (video != null) {
                 this.media.add(video);
+                this.currentSize.add(video.getSize());
                 this.initCounter(video.getAddress());
                 System.out.println(video.getAddress());
                 return true;

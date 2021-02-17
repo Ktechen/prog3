@@ -85,19 +85,22 @@ public class ViewController<T> implements Initializable {
 
     public ViewController() {
         this.actionCRUD = new ActionCRUD();
+        this.actionCRUD.join(this::updateAllLists);
+
         this.actionSort = new ActionSort();
         this.actionWindow = new ActionWindow();
         this.actionDebug = new ActionDebug();
         this.storage = Storage.getInstance();
         this.viewModel = new ViewModel();
 
+
         //TODO Databinding wäre besser
         /**
          https://www.java-forum.org/thema/automatisches-aktualisieren-der-seite.184880/
          */
         //Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> updateAllLists()));
-        // timeline.setCycleCount(Timeline.INDEFINITE);
-        // timeline.play();
+        //timeline.setCycleCount(Timeline.INDEFINITE);
+        //timeline.play();
     }
 
     /**

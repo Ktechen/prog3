@@ -3,7 +3,6 @@ package controller.event.events.commands.delete;
 import controller.event.EventHandler;
 import controller.event.events.commands.CommandEvent;
 import controller.event.events.event.delete.EventDeletePerAddress;
-import controller.event.events.listener.delete.ELDeleteVideoPerAdress;
 import controller.handleInput.InputConverter;
 
 public class CommandDeleteEventAddress extends CommandEvent {

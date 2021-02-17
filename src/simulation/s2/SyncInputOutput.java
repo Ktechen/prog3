@@ -8,7 +8,6 @@ import modell.mediaDB.Tag;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 
 /**
  * https://www.baeldung.com/java-wait-notify

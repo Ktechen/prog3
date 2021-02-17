@@ -1,6 +1,9 @@
 import controller.ParallelTasks;
 import controller.cli.CommandMain;
+import controller.crud.Create;
 import controller.gui.delegate.view.ActionMainWindow;
+import controller.observer.observers.ObserverConsoleSize;
+import controller.observer.observers.ObserverConsoleTags;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -12,6 +15,9 @@ public class MainGUIAndCLI extends Application {
         ParallelTasks tasks = new ParallelTasks();
         final Runnable cli = () -> {
             try {
+                final Create create = new Create();
+                new ObserverConsoleSize(create);
+                new ObserverConsoleTags(create);
                 new CommandMain().run();
             } catch (IOException e) {
                 e.printStackTrace();

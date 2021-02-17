@@ -29,10 +29,6 @@ public class Audio extends MediaContent implements modell.mediaDB.Audio, Seriali
     public Audio(long bitrate, Duration duration, Collection<Tag> tags, int samplingRate, String encoding, Uploader uploader) {
         super(tags, bitrate, duration);
 
-        if (uploader == null) {
-            throw new NullPointerException("uploader is null");
-        }
-
         this.samplingRate = samplingRate;
         this.endcoding = encoding;
         this.uploader = uploader;

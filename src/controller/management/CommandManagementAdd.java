@@ -2,7 +2,6 @@ package controller.management;
 
 import controller.handleInput.InputConverter;
 import controller.handleInput.create.CreateOption;
-import modell.mediaDB.Interactive;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

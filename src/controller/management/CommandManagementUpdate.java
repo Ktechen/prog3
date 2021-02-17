@@ -1,8 +1,5 @@
 package controller.management;
 
-import controller.crud.Update;
-import controller.event.EventHandler;
-import controller.event.events.commands.update.CommandUpdateEvent;
 import controller.handleInput.InputConverter;
 import controller.handleInput.update.UpdateOption;
 import modell.data.storage.Storage;

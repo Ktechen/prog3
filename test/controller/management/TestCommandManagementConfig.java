@@ -10,7 +10,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class TestCommandManagementTCPConfig {
+public class TestCommandManagementConfig {
 
     @Test
     public void testConfig() throws IOException {

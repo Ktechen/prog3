@@ -7,7 +7,7 @@ import org.mockito.Mockito;
 
 import java.io.*;
 
-public class TestCommandManagementTCPShow {
+public class TestCommandManagementShow {
 
     @BeforeEach
     public void setup() {

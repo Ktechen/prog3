@@ -4,7 +4,6 @@ import modell.data.storage.Storage;
 import modell.mediaDB.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Read {
 

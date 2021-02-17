@@ -11,7 +11,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class TestCommandManagementTCPDelete {
+public class TestCommandManagementDelete {
 
     @Test
     public void handleArgsDeleteUser() throws IOException {

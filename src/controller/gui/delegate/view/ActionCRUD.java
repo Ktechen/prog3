@@ -1,26 +1,26 @@
 package controller.gui.delegate.view;
 
-import controller.crud.Update;
 import controller.handleInput.InputConverter;
-import controller.handleInput.create.CreateOption;
-import controller.handleInput.delete.DeleteOption;
-import controller.management.CommandManagement;
 import controller.management.CommandManagementAdd;
 import controller.management.CommandManagementDelete;
 import controller.management.CommandManagementUpdate;
+import controller.observer.Observable;
+import controller.observer.Observer;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import view.gui.MediaAlert;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
-public class ActionCRUD {
+public class ActionCRUD implements Observable {
 
     private CommandManagementAdd commandManagementAdd;
     private CommandManagementUpdate commandManagementUpdate;
     private CommandManagementDelete commandManagementDelete;
+    private List<Observer> list = new LinkedList<>();
 
     public ActionCRUD() {
         this.commandManagementAdd = new CommandManagementAdd(null, null);
@@ -44,6 +44,7 @@ public class ActionCRUD {
         if (mediaAlert.getButtonType() == ButtonType.OK) {
             try {
                 this.commandManagementAdd.handleArgs(mediaAlert.getText());
+                this.message();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -62,6 +63,7 @@ public class ActionCRUD {
             try {
                 this.commandManagementDelete.handleArgs(mediaAlert.getText());
                 updateDisplay.setText("Element was been deleted");
+                this.message();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -83,10 +85,27 @@ public class ActionCRUD {
         if (mediaAlert.getButtonType() == ButtonType.OK) {
             try {
                 this.commandManagementUpdate.handleArgs(mediaAlert.getText());
+                this.message();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
+    @Override
+    public void join(Observer observer) {
+        list.add(observer);
+    }
+
+    @Override
+    public void leave(Observer observer) {
+        list.remove(observer);
+    }
+
+    //TODO make private
+    private void message() {
+        for (Observer o : list) {
+            o.update();
+        }
+    }
 }

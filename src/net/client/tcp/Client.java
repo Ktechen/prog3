@@ -9,7 +9,7 @@ import java.net.Socket;
 
 public class Client {
 
-    public Client(boolean server) {
+    public Client() {
         System.out.println(toString());
 
         this.run();

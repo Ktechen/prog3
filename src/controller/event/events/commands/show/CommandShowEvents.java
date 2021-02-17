@@ -8,7 +8,6 @@ import controller.event.events.event.show.EventShowAll;
 import controller.event.events.event.show.EventShowUsedTags;
 import controller.event.events.event.show.EventShowUsernamePerIndex;
 import controller.handleInput.InputConverter;
-import modell.mediaDB.MediaContent;
 
 import java.util.HashMap;
 import java.util.List;

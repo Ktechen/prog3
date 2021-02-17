@@ -1,10 +1,7 @@
 package controller.gui.delegate.view;
 
 import controller.crud.Create;
-import controller.crud.Update;
 import javafx.event.ActionEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.PickResult;
 import modell.data.content.Person;
 import modell.data.storage.Storage;
 import modell.mediaDB.Tag;

@@ -1,6 +1,5 @@
 package modell.data.content;
 
-import modell.data.storage.Storage;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploader;
 

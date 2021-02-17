@@ -110,7 +110,7 @@ public class InputConverter {
     public final static String TCP_SERVER_TEXT = "Der ServerTCP wird mit 2 Argumenten gestartet: Protokoll und Lagerkapazität.";
 
     public final static String PERSISTENCE_TEXT =
-            "saveJOS speichert mittels JOS" +
+            "saveJOS speichert mittels JOS\n" +
                     "loadJOS lädt mittels JOS" + "\n" +
                     "saveJBP speichert mittels JBP" + "\n" +
                     "loadJBP lädt mittels JBP" + "\n" +
@@ -314,8 +314,8 @@ public class InputConverter {
 
         ArrayList<Integer> list = new ArrayList<>();
 
-        for (int i = 0; i < cons.length; i++) {
-            int params = cons[i].getParameterCount();
+        for (Constructor con : cons) {
+            int params = con.getParameterCount();
             list.add(params);
         }
 

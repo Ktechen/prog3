@@ -2,8 +2,6 @@ package view.gui;
 
 import javafx.beans.property.*;
 import modell.data.storage.Storage;
-import modell.mediaDB.MediaContent;
-import modell.mediaDB.Uploader;
 
 public class ViewModel {
 

@@ -15,6 +15,8 @@ public class ObserverConsoleSize implements Observer {
         this.observable.join(this);
     }
 
+
+    //TODO Change to Global size
     @Override
     public void update() {
         BigDecimal number = observable.getCapacity();

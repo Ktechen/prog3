@@ -48,6 +48,7 @@ public class Create implements Observable {
     public Create() {
         this.storage = Storage.getInstance();
         this.capacity = new BigDecimal(0);
+        this.tags = read.getFindedTags();
         this.validated = new Validated();
 
         if (null == list) {

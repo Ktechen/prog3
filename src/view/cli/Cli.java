@@ -4,6 +4,6 @@ import net.client.tcp.Client;
 
 public class Cli {
     public Cli() {
-        new Client(true);
+        new Client();
     }
 }

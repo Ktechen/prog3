@@ -1,7 +1,6 @@
 package controller.event.events.commands;
 
 import controller.event.EventHandler;
-import controller.event.EventListener;
 import controller.handleInput.InputConverter;
 
 public abstract class CommandEvent {

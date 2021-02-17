@@ -1,6 +1,5 @@
 package controller.management;
 
-import controller.management.CommandManagementAdd;
 import modell.data.content.Person;
 import modell.data.storage.Storage;
 import modell.mediaDB.Uploader;
@@ -11,7 +10,7 @@ import org.mockito.Mockito;
 import java.io.*;
 import java.util.HashSet;
 
-public class TestCommandManagementTCPAdd {
+public class TestCommandManagementAdd {
 
     /**
      * Das Senden vom DataInput oder DataOutput hat nicht richtig funktioniert
@@ -40,9 +39,7 @@ public class TestCommandManagementTCPAdd {
         dataOutputStream.writeUTF(name);
 
         DataInputStream in = new DataInputStream(new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
-
         CommandManagementAdd commandServerAdd = new CommandManagementAdd(in, out);
-
         commandServerAdd.run();
 
         //in.readUTF();
