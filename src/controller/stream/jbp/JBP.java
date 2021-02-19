@@ -59,7 +59,9 @@ public class JBP {
         long tempCount = e.accessCount;
 
         create.licensedAudio(
-                e.bitrate, Duration.parse(e.length), e.tags, e.samplingRate, e.encoding, new Person(e.uploader), e.holder
+                e.bitrate, Duration.parse(e.length),
+                e.tags, e.samplingRate, e.encoding,
+                new Person(e.uploader), e.holder
         );
 
         this.update(tempCount);
@@ -95,7 +97,9 @@ public class JBP {
         long tempCount = e.accessCount;
 
         create.audio(
-                e.bitrate, Duration.parse(e.length), e.tags, e.samplingRate, e.encoding, new Person(e.uploader)
+                e.bitrate, Duration.parse(e.length),
+                e.tags, e.samplingRate, e.encoding,
+                new Person(e.uploader)
         );
 
         this.update(tempCount);

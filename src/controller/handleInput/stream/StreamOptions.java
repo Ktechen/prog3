@@ -7,6 +7,13 @@ import modell.data.storage.Storage;
 
 public class StreamOptions {
 
+    public final static String SAVE_JOS = "saveJOS";
+    public final static String LOAD_JOS = "loadJOS";
+    public final static String SAVE_JBP = "saveJBP";
+    public final static String LOAD_JBP = "loadJBP";
+
+    private final String FILENAME = "file";
+
     public String run(String args) {
 
         if (args == null) {
@@ -17,50 +24,34 @@ public class StreamOptions {
             throw new IllegalArgumentException("Args is empty");
         }
 
-        String[] value = args.split(" ");
-        String filename = "file";
-        JOS jos = new JOS(filename + ".txt");
-        JBP jbp = new JBP(filename + ".xml");
+        JOS jos = new JOS(FILENAME + ".txt");
+        JBP jbp = new JBP(FILENAME + ".xml");
 
-        if (value[1] == null) {
-            switch (args) {
-                case "saveJOS":
-                    jos.save(Storage.getInstance());
-                    return InputConverter.SAVE_JOS;
+        switch (args) {
+            case SAVE_JOS:
+                jos.save(Storage.getInstance());
+                return InputConverter.SAVE_JOS;
 
-                case "loadJOS":
-                    Storage storage = (Storage) jos.load();
-                    Storage.getInstance().setMedia(storage.getMedia());
-                    Storage.getInstance().setPerson(storage.getPerson());
-                    Storage.getInstance().setUsedTags(storage.getUsedTags());
-                    Storage.getInstance().setCountOfUse(storage.getCountOfUse());
-                    return InputConverter.LOAD_JOS;
+            case LOAD_JOS:
+                Storage storage = (Storage) jos.load();
+                Storage.getInstance().setMedia(storage.getMedia());
+                Storage.getInstance().setPerson(storage.getPerson());
+                Storage.getInstance().setUsedTags(storage.getUsedTags());
+                Storage.getInstance().setCountOfUse(storage.getCountOfUse());
+                return InputConverter.LOAD_JOS;
 
-                case "saveJBP":
-                    jbp.save();
-                    return InputConverter.SAVE_JBP;
+            case SAVE_JBP:
+                jbp.save();
+                return InputConverter.SAVE_JBP;
 
-                case "loadJBP":
-                    jbp.load();
-                    return InputConverter.LOAD_JBP;
+            case LOAD_JBP:
+                jbp.load();
+                return InputConverter.LOAD_JBP;
 
-                default:
-                    return "Unknown Input";
-            }
-        } else {
-            switch (value[0]) {
-                case "save":
-                    return InputConverter.SAVE_RANDOM_ACCESS;
-
-
-                case "load":
-
-                    return InputConverter.LOAD_RANDOM_ACCESS;
-
-                default:
-                    return "Unknown Input";
-            }
+            default:
+                return "Unknown Input";
         }
+
     }
 
 }

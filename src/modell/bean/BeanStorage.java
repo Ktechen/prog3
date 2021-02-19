@@ -29,6 +29,8 @@ public class BeanStorage implements Serializable {
 
     /**
      * Getter and Setter Required for Bean conversion
+     *
+     * Das Testen der Public methoden wäre hier sinnlos da diese nur von Bean benutzt werden
      */
 
     public List<BeanItem> getMedia() {

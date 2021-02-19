@@ -16,6 +16,9 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicLong;
 
+/**
+ * Ich RandomAccess noch nicht richtig Implementiert und bin damit noch nicht fertig
+ */
 public class TestRandomAccess {
     @BeforeEach
     public void setup() {

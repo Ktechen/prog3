@@ -1,14 +1,14 @@
 package modell.data.storage;
 
-import modell.mediaDB.*;
+import modell.mediaDB.MediaContent;
+import modell.mediaDB.Uploadable;
+import modell.mediaDB.Uploader;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.*;
 
 public class Storage<T extends Uploadable & MediaContent, E extends Uploader> implements Serializable {
-
-    //TODO Refactor for better overview
 
     private List<T> media;
     private Set<E> person;
@@ -22,8 +22,9 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
      * <p>
      * Audio: Bitrate only
      */
-    private final double DEFAULT_SIZE = 4882.8125;
-    private BigDecimal maxSize = new BigDecimal(DEFAULT_SIZE);
+    public final static double DEFAULT_SIZE = 4882.8125;
+
+    private BigDecimal maxSize;
     private BigDecimal currentSize;
 
     public BigDecimal getCurrentSize() {
@@ -43,6 +44,8 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
         this.person = new HashSet<>();
         this.usedTags = new HashMap<>();
         this.countOfUse = new HashMap<>();
+        this.currentSize = new BigDecimal(0);
+        this.maxSize = new BigDecimal(DEFAULT_SIZE);
     }
 
     private volatile static Storage instance;
@@ -182,6 +185,8 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
         this.person = new HashSet<>();
         this.usedTags = new HashMap<>();
         this.countOfUse = new HashMap<>();
+        this.currentSize = new BigDecimal(0);
+        this.maxSize = new BigDecimal(DEFAULT_SIZE);
     }
 
     @Override

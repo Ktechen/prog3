@@ -33,6 +33,6 @@ public class CommandManagementDefault extends CommandManagement implements Comma
         } else {
             System.out.println(args);
         }
-
     }
+
 }
