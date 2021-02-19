@@ -21,7 +21,7 @@ public class Create implements Observable {
     private final Storage storage;
     private final Read read = new Read();
 
-    private static List<Observer> list;
+    private static List<Observer> observerList;
     private BigDecimal capacity;
     private HashMap<String, Boolean> tags;
 
@@ -35,9 +35,14 @@ public class Create implements Observable {
         return new HashMap<>(tags);
     }
 
-    public static List<Observer> getList() {
-        synchronized (Create.class) {
-            return new LinkedList<>(list);
+    public static List<Observer> getObserverList() {
+        synchronized (Storage.class) {
+
+            if (observerList == null) {
+                observerList = new LinkedList<>();
+            }
+
+            return new LinkedList<>(observerList);
         }
     }
 
@@ -51,8 +56,8 @@ public class Create implements Observable {
         this.tags = read.getFindedTags();
         this.validated = new Validated();
 
-        if (null == list) {
-            list = new LinkedList<>();
+        if (observerList == null) {
+            observerList = new LinkedList<>();
         }
     }
 
@@ -157,17 +162,17 @@ public class Create implements Observable {
 
     @Override
     public void join(Observer observer) {
-        list.add(observer);
+        observerList.add(observer);
     }
 
     @Override
     public void leave(Observer observer) {
-        list.remove(observer);
+        observerList.remove(observer);
     }
 
     //TODO make private
     private void message() {
-        for (Observer o : list) {
+        for (Observer o : observerList) {
             o.update();
         }
     }

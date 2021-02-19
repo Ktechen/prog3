@@ -12,7 +12,7 @@ public class StreamOptions {
     public final static String SAVE_JBP = "saveJBP";
     public final static String LOAD_JBP = "loadJBP";
 
-    private final String FILENAME = "file";
+    public final String FILENAME = "file";
 
     public String run(String args) {
 

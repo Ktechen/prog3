@@ -12,9 +12,7 @@ import java.util.HashSet;
 
 public class TestCommandManagementAdd {
 
-    /**
-     * Das Senden vom DataInput oder DataOutput hat nicht richtig funktioniert
-     */
+
     @Test
     public void testAddUser() throws IOException {
         Storage.getInstance().clear();

@@ -39,7 +39,7 @@ public class CommandManagementConfig extends CommandManagement implements Comman
         final Create create = new Create();
 
         if (args.indexOf("add") == 0) {
-            create.join(new ObserverConsoleSize(create));
+            new ObserverConsoleSize(create);
             if (!this.isOffline()) {
                 this.sendMessage(InputConverter.CONFIG_ADD_TEXT_VIEW);
             } else {
@@ -75,7 +75,7 @@ public class CommandManagementConfig extends CommandManagement implements Comman
     }
 
     private Observer foundInstanceOf(Class c, Create create) {
-        List<Observer> list = create.getList();
+        List<Observer> list = create.getObserverList();
         Observer observer = null;
 
         for (Observer o : list) {

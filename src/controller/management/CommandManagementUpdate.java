@@ -24,7 +24,7 @@ public class CommandManagementUpdate extends CommandManagement implements Comman
     @Override
     public void run() throws IOException {
         this.sendMessage(SEND_MSG);
-        this.handleArgs(this.getMessage().toString());
+        this.handleArgs(this.getMessage());
     }
 
     @Override

@@ -35,7 +35,7 @@ public abstract class CommandManagement {
 
     /**
      * Change Stream from DataInputStream to System.out Stream
-     *
+     * (Ich wollte für das Projekt nicht nochmal alles auf Streams ändern, so ging das Schneller)
      * @param offline
      */
     public void setOffline(boolean offline) {

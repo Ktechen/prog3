@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
 public class TestCreate {
 
@@ -150,7 +149,7 @@ public class TestCreate {
         final Create create = new Create();
         ObserverConsoleSize observerConsoleSize = new ObserverConsoleSize(create);
 
-        Assertions.assertEquals(1, Create.getList().size());
+        Assertions.assertEquals(1, Create.getObserverList().size());
         create.leave(observerConsoleSize);
     }
 
@@ -160,11 +159,11 @@ public class TestCreate {
         final Create create = new Create();
         ObserverConsoleSize observerConsoleSize = new ObserverConsoleSize(create);
 
-        Assertions.assertEquals(1, Create.getList().size());
+        Assertions.assertEquals(1, Create.getObserverList().size());
 
         create.leave(observerConsoleSize);
 
-        Assertions.assertEquals(0, Create.getList().size());
+        Assertions.assertEquals(0, Create.getObserverList().size());
     }
 
 }
