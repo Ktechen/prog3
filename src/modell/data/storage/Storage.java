@@ -37,6 +37,7 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
      * <p>
      * e.g (2000 width * 2000 height) / 8 = 500.000byte = 488,28125kibibyte = 0,4768... mibibyte max size
      * <p>
+     * @return
      */
     public BigDecimal getMaxSize() {
         return maxSize;
@@ -52,7 +53,7 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
         this.usedTags = new HashMap<>();
         this.countOfUse = new HashMap<>();
         this.currentSize = new BigDecimal(0);
-        this.maxSize = new BigDecimal("4882.8125");
+        this.maxSize = new BigDecimal("5000000");
     }
 
     private volatile static Storage instance;
@@ -103,8 +104,7 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
 
             if (video != null) {
                 this.media.add(video);
-                BigDecimal stepToKibibyte = video.getSize().divide(BigDecimal.valueOf(1024));
-                this.setCurrentSize(stepToKibibyte);
+                this.setCurrentSize(video.getSize());
                 this.initCounter(video.getAddress());
                 return true;
             }
@@ -113,12 +113,20 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
         }
     }
 
-    public boolean removeAllVideo(Collection<?> o) {
+    public synchronized boolean removeAllVideo(Collection<?> o) {
         Collection<MediaContent> mediaContents = (Collection<MediaContent>) o;
 
-        for (MediaContent content: mediaContents) {
-            this.setCurrentSize(content.getSize().negate());
+        BigDecimal decimal = null;
+
+        for (MediaContent content : mediaContents) {
+            decimal = content.getSize();
         }
+
+        //System.out.println("\nCurrent: " + this.getCurrentSize());
+        //out.println("Media Value: " + decimal);
+        //System.out.println("Max: " + getMaxSize());
+
+       this.currentSize = this.currentSize.subtract(decimal);
 
         this.media.removeAll(o);
         return true;
@@ -128,7 +136,7 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
      * @param person
      * @return if true add to list else user is in hashset
      */
-    public boolean addPerson(E person) {
+    public synchronized boolean addPerson(E person) {
         if (person != null) {
 
             boolean check = false;
@@ -152,24 +160,24 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
         return this.person.removeAll(o);
     }
 
-    public void setUsedTags(HashMap<String, Boolean> usedTags) {
+    public synchronized void setUsedTags(HashMap<String, Boolean> usedTags) {
         this.usedTags = usedTags;
     }
 
-    private void initCounter(String address) {
+    private synchronized void initCounter(String address) {
         this.countOfUse.put(address, (long) 0);
     }
 
     /**
      * Save clicks of Addresses
      */
-    public HashMap<String, Long> getCountOfUse() {
+    public synchronized HashMap<String, Long> getCountOfUse() {
         synchronized (this) {
             return new HashMap<>(this.countOfUse);
         }
     }
 
-    public void setCountOfUse(HashMap<String, Long> map) {
+    public synchronized void setCountOfUse(HashMap<String, Long> map) {
         this.countOfUse = map;
     }
 
@@ -182,13 +190,13 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
     /**
      * Clear a current memory
      */
-    public void clear() {
+    public synchronized void clear() {
         this.media = new LinkedList<>();
         this.person = new HashSet<>();
         this.usedTags = new HashMap<>();
         this.countOfUse = new HashMap<>();
         this.currentSize = new BigDecimal(0);
-        this.maxSize = new BigDecimal("4882.8125");
+        this.maxSize = new BigDecimal("5000000");
     }
 
     @Override

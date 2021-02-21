@@ -55,6 +55,7 @@ public class Delete {
             for (MediaContent video : contents) {
                 if (video.getAddress().compareTo(address) == 0) {
                     list.add(video);
+                    break;
                 }
             }
 

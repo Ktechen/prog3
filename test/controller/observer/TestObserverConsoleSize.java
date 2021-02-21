@@ -1,9 +1,13 @@
 package controller.observer;
 
 import controller.crud.Create;
+import controller.crud.Delete;
+import controller.crud.Read;
 import controller.observer.observers.ObserverConsoleSize;
+import jdk.nashorn.internal.runtime.OptimisticReturnFilters;
 import modell.data.content.Person;
 import modell.data.storage.Storage;
+import modell.mediaDB.MediaContent;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploader;
 import org.junit.jupiter.api.Assertions;
@@ -16,6 +20,7 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -73,14 +78,14 @@ public class TestObserverConsoleSize {
     }
 
     @Test
-    public void consoleSizeGetSystemOutMessageSize2000x2000() {
+    public void consoleSizeGetSystemOutMessageSizeMax() {
         final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         final PrintStream originalOut = System.out;
 
         System.setOut(new PrintStream(outContent));
 
         Create observer = Mockito.mock(Create.class);
-        Mockito.when(observer.getCapacity()).thenReturn(BigDecimal.valueOf(2000 * 2000));
+        Mockito.when(observer.getCapacity()).thenReturn(Storage.getInstance().getMaxSize());
         ObserverConsoleSize observerConsoleSize = new ObserverConsoleSize(observer);
         observerConsoleSize.update();
         Assertions.assertEquals("Die Capacity von 90 % wurde überschritten", outContent.toString());
@@ -103,11 +108,35 @@ public class TestObserverConsoleSize {
 
         for (int i = 0; i < 9; i++) {
             create.interactiveVideo(2000, 2000, "mix", 7323, Duration.parse("PT20m"), tagCollection, uploader, "type");
-
         }
 
         Assertions.assertEquals("Die Capacity von 90 % wurde überschritten", outContent.toString());
         System.setOut(originalOut);
+    }
+
+    @Test
+    public void consoleSizeAdd9MediasAndRemove9CurrentSizeEquals0() {
+        Storage.getInstance().clear();
+        final Create create = new Create();
+        new ObserverConsoleSize(create);
+
+        Collection<Tag> tagCollection = new ArrayList<>();
+        tagCollection.add(Tag.News);
+        final Uploader uploader = new Person("Kevin");
+
+        for (int i = 0; i < 9; i++) {
+            create.interactiveVideo(2000, 2000, "mix", 7323, Duration.parse("PT20m"), tagCollection, uploader, "type");
+        }
+
+        final Delete delete = new Delete();
+
+        List<MediaContent> mediaContents = Storage.getInstance().getMedia();
+
+        for (MediaContent content : mediaContents) {
+            delete.perAddress(content.getAddress());
+        }
+
+        Assertions.assertEquals(BigDecimal.valueOf(0), Storage.getInstance().getCurrentSize());
     }
 
 }

@@ -64,6 +64,8 @@ public class Create implements Observable {
         synchronized (this.storage) {
             this.validated.isStringNotNull(type, Validated.TYPE_MSG);
             this.validated.isVideoValid(width, height, bitrate, encoding);
+
+
             InteractiveVideo video = new InteractiveVideo(width, height, encoding, bitrate, length, tag, person, type);
             this.execute(video);
         }
@@ -74,6 +76,7 @@ public class Create implements Observable {
             this.validated.isStringNotNull(holder, Validated.HOLDER_MSG);
             this.validated.isIntegerBiggerThanZero(samplingRate, Validated.SAMPLING_MSG);
             this.validated.isVideoValid(width, height, bitrate, encoding);
+
             LicensedAudioVideo video = new LicensedAudioVideo(width, height, encoding, bitrate, length, tag, person, samplingRate, holder);
             this.execute(video);
         }
