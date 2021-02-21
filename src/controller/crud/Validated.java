@@ -16,18 +16,6 @@ public class Validated {
     public static final String TYPE_MSG = "Type is null";
     public static final String HOLDER_MSG = "HOLDER is null";
 
-    /**
-     * This method is check a Size of Limit
-     *
-     * @param limit = setLimit
-     * @throws IllegalArgumentException = If size too high then throw an exception
-     */
-    void checkSize(BigDecimal limit) throws IllegalArgumentException {
-        if (Storage.MAX_SIZE_OF_FILE.compareTo(limit) < 0) {
-            throw new IllegalArgumentException("Speicher Limit");
-        }
-    }
-
     void isVideoValid(int width, int height, long bitrate, String encoding) throws NullPointerException, NumberFormatException {
         this.isStringNotNull(encoding, ENCODING_MSG);
         this.isLongBiggerThanZero(bitrate, BITRATE_MSG);

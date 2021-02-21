@@ -108,6 +108,8 @@ public class InputConverter {
     public final static String OPTION_NOT_VALID = "The option is not valid";
 
     public final static String TCP_SERVER_TEXT = "Der ServerTCP wird mit 2 Argumenten gestartet: Protokoll und Lagerkapazität.";
+    public final static String TCP_PROTOCOL_TEXT = "Protocol: [TCP/UDP]";
+    public static final String TCP_STORAGE_CAPACITY_TEXT = "Storage capacity : [500 ~ 10 files]";
 
     public final static String PERSISTENCE_TEXT =
             "saveJOS speichert mittels JOS\n" +

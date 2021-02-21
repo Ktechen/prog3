@@ -3,6 +3,7 @@ package controller.observer.observers;
 import controller.crud.Create;
 import controller.observer.Capacity;
 import controller.observer.Observer;
+import modell.data.storage.Storage;
 
 import java.math.BigDecimal;
 
@@ -19,11 +20,10 @@ public class ObserverConsoleSize implements Observer {
     //TODO Change to Global size
     @Override
     public void update() {
+        BigDecimal number90 = Storage.getInstance().getMaxSize().multiply(BigDecimal.valueOf(0.9));
         BigDecimal number = observable.getCapacity();
-        Capacity capacity = new Capacity(BigDecimal.valueOf(90), number);
         final String text = "Die Capacity von 90 % wurde überschritten";
-        boolean check = capacity.cautionOfOverLoad();
-        if (check) {
+        if (number.compareTo(number90) == 0 || number.compareTo(number90) > 0) {
             System.out.print(text);
         }
     }

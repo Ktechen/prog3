@@ -14,6 +14,7 @@ import modell.data.storage.Storage;
 import modell.mediaDB.MediaContent;
 import modell.mediaDB.Tag;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
@@ -22,7 +23,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class TestCommandManagementExecuteSession {
+public class TestCommandManagement {
+
+    @BeforeEach
+    public void setup(){
+        Storage.getInstance().clear();
+        Create.getObserverList().clear();
+    }
 
     @Test
     public void testCommandManagementDefault() throws IOException {
@@ -467,7 +474,6 @@ public class TestCommandManagementExecuteSession {
     @Test
     public void testCommandManagementUpdateAddress() throws IOException {
         Storage.getInstance().clear();
-        Create.getObserverList().clear();
 
         final Create create = new Create();
         Collection<Tag> tags = new ArrayList<>();
@@ -498,7 +504,6 @@ public class TestCommandManagementExecuteSession {
     @Test
     public void testCommandManagementConfigRemoveObserverConsoleSize() throws IOException {
         Storage.getInstance().clear();
-        Create.getObserverList().clear();
 
         final Create create = new Create();
         new ObserverConsoleTags(create);
@@ -542,7 +547,6 @@ public class TestCommandManagementExecuteSession {
         CommandManagementExecuteSession commandManagementExecuteSession = new CommandManagementExecuteSession();
         commandManagementExecuteSession.executeSession(in, out);
 
-        List<Observer> list = Create.getObserverList();
 
         Assertions.assertEquals(1, Create.getObserverList().size());
     }

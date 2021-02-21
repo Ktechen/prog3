@@ -1,8 +1,10 @@
 package net;
 
+import modell.data.storage.Storage;
 import net.server.tcp.ServerTCP;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.ServerSocket;
 
 /**
@@ -17,9 +19,9 @@ public class StartServer {
     public final static String TCP_START_TEXT = "ServerTCP TCP is starting...";
     public final static String UDP_START_TEXT = "ServerTCP UDP is starting...";
 
-    public StartServer(String protocol, int Lagerkapazität) {
+    public StartServer(String protocol, BigDecimal Lagerkapazität) {
         this.protocol = protocol;
-        this.Lagerkapazität = Lagerkapazität;
+        Storage.getInstance().setMaxSize(Lagerkapazität);
     }
 
     public void run() {

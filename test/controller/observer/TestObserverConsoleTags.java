@@ -43,22 +43,7 @@ public class TestObserverConsoleTags {
         System.setOut(originalOut);
     }
 
-    @Test
-    public void changeCallObserverAgain() {
-        HashMap<String, Boolean> map = new HashMap<>();
-        map.put(Tag.Animal.name(), true);
-        map.put(Tag.Tutorial.name(), false);
-        map.put(Tag.Lifestyle.name(), false);
-        map.put(Tag.News.name(), false);
 
-        Create create = Mockito.spy(new Create());
-        Mockito.when(create.getTags()).thenReturn(map);
-
-        ObserverConsoleTags spy = Mockito.spy(ObserverConsoleTags.class);
-        create.join(spy);
-
-        Mockito.verify(spy).update();
-    }
 
 
 }

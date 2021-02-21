@@ -39,6 +39,8 @@ public class TestRandomAccess {
 
     @Test
     public void testSaveRandomAccessCheckPositionOfSavePoint() throws IllegalAccessException {
+        Assertions.fail();
+
         RandomAccess randomAccess = new RandomAccess();
         MediaContent content = (MediaContent) Storage.getInstance().getMedia().get(0);
         MediaContent content2 = (MediaContent) Storage.getInstance().getMedia().get(1);
@@ -59,6 +61,8 @@ public class TestRandomAccess {
 
     @Test
     public void testSaveAndLoadRandomData() throws IllegalAccessException {
+        Assertions.fail();
+
         RandomAccess randomAccess = new RandomAccess();
         MediaContent content = (MediaContent) Storage.getInstance().getMedia().get(0);
         MediaContent content2 = (MediaContent) Storage.getInstance().getMedia().get(1);
@@ -78,6 +82,8 @@ public class TestRandomAccess {
 
     @Test
     public void testSaveThrowIllegalAccessException() {
+        Assertions.fail();
+
         RandomAccess randomAccess = new RandomAccess();
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             randomAccess.save("dasdsaasdjkasjdask ndasd");
@@ -86,6 +92,8 @@ public class TestRandomAccess {
 
     @Test
     public void testSaveThrowNullpointer() {
+        Assertions.fail();
+
         RandomAccess randomAccess = new RandomAccess();
         Assertions.assertThrows(NullPointerException.class, () -> {
             randomAccess.save(null);
@@ -94,6 +102,8 @@ public class TestRandomAccess {
 
     @Test
     public void testLoadThrowIllegalAccessException() {
+        Assertions.fail();
+
         RandomAccess randomAccess = new RandomAccess();
         Assertions.assertThrows(IllegalAccessException.class, () -> {
             randomAccess.load(Storage.TYPE_OF_SOURCE + "dadhsjdasködasdasdas");
@@ -102,6 +112,8 @@ public class TestRandomAccess {
 
     @Test
     public void testLoadThrowNullPointer() {
+        Assertions.fail();
+
         RandomAccess randomAccess = new RandomAccess();
         Assertions.assertThrows(NullPointerException.class, () -> {
             randomAccess.load(null);
@@ -110,6 +122,8 @@ public class TestRandomAccess {
 
     @Test
     public void testLoadThrowIllegalArgument() {
+        Assertions.fail();
+
         RandomAccess randomAccess = new RandomAccess();
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             randomAccess.load("aasdasdsadasd");
@@ -118,6 +132,8 @@ public class TestRandomAccess {
 
     @Test
     public void testSaveAndLoadRandomDataWithMoreMedias() throws IllegalAccessException {
+        Assertions.fail();
+
         RandomAccess randomAccess = new RandomAccess();
         Storage.getInstance().clear();
         final Create create = new Create();

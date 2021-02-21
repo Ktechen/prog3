@@ -55,7 +55,7 @@ public class Capacity {
 
         this.procent = procent;
         this.checkValue = checkValue;
-        this.max = Storage.MAX_SIZE_OF_FILE;
+        this.max = Storage.getInstance().getMaxSize();
     }
 
     /**

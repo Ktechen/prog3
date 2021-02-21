@@ -15,22 +15,29 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
     private HashMap<String, Long> countOfUse;
     private HashMap<String, Boolean> usedTags;
 
-    /**
-     * Video: (2000height * 2000 weight) / 8 = 500.000 = byte
-     * 500.000 / 1024 = 488,28125 =  Kibibyte
-     * (10 x 488,28125 = 4.882,8125 10 Medias)
-     * <p>
-     * Audio: Bitrate only
-     */
-    public final static double DEFAULT_SIZE = 4882.8125;
-
     private BigDecimal maxSize;
     private BigDecimal currentSize;
 
     public BigDecimal getCurrentSize() {
-        return currentSize;
+        return new BigDecimal(String.valueOf(this.currentSize));
     }
 
+    private void setCurrentSize(BigDecimal bigDecimal) {
+        this.currentSize = this.currentSize.add(bigDecimal);
+    }
+
+    /**
+     * Max length of File
+     * <p>
+     * * Video: (2000height * 2000 weight) / 8 = 500.000 = byte
+     * * 500.000 / 1024 = 488,28125 =  Kibibyte
+     * * (10 x 488,28125 = 4.882,8125 10 Medias)
+     * * <p>
+     * * Audio: Bitrate only
+     * <p>
+     * e.g (2000 width * 2000 height) / 8 = 500.000byte = 488,28125kibibyte = 0,4768... mibibyte max size
+     * <p>
+     */
     public BigDecimal getMaxSize() {
         return maxSize;
     }
@@ -45,7 +52,7 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
         this.usedTags = new HashMap<>();
         this.countOfUse = new HashMap<>();
         this.currentSize = new BigDecimal(0);
-        this.maxSize = new BigDecimal(DEFAULT_SIZE);
+        this.maxSize = new BigDecimal("4882.8125");
     }
 
     private volatile static Storage instance;
@@ -65,17 +72,6 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
             return Storage.instance;
         }
     }
-
-    /**
-     * Max length of File
-     * <p>
-     *
-     * <p>
-     * e.g (2000 width * 2000 height) / 8 = 500.000byte = 488,28125kibibyte = 0,4768... mibibyte max size
-     * <p>
-     * Length: 500.000 Byte
-     */
-    public static final BigDecimal MAX_SIZE_OF_FILE = new BigDecimal(500000);
 
     /**
      * Gibt denn Linkverweis an
@@ -107,9 +103,9 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
 
             if (video != null) {
                 this.media.add(video);
-                this.currentSize.add(video.getSize());
+                BigDecimal stepToKibibyte = video.getSize().divide(BigDecimal.valueOf(1024));
+                this.setCurrentSize(stepToKibibyte);
                 this.initCounter(video.getAddress());
-                System.out.println(video.getAddress());
                 return true;
             }
 
@@ -118,6 +114,12 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
     }
 
     public boolean removeAllVideo(Collection<?> o) {
+        Collection<MediaContent> mediaContents = (Collection<MediaContent>) o;
+
+        for (MediaContent content: mediaContents) {
+            this.setCurrentSize(content.getSize().negate());
+        }
+
         this.media.removeAll(o);
         return true;
     }
@@ -186,7 +188,7 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
         this.usedTags = new HashMap<>();
         this.countOfUse = new HashMap<>();
         this.currentSize = new BigDecimal(0);
-        this.maxSize = new BigDecimal(DEFAULT_SIZE);
+        this.maxSize = new BigDecimal("4882.8125");
     }
 
     @Override

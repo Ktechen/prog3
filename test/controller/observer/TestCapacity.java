@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 
 public class TestCapacity {
 
+    @Deprecated
     @Test
     public void testCapacityProcentOver101() {
         final Capacity capacity = new Capacity();
@@ -19,6 +20,7 @@ public class TestCapacity {
         }
     }
 
+    @Deprecated
     @Test
     public void testCapacityProcentOverNegative() {
         final Capacity capacity = new Capacity();
@@ -30,6 +32,7 @@ public class TestCapacity {
         }
     }
 
+    @Deprecated
     @Test
     public void CautionOfOverload101() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
@@ -37,6 +40,7 @@ public class TestCapacity {
         });
     }
 
+    @Deprecated
     @Test
     public void CautionOfOverloadMinus() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
@@ -44,14 +48,16 @@ public class TestCapacity {
         });
     }
 
+    @Deprecated
     @Test
     public void CautionOfOverload() {
-        Capacity capacity = new Capacity(Storage.MAX_SIZE_OF_FILE, BigDecimal.valueOf(90), BigDecimal.valueOf(200));
+        Capacity capacity = new Capacity(Storage.getInstance().getMaxSize(), BigDecimal.valueOf(90), BigDecimal.valueOf(200));
         boolean value = capacity.cautionOfOverLoad();
 
         Assertions.assertFalse(value);
     }
 
+    @Deprecated
     @Test
     public void CautionOfOverLoadFalse() {
         Capacity capacity = new Capacity(BigDecimal.valueOf(90), BigDecimal.valueOf(0));
@@ -60,6 +66,7 @@ public class TestCapacity {
         Assertions.assertFalse(test);
     }
 
+    @Deprecated
     @Test
     public void CautionOfOverLoadMaxSize() {
         Capacity capacity = new Capacity(BigDecimal.valueOf(90), BigDecimal.valueOf(2000 * 2000));
@@ -68,10 +75,4 @@ public class TestCapacity {
         Assertions.assertTrue(test);
     }
 
-    @Test
-    public void CaluProcent() {
-        Capacity capacity = new Capacity();
-        BigDecimal value = capacity.procentCalu(Storage.MAX_SIZE_OF_FILE, BigDecimal.valueOf(90));
-        Assertions.assertEquals(BigDecimal.valueOf(450000), value);
-    }
 }
