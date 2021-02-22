@@ -1,4 +1,4 @@
-package controller.gui.delegate.view;
+package controller.gui.delegate.main;
 
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;

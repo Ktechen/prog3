@@ -1,4 +1,4 @@
-import controller.gui.delegate.view.ActionMainWindow;
+import controller.gui.delegate.main.ActionMainWindow;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

@@ -9,23 +9,21 @@ import java.net.ServerSocket;
 
 /**
  * TCP ServerTCP = mehrere Clients sind verfügbar
- * UDP ServerTCP = nur ein Client verfügbar
  */
 public class StartServer {
 
     private boolean debug = false;
     private String protocol;
-    private int Lagerkapazität;
     public final static String TCP_START_TEXT = "ServerTCP TCP is starting...";
     public final static String UDP_START_TEXT = "ServerTCP UDP is starting...";
 
-    public StartServer(String protocol, BigDecimal Lagerkapazität) {
+    public StartServer(String protocol, BigDecimal capacity) {
         this.protocol = protocol;
-        Storage.getInstance().setMaxSize(Lagerkapazität);
+        Storage.getInstance().setMaxSize(capacity);
     }
 
     public void run() {
-        String validate = protocol.toLowerCase();
+        String validate = this.protocol.toLowerCase();
         switch (validate) {
             case "tcp":
                 this.tcp();

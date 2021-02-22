@@ -1,9 +1,5 @@
 package controller.crud;
 
-import modell.data.storage.Storage;
-
-import java.math.BigDecimal;
-
 
 public class Validated {
 

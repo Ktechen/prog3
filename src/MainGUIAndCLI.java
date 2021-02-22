@@ -1,7 +1,7 @@
 import controller.ParallelTasks;
 import controller.cli.CommandMain;
 import controller.crud.Create;
-import controller.gui.delegate.view.ActionMainWindow;
+import controller.gui.delegate.main.ActionMainWindow;
 import controller.observer.observers.ObserverConsoleSize;
 import controller.observer.observers.ObserverConsoleTags;
 import javafx.application.Application;

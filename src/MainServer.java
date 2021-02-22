@@ -1,8 +1,7 @@
 import controller.cli.Console;
-import controller.gui.delegate.view.ActionDebug;
+import controller.gui.delegate.main.ActionDebug;
 import controller.handleInput.InputConverter;
 import net.StartServer;
-import org.omg.PortableInterceptor.INACTIVE;
 
 import java.math.BigDecimal;
 

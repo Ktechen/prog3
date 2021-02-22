@@ -506,8 +506,8 @@ public class TestCommandManagement {
         Storage.getInstance().clear();
 
         final Create create = new Create();
-        new ObserverConsoleTags(create);
-        new ObserverConsoleSize(create);
+        ObserverConsoleTags observerConsoleTags = new ObserverConsoleTags(create);
+        ObserverConsoleSize observerConsoleSize = new ObserverConsoleSize(create);
 
         String option = ":config";
         String input = "remove " + ObserverConsoleSize.class.getSimpleName();
@@ -525,6 +525,8 @@ public class TestCommandManagement {
         commandManagementExecuteSession.executeSession(in, out);
 
         Assertions.assertEquals(1, Create.getObserverList().size());
+        create.leave(observerConsoleSize);
+        create.leave(observerConsoleTags);
     }
 
     @Test
@@ -546,7 +548,6 @@ public class TestCommandManagement {
         DataInputStream in = new DataInputStream(new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
         CommandManagementExecuteSession commandManagementExecuteSession = new CommandManagementExecuteSession();
         commandManagementExecuteSession.executeSession(in, out);
-
 
         Assertions.assertEquals(1, Create.getObserverList().size());
     }

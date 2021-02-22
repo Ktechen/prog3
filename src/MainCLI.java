@@ -1,6 +1,6 @@
 import controller.cli.CommandMain;
 import controller.crud.Create;
-import controller.gui.delegate.view.ActionDebug;
+import controller.gui.delegate.main.ActionDebug;
 import controller.observer.observers.ObserverConsoleSize;
 import controller.observer.observers.ObserverConsoleTags;
 

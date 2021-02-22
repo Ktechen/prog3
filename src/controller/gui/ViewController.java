@@ -1,9 +1,9 @@
 package controller.gui;
 
 import controller.gui.delegate.IO.ActionWindow;
-import controller.gui.delegate.view.ActionCRUD;
-import controller.gui.delegate.view.ActionDebug;
-import controller.gui.delegate.view.ActionSort;
+import controller.gui.delegate.main.ActionCRUD;
+import controller.gui.delegate.main.ActionDebug;
+import controller.gui.delegate.main.ActionSort;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -165,6 +165,7 @@ public class ViewController<T> implements Initializable {
         this.updateAllLists();
     }
 
+    @Deprecated
     public void PersistenzmodusOnAction(ActionEvent actionEvent) throws IOException {
         this.actionWindow.run(actionEvent);
     }

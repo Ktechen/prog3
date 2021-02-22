@@ -2,9 +2,7 @@ package controller.observer;
 
 import controller.crud.Create;
 import controller.crud.Delete;
-import controller.crud.Read;
 import controller.observer.observers.ObserverConsoleSize;
-import jdk.nashorn.internal.runtime.OptimisticReturnFilters;
 import modell.data.content.Person;
 import modell.data.storage.Storage;
 import modell.mediaDB.MediaContent;

@@ -1,9 +1,6 @@
 package controller.gui;
 
-import controller.gui.delegate.IO.ActionJBP;
-import controller.gui.delegate.IO.ActionJOS;
-import controller.gui.delegate.IO.ActionRandomAccessFile;
-import controller.gui.delegate.Utils;
+import controller.handleInput.stream.StreamOptions;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,9 +35,10 @@ public class IOController implements Initializable {
     @FXML
     private ListView<Uploadable> listViewMedia;
 
-    private List<String> optional = new LinkedList<>();
-    private List<String> listJos = new LinkedList<>();
-    private List<String> listJbp = new LinkedList<>();
+    private final List<String> listRandomAccess;
+    private final List<String> listJos;
+    private final List<String> listJbp;
+    private final StreamOptions streamOptions;
 
     @FXML
     private TextField inputOptional;
@@ -52,30 +50,29 @@ public class IOController implements Initializable {
     private Label display;
 
     private Storage storage;
-    private final Utils utils;
-    private final ActionJOS actionJOS;
-    private final ActionJBP actionJBP;
-    private final ActionRandomAccessFile accessFile;
 
     public IOController() {
-        this.utils = new Utils();
-        this.actionJOS = new ActionJOS();
-        this.accessFile = new ActionRandomAccessFile();
-        this.actionJBP = new ActionJBP();
         this.storage = Storage.getInstance();
+        this.streamOptions = new StreamOptions();
+        this.listJbp = new LinkedList<>();
+        this.listJos = new LinkedList<>();
+        this.listRandomAccess = new LinkedList<>();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.utils.loadDir(this.optional, "@optional");
-        this.utils.loadDir(this.listJos, "@JOS");
-        this.utils.loadDir(this.listJbp, "@JBP");
+
+        //Old
+        //this.utils.loadDir(this.listRandomAccess, "@optional");
+        //this.utils.loadDir(this.listJos, "@JOS");
+     //
+
         this.update();
         this.display.setText("initialized");
     }
 
     private void update() {
-        this.viewListOptional.setItems(FXCollections.observableList(optional));
+        this.viewListOptional.setItems(FXCollections.observableList(listRandomAccess));
         this.listOfViewJOS.setItems(FXCollections.observableList(listJos));
         this.viewListJBP.setItems(FXCollections.observableList(listJbp));
     }
@@ -83,73 +80,55 @@ public class IOController implements Initializable {
     //#region JOS
 
     public void OnActionSaveJOS(ActionEvent actionEvent) {
-        this.actionJOS.save(actionEvent, this.inputJOS, this.storage.hashCode(), this.storage, this.display, this.listJos);
+        this.streamOptions.run(StreamOptions.SAVE_JOS);
         this.update();
+        this.display.setText("Save via JOS");
     }
 
     public void onActionLoadJOS(ActionEvent actionEvent) {
-        Storage temp = this.actionJOS.load(actionEvent, this.inputJOS, this.display);
-
-        if (null != temp) {
-            this.storage.setMedia(temp.getMedia());
-            this.storage.setPerson(temp.getPerson());
-            this.storage.setCountOfUse(temp.getCountOfUse());
-            this.storage.setUsedTags(temp.getUsedTags());
-        }
-
+        this.streamOptions.run(StreamOptions.LOAD_JOS);
         this.update();
+        this.display.setText("Load via JOS");
     }
+
+    //#region JBP
+    public void onActionSaveJBP(ActionEvent actionEvent) {
+        this.streamOptions.run(StreamOptions.SAVE_JBP);
+        this.update();
+        this.display.setText("Save via JBP");
+    }
+
+    public void onActionLoadJBP(ActionEvent actionEvent) {
+        this.streamOptions.run(StreamOptions.LOAD_JBP);
+        this.update();
+        this.display.setText("Load via JBP");
+    }
+
+    public void onClickJBP(MouseEvent event) {
+        //this.utils.addTextFromViewList(event, this.inputJBP);
+    }
+
+    //#endregion
 
     //#endregion
 
     //#region OptionalSaving
 
     public void onActionLoadRandomAccessFile(ActionEvent actionEvent) {
-        this.accessFile.load(actionEvent, this.inputOptional, this.display);
         this.update();
     }
 
     public void onActionSaveRandomAccessFile(ActionEvent actionEvent) {
-        this.accessFile.save(actionEvent, this.storage, this.inputOptional, this.optional, this.display);
         this.update();
     }
-
 
     public void onClickJOS(MouseEvent event) {
-        this.utils.addTextFromViewList(event, this.inputJOS);
-    }
-
-    //#endregion
-
-    //#region JBP
-    public void onActionSaveJBP(ActionEvent actionEvent) {
-        this.actionJBP.save(actionEvent, this.inputJBP, this.storage.hashCode(), this.display, this.listJbp);
-        this.update();
-    }
-
-    public void onActionLoadJBP(ActionEvent actionEvent) {
-        //LinkedList<MediaContent> contents = (LinkedList<MediaContent>) this.actionJBP.load(actionEvent, this.inputJBP, this.display);
-        /*Storage temp = (Storage) this.actionJBP.load(actionEvent, this.inputJBP, this.display);
-
-        if (null != temp) {
-            this.storage.setMedia(temp.getMedia());
-            this.storage.setPerson(temp.getPerson());
-            this.storage.setCountOfUse(temp.getCountOfUse());
-            this.storage.setUsedTags(temp.getUsedTags());
-        }
-        */
-
-
-        this.update();
-    }
-
-    public void onClickJBP(MouseEvent event) {
-        this.utils.addTextFromViewList(event, this.inputJBP);
+        //this.utils.addTextFromViewList(event, this.inputJOS);
     }
 
     public void onClickOptionalSaving(MouseEvent event) {
     }
 
-
     //#endregion
+
 }
