@@ -5,7 +5,7 @@ import controller.management.CommandSort;
 import modell.data.content.Audio;
 import modell.data.content.AudioVideo;
 import modell.data.content.Person;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import modell.mediaDB.Content;
 import modell.mediaDB.MediaContent;
 import modell.mediaDB.Tag;

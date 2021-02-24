@@ -4,7 +4,7 @@ import controller.crud.Create;
 import controller.crud.Delete;
 import controller.observer.observers.ObserverConsoleSize;
 import modell.data.content.Person;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import modell.mediaDB.MediaContent;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploader;

@@ -9,7 +9,7 @@ import controller.observer.Observer;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import view.gui.MediaAlert;
+import controller.gui.MediaAlert;
 
 import java.io.IOException;
 import java.util.LinkedList;

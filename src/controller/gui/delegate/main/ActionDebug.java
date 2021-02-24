@@ -3,7 +3,7 @@ package controller.gui.delegate.main;
 import controller.crud.Create;
 import javafx.event.ActionEvent;
 import modell.data.content.Person;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import modell.mediaDB.Tag;
 
 import java.time.Duration;

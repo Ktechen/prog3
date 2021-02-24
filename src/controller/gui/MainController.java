@@ -16,9 +16,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import modell.mediaDB.Uploader;
-import view.gui.ViewModel;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,7 +27,7 @@ import java.util.ResourceBundle;
 
 import static javafx.collections.FXCollections.observableArrayList;
 
-public class ViewController<T> implements Initializable {
+public class MainController<T> implements Initializable {
 
     private Storage storage;
 
@@ -83,7 +82,7 @@ public class ViewController<T> implements Initializable {
     private int sizeMedia;
     private int sizeUploader;
 
-    public ViewController() {
+    public MainController() {
         this.actionCRUD = new ActionCRUD();
         this.actionCRUD.join(this::updateAllLists);
 

@@ -5,7 +5,7 @@ import controller.event.events.commands.delete.CommandDeleteEventAddress;
 import controller.event.events.listener.delete.ELDeleteVideoPerAdress;
 import controller.handleInput.InputConverter;
 import modell.data.content.Person;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import modell.mediaDB.MediaContent;
 import modell.mediaDB.Tag;
 import org.junit.jupiter.api.Assertions;

@@ -18,7 +18,6 @@ public class ServerTCP implements CommandExecute{
 
     /**
      * Source: https://www.geeksforgeeks.org/datainputstream-read-method-in-java-with-examples/
-     * Source: https://github.com/Tryken/SimpleServerClient/
      */
     public void run() {
         System.out.println("ServerTCP is started " + this.hashCode());

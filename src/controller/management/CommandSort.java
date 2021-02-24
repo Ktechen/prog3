@@ -1,6 +1,6 @@
 package controller.management;
 
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import modell.mediaDB.Content;
 import modell.mediaDB.MediaContent;
 import modell.mediaDB.Uploadable;

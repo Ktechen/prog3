@@ -5,7 +5,11 @@ import java.util.List;
 
 public class EventHandler<T extends EventListener> {
 
-    private final List<T> listenerList = new LinkedList<>();
+    private final List<T> listenerList;
+
+    public EventHandler() {
+        this.listenerList = new LinkedList<>();
+    }
 
     public void add(T listener) {
         this.listenerList.add(listener);

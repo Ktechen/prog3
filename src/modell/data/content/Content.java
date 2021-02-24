@@ -1,6 +1,6 @@
 package modell.data.content;
 
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import modell.mediaDB.Tag;
 
 import java.io.Serializable;

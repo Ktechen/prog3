@@ -1,7 +1,7 @@
 package controller.management;
 
 import modell.data.content.Person;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import modell.mediaDB.Uploader;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

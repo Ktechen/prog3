@@ -1,6 +1,6 @@
 package simulation.s2;
 
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import simulation.s1.InputMedia;
 import simulation.s1.RemoveMedia;
 import simulation.s1.UpdateMedia;

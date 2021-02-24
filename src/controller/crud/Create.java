@@ -3,7 +3,7 @@ package controller.crud;
 import controller.observer.Observable;
 import controller.observer.Observer;
 import modell.data.content.*;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import modell.mediaDB.MediaContent;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploadable;
@@ -25,7 +25,7 @@ public class Create implements Observable {
     private BigDecimal capacity;
     private HashMap<String, Boolean> tags;
 
-    private Validated validated;
+    private final Validated validated;
 
     public BigDecimal  getCapacity() {
         return capacity;
@@ -37,9 +37,6 @@ public class Create implements Observable {
 
     public static List<Observer> getObserverList() {
         synchronized (Storage.class) {
-            if (observerList == null) {
-                observerList = new LinkedList<>();
-            }
             return new LinkedList<>(observerList);
         }
     }
@@ -131,18 +128,10 @@ public class Create implements Observable {
     }
 
     private <T extends Uploadable & MediaContent> void execute(T t) {
-        this.infoParameter(t);
-        this.person(t.getUploader().getName());
-        this.storage.addMedia(t);
-        this.executeParameter();
-    }
-
-    private <T extends Uploadable & MediaContent> void infoParameter(T t) {
         this.read.tagFinder(t.getTags());
         this.tags = read.getFindedTags();
-    }
-
-    private void executeParameter() {
+        this.person(t.getUploader().getName());
+        this.storage.addMedia(t);
         this.capacity = this.storage.getCurrentSize();
         this.message();
         this.capacity = BigDecimal.valueOf(0);

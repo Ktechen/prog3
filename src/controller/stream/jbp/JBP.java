@@ -4,7 +4,7 @@ import controller.crud.Create;
 import controller.crud.Update;
 import modell.bean.*;
 import modell.data.content.Person;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import modell.mediaDB.MediaContent;
 
 import java.time.Duration;

@@ -1,11 +1,9 @@
 package modell.storage;
 
-import com.sun.org.apache.xpath.internal.operations.String;
 import controller.crud.Create;
 import modell.bean.BeanItemLicensedAudio;
-import modell.bean.BeanStorage;
 import modell.data.content.Audio;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import modell.data.content.Person;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploadable;

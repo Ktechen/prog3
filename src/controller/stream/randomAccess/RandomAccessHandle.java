@@ -1,6 +1,6 @@
 package controller.stream.randomAccess;
 
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import modell.mediaDB.MediaContent;
 
 import java.beans.XMLDecoder;

@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import modell.mediaDB.Uploadable;
 
 import java.net.URL;

@@ -2,7 +2,7 @@ package controller.stream.randomAccess;
 
 import controller.crud.Create;
 import modell.data.content.Person;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import modell.mediaDB.MediaContent;
 import modell.mediaDB.Tag;
 import org.junit.jupiter.api.Assertions;

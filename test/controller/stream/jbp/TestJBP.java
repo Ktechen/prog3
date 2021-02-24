@@ -2,9 +2,8 @@ package controller.stream.jbp;
 
 import controller.crud.Create;
 import controller.crud.Update;
-import javafx.beans.property.StringProperty;
 import modell.data.content.Person;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import modell.mediaDB.InteractiveVideo;
 import modell.mediaDB.MediaContent;
 import modell.mediaDB.Tag;
@@ -13,11 +12,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.net.SocketTimeoutException;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
 
 public class TestJBP {
 

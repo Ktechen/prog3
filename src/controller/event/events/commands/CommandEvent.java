@@ -13,8 +13,4 @@ public abstract class CommandEvent {
         this.eventHandler = eventHandler;
     }
 
-    public void setHandler(EventHandler handler) {
-        this.eventHandler = handler;
-    }
-
 }

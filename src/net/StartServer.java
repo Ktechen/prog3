@@ -1,6 +1,6 @@
 package net;
 
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import net.server.tcp.ServerTCP;
 
 import java.io.IOException;

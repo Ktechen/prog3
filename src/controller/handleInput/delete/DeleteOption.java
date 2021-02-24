@@ -1,6 +1,6 @@
 package controller.handleInput.delete;
 
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

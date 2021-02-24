@@ -3,14 +3,13 @@ package controller.management;
 import controller.crud.Create;
 import controller.handleInput.InputConverter;
 import controller.handleInput.stream.StreamOptions;
-import controller.observer.Observer;
 import controller.observer.observers.ObserverConsoleSize;
 import controller.observer.observers.ObserverConsoleTags;
 import controller.stream.jos.JOS;
 import modell.data.content.AudioVideo;
 import modell.data.content.Person;
 import modell.data.content.Video;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import modell.mediaDB.MediaContent;
 import modell.mediaDB.Tag;
 import org.junit.jupiter.api.Assertions;
@@ -21,7 +20,6 @@ import java.io.*;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class TestCommandManagement {
 

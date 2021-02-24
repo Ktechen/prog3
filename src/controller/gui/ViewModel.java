@@ -1,7 +1,7 @@
-package view.gui;
+package controller.gui;
 
 import javafx.beans.property.*;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 
 public class ViewModel {
 

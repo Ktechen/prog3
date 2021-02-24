@@ -3,7 +3,7 @@ package controller.handleInput.stream;
 import controller.handleInput.InputConverter;
 import controller.stream.jbp.JBP;
 import controller.stream.jos.JOS;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 
 public class StreamOptions {
 

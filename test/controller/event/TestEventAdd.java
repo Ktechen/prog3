@@ -4,7 +4,7 @@ import controller.event.events.commands.add.CommandAddEventsMedia;
 import controller.event.events.listener.add.ELAddMediafiles;
 import controller.handleInput.InputConverter;
 import modell.data.content.*;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

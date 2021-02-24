@@ -1,15 +1,12 @@
 package controller.event;
 
 import controller.crud.Create;
-import controller.event.events.commands.show.CommandShowEventUsedTags;
 import controller.event.events.commands.show.CommandShowEvents;
-import controller.event.events.listener.show.ELShowUsedTags;
 import controller.handleInput.InputConverter;
 import controller.handleInput.show.ShowOption;
 import modell.data.content.Audio;
 import modell.data.content.Person;
-import modell.data.content.InteractiveVideo;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import modell.mediaDB.Tag;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

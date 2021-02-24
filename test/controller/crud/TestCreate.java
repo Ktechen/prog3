@@ -2,7 +2,7 @@ package controller.crud;
 
 import controller.observer.observers.ObserverConsoleSize;
 import modell.data.content.Person;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import modell.mediaDB.Tag;
 import modell.mediaDB.Uploader;
 import org.junit.jupiter.api.Assertions;

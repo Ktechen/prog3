@@ -1,7 +1,7 @@
 package modell.bean;
 
 import modell.data.content.*;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import modell.mediaDB.Audio;
 import modell.mediaDB.Uploader;
 

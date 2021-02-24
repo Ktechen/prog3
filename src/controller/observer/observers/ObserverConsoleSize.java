@@ -2,7 +2,7 @@ package controller.observer.observers;
 
 import controller.crud.Create;
 import controller.observer.Observer;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 
 import java.math.BigDecimal;
 

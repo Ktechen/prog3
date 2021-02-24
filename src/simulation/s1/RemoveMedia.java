@@ -1,7 +1,7 @@
 package simulation.s1;
 
 import controller.crud.Delete;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import modell.mediaDB.MediaContent;
 
 import java.util.List;

@@ -35,7 +35,6 @@ public class CommandShowEvents extends CommandEvent {
         };
 
         eventHandler.add(eventListener);
-        setHandler(eventHandler);
 
         if (null != this.eventHandler) {
             eventHandler.handle(eventShowAll);
@@ -56,8 +55,7 @@ public class CommandShowEvents extends CommandEvent {
         };
 
         eventHandler.add(eventListener);
-        setHandler(eventHandler);
-
+        
         if (null != this.eventHandler) {
             eventHandler.handle(eventShowUsedTags);
         }
@@ -77,8 +75,7 @@ public class CommandShowEvents extends CommandEvent {
         };
 
         eventHandler.add(eventListener);
-        setHandler(eventHandler);
-
+        
         if (null != this.eventHandler) {
             eventHandler.handle(eventShowUsernamePerIndex);
         }

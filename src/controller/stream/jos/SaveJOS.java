@@ -1,7 +1,7 @@
 package controller.stream.jos;
 
 
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

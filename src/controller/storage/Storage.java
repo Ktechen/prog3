@@ -1,4 +1,4 @@
-package modell.data.storage;
+package controller.storage;
 
 import modell.mediaDB.MediaContent;
 import modell.mediaDB.Uploadable;
@@ -29,14 +29,8 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
     /**
      * Max length of File
      * <p>
-     * * Video: (2000height * 2000 weight) / 8 = 500.000 = byte
-     * * 500.000 / 1024 = 488,28125 =  Kibibyte
-     * * (10 x 488,28125 = 4.882,8125 10 Medias)
-     * * <p>
-     * * Audio: Bitrate only
-     * <p>
-     * e.g (2000 width * 2000 height) / 8 = 500.000byte = 488,28125kibibyte = 0,4768... mibibyte max size
-     * <p>
+     * Video: (2000height * 2000 weight) / 8 = 500.000 = byte
+     * Video x 10 = 5.000.000
      * @return
      */
     public BigDecimal getMaxSize() {
@@ -95,7 +89,7 @@ public class Storage<T extends Uploadable & MediaContent, E extends Uploader> im
         this.person = person;
     }
 
-    public HashMap<String, Boolean> getUsedTags() {
+    public synchronized HashMap<String, Boolean> getUsedTags() {
         return new HashMap<>(this.usedTags);
     }
 

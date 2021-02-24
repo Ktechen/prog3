@@ -3,7 +3,7 @@ package controller.handleInput.stream;
 import controller.crud.Create;
 import controller.stream.jos.JOS;
 import modell.data.content.Person;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 import modell.mediaDB.Tag;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

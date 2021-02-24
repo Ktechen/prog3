@@ -2,7 +2,7 @@ package controller.management;
 
 import controller.handleInput.InputConverter;
 import controller.handleInput.update.UpdateOption;
-import modell.data.storage.Storage;
+import controller.storage.Storage;
 
 import java.io.*;
 
