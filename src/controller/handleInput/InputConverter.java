@@ -306,7 +306,7 @@ public class InputConverter {
      * https://www.geeksforgeeks.org/constructor-getparametercount-method-in-java-with-examples/
      *
      * @param c = Class from Media
-     * @return Integer
+     * @return Integer max of parameter
      */
     private int getParameter(Class c) {
 

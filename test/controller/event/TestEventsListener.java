@@ -1,4 +1,4 @@
-package controller;
+package controller.event;
 
 import controller.event.events.event.add.EventAddMediaFiles;
 import controller.event.events.event.add.EventAddUploader;

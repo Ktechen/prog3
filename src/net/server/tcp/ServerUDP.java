@@ -10,6 +10,9 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 
+/**
+ * Nicht Fertig
+ */
 public class ServerUDP implements CommandExecute {
 
     private DatagramSocket socket;

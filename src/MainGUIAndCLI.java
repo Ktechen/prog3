@@ -13,6 +13,10 @@ import java.io.IOException;
 public class MainGUIAndCLI extends Application {
     public static void main(String[] args) throws InterruptedException {
         ParallelTasks tasks = new ParallelTasks();
+
+        /**
+         * Source: https://stackoverflow.com/questions/2016083/what-is-the-easiest-way-to-parallelize-a-task-in-java
+         */
         final Runnable cli = () -> {
             try {
                 final Create create = new Create();

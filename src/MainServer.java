@@ -11,7 +11,7 @@ public class MainServer {
         /**
          * Set Default elemente
          */
-        new ActionDebug().setupOne(null);
+        //new ActionDebug().setupOne(null);
 
         while (true) {
             System.out.println(InputConverter.TCP_SERVER_TEXT);

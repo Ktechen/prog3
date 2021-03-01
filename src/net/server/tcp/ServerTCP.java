@@ -33,7 +33,7 @@ public class ServerTCP implements CommandExecute{
         }
     }
 
-    public void handleConnection(Socket socket) {
+    private void handleConnection(Socket socket) {
         new Thread(() -> {
             try (DataOutputStream out = new DataOutputStream(socket.getOutputStream());
                  DataInputStream in = new DataInputStream(socket.getInputStream())) {

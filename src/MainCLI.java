@@ -10,20 +10,18 @@ public class MainCLI {
 
 
     public static void main(String[] args) {
-
-
         /*
          * Set Default elemente
 
          */
-         new ActionDebug().setupOne(null);
+        //new ActionDebug().setupOne(null);
 
-         try {
-         config();
-         new CommandMain().run();
-         } catch (IOException e) {
-         e.printStackTrace();
-         }
+        try {
+            config();
+            new CommandMain().run();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void config() {
